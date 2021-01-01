@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Video Detail</title>
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+  <style>
+
+    .index-item-video {
+      width: 20%;
+      height: auto;
+      text-align: center;
+      display: inline-block;
+      margin-top: 60px;
+    }
+
+    .index-item-video img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .index-video-font {
+      color: #d4c59a;
+      font-size: 25px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body class="back-allBg">
+<div class="info-content">
+  <div style="width:70%;height:170px;margin:0 auto;line-height:100px;font-size:60px;color:#d4c59a;">
+    <span id="folderName"></span>
+    <span id="lan_video_file"></span>
+  </div>
+  <div class="videos_area" id="file_area">
+    <!--        <div class="index-item-video">-->
+    <!--          <a href="../user/choose.html">-->
+    <!--            <img src="../../img/icon-home/m4v.png">-->
+    <!--            <div class="item-font">20190908</div>-->
+    <!--          </a>-->
+    <!--        </div>-->
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="goIndex()"></div>
+</div>
+<div class="to_home_div" style="float: right">
+  <div class="to_back_btn" onclick="toVideo();"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript">
+  // 当前文件夹
+  var folder = decodeURI(window.location.href.split("folder=")[1]);
+  $('#folderName').text(folder);
+  var videosStr = localStorage.getItem('videos');
+  if (!videosStr) {
+    // return;
+  }
+  var videos = JSON.parse(localStorage.getItem('videos'));
+  // 当前目录所有文件
+  var currentFolder = videos[folder];
+  if (!currentFolder.length || currentFolder.length <= 0) {
+    // return;
+  }
+
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_video_file"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function renderFiles() {
+    var htmlStr = '';
+    // 倒序数组
+    currentFolder.sort(function (a, b) {
+      return b.fileName > a.fileName ? 1 : -1;
+    });
+    $.each(currentFolder, function (index, item) {
+      htmlStr += '<div class="index-item-video" onclick="toPlay(\'' + item.path + '\')">\n' +
+        '      <a >\n' +
+        '        <img src="../../img/icon-home/m4v.png">\n' +
+        '        <div class="index-video-font">' + item.fileName + '</div>\n' +
+        '      </a>\n' +
+        '    </div>';
+    });
+
+    $('#file_area').html(htmlStr);
+  }
+
+  function toPlay(filepath) {
+    window.camera.playVideo(filepath);
+  }
+
+  function toVideo() {
+    window.location.href = "video.html";
+  }
+
+  window.onload= function() {
+    initLanguage();
+    renderFiles();
+  }
+
+</script>
+</html>

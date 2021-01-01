@@ -1,0 +1,262 @@
+@charset "utf-8";
+
+body, ul, dl, dd, dt, ol, li, p, h1, h2, h3, h4, h5, h6, textarea, form,
+	select, fieldset, table, td, div, input {
+	margin: 0;
+	padding: 0;
+	-webkit-text-size-adjust: none
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 12px;
+	font-weight: normal
+}
+
+a img {
+	border: 0
+}
+
+body {
+	color: #333;
+	text-align: center;
+	font-size: 12px
+}
+
+ul, ol, li {
+	list-style-type: none;
+	vertical-align: 0
+}
+
+a {
+	outline-style: none;
+	color: #535353;
+	text-decoration: none
+}
+
+a:hover {
+	color: #D40000;
+	text-decoration: none
+}
+
+.bg-write {
+	background-color: #ffffff;
+}
+
+.all-bg {
+	background-image: url(../../img/icon-home/bottom.jpg);
+	background-repeat: no-repeat;
+	 background-size: 100%
+}
+
+html {
+	-webkit-touch-callout: none;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	touch-action: pan-y;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	font-size: 20px;
+	word-wrap: break-word;
+	font-family: "Helvetica Neue", "Roboto", "Segoe UI", "PingFang SC",
+		"Microsoft YaHei", "Hiragino Sans GB";
+	text-rendering: optimizeLegibility;
+	/* -webkit-backface-visibility: hidden; */
+	-webkit-user-drag: none;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.header-contact {
+	text-align: right;
+	padding-right: 5%;
+	color: #fffcfa;
+}
+.log-content{
+	  position: absolute;
+/* 	  border: 1px solid red; */
+}
+.info-input {
+  background-image: url(../../img/icon-home/3.phone01.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 30%;
+  height: 80px;
+  margin: auto;
+  margin-top: 20px;
+}
+.log-bg {
+	background-image: url(../../img/icon-home/logo.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+.log-buy-info{
+	position: absolute;
+	background-image: url(../../img/icon-home/1.start01.png);
+	background-repeat: no-repeat;
+	background-size:100% 100%;  
+}
+.buy-left{
+	float: left;
+}
+.buy-right{
+	float: right;
+}
+.info-content{
+	width: 60%;
+	border: 1px solid red;
+	margin: auto;
+	text-align: center;
+}
+@media screen and (min-width:900px) {
+	.header {
+		height: 140px;
+	}
+	.header-contact>div {
+		font-size: 24px;
+		height: 42px;
+	}
+	.header-contact>div:first-child {
+		margin-top: 20px;
+	}
+	.log-content{
+	  height: 102px;
+	  margin-top: 80px;
+	  width: 100%;
+	}
+	.log-bg {
+		width: 223px;
+        height: 50px;
+		margin-left: 60px;
+		margin-top: 5px;
+	}
+	.log-buy-info{
+	    top:0px;
+		right: 55px;
+		width: 422px;
+		height: 85px;
+	}
+	.log-buy-info >div{
+	    height: 40px;
+	    margin-top: 10px;
+	    width: 170px;
+	    line-height: 45px;
+	    color: #8e7d70;
+	    font-size: 22px;
+	}
+	.buy-left{
+	 margin-left: 25px;
+	}
+	.buy-right{
+		margin-right: 25px;
+	}
+}
+
+@media screen and (min-width:1080px) {
+	.header {
+		height: 140px;
+	}
+	.header-contact>div {
+		font-size: 1.8em;
+		height: 1.7em;
+	}
+	.header-contact>div:first-child {
+		margin-top: 20px;
+	}
+	.log-content{
+	  height: 132px;
+	  margin-top: 120px;
+	  width: 100%;
+	}
+	.log-bg {
+		width: 293px;
+        height: 66px;
+		margin-left: 60px;
+		margin-top: 5px;
+	}
+	.log-buy-info{
+	    top:0px;
+		right: 75px;
+		width: 497px;
+		height: 100px;
+	}
+	.log-buy-info >div{
+	    height: 45px;
+	    margin-top: 10px;
+	    width: 200px;
+	    line-height: 55px;
+	    color: #8e7d70;
+	    font-size: 24px;
+	}
+	.buy-left{
+	 margin-left: 30px;
+	}
+	.buy-right{
+		margin-right: 30px;
+	}
+	.info-content{
+		margin-top: 400px;
+	}
+}
+@media screen and (min-width:1920px) {
+	.header {
+		height: 200px;
+	}
+	.header-contact>div {
+		font-size: 1.8em;
+		height: 1.7em;
+	}
+	.header-contact>div:first-child {
+		margin-top: 80px;
+	}
+	.log-content{
+	  height: 132px;
+	  margin-top: 60px;
+	  width: 100%;
+	}
+	.log-bg {
+		width: 293px;
+        height: 66px;
+		margin-left: 60px;
+		margin-top: 5px;
+	}
+	.log-buy-info{
+	    top:0px;
+		right: 75px;
+		width: 656px;
+		height: 132px;
+	}
+	.log-buy-info >div{
+	    height: 58px;
+	    margin-top: 20px;
+	    width: 270px;
+	    line-height: 60px;
+	    color: #8e7d70;
+	    font-size: 28px;
+	}
+	.buy-left{
+	 margin-left: 35px;
+	}
+	.buy-right{
+		margin-right: 35px;
+	}
+	.info-content{
+		margin-top: 200px;
+	}
+	
+	.back-allBg {
+	background-image: url(../../img/icon-home/back-background02.jpg);
+	background-repeat: no-repeat;
+	 background-size: 100%
+}
+}

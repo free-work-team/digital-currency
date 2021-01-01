@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Index</title>
+  <style>
+    @import "../css/back/styles.css";
+  </style>
+  <style>
+    /*滑动解锁css*/
+    #slide_box {
+      width: 40%;
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #f30a0a;
+      background-color: #fff;
+      border: none;
+      margin-bottom: 20px;
+      border-radius: 42px;
+      margin: 0 auto;
+    }
+
+    #slide_xbox {
+      width: 80px;
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      font-size: 16px;
+      color: #fff;
+      position: absolute;
+      background: #202b47;
+      border: 1px #ea9755 solid;
+      border-radius: 44px 43px 43px 43px;
+    }
+
+    #btn {
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      float: right;
+      -webkit-box-shadow: 0px 0px 15px 0px #ddd;
+      -moz-box-shadow: 0px 0px 15px 0px #ddd;
+      box-shadow: 0px 0px 15px 0px #ddd;
+      color: #8a8c97;
+      background: #fff url(../img/icon-home/indexItem/shut.png) 0 0 no-repeat;
+      background-size: 100% 100%;
+      border-radius: 100%;
+
+    }
+
+    #btn > .iconfont {
+      font-size: 20px;
+    }
+
+    /*滑动解锁css*/
+  </style>
+</head>
+<body class="back-allBg">
+<!--<div id="slide_area">-->
+<!--  <div id="slide_box">-->
+<!--    <div id="slide_xbox">-->
+<!--      <div id="btn">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    SLIDE TO SHUT DOWN ！-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="info-content index-items">
+  <div class="" id="lan_Welcome" >&emsp;</div>
+  <div class="ibox-title" style="width:75%;margin:0 auto;">
+    <div class="index-item">
+      <a href="../pages/user/choose.html">
+        <img src="../img/icon-home/indexItem/item1.png">
+        <div class="item-font" id="lan_setting">&emsp;</div>
+      </a>
+    </div>
+    <div class="index-item">
+      <a href="../pages/user/updatePassword.html">
+        <img src="../img/icon-home/indexItem/item2.png">
+        <div class="item-font" id="lan_updatePassword">&emsp;</div>
+      </a>
+    </div>
+    <div class="index-item">
+      <a href="../pages/tradeQuery/infoList.html">
+       <img src="../img/icon-home/indexItem/item3.png">
+        <div class="item-font" id="lan_orderLog">&emsp;</div>
+      </a>
+    </div>
+<!--    <div class="index-item">-->
+<!--      <a href="../pages/hardware/runStatus.html">-->
+<!--        <img src="../img/icon-home/indexItem/item4.png">-->
+<!--        <div class="item-font" id="lan_runStatus"></div>-->
+<!--      </a>-->
+<!--    </div>-->
+
+    <div class="index-item">
+      <a href="../pages/hardware/hardwarePort.html">
+        <img src="../img/icon-home/indexItem/item6.png">
+        <div class="item-font" id="lan_port">&emsp;</div>
+      </a>
+    </div>
+    <div class="index-item">
+      <a href="../pages/hardware/video.html" >
+        <img src="../img/icon-home/indexItem/item7.png">
+        <div class="item-font" id="lan_video">&emsp;</div>
+      </a>
+    </div>
+    <div class="index-item">
+      <a href="tradeQuery/sendLog.html">
+        <img src="../img/icon-home/indexItem/item8.png">
+        <div class="item-font" id="lan_sendLogs">&emsp;</div>
+      </a>
+    </div>
+    <div class="doubleWay index-item hidden">
+      <a href="../pages/hardware/addNotes.html">
+        <img src="../img/icon-home/indexItem/item5.png">
+        <div class="item-font" id="lan_addCash">&emsp;</div>
+      </a>
+    </div>
+    <div class="doubleWay index-item hidden">
+      <a href="tradeQuery/emptyNotesList.html">
+        <img src="../img/icon-home/indexItem/item9.png">
+        <div class="item-font" id="lan_emptyNotes">&emsp;</div>
+      </a>
+    </div>
+    <div class="doubleWay index-item hidden">
+    </div>
+    </div>
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_version_btn"></div>
+  <div class="to_version_label" id="currentVersion"></div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+</div>
+<div class="to_home_div" style="float: right">
+  <div class="to_close_btn" onclick="closeApp()"></div>
+</div>
+</body>
+<script type="text/javascript" src="../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../js/back/touchMove.js"></script>
+<script type="text/javascript" src="../js/common/language.js"></script>
+<script type="text/javascript" src="../js/back/back-common.js"></script>
+<script type="text/javascript">
+
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = [ "lan_orderLog", "lan_setting", "lan_video", "lan_sendLogs", "lan_updatePassword",  "lan_runStatus", "lan_addCash", "lan_port", "lan_Welcome","lan_emptyNotes"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function closeApp() {
+    $('.back-allBg').append('<div id="slide_area" class="loading_area">\n' +
+      '  <div id="slide_box">\n' +
+      '    <div id="slide_xbox">\n' +
+      '      <div id="btn">\n' +
+      '      </div>\n' +
+      '    </div>\n' +
+      '    &emsp;&emsp;&emsp;SLIDE TO SHUT DOWN ！\n' +
+      '  </div>\n' +
+      '</div>');
+    slide();
+  }
+
+  window.onload= function() {
+    initLanguage();
+    // 获取版本号
+    var version = window.back.getCurrentVersion();
+    $('#currentVersion').text(version);
+    /*判断单双向*/
+    if (window.business.getTranWay() == 2) {//双向
+      $('.doubleWay').removeClass('hidden');
+    }
+  }
+
+
+</script>
+</html>

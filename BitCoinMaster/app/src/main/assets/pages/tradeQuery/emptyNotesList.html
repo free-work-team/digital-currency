@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Empty Notes List</title>
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+
+  <style>
+    body {
+      background-color: #fdf6e1;
+    }
+
+    .page {
+      margin: 0 auto;
+      width: 90%;
+    }
+
+    .table {
+      table-layout: fixed;
+      overflow-y: visible;
+      margin: 0 auto;
+      width: 100%;
+      border-collapse: collapse;
+      border-color: #7B7B7B;
+    }
+
+    table tr {
+      font-size: 15px;
+    }
+
+    table td {
+      border: 1px solid #d4c59a;
+      font-size: 15px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    table td a {
+      color: red;
+    }
+
+    .search_area {
+      height: 34px;
+      margin: 0 auto;
+      margin-top: 10px;
+      text-align: left;
+      display: flex;
+    }
+
+    .search-input {
+      border: 1px solid #d4c59a;
+      height: 30px;
+      border-radius: 5px;
+    }
+
+    .search-input-long {
+      width: 310px;
+      color: #1c2641;
+      outline: none;
+    }
+
+    .search-input-short {
+      width: 150px;
+      color: #1c2641;
+      outline: none;
+    }
+
+    .search-select {
+      width: 100px;
+      border: 1px solid #d4c59a;
+      height: 30px;
+      border-radius: 5px;
+      outline: none;
+      background-color: white;
+    }
+
+    .search-label {
+      width: 140px;
+      color: #1c2641;
+      font-weight: 500;
+    }
+
+    .title {
+      margin: 0 auto;
+    }
+
+    .content {
+      height: 90%;
+      overflow-y: visible;
+      overflow-x: hidden;
+      margin: 0 auto;
+      border: 1px solid #7B7B7B;
+    }
+
+    /*分页样式:*/
+    /* 外面盒子样式---自己定义 */
+    .page_div {
+      margin: 20px 10px 20px 0;
+      color: #1c2641
+    }
+
+    /* 页数按钮样式 */
+    .page_div button {
+      display: inline-block;
+      min-width: 35px;
+      height: 28px;
+      cursor: pointer;
+      color: #666;
+      font-size: 13px;
+      line-height: 28px;
+      background-color: #fff;
+      border: 1px solid #1c2641;
+      text-align: center;
+      margin: 0 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none !important;
+      border-radius: 4px;
+    }
+
+    #firstPage, #lastPage, #nextPage, #prePage {
+      width: 50px;
+      color: #d4c59a;
+      border: 1px solid #d4c59a
+    }
+
+    #nextPage, #prePage {
+      width: 70px
+    }
+
+    .page_div .current {
+      background-color: #1c2641;
+      border-color: #1c2641;
+      color: #FFF;
+    }
+
+    /* 页面数量 */
+    .totalPages {
+      margin: 0 10px
+    }
+
+    .totalPages span, .totalSize span {
+      color: #d4c59a;
+      margin: 0 5px
+    }
+
+    /*button禁用*/
+    .page_div button:disabled {
+      opacity: .5;
+      cursor: no-drop
+    }
+
+    /*tabs*/
+
+    .tabs li {
+      float: left;
+      display: block;
+      width: 33.3%;
+      text-align: center;
+    }
+
+    .tabs input[type="radio"] {
+      position: absolute;
+      top: 0;
+      left: -9999px;
+    }
+
+    .tabs label {
+      height: 60px;
+      line-height: 60px;
+      font-weight: bolder;
+      border: 1px SOlid #9E9E9E;
+      border-bottom: none;
+      display: block;
+      padding: 14px 21px;
+      border-radius: 2px 2px 0 0;
+      font-size: 30px;
+      /* font-weight: normal; */
+      text-transform: uppercase;
+      background: #1c2641;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      /* height: 60px; */
+      /* line-height: 60px; */
+      top: 4px;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .tabs .tab-content {
+      z-index: 2;
+      display: none;
+      overflow: hidden;
+      font-size: 17px;
+      line-height: 25px;
+      position: absolute;
+      left: 0;
+      background: #fdf6e1;
+    }
+
+    .tabs [id^="tab"]:checked + label {
+      top: 0;
+      padding-top: 17px;
+      background: #fdf6e1;
+      color: #1c2641;
+    }
+
+    .tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+      display: block;
+    }
+    .margin-top15{
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body class="">
+<div class="" style="width:97%;height:34px;line-height:34px;margin:50px auto 0;padding:10px;background-color: #d4c59a;">
+  <div class="" id="lan_emptyNotes" style="float:left;">&emsp;</div>
+</div>
+<div class="setting-content" style=" width: 98%;margin: 0 auto;">
+      <div id="tab-content1" class="tab-content" role="tabpanel" aria-labelledby="description" aria-hidden="false">
+        <div class="info-content">
+          <div class="search_area" style="padding: 20px;">
+            <a class="search-label margin-top15" id="lan_transactionTime_buy_q" style="margin-top: 12px;"></a>
+            <input class="search-input search-input-short margin-top15" id="startTime_buy" type="text" readonly/>
+            <a class="margin-top15" style="width: 10px">-</a>
+            <input class="search-input search-input-short margin-top15" id="endTime_buy" type="text" readonly/>
+            <div class="to_search_btn searchBtn" data-index="1"></div>
+          </div>
+
+
+          <div class="tableDiv">
+            <div class="title">
+              <table class="table" border="1">
+                <thead>
+                <tr style="font-size: 20px;">
+                  <th style="padding: 10px">No.</th>
+                  <th id="lan_emptyTime" style="padding: 10px">&emsp;</th>
+                  <th id="lan_addCash" style="padding: 10px">&emsp;</th>
+                  <th id="lan_buyCash" style="padding: 10px">&emsp;</th>
+                  <th id="lan_sellCash" style="padding: 10px">&emsp;</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="content">
+              <table style="width:100%;border-collapse:collapse;overflow-y:visible;table-layout:fixed;">
+                <tbody class="content-list" id="table_data_buy">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="page" style="height: 10%;">
+    <div id="barcon" name="barcon" style="margin-left:80px;float:left;width: 80%;">
+      <div id="page" class="page_div"></div>
+    </div>
+  </div>
+  <div class="bottom-btn">
+    <div class="to_back_btn">&emsp;</div>
+  </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/datePicker.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="./../../js/tradeQuery/emptyNotesList.js"></script>
+<script type="text/javascript" src="../../js/back/pages.js"></script><!-- 分页 -->
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+
+<script>
+  var dateItems = ['#startTime_buy', '#endTime_buy', '#startTime_sell', '#endTime_sell', '#startTime_order', '#endTime_order'];
+
+  function initCalendar(items) {
+    $.each(items, function (index, item) {
+      var calendar = new datePicker();
+      calendar.init({
+        'trigger' : item, /*按钮选择器，用于触发弹出插件*/
+        'type'    : 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+        'minDate' : '1900-1-1',/*最小日期*/
+        'maxDate' : '2100-12-31',/*最大日期*/
+        'onSubmit': function () {/*确认时触发事件*/
+          var theSelectData = calendar.value;
+        },
+        'onClose' : function () {/*取消时触发事件*/
+        }
+      });
+    })
+  }
+
+  initCalendar(dateItems);
+</script>
+</html>

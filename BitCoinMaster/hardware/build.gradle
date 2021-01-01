@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'jytkey'
+            storeFile file('D:/Android/Key/jtykey.jtykey')
+            keyPassword 'jyt3325@46ht'
+            storePassword 'jyt3325@46ht'
+        }
+    }
+
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        sourceSets {
+            main {
+                jni.srcDirs = []
+                jniLibs.srcDirs = ['src/main/jniLibs/']
+            }
+        }
+        ndk {
+           // moduleName "libserial_port"         //生成的so名字
+            abiFilters "armeabi", "armeabi-v7a", "x86"  //输出指定三种abi体系结构下的so库。
+        }
+    }
+
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = '29.0.3'
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/fastjson-1.2.47.jar')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation files('libs/usb-serial.jar')
+    implementation files('libs/commons-lang-2.6.jar')
+    implementation files('libs/android-logging-log4j-1.0.3.jar')
+    implementation files('libs/fastjson-1.2.47.jar')
+    implementation files('libs/core-3.2.1.jar')
+    implementation files('libs/printsdk-v2.2.jar')
+    implementation files('libs/CPI_Integration_Toolkit.jar')
+    implementation files('libs/jssc.jar')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+}

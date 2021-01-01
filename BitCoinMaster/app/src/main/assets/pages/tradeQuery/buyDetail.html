@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Buy Detail</title>
+ <style>
+    @import "../../css/back/styles.css";
+  </style>
+
+  <style>
+
+  .tableDiv{
+    text-align:center;
+    margin-top:20px;
+    /*height:700px;*/
+    position: relative;
+  }
+
+.table{
+	table-layout:fixed;
+	overflow-y:visible;
+	margin:0 auto;
+	width:100%;
+	border-collapse:collapse;
+	border-color:#7B7B7B;
+}
+table tr {
+	font-size: 30px;
+}
+
+.title{
+	width:90%;
+	margin:0 auto;
+}
+
+.value{
+  width:60%;
+}
+  </style>
+</head>
+<body class="">
+<div class="setting-content">
+	<div class="" style="width:90%;height:50px;margin:50px auto 0;background-color: #d4c59a;border-radius: 5px;">
+	  <div class="" id="lan_buyLogDetail" style=" float: left; line-height: 50px;  margin-left: 15px; font-weight: bold;">&emsp;</div>
+	</div>
+	<div class="info-content">
+	  <div class="tableDiv">
+	      <div class="title">
+			  <table class="table"  >
+          <tr >
+            <td class="field" id="lan_transactionId"></td>
+            <td class="value" colspan="2" id="transactionId" ></td>
+          </tr>
+          <tr >
+            <td class="field" id="lan_channel_trans_id"></td>
+            <td class="value" colspan="2" id="channelTransId" ></td>
+          </tr>
+          <tr >
+            <td class="field" id="lan_channel"></td>
+            <td class="value" colspan="2" id="channel" ></td>
+          </tr>
+          <tr >
+					  <td class="field"  id="lan_receive_address"></td>
+            <td class="value" colspan="2"  id="receiveAddress" ></td>
+				  </tr>
+          <tr >
+					  <td class="field"  id="lan_customer_id"></td>
+            <td class="value" colspan="2"  id="customerId" ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_price_buy"></td>
+            <td class="value" colspan="2" id="price_buy" ></td>
+				  </tr>
+          <tr >
+            <td class="field" id="lan_Bitcoin"></td>
+            <td class="value" colspan="2" id="bitcoin" ></td>
+          </tr>
+          <tr >
+					  <td class="field" id="lan_cFee"></td>
+            <td class="value" colspan="2" id="cFee" ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_fee"></td>
+            <td class="value" colspan="2" id="fee"  ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_amount"></td>
+            <td class="value" colspan="2" id="amount"  ></td>
+				  </tr>
+          <tr >
+            <td class="field" id="lan_exchangeStrategy"></td>
+            <td class="value" colspan="2" id="exchangeStrategy" ></td>
+          </tr>
+          <tr >
+					  <td class="field" id="lan_strategy"></td>
+            <td class="value" colspan="2" id="strategy" ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_transactionTime"></td>
+            <td class="value" colspan="2" id="transactionTime" ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_buy_status"></td>
+            <td class="value" colspan="2" id="status" ></td>
+				  </tr>
+          <tr >
+					  <td class="field" id="lan_remark"></td>
+            <td class="value" colspan="2" id="remark" ></td>
+				  </tr>
+			  </table>
+		  </div>
+	  </div>
+    <div class="to_back_btn" onclick="toInfoList();"></div>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="./../../js/tradeQuery/buyDetail.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript">
+
+//初始化语言label
+function initLanguage() {
+  // id名必须和language key 相同
+  var LanguageObjs = ["lan_customer_id","lan_channel_trans_id","lan_price_buy","lan_strategy","lan_strip","lan_go","lan_confirm","lan_buyLogDetail","lan_serialNo","lan_transactionId","lan_receive_address","lan_Bitcoin","lan_cFee","lan_fee","lan_amount","lan_transactionTime","lan_buy_status","lan_remark","lan_channel","lan_exchangeStrategy"];
+  LanguageManager.getLanguageLabel(LanguageObjs);
+}
+
+window.onload= function(){
+  initLanguage();
+  queryBuyDetail();
+}
+
+</script>
+</html>

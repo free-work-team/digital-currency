@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Log</title>
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+
+  <style>
+    body {
+      background-color: #fdf6e1;
+    }
+    .search_area {
+      height: 45px;
+      margin: 0 auto;
+      margin-top: 100px;
+      text-align: left;
+      display: flex;
+    }
+
+    .search-input {
+      border: 1px solid #d4c59a;
+      height: 45px;
+      border-radius: 5px;
+    }
+
+    .search-input-short {
+      width: 280px;
+      color: #1e2d47;
+      outline: none;
+      font-size: 25px;
+      font-weight: 600;
+    }
+
+    .search-label {
+      width: 100px;
+      color: #d4c59a;
+      font-weight: 500;
+      line-height: 45px;
+      font-size: 25px;
+    }
+
+  </style>
+</head>
+<body class="back-allBg">
+<div class="info-content">
+  <div class="" id="lan_sendLogs" style="width:70%;height:170px;margin:0 auto;line-height:100px;font-size:60px;color:#d4c59a;">&emsp;</div>
+  <div class="search_area vertical_margin" >
+    <span style="margin: 0 auto;    display: flex;">
+      <a class="search-label" id="lan_createDate"></a>
+      <input class="search-input search-input-short" id="startTime_log" type="text" readonly/>
+    </span>
+  </div>
+  <div class="search_area" style="margin-top: 40px" >
+    <span style="margin: 0 auto;    display: flex;">
+      <a class="search-label" id="lan_receive"></a>
+      <input class="search-input search-input-short" id="receive_email" type="email"/>
+    </span>
+  </div>
+  <div class="search_area" >
+    <div class="log-buy-icon" onclick="toSend()">Send
+    </div>
+  </div>
+</div>
+
+<div class="to_home_div" style="float: right">
+  <div class="to_back_btn" onclick="goIndex();"></div>
+</div>
+</body>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/datePicker.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+
+<script>
+  var dateItems = ['#startTime_log'];
+
+  function initCalendar(items) {
+    $.each(items, function (index, item) {
+      var calendar = new datePicker();
+      calendar.init({
+        'trigger' : item, /*按钮选择器，用于触发弹出插件*/
+        'type'    : 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+        'minDate' : '1900-1-1',/*最小日期*/
+        'maxDate' : '2100-12-31',/*最大日期*/
+        'onSubmit': function () {/*确认时触发事件*/
+          var theSelectData = calendar.value;
+        },
+        'onClose' : function () {/*取消时触发事件*/
+        }
+      });
+    })
+  }
+
+  //初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_sendLogs", "lan_createDate", "lan_receive"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function toSend() {
+    var dateVal = $('#startTime_log').val();
+    var email = $('#receive_email').val();
+    if (!dateVal) {
+      showError("Please select the date to send");
+      return;
+    }
+    if (!email) {
+      showError("Please enter the email address to send");
+      return;
+    }
+    // 发送日志邮件
+    showWait("Sending...");
+    setTimeout(function () {
+      var result = window.back.sendLogs(email, dateVal);
+      hideWait();
+      if (result) {
+        showSuccess("Sent Successfully");
+      } else {
+        showError("Failed,Please try again later!");
+      }
+    }, 1000);
+  }
+
+  window.onload= function() {
+    initLanguage();
+    initCalendar(dateItems);
+  }
+
+
+</script>
+</html>

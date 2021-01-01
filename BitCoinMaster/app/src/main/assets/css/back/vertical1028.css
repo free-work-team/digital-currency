@@ -1,0 +1,864 @@
+@charset "utf-8";
+/*19寸横屏*/
+@media screen and (min-width: 768px) and (min-height: 1024px) {
+  .header {
+    height: 0;
+  }
+
+  .header-contact > div {
+    font-size: 20px;
+  }
+
+  .header-contact > div:first-child {
+    margin-top: 20px;
+  }
+
+  .log-content {
+    position:unset !important;
+    height: 132px;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  .log-bg {
+    width: 200px;
+    height: 45px;
+    margin-left: 60px;
+    margin-top: 5px;
+  }
+  .log-buy-info {
+    position: absolute;
+    background-image: url(../../img/icon-home/1.start01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .log-buy-info {
+    position: unset;
+    width: 300px;
+    height: 80px;
+    float: right;
+  }
+
+  .log-buy-info > div {
+    height: 45px;
+    margin-top: 10px;
+    width: 115px;
+    line-height: 45px;
+    color: #8e7d70;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .buy-left {
+    margin-left: 30px;
+  }
+
+  .buy-right {
+    margin-right: 30px;
+  }
+
+  .info-content {
+    margin-top: 100px;
+  }
+
+  .info-titile {
+    font-size: 56px;
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .info-titile > div {
+    line-height: 80px;
+  }
+
+  .info-input-content {
+    width: 100%;
+    height: 60px;
+    /* margin-left: 20px; */
+    /* top: 16px; */
+    /* position: relative; */
+    line-height: 70px;
+    font-size: 30px;
+  }
+
+  .info-btn {
+    margin-top: 20px;
+  }
+
+  .info-content-big {
+    margin-top: 100px;
+    font-weight: bold;
+    font-size: 75px;
+  }
+
+  .middle {
+    width: 76%;
+    height: 70%;
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+  }
+
+  .middle-contain {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .info-btn {
+    width: 40%;
+    margin: auto;
+  }
+  .log-buy-icon {
+    color: white;
+    height: 80px;
+    width: 350px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .center-div {
+    left: 50%;
+    margin-left: -270px;
+    display: block;
+    position: relative;
+  }
+
+  .button-font-div {
+    font-size: 40px;
+    color: white;
+    height: 80px;
+    width: 350px;
+    text-align: center;
+    line-height: 73px;
+    margin: 0 auto;
+    margin-top: 100px;
+    font-weight: bold;
+  }
+  .button-font-div-start {
+    font-size: 40px;
+    color: white;
+    height: 80px;
+    width: 350px;
+    text-align: center;
+    line-height: 75px;
+    margin: 0 auto;
+    margin-top: 160px;
+    font-weight: bold;
+  }
+  .contain-font {
+    font-weight: bold;
+    font-size: 150px;
+  }
+
+  .log-buy-info-big {
+    width: 500px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 80px;
+  }
+
+  .info-btn > table td div {
+    width: 80px;
+    height: 80px;
+    background-image: url(../../img/icon-home/3.phone02.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: auto;
+    text-align: center;
+    line-height: 65px;
+    font-size: 40px;
+    color: #8e7d70;
+    font-weight: bold;
+  }
+
+  .log-buy-info-big > div {
+    height: 90px;
+    width: 200px;
+    line-height: 95px;
+    color: #8e7d70;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .buy-big-left {
+    float: left;
+    margin-left: 30px;
+  }
+
+  .buy-big-right {
+    float: right;
+    margin-right: 30px;
+  }
+
+  .new-center-div {
+    left: 50%;
+    display: block;
+  }
+
+  .buying {
+    font-weight: bold;
+    font-size: 40px;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+  }
+
+  .addcash-btn-sub {
+    width: 180px;
+    height: 70px;
+    background-color: #f9e9bd;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 50px;
+    color: white;
+    font-size: 25px;
+    line-height: 65px;
+    display: inline-block;
+    font-weight: bolder;
+  }
+
+  .buying div {
+    line-height: 80px;
+  }
+
+  .info-input {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 40%;
+    height: 80px;
+    margin: auto;
+    margin-top: 25px;
+  }
+
+  .yellow-btn {
+    color: white;
+    height: 80px;
+    width: 350px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .select-luanguage-btn {
+    color: #8a7c71;
+    font-weight: bold;
+    font-size: 20px;
+    width: 500px;
+    height: 90px;
+    line-height: 70px;
+    margin: 0 auto;
+    top: 10px;
+    margin-top: 80px;
+  }
+
+  .top-little-title {
+    margin-top: 100px;
+    font-weight: bold;
+    font-size: 60px;
+  }
+
+  .middle-little-title {
+    font-size: 40px;
+    height: 60px;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+
+  .btns, .btns-two {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    width: 75%;
+    height: 100px;
+  }
+
+  .system-img {
+    width: 500px;
+    height: 550px;
+    margin: 0 auto;
+    margin-top: 50px;
+
+  }
+
+  .info-content-middle {
+    margin-top: 100px !important;
+    font-weight: bold;
+    font-size: 54px;
+    text-align: center;
+    line-height: 100px;
+  }
+
+  .system-top {
+    top: 0px;
+  }
+
+  .yellow-btn-big {
+    color: white;
+    height: 80px;
+    width: 350px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 250px;
+    font-weight: bold;
+  }
+
+  .short-distance {
+    margin-top: 10px;
+  }
+
+  .contents {
+    text-align: center;
+    font-size: 30px;
+    line-height: 50px;
+  }
+
+  .scan-btn {
+    width: 208px;
+    height: 209px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  .thin {
+    font-weight: 100;
+    letter-spacing: -2px;
+  }
+
+  .print-btn, .print-black-btn {
+    color: white;
+    height: 80px;
+    width: 350px;
+    font-size: 25px;
+    text-align: center;
+    line-height: 80px;
+    margin: 0 auto;
+    margin-top: 60px;
+    font-weight: bold;
+  }
+
+  .message {
+    width: 70%;
+    height: 350px;
+    line-height: 100px;
+    font-size: 35px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+  }
+
+  .left-contents {
+    font-size: 25px;
+    /* margin-top: 40px; */
+    line-height: 80px;
+    text-align: center;
+    line-height: 45px;
+  }
+
+  .put {
+    height: 100px;
+    width: 65%;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+
+  .putMoney-btn {
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin-left: 40px;
+  }
+
+  .putMoney-right {
+    height: 80px;
+    font-size: 40px;
+    float: right;
+    margin-top: 20px;
+  }
+
+
+  .pYM-btn-long {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .pYM-btn-short {
+    height: 50px;
+    width: 10%;
+    line-height: 50px;
+  }
+
+  .long {
+    margin-left: 90px;
+  }
+
+
+
+  .short {
+    margin-top: 100px;
+  }
+
+  .phone-btn {
+    width: 700px;
+    height: 138px;
+    color: #8e7d70;
+    font-size: 40px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .phone-number {
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 20px;
+    height: 120px;
+  }
+
+  .phone-number > div {
+    width: 144px;
+    height: 153px;
+    float: left;
+    font-size: 75px;
+    color: #8e7d70;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    line-height: 125px;
+  }
+
+  .after {
+    margin-left: 108px;
+  }
+
+  .next {
+    width: 294px;
+    height: 133px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 210px;
+    line-height: 112px;
+    margin-top: 180px;
+  }
+
+  .little-title {
+    letter-spacing: -2px;
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .thin-title {
+    font-size: 54px;
+    margin-top: 100px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+    height: 140px;
+  }
+
+  .sell, .sell-green, .sell-red {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .sell-green, .sell-red, .sell-black {
+    color: white;
+    margin-top: 10px;
+  }
+
+  .sell {
+    width: 400px;
+    height: 80px;
+    line-height: 75px;
+    color: #8e7d70;
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  .sell-black {
+    color: white;
+    height: 70px;
+    width: 200px;
+    font-size: 25px;
+    text-align: center;
+    line-height: 75px;
+    margin: 0 auto;
+    margin-top: 60px;
+    font-weight: bold;
+  }
+
+  .sell-green, .sell-red {
+    width: 120px;
+    height: 50px;
+    line-height: 55px;
+    font-size: 25px;
+    margin-top: 20px;
+  }
+
+
+
+  .choose {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 0px;
+    text-align: left;
+  }
+
+  .left {
+    margin-left: 100px;
+  }
+
+
+
+
+  .msg-yellow, .msg-black {
+    font-size: 50px;
+    margin-left: 50px;
+    float: left;
+  }
+
+  .msg-yellow {
+    float: left;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    width: 154px;
+    line-height: 90px;
+  }
+
+  .msg-black {
+    float: right;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-weight: bold;
+    width: 154px;
+    line-height: 90px;
+  }
+
+  .middle-rule {
+    height: 160px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-size: 25px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .left-width {
+    width: 60%;
+  }
+
+  .hand {
+    height: 200px;
+    width: 160px;
+    margin: 0 auto;
+  }
+
+  .qrcode {
+    height: 160px;
+    width: 160px;
+    margin: 0 auto;
+  }
+  .font40 {
+    font-size: 40px;
+  }
+
+  .top60 {
+    margin-top: 60px;
+  }
+
+  .top80 {
+    margin-top: 80px;
+  }
+
+  .top100 {
+    margin-top: 100px;
+  }
+
+  .top200 {
+    margin-top: 200px;
+  }
+
+  .top400 {
+    margin-top: 400px;
+  }
+
+  .top600 {
+    margin-top: 600px;
+  }
+
+  .font-bold {
+    font-weight: bold;
+  }
+
+  .font-spacing {
+    letter-spacing: -2px;
+    margin-top: 50px;
+  }
+
+  .middle-left {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 40px;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+
+  .middle-left div {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .bottom-div {
+    margin-top: 300px;
+    font-size: 40px;
+    text-align: left;
+    width: 60%;
+  }
+  .all-bg {
+    background-image: url(../../img/icon-home/bottom.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+    .login-input-setting {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 70%;
+    height: 70px;
+    margin: auto;
+    margin-top: 10px;
+  }
+  .info-input-setting {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 70%;
+    height: 70px;
+    margin: auto;
+    margin-top: 10px;
+  }
+
+
+
+.input_login {
+    display: inline-block;
+    width: 50%;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .bottom-btn {
+    width: 70%;
+    height: 120px;
+    margin: 0 auto;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  .bic {
+    background-image: url(../../img/icon-home/buttomBIC.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+  .error_div {
+    background-image: url(../../img/icon-home/error1.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+
+  .type {
+    background-image: url(../../img/icon-home/buttomSys.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+
+  .info-titile-big {
+    font-weight: bold;
+    font-size: 75px;
+    margin-top: 100px;
+  }
+
+   .login-yellow, .login-black {
+    font-size: 50px;
+    margin-left: 50px;
+    float: left;
+  }
+
+  .login-yellow {
+    float: left;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    width: 154px;
+    line-height: 90px;
+  }
+
+  .login-black {
+    float: right;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-weight: bold;
+    width: 154px;
+    line-height: 90px;
+  }
+
+    .cash-query {
+    float: right;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+    width: 50px;
+    line-height: 38px;
+    margin-right:30px;
+  }
+
+   .index-button {
+    float: left;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+    width: 150px;
+    line-height: 38px;
+    margin:0 30px;
+  }
+  .wallet {
+    background-image: url(../../img/icon-home/wallet.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    line-height: 100px;
+    color: white;
+    display: inline-block;
+  }
+
+  .go-back {
+    float: right;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+    width: 150px;
+    line-height: 50px;
+    margin-right:30px;
+  }
+
+    .back-allBg {
+    background-image: url(../../img/icon-home/back-background02.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+    .login_label {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bolder;
+    height: 50px;
+  }
+
+    .login_input_setting {
+    display: inline-block;
+    width: 60%;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 15px;
+  }
+      .login_input_setting_code {
+    display: inline-block;
+    width: 44%;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 15px;
+  }
+  .walletLabel{
+    width: 130px;
+    height: 60px;
+    font-size: 15px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+    .input_query {
+    display: inline-block;
+    width: 50%;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 15px;
+  }
+  .tableDiv {
+    text-align: center;
+    margin-top: 20px;
+    height: 700px;
+    position: relative;
+  }
+  .tabs {
+    float: none;
+    list-style: none;
+    position: relative;
+    text-align: left;
+    min-height: 975px;
+  }
+}

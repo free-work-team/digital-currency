@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Add Notes</title>
+  <link rel="stylesheet" href="./../../css/back/uiSwitch.css" type="text/css">
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+  <style>
+    body {
+      background-color: #fdf6e1;
+    }
+
+  </style>
+
+  <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+  <script type="text/javascript" src="../../js/common/language.js"></script>
+  <script type="text/javascript" src="../../js/transaction/price.js"></script>
+  <script type="text/javascript" src="../../js/common/toast.script.js"></script>
+</head>
+<body class="">
+<div class="" style="width:90%;height:34px;line-height:34px;margin:50px auto 0;padding:10px;background-color: #d4c59a;">
+  <div class="" id="lan_addCash" style="float:left;">&emsp;</div>
+</div>
+
+<div class="info-titile">
+  <div id="lan_enterYourCash" style="color:black;">&emsp;</div>
+</div>
+<div class="" id="cashNumDiv" style="width:90%;height:70px;margin:0 auto;">
+  <div class="box">
+    <span id="lan_remainingNumber">&emsp;</span> &emsp;<span id="remainingNumber"></span>
+  </div>
+</div>
+<!--面额设置-->
+<table id="balanceTable" >
+  <!--  <tr>-->
+  <!--    <td>test-->
+  <!--    </td>-->
+  <!--    <td>test-->
+  <!--    </td>-->
+  <!--    <td>-->
+  <!--      <input type="checkbox" class="uiswitch">-->
+  <!--    </td>-->
+  <!--  </tr>-->
+</table>
+
+<div class="bottom-btn">
+  <!--  <div class="go-back" style="position: fixed;bottom: 100px;left:10px;"><span id="lan_pay" onclick="pay();"> </span>(100)</div>-->
+  <div id="to_empty_btn" class="to_empty_btn" onclick="emptyCash();">&emsp;</div>
+  <div id="to_back_btn" class="to_back_btn" onclick="goIndexSelf();">&emsp;</div>
+</div>
+</body>
+
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript">
+  var currentPS      = 0,
+      cashBoxAdd     = 0,
+      cashBoxLast    = 0,
+      maxInsert      = window.billAcceptor.getMaxInsert(),//最大加钞量
+      currentCountry = '';//币种
+
+  // 入钞票 回调
+  function setDeviceEnableCallBack(resultStr) {
+    if (!resultStr) {
+      // console.log("setDeviceEnableCallBack 回调空:"+resultStr);
+      return;
+    }
+    var result = JSON.parse(resultStr);
+    if (result.code === 2) {//暂存
+      disabledBtn();
+      var resultValue = parseInt(result.realValues);
+      if (resultValue > 0) {
+        // 面额相当，入，否则退,but 当钞箱缓存区数量到达其最大数量
+        if (currentPS == resultValue) {
+          if (numDiv(cashBoxLast, currentPS) >= maxInsert) {//判断最大加钞数
+            window.billAcceptor.setEscrowAction(false);
+            showWarn("The maximum of banknotes added is " + maxInsert);
+          } else {
+            window.billAcceptor.setEscrowAction(true);
+          }
+        } else {
+          window.billAcceptor.setEscrowAction(false);
+          showWarn("Cash denomination does not match");
+        }
+      }
+    } else if (result.code === 25) {//清机
+      showSuccess("Emptied Completed " + result.realValues);
+      cashBoxAdd = 0;
+      cashBoxLast = 0;
+      refreshLabel();
+    } else if (result.code === -1) {//失败
+      showError(result.eventValues);
+      setTimeout(function () {
+        goIndex();
+      }, 1000);
+    } else if (result.code === 0) {  //纸币接收模块初始化回调
+      window.billAcceptor.initDevices();
+      setTimeout(function () {
+        window.billAcceptor.setDeviceEnable(true);
+        var balancePrice = window.billAcceptor.getCurrencyList();//面额列表
+        if (balancePrice) {
+          currentCountry = getCurrency();//币种
+          getEscrowLast();// 余额
+          refreshLabel();// rend 余额
+          renderBalance(balancePrice);//rend 面额
+        }
+        hideWait();
+      }, 2000);
+    } else if (result.code === 7) {//入钞
+      cashBoxAdd += parseInt(result.realValues);
+      cashBoxLast += parseInt(result.realValues);
+      abledBtn();
+      refreshLabel();
+    } else if (result.code === 4) {//拒
+      abledBtn();
+      refreshLabel()
+    }
+  }
+
+  function printCallBack() {
+
+  }
+
+  //清机
+  function emptyCash() {
+    backShowWait();
+    // 加钞记录
+    saveAddNotes();
+
+    // 清机记录
+    setTimeout(function () {
+      var result = window.back.emptyNotesStatistics();
+      var resultObj = JSON.parse(result);
+      window.print.printEmpty(printText(resultObj));
+      window.led.openLed();
+    }, 1000);
+
+    // 清机
+    setTimeout(function () {
+      if (window.billAcceptor.getEscrowLast() > 0) {
+        window.billAcceptor.payEmpty();
+      } else {
+        hideWait();
+      }
+    }, 2000);
+  }
+
+  // 获取需要打印的内容
+  function printText(resultObj) {
+    var terminalNo = "";
+    if (getMerchant()) {
+      terminalNo = getMerchant().terminalNo;
+    }
+    var printStr =
+          "    Terminal No : " + terminalNo + "\n" +
+          "    Last Operation Time : " + resultObj.lastTime + "\n" +
+          "    This Operation Time : " + resultObj.createTime + "\n" +
+          "    Add Cash : " + formatPrice(resultObj.addCash) + currentCountry + "\n" +
+          "    Buy Cash : " + formatPrice(resultObj.buyCash) + currentCountry + "\n" +
+          "    Sell Cash : " + formatPrice(resultObj.sellCash) + currentCountry + "\n";
+    return printStr;
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_addCash", "lan_enterYourCash", "lan_remainingNumber"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  // 余额获取
+  function getEscrowLast() {
+    cashBoxLast = window.billAcceptor.getEscrowLast();
+  }
+
+  // 刷新显示
+  function refreshLabel() {
+    $('#remainingNumber').text(formatPrice(cashBoxLast) + currentCountry);
+  }
+
+  // 回首页
+  function goIndexSelf() {
+    //拒钞
+    window.billAcceptor.setEscrowAction(false);
+    showWait("Wait a moment");
+    setTimeout(function () {
+      hideWait();
+      window.billAcceptor.setDeviceEnable(false);
+      saveAddNotes();
+      goIndex();
+    }, 3000);
+  }
+
+
+  // 保存加钞记录
+  function saveAddNotes() {
+    if (cashBoxAdd > 0) {
+      //添加加钞记录
+      window.back.saveAddnotes(cashBoxAdd);
+    }
+  }
+
+  // 渲染面额区域
+  function renderBalance(result) {
+    if (!result) {
+      return;
+    }
+    var balanceObj = JSON.parse(result);
+    var balanceHtml = '';
+    $.each(balanceObj, function (index, item) {
+      balanceHtml += ' <tr>' +
+        '    <td>' +
+        item.realvalue + '&nbsp;<span style="color:#ec9955;font-weight: bolder; ">' + item.country + '</span>' +
+        '    </td>' +
+        '    <td>' +
+        item.route +
+        '    </td>' +
+        '    <td>' +
+        '<input type="checkbox" class="uiswitch" data-index="' + item.index + '" data-balance="' + item.realvalue + '" style="outline: none;"' + (item.route === "PayoutStore" ? "checked" : "") + '>' +
+        '    </td>' +
+        '  </tr>';
+      if (item.route === "PayoutStore") {
+        currentPS = item.realvalue;
+      }
+    });
+    $('#balanceTable').html(balanceHtml);
+
+    //绑定点击事件
+    $('.uiswitch').unbind('change').on('change', function () {
+      var that = $(this);
+      showWait();
+      setTimeout(function () {
+        var currentBalance = that.attr('data-balance');
+        var currentIndex = parseInt(that.attr('data-index'));
+        var checked = that.prop("checked");
+        if (checked) {
+          window.billAcceptor.setPS(currentBalance, currentIndex);
+        } else {
+          window.billAcceptor.setCB(currentBalance);
+        }
+        setTimeout(function () {
+          var balancePrice = window.billAcceptor.getCurrencyList();//面额列表
+          renderBalance(balancePrice);
+          hideWait();
+          if (window.billAcceptor.getEscrowLast() > 0) {
+            showWarn("Recommended to Empty CashBox when replace the PayoutStore!");
+          }
+        }, 3000);
+      }, 500)
+    })
+  }
+
+  function abledBtn() {
+    $('#to_back_btn').attr("onclick", "goIndexSelf()");
+    $('#to_empty_btn').attr("onclick", "emptyCash()");
+  }
+
+  function disabledBtn() {
+    $('#to_back_btn').attr("onclick", "showPending()");
+    $('#to_empty_btn').attr("onclick", "showPending()");
+  }
+
+  function showPending() {
+    showWarn("Processing...\nplease try again later");
+  }
+
+  window.onload = function () {
+    initLanguage();
+    backShowWait();
+    setTimeout(function () {
+      window.billAcceptor.connDevices();
+    }, 1000);
+  }
+
+
+</script>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <title>Input Code</title>
+  <link rel="stylesheet" href="../../css/keyboard.css" type="text/css">
+  <style>
+    @import "../../css/styles.css";
+  </style>
+  <style>
+    input::-ms-input-placeholder {
+      text-align: center;
+    }
+
+    input::-webkit-input-placeholder {
+      text-align: center;
+    }
+
+    .input_setting {
+      border: none;
+      background-color: white;
+      outline: none;
+      font-size: 20px;
+      height: 60px;
+      width: 450px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="all-bg">
+
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="thin-title">
+  <div id="lan_verify_email"></div>
+  <div class="little-title"><label id="lan_check_code"></label>
+  </div>
+</div>
+<div>
+  <input class="input_setting" id="write" type="text" readonly="readonly" placeholder="Please enter the code"/>
+  <div id="count" style="padding-top:10px;color:red;"></div>
+
+</div>
+
+<div id="loadingArea" class="log-buy-icon" onclick="check()">
+  <div class="button-font-div-start" id="lan_confirm_btn"></div>
+</div>
+
+<div id="key"></div>
+
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/common/keyboard.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+
+
+<script type="text/javascript">
+  var merchantObj = getMerchant();
+  var isExceedQuota = window.location.href.split("isExceedQuota=")[1];
+  var type = localStorage.getItem("operationType");
+
+
+  function check() {
+    var code = $('#write').val();
+    if (!code) {
+      showWarn("Please enter the code");
+    } else {
+      var verificationCode = localStorage.getItem("verificationCode");
+      if (verificationCode == code) {
+        //验证成功
+        if (type == 1) {
+          tobuyCoin();
+        } else {
+          tosellCoin();
+        }
+      } else {
+        showError("Verification code error");
+      }
+    }
+  }
+
+  /**
+   * 去买币
+   */
+  function tobuyCoin() {
+    if (merchantObj) {
+      window.location.href = "../buy/scanllerAddress.html?examine=" + isExceedQuota;
+    } else {
+      ErrorPage.toError("merchat setting is required")
+    }
+  }
+
+  /**
+   * 去卖币
+   *
+   */
+  function tosellCoin() {
+    showWait();
+    setTimeout(function () {
+      // 打印机初始化
+      window.print.getStatus();
+    }, 1000);
+  }
+
+  //初始化打印机回调
+  function printCallBack(data) {
+    // console.log("初始化打印机回调 =========== " + JSON.stringify(data));
+    if (data.status) {
+      // 获取最新汇率和最大交易额
+      refreshPrice(function (newPrice) {
+        if (newPrice) {
+            hideWait();
+            var currentPrice = localStorage.getItem("balance");
+            var walletBalance = localStorage.getItem("walletBalance");
+            var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
+          console.log("钱包余额允许的最大交易金额为" + maxTrade);
+            window.location.href = "../sell/chooseAmount.html?examine=" + isExceedQuota + "&&maxTrade=" + maxTrade;
+        } else {
+          ErrorPage.toError("The price request failed, Please try again later!");
+        }
+      });
+    } else {
+      ErrorPage.toError(data.message);
+    }
+  }
+
+  //初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_verify_email", "lan_check_code", "lan_confirm_btn"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  window.onload = function () {
+    initLanguage();
+  }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <title>Init</title>
+  <style>
+    @import "../css/styles.css";
+  </style>
+  <style>
+    input::-ms-input-placeholder {
+      text-align: center;
+    }
+
+    input::-webkit-input-placeholder {
+      text-align: center;
+    }
+
+    .input_setting {
+      border: none;
+      background-color: white;
+      outline: none;
+      font-size: 20px;
+      height: 60px;
+      width: 450px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="all-bg">
+
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+
+<div class="log-content">
+  <div class="log-bg" onclick="toSetting()"></div>
+</div>
+<div class="info-titile-big">
+  <div>SMARTKIOSK</div>
+</div>
+<div style="padding-top: 6%;height:100px" id="code">
+  <input class="input_setting" id="activateCode" type="text" placeholder="Please enter the CDKEY"/>
+  <div id="count" style="padding-top:10px;color:red;"></div>
+</div>
+
+<div id="loadingArea" class="log-buy-icon" onclick="activate()">
+  <div class="button-font-div-start">Start</div>
+</div>
+
+<div style="display: none;padding-top: 10%;font-size: 60px" class="init" id="lan_init"></div>
+<div style="display: none;" id="lan_netWorkCheck"></div>
+<div style="display: none;" id="lan_initSetting"></div>
+<div style="display: none;" id="lan_initPrint"></div>
+<div style="display: none;" id="lan_initBill"></div>
+<div style="display: none;" id="lan_initScanner"></div>
+<div style="display: none;" id="lan_initCamera"></div>
+<div style="display: none;" id="lan_initLED"></div>
+<div style="display: none;" id="lan_syncWallet"></div>
+<div style="display: none;" id="lan_syncExchange"></div>
+
+<script type="text/javascript" src="../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common/language.js"></script>
+
+<script type="text/javascript">
+  var count = 0;
+  var status = "loading";
+  var init = "";
+  var timer;
+  var timeout = 0;
+
+  //var code ="JY8S4D5W2";
+  //var unable = (new Date("2020/05/13 00:00:00")).getTime(); //过期时间
+
+  //激活
+  function activate() {
+    var count = localStorage.getItem("activateCount");
+    var activateCode = $('#activateCode').val();
+    if (!activateCode) {
+      if (count == 5) {
+        $('#count').text("Activation failure，Exceed number of activation times");
+      } else {
+        $('#count').text("Please enter the CDKEY");
+      }
+      return;
+    }
+    if (!count || count < 5) {
+      if (activateCode == code) {
+        localStorage.setItem("activate", 1);
+        window.location.reload();
+      } else {
+        $('#activateCode').val("");
+        if (count) {
+          count = parseInt(count) + 1;
+          localStorage.setItem("activateCount", count);
+          var a = 5 - count;
+          if (a == 0) {
+            $('#count').text("Activation failure，Exceed number of activation times");
+          } else {
+            $('#count').text("Activation failure，You still have " + a + " activation opportunities");
+          }
+        } else {
+          localStorage.setItem("activateCount", 1);
+          $('#count').text("Activation failure，You still have 4 activation opportunities");
+        }
+      }
+    } else {
+      $('#count').text("Activation failure，Exceed number of activation times");
+    }
+  }
+
+
+  // 在线用户初始化获取参数
+  function isOnline(deviceList, setting) {
+    // 获取线上登录信息
+    // console.log("-----------------------------在线用户初始化获取参数-----------------------------");
+    window.webTimer.getSettingFromWeb(JSON.stringify(deviceList), JSON.stringify(setting));
+  }
+
+  // 在线用户初始化获取参数 callback
+  function uploadTimerCallBack(setting) {
+
+    if (setting) {
+      //广告信息
+      localStorage.setItem("ADStr", setting.advertContent || '');
+      // console.log("管理端取到商户设置参数  =========== " + JSON.stringify(setting));
+      if (setting.code === 0) {
+        settingToLocalStorage(setting);
+        if (setting && setting.terminalNo && setting.merchantName && setting.hotline && setting.email) {
+          var localMerchant = JSON.parse(localStorage.getItem("merchant"));
+          resetTimer($('#lan_syncWallet').html());
+          setTimeout(function () {
+            walletInit()
+          }, 1000);
+        } else {
+          // console.log("商户设置参数不完整 =========== ");
+          clearInterval(timer);
+          $('#lan_init').html("Parameter settings is missing");
+
+        }
+      } else if (setting.code === 200) {// 无可更新参数
+        var localMerchant = JSON.parse(localStorage.getItem("merchant"));
+        resetTimer($('#lan_syncWallet').html());
+        setTimeout(function () {
+          walletInit()
+        }, 1000);
+      }
+    }
+  }
+
+
+  //检测网络状态
+  function checkNetWork() {
+    var netWorkCheck = $('#lan_netWorkCheck').html();
+    resetTimer(netWorkCheck);
+    setTimeout(function () {
+      window.business.checkNetWork();
+    }, 1000);
+  }
+
+
+  //初始化商户参数设置
+  function initSetting() {
+    var setting = JSON.parse(window.back.queryParam());
+
+    // var channel = "";
+    if (setting) {
+      // channel = setting.channel;
+      // localStorage.setItem("channel",channel);
+      localStorage.setItem("online", setting.online);
+      localStorage.setItem("merchant", JSON.stringify(setting));
+    } else {
+      clearInterval(timer);
+      $('#lan_init').html("Parameter settings is missing");
+      return;
+    }
+    // //设备状态
+    var deviceList = [];
+    // if (setting.terminalNo) {
+    //   deviceObject.printer.terminalNo = setting.terminalNo;
+    //   deviceObject.cashAcceptor.terminalNo = setting.terminalNo;
+    //   deviceObject.scanner.terminalNo = setting.terminalNo;
+    //   // 硬件状态存储
+    //   localStorage.setItem("deviceInfo", JSON.stringify(deviceObject));
+    //
+    //   deviceList.push(deviceObject.printer);
+    //   deviceList.push(deviceObject.cashAcceptor);
+    //   deviceList.push(deviceObject.scanner);
+    // }
+
+    // 是否设置在线
+    if (setting.terminalNo && setting.online == '1') {
+      localStorage.setItem("online", '1');
+      isOnline(deviceList, setting);
+
+    } else {
+      resetTimer($('#lan_syncWallet').html());
+      setTimeout(function () {
+        walletInit()
+      }, 1000);
+    }
+  }
+
+  function walletInit() {
+    window.business.getWalletInit();
+  }
+
+  function exchangeInit() {
+    window.business.getExchangeInit();
+  }
+
+  function businessResp(result, requestType) {
+    if (requestType == "checkNetWork") {
+      if (result.flag) {
+        resetTimer($('#lan_initSetting').html());
+        setTimeout(initSetting, 1000);
+      } else {
+        clearInterval(timer);
+        $('#lan_init').html("Network Anomaly");
+      }
+    } else if (requestType == "getWalletInit") {
+      if (result.flag) {
+        // var merchant = JSON.parse(localStorage.getItem("merchant"));
+        // if(0 == merchant.exchangeStrategy){
+        //  //摄像头
+        //  setTimeout(loadCamera(),2000);
+        // }else{
+        resetTimer($('#lan_syncExchange').html());
+        setTimeout(exchangeInit(), 1000);
+        // }
+      } else {
+        clearInterval(timer);
+        $('#lan_init').html("Synchronised wallet fail");
+      }
+    } else if (requestType == "getExchangeInit") {
+      if (result.flag) {
+        //摄像头
+        setTimeout(loadCamera(), 2000);
+      } else {
+        clearInterval(timer);
+        $('#lan_init').html("Synchronised exchange fail");
+      }
+    }
+  }
+
+  //连接纸币接收器
+  function loadConnBill() {
+    var initBill = $('#lan_initBill').html();
+    resetTimer(initBill);
+    // console.log("开始连接纸币接收器设备 =========== ");
+    setTimeout(function () {
+      window.billAcceptor.connDevices();
+    }, 1000);
+    //setTimeout(show,5000);
+  }
+
+  var connBillFlag = true;
+
+  //纸币接收模块回调
+  function setDeviceEnableCallBack(resultStr) {
+    if (!resultStr) {
+      // console.log("setDeviceEnableCallBack 回调空:"+resultStr);
+      return;
+    }
+    if (connBillFlag) {
+      var data = JSON.parse(resultStr);
+      if (data.code === -1) {
+        // console.log("纸币接收器模块回调异常 =========== " + JSON.stringify(data));
+        clearInterval(timer);
+        $('#lan_init').html(data.eventValues);
+      } else if (data.code === 0) {
+        // console.log("纸币接收器连接设备成功 =========== ");
+        connBillFlag = false;
+        window.billAcceptor.initDevices();
+        setTimeout(loadLed(), 2000);
+      }
+    }
+  }
+
+  //连接led
+  function loadLed() {
+    var initLED = $('#lan_initLED').html();
+    resetTimer(initLED);
+    window.led.init();
+  }
+
+  function ledCallBack(result) {
+    if (result.status) {
+      setTimeout(loadPrint(), 2000);
+    } else {
+      clearInterval(timer);
+      $('#lan_init').html("Led Init Fail");
+    }
+  }
+
+  //初始化打印机
+  function loadPrint() {
+    // console.log("开始初始化打印机 =========== ");
+    var initPrint = $('#lan_initPrint').html();
+    resetTimer(initPrint);
+    window.print.init();
+    // setTimeout(printCallback,5000);
+  }
+
+  //初始化打印机回调
+  function printCallBack(data) {
+    // console.log("初始化打印机回调 =========== " + JSON.stringify(data));
+    if (data.status == true) {
+      // deviceObject.printer.status = 1;
+      // deviceObject.printer.uploadTime = getNowDate();
+      // // 硬件状态存储
+      // localStorage.setItem("deviceInfo", JSON.stringify(deviceObject));
+      //连接扫码器设备
+      setTimeout(loadScanner(), 2000);
+    } else {
+      // deviceObject.printer.status = -1;
+      // deviceObject.printer.uploadTime = getNowDate();
+      // deviceObject.printer.desc = data.message;
+      // // 硬件状态存储
+      // localStorage.setItem("deviceInfo", JSON.stringify(deviceObject));
+      clearInterval(timer);
+      $('#lan_init').html(data.message);
+    }
+  }
+
+  //连接扫码器设备
+  function loadScanner() {
+    // console.log("开始连接扫码器设备 =========== ");
+    var initScanner = $('#lan_initScanner').html();
+    resetTimer(initScanner);
+    window.scanner.connectDevices();
+  }
+
+  //连接扫码器设备回调
+  function scanllerResult(data) {
+    // console.log("连接扫码器设备回调 =========== " + data);
+    if (data === "connect scanner success") {
+      // deviceObject.scanner.status = 1;
+      // deviceObject.scanner.uploadTime = getNowDate();
+      // // 硬件状态存储
+      // localStorage.setItem("deviceInfo", JSON.stringify(deviceObject));
+      //初始化出钞模块
+      //loadCDM();
+      checkNetWork();
+    } else {
+      // deviceObject.scanner.status = -1;
+      // deviceObject.scanner.desc = data;
+      // deviceObject.scanner.uploadTime = getNowDate();
+      // // 硬件状态存储
+      // localStorage.setItem("deviceInfo", JSON.stringify(deviceObject));
+      clearInterval(timer);
+      $('#lan_init').html(data);
+    }
+  }
+
+  //连接摄像头
+  function loadCamera() {
+    resetTimer($('#lan_initCamera').html());
+    window.camera.openConnect();
+  }
+
+  function cameraCallBack(result) {
+    if (result.status) {
+      window.location.href = "index/start.html";
+    } else {
+      clearInterval(timer);
+      $('#lan_init').html(result.message);
+    }
+  }
+
+
+  function resetTimer(str) {
+    timeout = 0;
+    count = 0;
+    init = str;
+    status = str;
+  }
+
+  var clickCount = 0;
+  var clickInterval;
+
+  // 进个人设置
+  function toSetting() {
+    // 3s内点击5次可进入设置页面
+    clickInterval && clearInterval(clickInterval);
+    clickCount++;
+    if (clickCount >= 5) {
+      window.location.href = "login.html";
+      return;
+    }
+    clickInterval = setInterval(function () {
+      clickCount = 0;
+    }, 3000);
+  }
+
+  //初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_init", "lan_initCDM", "lan_initPrint", "lan_initBill", "lan_initScanner", "lan_netWorkCheck", "lan_initSetting", "lan_initCamera", "lan_initLED", "lan_syncWallet", "lan_syncExchange"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+
+  // 获取 日期 时间
+  function getNowDate() {
+    var date = new Date();
+    var sign1 = "-";
+    var sign2 = ":";
+    var year = date.getFullYear(); // 年
+    var month = date.getMonth() + 1; // 月
+    var day = date.getDate(); // 日
+    var hour = date.getHours(); // 时
+    var minutes = date.getMinutes(); // 分
+    var seconds = date.getSeconds(); //秒
+    // 给一位数数据前面加 “0”
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (day >= 0 && day <= 9) {
+      day = "0" + day;
+    }
+    if (hour >= 0 && hour <= 9) {
+      hour = "0" + hour;
+    }
+    if (minutes >= 0 && minutes <= 9) {
+      minutes = "0" + minutes;
+    }
+    if (seconds >= 0 && seconds <= 9) {
+      seconds = "0" + seconds;
+    }
+    return year + sign1 + month + sign1 + day + " " + hour + sign2 + minutes + sign2 + seconds;
+  }
+
+
+  // 将上游取到的值更新下来
+  function settingToLocalStorage(setting) {
+
+    // localStorage.setItem("channel", setting.channel);
+    // localStorage.setItem("balance", setting.rate);
+    // 替换缓存数据
+    //delete setting.channelParam;
+    // console.log("存入localstorage merchant:"+JSON.stringify(setting));
+    // 替换缓存数据
+    var coinArray = ['btc', 'eth'];
+    $.each(coinArray, function (index, item) {
+      if (setting.cryptoSettings[item]) {
+        delete setting.cryptoSettings[item].channelParam;
+      }
+    });
+    localStorage.setItem("merchant", JSON.stringify(setting));
+  }
+
+  // 获取 setting 对象
+
+
+  window.onload = function () {
+    initLanguage();
+    localStorage.setItem("balance", "");
+    //var now = new Date().getTime();
+    //var activate = localStorage.getItem("activate" );
+
+    //if(now >= unable && !activate){
+    //localStorage.setItem("activate",0);
+    //activate = localStorage.getItem("activate" );
+    //}
+
+    //if(!activate || activate == 1){
+    $('#code').css("display", "none");
+    $('#loadingArea').css("display", "none");
+    $('#lan_init').css("display", "block");
+    init = $('#lan_init').html();
+    timer = setInterval(function () {
+      if (count > 2) {
+        init = status;
+        count = 0;
+      } else {
+        $('#lan_init').html(init + ".");
+        init = $('#lan_init').html();
+        count += 1;
+      }
+      if (timeout > 60) {//60s超时
+        clearInterval(timer);
+        init = init.replace(/\./g, '');
+        $('#lan_init').html(init + "  Time Out ");
+      }
+      timeout += 1;
+    }, 1000);
+    loadConnBill();
+    //setTimeout(loadLed, 3000);
+    //}
+    //$('#activateCode').focus();
+  }
+
+
+</script>
+</body>
+</html>

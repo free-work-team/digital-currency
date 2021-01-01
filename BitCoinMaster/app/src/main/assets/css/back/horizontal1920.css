@@ -1,0 +1,928 @@
+@charset "utf-8";
+/*32寸横屏*/
+@media screen and (min-width: 1900px) and (min-height: 1024px) {
+  .header {
+    height: 140px;
+  }
+
+  .header-contact > div {
+    font-size: 1.8em;
+    height: 1.7em;
+  }
+
+  .header-contact > div:first-child {
+    margin-top: 20px;
+  }
+
+  .log-content {
+    height: 114px;
+    width: 341px;
+    top: 30px;
+    left: 10px;
+    margin: 0;
+  }
+
+  .log-bg {
+    width: 271px;
+    height: 60px;
+  }
+
+  .all-bg {
+    background-image: url(../../img/icon-home/bottom2.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  .info-btn {
+    width: 30%;
+    margin: auto;
+  }
+
+  .log-buy-info {
+    position: unset;
+    width: 300px;
+    height: 80px;
+    float: right;
+  }
+
+  .log-buy-info > div {
+    height: 45px;
+    margin-top: 16px;
+    width: 110px;
+    line-height: 35px;
+    color: #8e7d70;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .buy-left {
+    margin-left: 30px;
+  }
+
+  .buy-right {
+    margin-right: 30px;
+  }
+
+  .info-content {
+    margin-top: 50px;
+  }
+
+  .info-titile {
+    font-size: 56px;
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .info-titile_300 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  .info-titile > div {
+    line-height: 80px;
+  }
+
+  .info-input-content {
+    width: 100%;
+    height: 78px;
+    /* margin-left: 20px; */
+    /* top: 16px; */
+    position: relative;
+    line-height: 65px;
+    font-size: 40px;
+  }
+
+  .info-btn {
+    margin-top: 20px;
+  }
+
+  .info-content-big {
+    margin-top: 80px;
+    font-weight: bold;
+    font-size: 80px;
+  }
+
+  .middle {
+    width: 76%;
+    height: 70%;
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+  }
+
+  .middle-contain {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .log-buy-icon {
+    width: 420px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 50px;
+    line-height: 105px;
+  }
+
+  .center-div {
+    left: 50%;
+    margin-left: -270px;
+    display: block;
+    position: relative;
+  }
+
+  .button-font-div {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    line-height: 110px;
+  }
+
+  .button-font-div-start {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    line-height: 115px;
+  }
+
+  .contain-font {
+    font-weight: bold;
+    font-size: 150px;
+  }
+
+  .log-buy-info-big {
+    width: 700px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .log-buy-info-big > div {
+    height: 90px;
+    width: 300px;
+    line-height: 75px;
+    color: #8e7d70;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+
+  .buy-big-left {
+    float: left;
+    margin-left: 30px;
+  }
+
+  .buy-big-right {
+    float: right;
+    margin-right: 30px;
+  }
+
+  .new-center-div {
+    left: 50%;
+    display: block;
+  }
+
+  .buying {
+    font-weight: bold;
+    font-size: 48px;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+  }
+
+  .buying div {
+    line-height: 80px;
+  }
+
+  .yellow-btn {
+    color: white;
+    height: 100px;
+    width: 300px;
+    font-size: 46px;
+    text-align: center;
+    line-height: 95px;
+    margin: 0 auto;
+    margin-top: 80px;
+  }
+
+  .select-luanguage-btn {
+    color: #8a7c71;
+    font-weight: bold;
+    font-size: 30px;
+    width: 700px;
+    height: 100px;
+    line-height: 80px;
+    margin: 0 auto;
+    top: 10px;
+    margin-top: 40px;
+  }
+
+  .log-buy-info {
+    background-image: url(../../img/icon-home/rate.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .top-little-title {
+    margin-top: 80px;
+    font-weight: bold;
+    font-size: 60px
+  }
+
+  .middle-little-title {
+    font-size: 40px;
+    height: 90px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  .system-img {
+    width: 500px;
+    height: 550px;
+    margin: 0 auto;
+    margin-top: 50px;
+
+  }
+
+  .info-content-middle {
+    margin-top: 80px !important;
+    font-weight: bold;
+    font-size: 54px;
+    text-align: center;
+    line-height: 100px;
+  }
+
+  .system-top {
+    top: 0px;
+  }
+
+  .yellow-btn-big {
+    color: white;
+    height: 120px;
+    width: 400px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 100px;
+    margin: 0 auto;
+    margin-top: 400px;
+    font-weight: bold;
+  }
+
+  .short-distance {
+    margin-top: 10px;
+  }
+
+  .contents {
+    text-align: center;
+    font-size: 30px;
+    line-height: 60px;
+  }
+
+  .scan-btn {
+    width: 208px;
+    height: 209px;
+    margin: 0 auto;
+  }
+
+  .thin {
+    font-weight: 100;
+    letter-spacing: -2px;
+  }
+
+  .print-btn, .print-black-btn {
+    color: white;
+    height: 110px;
+    width: 600px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 110px;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-weight: bold;
+  }
+
+  .left-contents {
+    font-size: 36px;
+    margin-top: 40px;
+    text-align: center;
+    line-height: 55px;
+  }
+
+  .put {
+    height: 100px;
+    width: 65%;
+    margin: 0 auto;
+  }
+
+  .putMoney-btn {
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin-left: 40px;
+  }
+
+  .putMoney-right {
+    height: 70px;
+    font-size: 30px;
+    margin-top: 30px;
+    float: right;
+    margin-right: 80px;
+  }
+
+
+  .btns-two {
+    /* margin-top:70px; */
+  }
+
+  .long {
+    margin-left: 70px;
+  }
+
+
+  .short {
+    margin-top: 80px;
+  }
+
+  .phone-btn {
+    width: 700px;
+    height: 138px;
+    color: #8e7d70;
+    font-size: 40px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .phone-number {
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 20px;
+    height: 120px;
+  }
+
+  .phone-number > div {
+    width: 144px;
+    height: 153px;
+    float: left;
+    font-size: 80px;
+    color: #8e7d70;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    line-height: 125px;
+  }
+
+  .after {
+    margin-left: 108px;
+  }
+
+  .next {
+    width: 294px;
+    height: 133px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 210px;
+    line-height: 112px;
+    margin-top: 180px;
+  }
+
+  .little-title {
+    letter-spacing: -2px;
+    font-size: 40px;
+    font-weight: 300;
+  }
+
+  .thin-title {
+    font-size: 54px;
+    margin-top: 80px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+    height: 140px;
+  }
+
+  .sell, .sell-green, .sell-red {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .sell-green, .sell-red, .sell-black {
+    color: white;
+    margin-top: 15px;
+  }
+
+  .sell {
+    width: 480px;
+    height: 80px;
+    line-height: 70px;
+    color: #8e7d70;
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  .sell-black {
+    margin-top: 50px;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    line-height: 108px;
+    font-weight: bold;
+    width: 300px;
+    height: 100px;
+  }
+
+  .sell-green, .sell-red {
+    width: 140px;
+    height: 50px;
+    line-height: 55px;
+    font-size: 25px;
+    margin-top: 20px;
+  }
+
+
+  .choose {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 0px;
+    text-align: left;
+  }
+
+  .left {
+    margin-left: 100px;
+  }
+
+
+  .msg-yellow, .msg-black {
+    font-size: 50px;
+    margin-left: 50px;
+    float: left;
+  }
+
+  .msg-yellow {
+    width: 154px;
+    height: 119px;
+    line-height: 119px;
+    margin-left: 160px;
+  }
+
+  .msg-black {
+    width: 155px;
+    height: 120px;
+    line-height: 120px;
+    float: right;
+    margin-right: 160px;
+  }
+
+  .middle-rule {
+    height: 165px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 30px;
+    text-align: left;
+    font-weight: bold;
+
+  }
+
+  .left-width {
+    width: 60%;
+  }
+
+  .hand {
+    height: 200px;
+    width: 160px;
+    margin: 0 auto;
+  }
+
+  .qrcode {
+    height: 160px;
+    width: 160px;
+    margin: 0 auto;
+  }
+
+  .font40 {
+    font-size: 40px;
+  }
+
+  .top60 {
+    margin-top: 60px;
+  }
+
+  .top80 {
+    margin-top: 80px;
+  }
+
+  .top100 {
+    margin-top: 100px;
+  }
+
+  .top200 {
+    margin-top: 200px;
+  }
+
+  .top400 {
+    margin-top: 400px;
+  }
+
+  .top600 {
+    margin-top: 600px;
+  }
+
+  .font-bold {
+    font-weight: bold;
+  }
+
+  .font-spacing {
+    letter-spacing: -2px;
+  }
+
+  .middle-left {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 40px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .btns, .btns-two {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    width: 75%;
+    height: 70px;
+    margin-top: 15px;
+  }
+
+  .middle-left div {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .bottom-div {
+    margin-top: 300px;
+    font-size: 40px;
+    text-align: left;
+    width: 60%;
+  }
+
+  .addcash-btn-sub {
+    width: 180px;
+    height: 60px;
+    background-color: #d4c59a;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: white;
+    font-size: 20px;
+    line-height: 50px;
+    display: inline-block;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  .info-btn > table td div {
+    width: 80px;
+    height: 80px;
+    background-image: url(../../img/icon-home/3.phone02.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: auto;
+    text-align: center;
+    line-height: 65px;
+    font-size: 40px;
+    color: #8e7d70;
+    font-weight: bold;
+  }
+
+  .info-input {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 30%;
+    height: 80px;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .login-input-setting {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 50%;
+    height: 100px;
+    margin: auto;
+    margin-top: 10px;
+  }
+
+  .info-input-setting {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 70%;
+    height: 70px;
+    margin: auto;
+    margin-top: 10px;
+  }
+
+  .bic {
+    background-image: url(../../img/icon-home/buttomBIC2.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+
+  .error_div {
+    background-image: url(../../img/icon-home/error2.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+
+  .type {
+    background-image: url(../../img/icon-home/buttomSys2.png);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+
+
+  .message {
+    width: 60%;
+    height: 350px;
+    line-height: 100px;
+    font-size: 35px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+  }
+
+  .bottom-btn {
+    width: 70%;
+    height: 120px;
+    margin: 0 auto;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    /*margin-top: 30px;*/
+  }
+
+  .info-small-titile {
+     margin-top: 5px!important;
+  }
+  .setting-input {
+    margin-bottom: 10px !important;
+  }
+  .input_login {
+    display: inline-block;
+    width: 50%;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+  }
+
+  .info-titile-big {
+    font-weight: bold;
+    font-size: 100px;
+    margin-top: 30px;
+  }
+
+  .login-yellow {
+    width: 250px;
+    height: 95px;
+    line-height: 90px;
+    margin-left: 200px;
+    font-size: 40px;
+  }
+
+  .login-black {
+    float: right;
+    margin-right: 200px;
+    width: 250px;
+    height: 95px;
+    line-height: 90px;
+    font-size: 40px;
+  }
+
+  .cash-query {
+    width: 60px;
+    height: 38px;
+    line-height: 38px;
+  }
+
+  .index-button {
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .wallet {
+    background-image: url(../../img/icon-home/wallet.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    line-height: 130px;
+    color: white;
+    display: inline-block;
+  }
+
+  .go-back {
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .back-allBg {
+    background-image: url(../../img/icon-home/back-background01.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  .login_label {
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bolder;
+    height: 80px;
+    line-height: 80px;
+  }
+
+  .login_input_setting {
+    display: inline-block;
+    width: 50%;
+    margin-top: 0;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 25px;
+  }
+
+  .login_input_setting_code {
+    display: inline-block;
+    width: 44%;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+  }
+
+  .walletLabel {
+    width: 180px;
+    height: 80px;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .settting-content {
+    /* margin-top: 20px; */
+  }
+
+  .input_query {
+    display: inline-block;
+    width: 50%;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+  }
+
+  .tableDiv {
+    text-align: center;
+    margin-top: 20px;
+    height: 700px;
+    position: relative;
+  }
+
+  .tabs {
+    float: none;
+    list-style: none;
+    position: relative;
+    text-align: left;
+    min-height: 975px;
+  }
+
+  .videos_area{
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+    height: 800px;
+    overflow-y: overlay;
+  }
+  .ui-ios-overlay {
+    z-index: 99999;
+    position: fixed;
+    top: 61%;
+    left: 50%;
+    width: 450px;
+    height: 470px;
+    margin-left: -225px;
+    margin-top: -230px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000);
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+
+
+  .info-input-setting {
+    height: 60px !important;
+    width: 100% !important;
+  }
+  #lan_Welcome {
+    width: 70%;
+    height: 220px;
+    margin: 0 auto;
+    line-height: 100px;
+    font-size: 60px;
+    color: #d4c59a;
+  }
+
+  .index-item {
+    width: 31%;
+    height: auto;
+    text-align: center;
+    display: inline-block;
+    margin-top: 60px;
+  }
+  .setting-input {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 40px;
+    margin: auto;
+    text-align: left;
+    line-height: 35px;
+  }
+
+  .tableDiv table td{
+    font-size: 25px;
+    text-align: left;
+    padding: 12px;
+  }
+  .tableDiv table .field {
+    font-weight: bold;
+    text-align: right;
+    width: 40%;
+  }
+
+  .thisItem {
+    width: 49%;
+    height: auto;
+    text-align: center;
+    margin-top: 60px;
+  }
+  .box {
+    width: 500px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #d4c59a;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+  }
+
+  #balanceTable {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px
+  }
+
+  #balanceTable tr {
+    height: 70px;
+  }
+
+  .totalArea {
+    margin-top: 95px;
+    float: right;
+    margin-right: 5%;
+  }
+  .totalList,.totalNum{
+    font-size: 15px;
+    font-weight: bold;
+  }
+}

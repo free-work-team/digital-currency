@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Running Status</title>
+ <style>
+    @import "../../css/back/styles.css";
+  </style>
+  <style>
+    /*Andriod 上去掉语音输入按钮:*/
+    input::-webkit-input-speech-button {
+      display: none
+    }
+    body {
+      background-color: #fdf6e1;
+    }
+.tableDiv{
+  text-align:center;
+  margin-top:20px;
+  height:700px;
+}
+    .page{
+      margin:0 auto;
+      width:90%;
+      float:left;
+      position: absolute;
+    }
+.table{
+  table-layout:fixed;
+  overflow-y:visible;
+  margin:0 auto;
+  width:100%;
+  border-collapse:collapse;
+  border-color:#7B7B7B;
+}
+table tr {
+	font-size: 15px;
+}
+
+table td {
+	border :1px solid #d4c59a;
+	font-size: 15px;
+}
+
+  .ibox-title{
+    width:90%;
+    height:34px;
+    margin:0 auto;
+  }
+
+.ibox-title h5 {
+	display: inline-block;
+	font-size: 20px;
+	margin: 0 0 7px;
+	padding: 0;
+	text-overflow: ellipsis;
+	float: left
+}
+
+.ibox-title div{
+	float:left;
+	height:34px;
+	line-height: 34px;
+
+}
+
+.ibox-title input{
+	width:35%;
+	height:34px;
+
+}
+
+/* .goBack{
+	width:100px;
+	height:50px;
+	background-image: url(../../img/icon-home/4.message03.png);
+	float:right;
+	margin-right:50px;
+	text-align:center;
+	line-height:50px;
+	font-size:25px;
+} */
+.title{
+	width:90%;
+	margin:0 auto;
+}
+
+.content{
+  width:90%;
+  height:80%;
+  overflow-y:visible;
+  overflow-x:hidden;
+  margin:0 auto;
+  border:1px solid #d4c59a;
+}
+
+.content-list{
+	overflow-y:visible;
+	overflow-x:hidden;
+}
+
+.content::-webkit-scrollbar{
+width:0px;/* 设置滚动条宽度隐藏 */
+}
+    /*分页样式:*/
+    /* 外面盒子样式---自己定义 */
+    .page_div {
+      margin: 20px 10px 20px 0;
+      color: #666
+    }
+
+    /* 页数按钮样式 */
+    .page_div button {
+      display: inline-block;
+      min-width: 35px;
+      height: 28px;
+      cursor: pointer;
+      color: #666;
+      font-size: 13px;
+      line-height: 28px;
+      background-color: #f9f9f9;
+      border: 1px solid #d4c59a;
+      text-align: center;
+      margin: 0 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none !important;
+      border-radius: 4px;
+    }
+
+    #firstPage, #lastPage, #nextPage, #prePage {
+      width: 50px;
+      color: #d4c59a;
+      border: 1px solid #d4c59a
+    }
+
+    #nextPage, #prePage {
+      width: 70px
+    }
+
+    .page_div .current {
+      background-color: #d4c59a;
+      border-color: #d4c59a;
+      color: #FFF
+    }
+
+    /* 页面数量 */
+    .totalPages {
+      margin: 0 10px
+    }
+
+    .totalPages span, .totalSize span {
+      color: #d4c59a;
+      margin: 0 5px
+    }
+
+    /*button禁用*/
+    .page_div button:disabled {
+      opacity: .5;
+      cursor: no-drop
+    }
+  </style>
+</head>
+<body class="">
+<div class="" style="width:90%;height:34px;line-height:34px;margin:50px auto 0;background-color: #d4c59a;">
+  <div class="" id="lan_runStatusList" style="float:left;">&emsp;</div>
+</div>
+<div class="info-content">
+  <div class="ibox-title" style="text-align: left;">
+    <div style="width:40%;"><span id="lan_runStatus_query" style="width:170px;height: 34px;line-height: 34px;">&emsp;</span>
+    <select id="status" name="" style="width:100px;height:34px;border:1px solid #d4c59a">
+    <option id="lan_normal" value="">&emsp;</option>
+    <option id="lan_abnormal" value="">&emsp;</option>
+    <option id="lan_other" value="">&emsp;</option>
+    </select></div>&nbsp;&nbsp;&nbsp;
+    <div style="width:40%"><span id="lan_modularName_query" style="width:150px;">&emsp;</span><input id="hardwareModularName" type="text" value="" style="border:1px solid #d4c59a;width:150px;"/></div>
+    <div style="width:60%;margin-top: 10px;margin-bottom: 10px;"><span id="lan_updateTime_query" style="width:100px;">&emsp;</span><input class="test-item" id="startTime" name="" type="text" value="" style="border:1px solid #d4c59a;width:150px;"/>-<input class="test-item" id="endTime" name="" type="text" value="" style="border:1px solid #d4c59a;width:150px;"/></div>
+    <div class="cash-query" style="margin-top: 15px;" id="lan_query" onclick="query()">&emsp;</div>
+  </div>
+  <div class="tableDiv">
+      <div class="title">
+		  <table class="table" border ="1">
+	  	  <thead>
+		  <tr style="height:40px;">
+			  <th id="lan_serialNo" style="width:50px;">&emsp;</th>
+			  <th id="lan_modularName">&emsp;</th>
+			  <th id="lan_runStatus" style="width:100px;">&emsp;</th>
+			  <th id="lan_updateTime" style="width:200px;">&emsp;</th>
+<!--			  <th id="lan_operation" style="width:300px;">&emsp;</th>-->
+		  </tr>
+		  </thead>
+		  </table>
+	  </div>
+	   <div class="content">
+		  <table style="width:100%;border-collapse:collapse;overflow-y:visible;table-layout:fixed;">
+		  	  <tbody class="content-list" id="idData">
+
+			  </tbody>
+		  </table>
+	  </div>
+    <div class="page" style="height: 10%;">
+      <div id="barcon" name="barcon" style="margin-left:80px;float:left;width: 80%;">
+        <div id="page" class="page_div"></div>
+      </div>
+      <div class="to_back_btn" onclick="goIndex();"></div>
+    </div>
+  </div>
+
+  </div>
+
+</div>
+
+</body>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/back/laydate.js"></script><!-- 日期 -->
+<script type="text/javascript" src="./../../js/hardware/runStatus.js"></script>
+<script type="text/javascript" src="../../js/back/pages.js"></script><!-- 分页 -->
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript">
+
+//初始化语言label
+function initLanguage() {
+  // id名必须和language key 相同
+  var LanguageObjs = ["lan_pageSize_10","lan_pageSize_50","lan_pageSize_100","lan_total","lan_strip","lan_page","lan_go","lan_confirm","lan_runStatusList","lan_runStatus_query","lan_normal","lan_abnormal","lan_other","lan_modularName_query","lan_updateTime_query","lan_query","lan_serialNo","lan_modularName","lan_runStatus","lan_updateTime","lan_operation"];
+  LanguageManager.getLanguageLabel(LanguageObjs);
+}
+
+window.onload= function(){
+  initLanguage();
+  renderPage();
+  queryRunStatusMange("","","","");
+}
+
+</script>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Wallet</title>
+  <style>
+    @import "../../css/styles.css";
+  </style>
+</head>
+<body class="all-bg" id="waiting_background">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="log-buy-info">
+  <div class="buy-left">
+    <label>1</label> BIC
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+<div id="waiting_context">
+  <div class="top-little-title">
+    <div>BITCOIN</div>
+  </div>
+  <div class="middle-little-title thin" id="lan_choose_wallet">
+    &emsp;
+  </div>
+  <div class="walletList" id="walletList" style="min-height: 200px">
+  </div>
+  <div class="putMoney-btn-success" onclick="done();" id="lan_iAmDone">
+    &emsp;
+  </div>
+</div>
+<div class="to_home_div hidden" id="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+<div class="setting_back hidden" id="lan_back" onclick="toSetting()"></div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+
+<script type="text/javascript">
+  var isOnline = window.location.href.split("online=")[1];
+
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_choose_wallet", "lan_iAmDone", "lan_back"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  // 初始化钱包列表
+  function initWalletList() {
+    var walletList = merchantWalletList();
+    var htmlText = '';
+    $.each(walletList.wallets, function (index, item) {
+      htmlText += '<div class="wallet" data-id="' + item.id + '">';
+      htmlText += '<div class="walletLabel" style="color: black;">' + item.label + ' </div>';
+      htmlText += ' <div class="walletLabel">' +  numDiv(parseInt(item.balance) ,100000000) + ' BTC</div></div>';
+    });
+    $("#walletList").html(htmlText || 'Wallet list is empty');
+
+    // 选中效果
+    $(".wallet").on("click", function () {
+      $(".wallet").removeClass("walletSelected");
+      $(this).addClass("walletSelected");
+    })
+  }
+
+  function done() {
+    var walletId = $(".walletSelected").attr("data-id");
+    if (!walletId) return;
+    var merchantObjTem = getTemMerchant();
+    merchantObjTem['walletId'] = walletId;
+    localStorage.setItem("merchantTem", JSON.stringify(merchantObjTem));
+    window.location.href = "settingbitgo.html?edit=true&&online=" + isOnline;
+  }
+
+  function toSetting() {
+    // 返回商家设置
+    window.location.href = "settingbitgo.html?edit=true&&online=" + isOnline;
+  }
+
+  window.onload= function() {
+    initLanguage();
+    InterValObj && clearInterval(InterValObj);
+    $("#lan_back").removeClass("hidden");
+    initWalletList();
+  }
+
+
+</script>
+
+</html>

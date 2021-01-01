@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Setting</title>
+  <link rel="stylesheet" href="../../css/question.css" type="text/css">
+  <link rel="stylesheet" href="../../css/back/setting.css" type="text/css">
+  <style>
+    @import "../../css/back/styles.css";
+    .myHide{
+      visibility:hidden
+    }
+  </style>
+</head>
+<body class="back-allBg">
+<div class="setting-content"> <!--start-->
+  <div class="info-titile">
+    <div style="color: #d4c59a;">Settings</div>
+  </div>
+
+  <!--1.在线区域-->
+  <div class="onlineArea hidden" style="width: 80%;margin-left: 10%;">
+    <div class="row">
+      <div class="column">
+        <div class="info-small-titile">
+          <div>Online Login</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input">
+          <div class="label_div" id="lan_webAddress">&emsp;</div>
+          <input class="input_setting online_required_input" id="webAddress" type="text" placeholder="please enter the webAddress example: http://192.168.2.185:8080" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_terminalNo">&emsp;</div>
+          <input class="input_setting  online_required_input" id="terminalNo" type="text" placeholder="please enter the Terminal number" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input">
+          <div class="label_div" id="lan_onlinePassword">&emsp;</div>
+          <input class="input_setting online_required_input" id="password" type="password" placeholder="please enter the online password" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--2.基本信息-->
+  <div class="basicArea hidden" style="width: 80%;margin-left: 10%;">
+
+    <div class="row" style="margin-top: -30px;margin-bottom: 55px;">
+      <div class="column">
+        <div class="info-small-titile" >
+          <!--          <div>Way</div>&nbsp;&nbsp;-->
+          <div style="display: -webkit-box;width: 390px;margin: 0 auto;">
+            <label for="way" class="slot">
+              <span class="slot__label myHide" style="-webkit-text-stroke: 0.05em #fff;color:#fff; " id="lan_one_way">One-Way</span>
+            </label>
+            &nbsp;<input id="way" class="toggle" type="checkbox" role="switch" name="toggle" aria-checked="false" checked>&nbsp;
+            <label for="way" class="slot">
+              <span class="slot__label myHide" style="-webkit-text-stroke: 0.05em #ffebbc;color: #ffebbc;" id="lan_two_way">Two-Way</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <div class="info-small-titile" style="display: -webkit-box;">
+          <img class="icon-img" src="../../img/icon-home/btc.png" style="height: 100px;">
+          <div style="line-height: 90px;">&emsp;Bitcoin</div>&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" class="base_requerd" checked id="btc" style="zoom: 225%;    margin-top: 17px;">
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="info-small-titile" style="display: -webkit-box;">
+          <img class="icon-img" src="../../img/icon-home/eth.png" style="height: 100px;">
+          <div style="line-height: 90px;">&emsp;Ethereum</div>&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" class="base_requerd" checked id="eth" style="zoom: 225%;    margin-top: 17px;">
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="column">
+        <div class="info-small-titile">
+          <div>Basic Business Information</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_merchantName">&emsp;</div>
+          <input class="input_setting base_requerd" id="merchantName" type="text" placeholder="please enter the Merchant name" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input">
+          <div class="label_div" id="lan_hotline">&emsp;</div>
+          <input class="input_setting base_requerd" id="hotLine" type="text" placeholder="please enter the hotline" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input">
+          <div class="label_div" id="lan_email">&emsp;</div>
+          <input class="input_setting base_requerd" id="mail" type="text" placeholder="please enter the E-mail" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+    </div>
+    <div id="kycEnableArea" class="row hidden">
+      <div class="column">
+        <div class="info-small-titile" style="display: -webkit-box;">
+          <div>AML/KYC</div>&nbsp;&nbsp;&nbsp;<input type="checkbox" checked id="kycEnable" style="zoom: 225%;">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input kycArea">
+          <div class="label_div" id="lan_limit_cash">&emsp;</div>
+          <input class="input_setting kyc_required_input" id="limitCash" type="text" placeholder="please enter limit amount" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9]/,'');"/><input class="small_input_label currency_input" value="" disabled/>
+          <span class="help-tip"><p>Anonymous customer cash limit per transaction(if the transaction value is beyond the limit, the customer need to upload the ID card photo)</p></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input kycArea">
+          <div class="label_div" id="lan_kyc_url">&emsp;</div>
+          <input class="input_setting kyc_required_input" style="width: 60%;" id="kycUrl" type="text" placeholder="please enter submitted url" autocapitalize="off" autocorrect="off"/>
+          <span class="help-tip"><p>Identity information request URL</p></span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <!--3.切换虚拟币-->
+  <div class="coinArea hidden" style="width: 80%;margin-left: 10%;">
+    <nav style="height: 120px">
+      <a class="active" id="btcArea" href="#" data-coin="btc">
+        <img class="icon-img" src="../../img/icon-home/btc.png">
+      </a>
+      <a href="#" id="ethArea" data-coin="eth">
+        <img class="icon-img" src="../../img/icon-home/eth.png">
+      </a>
+    </nav>
+
+    <div class="row">
+      <div class="column">
+        <div class="info-small-titile">
+          <div>Base Information</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="column">
+        <!--交易策略-->
+        <div class="setting-input">
+          <div class="label_div" id="lan_exchangeStrategy">&emsp;</div>
+          <select class="input_setting coin_required_input" id="exchangeStrategy" style="width:53%">
+            <option value="0" id="lan_exchangeStrategy_0">0</option>
+            <option value="1" id="lan_exchangeStrategy_1">1</option>
+            <option value="2" id="lan_exchangeStrategy_2">2</option>
+          </select>
+          <span class="help-tip">
+        <p>0.No exchange,Send and receive coins from Hot Wallet<br>
+        1.Hot Wallet pre-stores coins,Send and receive coins from Hot Wallet,After that,trade coins on the exchange and if the purchase is successful,send this coins to the Hot Wallet<br>
+        2.Hot Wallet does not pre-store coins,trade coins directly on the exchange</p>
+      </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="column">
+        <!--币汇率来源-->
+        <div class="setting-input">
+          <div class="label_div" id="lan_rateSource">Rate Source</div>
+          <select class="input_setting coin_required_input" id="rateSource">
+            <option value="1">Coinbase</option>
+          </select>
+          <span class="help-tip">
+        <p>Source of exchange rate used for display</p>
+      </span>
+        </div>
+      </div>
+      <div class="column">
+        <!--价格-->
+        <div class="setting-input">
+          <div class="label_div" id="lan_rate"></div>
+          <input class="input_setting" id="price" type="text" style="width:38%" placeholder="please enter rate" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9.]/,'');"/><input class="small_input_label currency_input" value="" disabled/>
+          <span class="help-tip"><p>Set bitcoin price, don't set it if you want to use current exchange prices</p></span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="column">
+        <!--钱包-->
+        <div class="setting-input ">
+          <div class="label_div" id="lan_channel">&emsp;</div>
+          <select class="input_setting coin_required_input" id="hotWallet">
+            <option value="2">Coinbase</option>
+            <option class="requireDivBtc" value="3">Blockchain</option>
+            <option class="requireDivBtc" value="1">Bitgo</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <!--交易所-->
+        <div class="setting-input ">
+          <div class="label_div" id="lan_hot_wallet">&emsp;</div>
+          <select class="input_setting coin_required_input" id="exchange">
+            <option value="0">No</option>
+            <option value="1">Coinbase Pro</option>
+            <option value="2">Kraken</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!--钱包，交易所key 位置 start-->
+
+    <!--    bitgo-->
+    <div class="bitgoDiv hidden">
+      <div class="row ">
+        <div class="column">
+          <div class="info-small-titile">
+            <div>Wallet Information <span class="small_span">(Bitgo)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input">
+            <div class="label_div" id="lan_walletId_query">&emsp;</div>
+            <input class="input_setting coin_required_input" id="walletId" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter walletId" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="setting-input">
+            <div class="label_div" id="lan_walletPassPhrase">&emsp;</div>
+            <input class="input_setting coin_required_input" id="walletPassphrase" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter wallet password" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input">
+            <div class="label_div" id="lan_accessToken">&emsp;</div>
+            <input class="input_setting coin_required_input" id="accessToken" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter bitgoToken" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--    coinbase-->
+    <div class="coinbaseDiv hidden">
+      <div class="row">
+        <div class="column">
+          <div class="info-small-titile">
+            <div>Wallet Information <span class="small_span">(Coinbase)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input ">
+            <div class="label_div" id="lan_api_key">&emsp;</div>
+            <input class="input_setting coin_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" id="apiKey" placeholder="please enter api key" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="setting-input ">
+            <div class="label_div" id="lan_api_secret">&emsp;</div>
+            <input class="input_setting coin_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" id="apiSecret" placeholder="please enter api secret" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  blockchain-->
+    <div class="blockchainDiv hidden">
+      <div class="row">
+        <div class="column">
+          <div class="info-small-titile">
+            <div>Wallet Information <span class="small_span">(Blockchain)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input ">
+            <div class="label_div" id="lan_blockchain_walletId">&emsp;</div>
+            <input class="input_setting coin_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" id="bcWalletId" type="password" placeholder="please enter blockchain wallet id" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="setting-input ">
+            <div class="label_div" id="lan_blockchain_password">&emsp;</div>
+            <input class="input_setting coin_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" id="bcPassword" type="password" placeholder="please enter blockchain password" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--  coinbasePro-->
+    <div class="proDiv hidden">
+      <div class="row">
+        <div class="column">
+          <div class="info-small-titile">
+            <div>Exchange Information <span class="small_span">(CoinbasePro)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input " id="proKey_div">
+            <div class="label_div" id="lan_pro_key">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="proKey" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro key" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="setting-input " id="proPassphrase_div">
+            <div class="label_div" id="lan_pro_passphrase">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="proPassphrase" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro passphrase" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input " id="proSecret_div">
+            <div class="label_div" id="lan_pro_secret">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="proSecret" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro secret" autocapitalize="off" autocorrect="off"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kraken-->
+    <div class="krakenDiv hidden">
+      <div class="row">
+        <div class="column">
+          <div class="info-small-titile">
+            <div>Exchange Information <span class="small_span">(Kraken)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input " id="krakenProKey_div">
+            <div class="label_div" id="lan_kraken_apiKey">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="krakenApiKey" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter kraken ApiKey"/>
+          </div>
+        </div>
+        <div class="column">
+          <div class="setting-input " id="krakenAddressName_div">
+            <div class="label_div" id="lan_kraken_addressName">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="krakenWithdrawalsAddressName" type="text" placeholder="please enter kraken Withdrawals  AddressName"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="setting-input " id="krakenSecret_div">
+            <div class="label_div" id="lan_kraken_secret">&emsp;</div>
+            <input class=" input_setting coin_required_input" id="krakenSecret" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter kraken Secret"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row hidden exchangeDiv">
+      <div class="column">
+        <!--交易对-->
+        <div class="setting-input">
+          <div class="label_div" id="lan_currency_pair">&emsp;</div>
+          <select class="input_setting coin_required_input" id="currencyPair">
+            <option class="single_btc" value="1">BTC-USD</option>
+            <option class="single_btc" value="2">BTC-EUR</option>
+            <option class="single_btc" value="3">BTC-GBP</option>
+<!--            <option class="single_eth hidden" value="4">ETH-BTC</option>-->
+            <option class="single_eth hidden" value="5">ETH-USD</option>
+            <option class="single_eth hidden" value="6">ETH-EUR</option>
+            <option class="single_eth hidden" value="7">ETH-GBP</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <!--下单类型-->
+        <div class="setting-input">
+          <div class="label_div" id="lan_order_type">&emsp;</div>
+          <select class="input_setting coin_required_input" id="orderType">
+            <option value="1">market</option>
+            <option value="2">limit</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!--钱包，交易所key 位置 end-->
+
+    <div class="row">
+      <div class="column">
+        <div class="info-small-titile">
+          <div>Buy Transaction Information</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_buyBasicFee">&emsp;</div>
+          <input class="input_setting  coin_required_input" id="buySingleFee" placeholder="please enter the basic buy fee" onkeyup="this.value=this.value.replace(/[^\d.]/g,'');"/><input class="small_input_label currency_input" value="" disabled/>
+          <span class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></span>
+        </div>
+      </div>
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_buyTransactionFee"></div>
+          <input class="input_setting  coin_required_input" id="buyTransactionFee" placeholder="please enter the buy transaction Fee" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"/><input class="small_input_label" style="width:18%" value="%" disabled/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <!--最小交易金额-->
+        <div class="setting-input ">
+          <div class="label_div" id="lan_min_need_cash">&emsp;</div>
+          <input class="input_setting coin_required_input" id="minNeedCash" type="text" placeholder="please enter minimum transaction amount" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9.]/,'');"/><input class="small_input_label currency_input" value="" disabled/>
+          <span class="help-tip"><p>Minimum cash amount per transaction(total banknote inserted by customer must be equal or higher than this value)</p></span>
+        </div>
+      </div>
+    </div>
+    <div class="row requireDivWay">
+      <div class="column">
+        <div class="info-small-titile">
+          <div>Sell Transaction Information</div>
+        </div>
+      </div>
+    </div>
+    <div class="row requireDivWay">
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_sellBasicFee">&emsp;</div>
+          <input class="input_setting  coin_required_input" id="sellSingleFee" placeholder="please enter the basic sell Fee" onkeyup="this.value=this.value.replace(/[^\d.]/g,'');"/><input class="small_input_label currency_input" value="" disabled/>
+          <span class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></span>
+        </div>
+      </div>
+      <div class="column">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_sellTransFee"></div>
+          <input class="input_setting  coin_required_input" id="sellTransactionFee" placeholder="please enter the sell transaction Fee" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"/><input class="small_input_label" value="%" style="width:18%" disabled/>
+        </div>
+      </div>
+    </div>
+    <div class="row requireDivWay">
+      <div class="column requireDivBtc">
+        <!--确认方式-->
+        <div class="setting-input ">
+          <div class="label_div" id="lan_sell_type">&emsp;</div>
+          <select class="input_setting coin_required_input" style="width: 53%;" id="confirmations">
+            <option value="6">6-conf</option>
+            <option value="5">5-conf</option>
+            <option value="4">4-conf</option>
+            <option value="3">3-conf</option>
+            <option value="2">2-conf</option>
+            <option value="1">1-conf</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!--end-->
+
+
+<div class="bottom-btn">
+  <!--登录-->
+  <div class="to_next_btn hidden onlineArea" onclick="settingObj.login();" id="loginButtom"></div>
+  <!--返回选择页面-->
+  <div class="to_back_btn hidden onlineArea basicArea" onclick="settingObj.goChoose();" id="lan_return" style="left: 25px;"></div>
+
+  <div class="to_back_btn  basicArea hidden" onclick='settingObj.willback()' id="goLogin" style="left: 25px;"></div>
+  <div class="to_back_btn hidden coinArea" onclick="settingObj.basicShow();" id="goFirst" style="left: 25px;"></div>
+  <div class="to_next_btn hidden basicArea" onclick="settingObj.coinShow();" id="nextButtom"></div>
+  <div class="to_save_btn hidden coinArea" onclick="settingObj.save();" id="lan_save" style="left: unset;right: 25px;"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/back/setting.js"></script>
+
+
+</html>

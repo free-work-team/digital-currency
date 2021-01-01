@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Choose Amount</title>
+  <style>
+    @import "../../css/styles.css";
+  </style>
+</head>
+<body class="all-bg">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="log-buy-info">
+  <div class="buy-left">
+    <label>1</label><span class="btcUnit"></span>
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+<div class="thin-title">
+  <div id="lan_chooseAmount">Choose amount</div>
+  <div class="little-title"><label id="lan_howMuch"></label>
+  </div>
+</div>
+<div class="sell-div">
+  <div class="sell-left">
+    <div class="little-title "><label id="lan_transactionFee"></label><label class="merchant_sellTransactionFee"></label></div>
+    <div class="choose" id="lan_chooseAmount2"></div>
+    <div class="sell"><label id="usdCount">0.00</label>&nbsp;<label class="currency"></label></div>
+    <div class="choose " id="lan_whichFee"></div>
+    <div class="sell"><label id="bitCountFee">0.00</label>&nbsp;<label class="currency"></label></div>
+    <div class="choose " id="lan_whichEqual"></div>
+    <div class="sell"><label id="bitCount">0.00000000</label>&nbsp;<label class="btcUnit"></label></div>
+  </div>
+  <div class="sell-right">
+    <div class="little-title" id="balanceTable">&nbsp;</div>
+
+<!--     <div>-->
+<!--       <div class="sell-green" onclick="updateCount(' + item.realvalue + ')"><strong style="margin: 0 auto;font-size: 55px;line-height: 38px;">+ </strong><div style="margin: 0 auto;line-height: 48px">15 usd</div></div>-->
+<!--       </div><div><div class="sell-red" onclick="updateCount(' + (item.realvalue * -1) + ')"><strong style="margin: 0 auto;font-size: 78px;line-height: 28px;">- </strong><div style="margin: 0 auto;line-height: 48px">15 usd</div></div>-->
+<!--     </div>-->
+
+    <!--    <div>-->
+    <!--      <div class="sell-green" onclick="updateCount(5)">+5 <span class="currency"></span></div>-->
+    <!--      <div class="sell-red" onclick="updateCount(-5)">-5 <span class="currency"></span></div>-->
+    <!--    </div>-->
+    <!--    <div>-->
+    <!--      <div class="sell-green" onclick="updateCount(10)">+10 <span class="currency"></span></div>-->
+    <!--      <div class="sell-red" onclick="updateCount(-10)">-10 <span class="currency"></span></div>-->
+    <!--    </div>-->
+    <!--    <div>-->
+    <!--      <div class="sell-green" onclick="updateCount(50)">+50 <span class="currency"></span></div>-->
+    <!--      <div class="sell-red" onclick="updateCount(-50)">-50 <span class="currency"></span></div>-->
+    <!--    </div>-->
+    <!--    <div>-->
+    <!--      <div class="sell-green" onclick="updateCount(100)">+100 <span class="currency"></span></div>-->
+    <!--      <div class="sell-red" onclick="updateCount(-100)">-100 <span class="currency"></span></div>-->
+    <!--    </div>-->
+  </div>
+</div>
+<div style="width: 100%">
+  <div class="log-buy-icon" onclick="sell();">
+    <div class="button-font-div" id="lan_sellNow">&emsp;</div>
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+
+<script type="text/javascript">
+  var remainCount;
+  var currentCoin = getCoin();
+  var merchantObj = getMerchant();
+  var sellTransactionFee = merchantObj.cryptoSettings[currentCoin].sellTransactionFee;
+  var sellSingleFee = merchantObj.cryptoSettings[currentCoin].sellSingleFee;
+  var usdCount     = 0,
+      countAfter   = 0,
+      currentPrice = localStorage.getItem("balance"),
+      exchangeRate = localStorage.getItem("exchangeRate"),// 交易所汇率
+      bitFee       = 0,
+      feeCoin      = 0.00,// 法币手续费
+      haveSent     = false;// 已经发邮件提醒
+
+
+  //是否限制交易
+  var noLimit = (window.location.href.split("examine=")[1].split("&&")[0]) == 1;
+  // 根据钱包余额计算的最大交易金额
+  var maxTrade= parseInt(window.location.href.split("maxTrade=")[1]);
+
+  var limitCash = merchantObj.limitCash;
+
+
+  function sell() {
+    if (usdCount) {
+      showWait();
+      var checkReuslt = countDataAgain();
+      if (checkReuslt === countAfter) {
+        setTimeout(function () {
+          toFinish();
+        }, 500);
+      } else {
+        hideWait();
+        showWarn("Please try again");
+      }
+    }
+  }
+
+  //初始化打印机回调
+  function toFinish() {
+    sellCoin(countAfter,bitFee,currentPrice,usdCount,exchangeRate);
+  }
+
+  // 点击更新usd数量
+  function updateCount(count) {
+    var usdCountWill = (usdCount + count >= 0) ? (usdCount + count) : 0;
+    if (!noLimit && usdCountWill > limitCash) {
+      showWarn("The maximum transaction amount is " + formatPrice(limitCash) + getCurrency());
+      return;
+    }
+    if (remainCount < usdCountWill) {
+      showWarn("There is just " + formatPrice(remainCount) + getCurrency() + " in the cashBox!");
+      return;
+    }
+    // 钱包策略0,1 时，判断余额是否够用
+    if (merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 1 &&  numAdd(usdCountWill,feeCoin) > maxTrade) {
+      showWarn("The maximum amount of merchant wallet balance support is " + formatPrice(numSub(maxTrade,parseInt(feeCoin)))+ getCurrency());
+      if (!haveSent){
+        window.front.sendInsufficientBalanceEmail(usdCountWill,maxTrade);
+        // 发邮件通知
+        haveSent = true;
+      }
+      return;
+    }
+    usdCount = (usdCount + count >= 0) ? (usdCount + count) : 0;
+    if (usdCount > 0) {
+      countData();
+    }else {
+      $("#usdCount").text(formatPrice());
+      $("#bitCount").text("0.00000000");
+      $("#bitCountFee").text(formatPrice());
+      countAfter   = 0;
+      bitFee       = 0;
+    }
+  }
+
+  // 渲染数据
+  function countData() {
+    var bitCount = parseInt(numMulti(myUsdToBit(usdCount), 100000000).toFixed(0));
+    bitFee = parseInt(numDiv(numMulti(sellTransactionFee, bitCount), 100).toFixed(0));
+    var minFee = parseInt(numMulti(myUsdToBit(sellSingleFee), 100000000).toFixed(0));
+    currentPrice = localStorage.getItem("balance");
+    exchangeRate = localStorage.getItem("exchangeRate");
+    bitFee = minFee + bitFee;//保底计算
+    // 美金对应的bit数量+手续bit数量
+    countAfter = bitCount + bitFee;
+    $("#bitCount").text(numDiv(countAfter, 100000000));
+    feeCoin = numAdd(numDiv(numMulti(sellTransactionFee, usdCount), 100),sellSingleFee).toFixed(2);
+    $("#bitCountFee").text(formatPrice(feeCoin));
+    $("#usdCount").text(formatPrice(usdCount));
+  }
+
+
+  // 渲染数据
+  function countDataAgain() {
+    var bitCountAgain = parseInt(numMulti(myUsdToBit(usdCount), 100000000).toFixed(0));
+    var bitFeeAgain = parseInt(numDiv(numMulti(sellTransactionFee, bitCountAgain), 100).toFixed(0));
+    var minFeeAgain = parseInt(numMulti(myUsdToBit(sellSingleFee), 100000000).toFixed(0));
+    var bitFeeAgainAfter = minFeeAgain + bitFeeAgain;//保底计算
+    // 美金对应的bit数量+手续bit数量
+    return bitCountAgain + bitFeeAgainAfter;
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_chooseAmount", "lan_chooseAmount2", "lan_howMuch", "lan_whichFee", "lan_whichEqual", "lan_transactionFee", "lan_sellNow"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  // 渲染面额区域
+  function renderBalance(result) {
+    var balanceObj = JSON.parse(result);
+    var balanceHtml = '';
+    $.each(balanceObj, function (index, item) {
+      if (item.route === "PayoutStore") {
+        balanceHtml += '    <div>\n' +
+          '      <div class="sell-green" onclick="updateCount(' + item.realvalue + ')"><strong style="margin: 0 auto;font-size: 55px;line-height: 50px;">+ </strong><div style="margin: 0 auto;line-height: 50px">' + item.realvalue  +' '+ item.country + ' </div></div>\n' +
+          '      </div><div><div class="sell-red" onclick="updateCount(' + (item.realvalue * -1) + ')"><strong style="margin: 0 auto;font-size: 78px;line-height: 41px;">- </strong><div style="margin: 0 auto;line-height: 50px">' + item.realvalue +' '+ item.country + ' </div></div>\n' +
+          '    </div>';
+      }
+    });
+    $('#balanceTable').after(balanceHtml);
+  }
+
+  window.onload= function() {
+    initLanguage();
+    remainCount = window.billAcceptor.getEscrowLast();
+
+    //渲染面额
+    var balancePrice = window.billAcceptor.getCurrencyList();//面额列表
+    renderBalance(balancePrice);
+    $('.merchant_sellTransactionFee').text(sellTransactionFee+" % +" +formatPrice(sellSingleFee)+ getCurrency());
+  }
+
+
+</script>
+
+</html>

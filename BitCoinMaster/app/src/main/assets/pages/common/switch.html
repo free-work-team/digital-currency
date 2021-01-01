@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Switch</title>
+  <style>
+    @import "../../css/styles.css";
+
+    .btn_disabled {
+      color: #8c8c8c;
+    }
+  </style>
+</head>
+<body class="all-bg">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="log-buy-info">
+  <div class="buy-left">
+    <label>1</label><span class="btcUnit"></span>
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+
+<div class="info-content-big">
+  <div id="currentCoin">&ensp;</div>
+</div>
+<div class="switchArea" id="loadingArea">
+  <div class="log-buy-icon" id="buyCoin" onclick="tobuyCoin();">
+    <div class="button-font-div" id="lan_buyCoins">&emsp;</div>
+  </div>
+
+  <div class="log-buy-icon" id="sellCoin" onclick="tosellCoin();">
+    <div class="button-font-div" id="lan_withdrawCash">&emsp;</div>
+  </div>
+
+  <div id="redeem" class="log-buy-icon" onclick="redeem();">
+    <div class="button-font-div" id="lan_redeem">&emsp;</div>
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+
+<script type="text/javascript">
+  var merchantObj = getMerchant();
+
+  var kycEnable = window.front.getKycEnable();// 是否需要kyc
+
+  var buyFlag  = '1',
+      sellFlag = '2';
+
+  /**
+   * 去买币
+   */
+  function tobuyCoin() {
+    showWait();
+    setTimeout(function () {
+      // 策略0,1的买币
+      var currentCoin = getCoin();
+      if (merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 1 || merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 0) {
+        merchantBalanceByWalletId(function (balance) {
+          if (balance < 0) {
+            ErrorPage.toError("Connection failed, please try again later!");
+            return;
+          }
+          localStorage.setItem("walletBalance", balance);
+          kycToBuy();
+        }, buyFlag);
+      } else {
+        localStorage.setItem("walletBalance", 10000);
+        kycToBuy();
+      }
+    }, 1000);
+
+  }
+
+  function kycToBuy() {
+    if (checkCanTransfer()) {
+      //发送邮件提醒商户
+      if (merchantObj.email) {
+        window.front.sendEmail(merchantObj.email, "Insufficient Balance", "No." + merchantObj.terminalNo + " device bitcoin balance insufficient.Please deal with it in time");
+      }
+      ErrorPage.toError("Sorry, Balance is insufficient, please try again later!");
+      return;
+    }
+    if (kycEnable) {
+      localStorage.setItem("operationType", buyFlag);
+      window.location.href = "../common/chooseCashLimit.html";
+    } else {
+      window.location.href = "../buy/scanllerAddress.html?examine=1";
+    }
+  }
+
+  /**
+   * 去卖币
+   */
+  function tosellCoin() {
+    showWait();
+    setTimeout(function () {
+      // 策略1的卖币
+      var currentCoin = getCoin();
+      if (merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 1) {
+        merchantBalanceByWalletId(function (balance) {
+          if (balance < 0) {
+            ErrorPage.toError("Connection failed, please try again later!");
+            return;
+          }
+          localStorage.setItem("walletBalance", balance);
+          kycToSell();
+        }, sellFlag);
+      } else {
+        localStorage.setItem("walletBalance", 10000);
+        kycToSell();
+      }
+    }, 1000);
+  }
+
+  function kycToSell() {
+    if (kycEnable) {
+      localStorage.setItem("operationType", sellFlag);
+      window.location.href = "../common/chooseCashLimit.html";
+    } else {
+      setTimeout(function () {
+        // 打印机初始化
+        window.print.getStatus();
+      }, 1000);
+    }
+  }
+
+  //初始化打印机回调
+  function printCallBack(data) {
+    // console.log("初始化打印机回调 =========== " + JSON.stringify(data));
+    if (data.status) {
+      // 获取最新汇率和最大交易额
+      refreshPrice(function (newPrice) {
+        if (newPrice) {
+          var currentPrice = localStorage.getItem("balance");
+          var walletBalance = localStorage.getItem("walletBalance");
+          var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
+          console.log("钱包余额允许的最大交易金额为" + maxTrade);
+          window.location.href = "../sell/chooseAmount.html?examine=1&&maxTrade=" + maxTrade;
+        } else {
+          ErrorPage.toError("The price request failed, Please try again later!");
+        }
+      });
+    } else {
+      ErrorPage.toError(data.message);
+    }
+  }
+
+
+  /**
+   * 去取款
+   */
+  function redeem() {
+    window.location.href = "../cash/scanller.html";
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_buyCoins", "lan_withdrawCash", "lan_redeem"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  // 校验余额与最小交易数量
+  function checkCanTransfer() {
+    var currentPrice = localStorage.getItem("balance");
+    var walletBalance = localStorage.getItem("walletBalance");
+    var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
+    var minNeed = parseInt(merchantObj.minNeedCash) || 0;
+    return minNeed > maxTrade;
+  }
+
+  /**
+   * 初始化
+   */
+  window.onload = function () {
+    initLanguage();
+    localStorage.setItem("customerId", "");
+    localStorage.setItem("walletBalance", "");
+    if (getCoin() == 'btc') {
+      $('#currentCoin').text('BITCOIN');
+    }
+    if (getCoin() == 'eth') {
+      $('#currentCoin').text('ETHEREUM');
+    }
+  };
+
+</script>
+</body>
+
+</html>

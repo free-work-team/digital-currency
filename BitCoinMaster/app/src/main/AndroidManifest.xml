@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jyt.bitcoinmaster">
+
+    <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+
+
+
+    <application
+        android:name=".activity.MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity" android:alwaysRetainTaskState="true" android:configChanges="orientation|keyboardHidden|screenSize|touchscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+               <!-- <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/print_device_filter" />
+        </activity>
+<!--        <activity android:name=".activity.ConfigActivity" />-->
+
+        <receiver android:name=".receiver.ContentReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".alarm.AlarmBroadcastReceiver">
+            <intent-filter >
+                <action android:name="action_alarm"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+
+</manifest>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Scaner</title>
+  <style>
+    @import "../../css/styles.css";
+  </style>
+</head>
+<body class="all-bg" id="waiting_background">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="log-buy-info">
+  <div class="buy-left">
+    <label>1</label><span class="btcUnit"></span>
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+<div id="waiting_context">
+  <div class="info-content-middle">
+    <div id="lan_walletAddressScan">&emsp;</div>
+  </div>
+  <div class="middle-little-title short-distance" id="lan_scanWallet">
+    &emsp;
+  </div>
+  <div class="contents">
+<!--    <div id="lan_scanContent1">&emsp;</div>-->
+<!--    <div id="lan_scanContent2">&emsp;</div>-->
+    <div id="lan_scanContent3">&emsp;</div>
+    <div id="lan_scanContent4">&emsp;</div>
+  </div>
+  <div class="scan-btn" style="    background-image: url(../../img/icon-home/6.over0.png);">
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/transaction/scanllerCommon.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+
+<script type="text/javascript">
+  var addressFormat = ['bitcoin:','ethereum:'];
+  var examine = window.location.href.split("examine=")[1];
+
+
+  // 扫描回调
+  function scanllerResult(data) {
+    // console.log("-------------------scanllerResult-----------------------");
+    if (data) {
+      data = formatAddress(data);
+      var patt1;
+      if (getCoin() == 'btc'){
+        patt1 = new RegExp("^(1|2|3|bc1)");
+      }
+      if (getCoin() == 'eth'){
+        patt1 = new RegExp("^(0x)");
+      }
+      if (!patt1.test(data)) {
+        showError("Please show a valid "+getCoin()+" address!");
+        window.scanner.autoScan();
+        return;
+      }
+      waiting(function () {
+        window.scanner.stopScan();
+        localStorage.setItem("userWalletAddress", data);
+        refreshPrice(function (newPrice) {
+          if (newPrice) {
+              var currentPrice = localStorage.getItem("balance");
+              var walletBalance = localStorage.getItem("walletBalance");
+              var maxTrade =parseInt(numMulti(walletBalance, currentPrice)) ;
+            console.log("钱包余额允许的最大交易金额为" + maxTrade);
+              window.location.href = "putMoney.html?examine=" + examine + "&&maxTrade=" + maxTrade;
+          } else {
+            ErrorPage.toError("The price request failed, Please try again later!");
+          }
+        });
+      });
+    } else {
+      showError("Please show a valid bitcoin address!");
+      window.scanner.autoScan();
+    }
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_walletAddressScan", "lan_scanWallet", "lan_scanContent3", "lan_scanContent4"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function cameraCallBack(){
+  }
+  // 过滤地址内容
+  function formatAddress(data) {
+    $.each(addressFormat, function (index, item) {
+      if (data.indexOf(item) >= 0) {
+        data = data.replace(item, "");
+      }
+    });
+
+    //过滤?amount=
+    if (data.indexOf('?') >= 0) {
+      var RegExpTest = /\?/;
+      RegExpTest.test(data);
+      data = RegExp.leftContext;
+    }
+    return data;
+  }
+
+  window.onload= function() {
+    initLanguage();
+    window.scanner.autoScan();
+    //开启摄像头
+    window.camera.startMonitor(1);
+  }
+
+</script>
+</html>

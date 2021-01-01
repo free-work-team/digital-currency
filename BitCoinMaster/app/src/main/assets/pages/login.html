@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Login</title>
+  <style>
+    @import "../css/back/styles.css";
+  </style>
+  <style>
+    /*!*Andriod 上去掉语音输入按钮:*!*/
+    /*input::-webkit-input-speech-button {*/
+    /*  display: none*/
+    /*}*/
+
+  </style>
+</head>
+<body class="back-allBg">
+<!-- <div class="header">
+  <div class="header-contact">
+    <div>intersalse@jypay.com</div>
+    <div>www.self-servicepaymentkiosk.com</div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div> -->
+<div class="info-content">
+  <div class="info-titile info-titile_300" style="color: #f9e9bd;">
+    <div id="lan_backManagerSystem">&emsp;</div>
+  </div>
+  <div class="login-input-setting">
+    <div class="login_label" id="lan_account">&emsp;</div>
+    <input  class="login_input_setting" value="" id="account" type="text" placeholder="please enter your account"  autocapitalize="off" autocorrect="off" />
+  </div>
+  <div class="login-input-setting">
+    <div class="login_label" id="lan_password">&emsp;</div>
+    <input class="login_input_setting" value="" id="password" type="password" placeholder="please enter your password" autocapitalize="off" autocorrect="off" />
+  </div>
+<!--  <div class="login-input-setting">-->
+<!--    <div class="login_label" id="lan_verificationCode">&emsp;</div>-->
+<!--    <input class="login_input_setting_code" id="verificationCode" type="text"   placeholder="please enter the Verification Code"  autocapitalize="off" autocorrect="off"/>-->
+<!--	<input type="text" onclick="createCode()" readonly="readonly" id="checkCode" class="unchanged" style="width:15%;height:40px;font-size:25px;BACKGROUND-COLOR: transparent;" />-->
+<!--  </div>-->
+<!--  <div style="color:red" id="msg">-->
+  </div>
+  <div class="bottom-btn">
+  	  <div class="login-yellow" style="float: right" onclick="login()" id="lan_login">&emsp;</div>
+  	  <div class="login-black" style="float: left" onclick="reset()" id="lan_reset">&emsp;</div>
+  </div>
+  <div class="info-btn" id="inputBtn">
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+</div>
+</body>
+<script type="text/javascript" src="../js/common/language.js"></script>
+<script type="text/javascript" src="../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../js/back/back-common.js"></script>
+<script type="text/javascript" src="../js/back/login.js"></script>
+<script type="text/javascript" src="../js/common/toast.script.js"></script>
+<style type="text/css">
+.code {
+	background-color: #d9d1bd;
+	font-family: Arial;
+	font-style: italic;
+	color: #303a53;
+	border: 0;
+	padding: 2px 3px;
+	letter-spacing: 3px;
+	font-weight: bolder;
+}
+
+/* .unchanged {
+	border: 0;
+} */
+</style>
+<script language="javascript" type="text/javascript">
+
+// 初始化语言label
+function initLanguage() {
+  // id名必须和language key 相同
+  var LanguageObjs = ["lan_backManagerSystem","lan_account","lan_password","lan_login", "lan_reset"];
+  LanguageManager.getLanguageLabel(LanguageObjs);
+}
+
+window.onload= function(){
+  // createCode();
+  initLanguage();
+}
+
+
+</script>
+</html>

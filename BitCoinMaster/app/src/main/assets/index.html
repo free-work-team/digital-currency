@@ -1,0 +1,175 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html">
+</head>
+
+<body>
+这是html页面 <br/>
+<button onclick="connect()">连接设备</button>
+<br/>
+<button onclick="startScanner()">开始扫码</button>
+<br/>
+<button onclick="endScanner()">结束扫码</button>
+<br/>
+<button onclick="autoScanner()">自动扫码</button>
+<br/>
+<button onclick="init()">初始化</button>
+<br/>
+<button onclick="clearMachine()">清机</button>
+<br/>
+
+<button onclick="addCash()">加钞</button>
+<br/>
+<button onclick="cashOut()">出钞</button>
+<br/>
+<button onclick="sendOut()">送钞</button>
+<br/>
+<button onclick="recoverCash()">回收钞票</button>
+<br/>
+<button onclick="initPrint()">初始化打印机</button>
+<br/>
+<button onclick="printText()">打印文本</button>
+<br/>
+<button onclick="printQrCode()">打印二维码</button>
+<br/>
+<button onclick="connbill()">连接纸币接收器</button>
+<br/>
+<button onclick="closebill()">关闭纸币接收器</button>
+<br/>
+<button onclick="enable()">开启接收模式</button>
+<br/>
+<button onclick="auto()">自动接收</button>
+<br/>
+<button onclick="Escrow()">手动接收</button>
+<br/>
+<button onclick="accept()">入钞</button>
+<br/>
+<button onclick="reject()">拒收</button>
+<button onclick="pay()">支付</button>
+<br/>
+
+<p id="p"></p>
+
+<script type="text/javascript">
+
+
+  function connect() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.scanner.connectDevices();
+  }
+  function startScanner() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.scanner.startScan();
+  }
+  function endScanner() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.scanner.stopScan();
+  }
+  function autoScanner() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.scanner.autoScan();
+
+  }
+  function init() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.init();
+
+  }
+   function clearMachine() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.clearMachine();
+
+  }
+  function addCash() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.addCash(35);
+
+  }
+  function cashOut() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.prepareNote(100);
+
+  }
+  function sendOut() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.sendNote(100);
+
+  }
+  function recoverCash() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.cdm.recoverCash();
+
+  }
+  function initPrint() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.print.init();
+
+  }
+  function printText() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.print.printText("安徽共和国还打啥时代光华来看");
+
+  }
+  function printQrCode() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.print.printQRCode();
+
+  }
+  function connbill() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.connDevices();
+
+  }
+  function closebill() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.closeDevice();
+
+  }
+  function enable() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.setDeviceEnable(true);
+
+  }
+  function auto() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.setEscrow(false);
+
+  }
+  function Escrow() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.setEscrow(true);
+
+  }
+  function accept() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.setEscrowAction(true);
+
+  }
+  function reject() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.setEscrowAction(false);
+
+  }
+   function pay() {
+    //调用原生的方法，android为约定的别名；back()为原生的方法
+    var result=window.billAcceptor.pay(500);
+
+  }
+  //无参无返回值的方法
+  function show(message){
+    //将返回结果显示在id为p的控件上
+    document.getElementById("p").innerHTML=message+' \n ';
+  }
+  function resultPrepareNoteInfo(data) {
+  console.log("======");
+    var resultObj = JSON.parse(data);
+    console.log("======"+resultObj.isSuccessful);
+    <!--resultObj.isSuccessful && window.cdm.sendNote(100);-->
+  }
+</script>
+</body>
+
+</html>

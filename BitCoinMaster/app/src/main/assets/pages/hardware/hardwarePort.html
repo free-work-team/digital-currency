@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>HardwarePort</title>
+  <link rel="stylesheet" href="../../css/back/mySelect.css" type="text/css">
+  <style>
+    @import "../../css/back/styles.css";
+    @import "../../css/button.css";
+  </style>
+  <style>
+    body {
+      background-color: #fdf6e1;
+    }
+
+
+    .thisItem > div {
+      min-width: 150px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    .hidden {
+      display: none;
+    }
+    .testBtn{
+      /*color: #ec9955;*/
+      /*border-radius: 5px;*/
+      /*height: 40px;*/
+      /*width: 100px;*/
+      /*outline: none;*/
+      /*font-size: 25px;*/
+    }
+
+  </style>
+</head>
+<body>
+
+
+<div class="info-content index-items ibox-title" style="text-align: left;">
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>PrinterComType:</div>
+      <select id="PrinterComType" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>USB</option>
+        <option>SerialPort</option>
+      </select>
+    </div>
+    <div class="index-item thisItem" style="text-align: left">
+      <button class="testBtn button button-3d button-action button-pill" onclick="printTest()">TEST</button>
+    </div>
+  </div>
+  <div class="portItem hidden" style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem ">
+      <div>Printer Dev:</div>
+      <select id="PrinterDev" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>/dev/ttyS0</option>
+        <option>/dev/ttyS1</option>
+        <option>/dev/ttyS2</option>
+        <option>/dev/ttyS3</option>
+        <option>/dev/ttyUSB0</option>
+        <option>/dev/ttyUSB1</option>
+        <option>/dev/ttyUSB2</option>
+        <option>/dev/ttyUSB3</option>
+      </select>
+    </div>
+    <div class="index-item thisItem ">
+      <div>Baudrate:</div>
+      <select id="Baudrate" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>9600</option>
+        <option>19200</option>
+        <option>38400</option>
+        <option>57600</option>
+        <option>115200</option>
+      </select>
+    </div>
+  </div>
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>LED Bussiness:</div>
+      <select id="LEDBussiness" class="dropdown" placeholder="Please choose">
+        <option value="1">FTQ</option>
+        <option value="2">KM</option>
+      </select>
+    </div>
+
+    <div class="index-item thisItem" style="text-align: left">
+      <button class="testBtn button button-3d button-action button-pill" onclick="ledTest()">TEST</button>
+    </div>
+  </div>
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>LED Dev:</div>
+      <select id="LEDDev" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>/dev/ttyS0</option>
+        <option>/dev/ttyS1</option>
+        <option>/dev/ttyS2</option>
+        <option>/dev/ttyS3</option>
+        <option>/dev/ttyUSB0</option>
+        <option>/dev/ttyUSB1</option>
+        <option>/dev/ttyUSB2</option>
+        <option>/dev/ttyUSB3</option>
+      </select>
+    </div>
+    <div class="index-item thisItem">
+      <div>LED Id:</div>
+      <select id="LEDId" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>CashAcceptor Model:</div>
+      <select id="CashAcceptor" class="dropdown" placeholder="Please choose">
+        <option value="ITL">ITL Model</option>
+        <option value="CPI">CPI Model</option>
+      </select>
+    </div>
+
+    <div class="index-item thisItem hidden" id="cpiArea">
+      <div>CPI Model Dev:</div>
+      <select id="CPIDev" class="dropdown "  placeholder="Please choose">
+        <option></option>
+        <option>/dev/ttyS0</option>
+        <option>/dev/ttyS1</option>
+        <option>/dev/ttyS2</option>
+        <option>/dev/ttyS3</option>
+        <option>/dev/ttyUSB0</option>
+        <option>/dev/ttyUSB1</option>
+        <option>/dev/ttyUSB2</option>
+        <option>/dev/ttyUSB3</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="bottom-btn">
+  <div class="to_save_btn" onclick="confirm()">&emsp;</div>
+  <div class="to_back_btn" onclick="goIndex()">&emsp;</div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript">
+
+  function confirm() {
+    if (saveConfig()) {
+      showSuccess("Port has been updated");
+      setTimeout(function () {
+        goIndex();
+      }, 1000)
+    }
+  }
+
+  function saveConfig() {
+    var listConfig = [];
+    $.each($('select'), function (index, item) {
+      var that = $(item);
+      var obj = {
+        'hwKey'  : that.attr("id"),
+        'hwValue': that.val()
+      };
+      listConfig.push(obj);
+    });
+   return  window.back.saveConfig(JSON.stringify(listConfig));
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_return", "lan_submit"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+
+  //测试打印机
+  function printTest() {
+    saveConfig();
+    window.print.init();
+  }
+
+  //测试打印机回调
+  function printCallBack(data) {
+    if (data.status == true) {
+      window.print.printTest();
+    } else {
+      showError("print test fail!")
+    }
+  }
+
+  //测试led
+  function ledTest() {
+    saveConfig();
+    window.led.init();
+  }
+
+  //测试led 回调
+  function ledCallBack(result) {
+    if (result.status) {
+      window.led.openLed();
+    } else {
+      showError("LED test fail!")
+    }
+  }
+
+  window.onload= function() {
+    // initLanguage();
+    var result = window.back.queryConfig();
+    // console.log("配置:\n" + result);
+    $.each(JSON.parse(result), function (index_hw, itemHw) {
+      $.each($('select'), function (index, item) {
+        var that = $(item);
+        if (that.attr("id") === itemHw.hwKey) {
+          that.val(itemHw.hwValue);
+          if ('PrinterComType' === itemHw.hwKey) {
+            if (itemHw.hwValue === 'SerialPort') {
+              $('.portItem').removeClass('hidden');
+            }
+          }else  if ('CashAcceptor' === itemHw.hwKey) {
+            if (itemHw.hwValue === 'CPI') {
+              $('#cpiArea').removeClass('hidden');
+            }
+          }
+        }
+      });
+    });
+
+    $('#PrinterComType').on('change', function () {
+      if ($('#PrinterComType').val() === 'SerialPort') {
+        $('.portItem').removeClass('hidden');
+      } else {
+        $('.portItem').addClass('hidden');
+      }
+    });
+    $('#CashAcceptor').on('change', function () {
+      if ($('#CashAcceptor').val() === 'CPI') {
+        $('#cpiArea').removeClass('hidden');
+      } else {
+        $('#cpiArea').addClass('hidden');
+      }
+    })
+  }
+
+</script>
+</html>

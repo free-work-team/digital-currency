@@ -1,0 +1,191 @@
+.successIcon {
+  width: 100px;
+  height: 100px;
+  background-image: url(img/success.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.errorIcon {
+  width: 100px;
+  height: 100px;
+  background-image: url(img/error.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.warnIcon {
+  width: 100px;
+  height: 100px;
+  background-image: url(img/warn.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.loading_area{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(169, 169, 169, 0.42);
+  position: fixed;
+  left: 0;
+  top: 0;
+  text-align: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.ui-ios-overlay .title {
+  color: #FFF;
+  font-weight: bold;
+  text-align: center;
+  line-height: 60px;
+  display: block;
+  font-size: 30px;
+  position: absolute;
+  bottom: 30px;
+  top: 200px;
+  left: 0;
+  width: 100%;
+}
+
+.ui-ios-overlay img {
+  display: block;
+  margin: 20% auto 0 auto;
+}
+
+.ui-ios-overlay .spinner {
+  left: 50% !important;
+  top: 25% !important;
+}
+
+.ios-overlay-show {
+  -webkit-animation-name: ios-overlay-show;
+  -webkit-animation-duration: 750ms;
+  -moz-animation-name: ios-overlay-show;
+  -moz-animation-duration: 750ms;
+  -ms-animation-name: ios-overlay-show;
+  -ms-animation-duration: 750ms;
+  -o-animation-name: ios-overlay-show;
+  -o-animation-duration: 750ms;
+  animation-name: ios-overlay-show;
+  animation-duration: 750ms;
+}
+
+@-webkit-keyframes ios-overlay-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes ios-overlay-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes ios-overlay-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes ios-overlay-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ios-overlay-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ios-overlay-hide {
+  -webkit-animation-name: ios-overlay-hide;
+  -webkit-animation-duration: 750ms;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-name: ios-overlay-hide;
+  -moz-animation-duration: 750ms;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-name: ios-overlay-hide;
+  -ms-animation-duration: 750ms;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-name: ios-overlay-hide;
+  -o-animation-duration: 750ms;
+  -o-animation-fill-mode: forwards;
+  animation-name: ios-overlay-hide;
+  animation-duration: 750ms;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes ios-overlay-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes ios-overlay-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-ms-keyframes ios-overlay-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes ios-overlay-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ios-overlay-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

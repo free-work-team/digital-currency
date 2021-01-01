@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Finish</title>
+  <style>
+    @import "../../css/styles.css";
+
+
+    img {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="all-bg">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="log-buy-info">
+  <div class="buy-left">
+    <label>1</label><span class="btcUnit"></span>
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+<div class="buying short" style="text-align: center;">
+  <span id="lan_pleaseSend"></span>
+  <span id="sell_cash">0 </span>&nbsp;<span class="currency"></span>
+  <span id="lan_fromAtm"></span>
+</div>
+<div class="little-title">
+  <label id="lan_please_confirm"></label>
+</div>
+<div class="middle-rule">
+  <div class="sell-left ">
+    <span id="lan_youSell"></span>
+    <span id="sell_amount">0 </span>
+  </div>
+</div>
+<div class="hand"></div>
+
+<div class="font30 ">
+  <div class="short-distance font-spacing ">
+    <span id="lan_continue1"></span><br>
+    <span id="lan_continue2"></span>
+  </div>
+</div>
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/finishCommon.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+
+<script type="text/javascript">
+  //单位
+  var btcUnit = '';
+  if (getCoin() == 'btc') {
+    btcUnit = " BTC";
+  }
+  if (getCoin() == 'eth') {
+    btcUnit = " ETH";
+  }
+
+  // 根据钞票数量实时计算
+  function renderFinish(sellInfo) {
+    $("#sell_cash").text(formatPrice(sellInfo.cash));
+    $('#sell_amount').text(sellInfo.amount + btcUnit);
+    // $('#sell_amount2').text(sellInfo.amount + " BTC");
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_pleaseSend", "lan_please_confirm", "lan_fromAtm", "lan_youSell", "lan_walletAddress", "lan_continue1", "lan_continue2"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  window.onload = function () {
+    initLanguage();
+    var scanllerStr = '';
+    var newSellInfo = JSON.parse(localStorage.getItem("sellInfo"));
+    if (getCoin() == 'btc') {
+      scanllerStr = "bitcoin:" + newSellInfo.address + "?amount=" + newSellInfo.amount;
+    }
+    if (getCoin() == 'eth') {
+      scanllerStr = "ethereum:" + newSellInfo.address + "?amount=" + newSellInfo.amount;
+    }
+    var footerStr = getFooterStr(newSellInfo.amount, newSellInfo.address);
+    var resultObj = JSON.parse(localStorage.getItem("sellInfo"));
+    if (resultObj) {
+      renderFinish(resultObj);
+    }
+    window.print.printQRCode(LanguageManager.getLanguageItemLabel("print_title"),scanllerStr, printStr("Sell Coins", newSellInfo), footerStr,LanguageManager.getLanguageItemLabel("print_bottom2"),LanguageManager.getLanguageItemLabel("print_bottom3"));
+    window.led.openLed();
+  };
+
+  // 获取需要打印的内容
+  function printStr(type, resultObj) {
+
+    var printStr =
+          (resultObj.transId ? (LanguageManager.getLanguageItemLabel("print_transaction_id") + resultObj.transId + "\n") : "") +
+          LanguageManager.getLanguageItemLabel("print_merchant_name") + (merchantObj.merchantName) + "\n" +
+          LanguageManager.getLanguageItemLabel("print_terminal_number") + (merchantObj.terminalNo) + "\n" +
+          LanguageManager.getLanguageItemLabel("print_transaction_type") + type + "\n" +
+          LanguageManager.getLanguageItemLabel("print_date") + resultObj.date + "\n" +
+          LanguageManager.getLanguageItemLabel("print_time") + resultObj.time + "\n" +
+          getCrypto() + resultObj.amount + btcUnit + "\n" +
+          LanguageManager.getLanguageItemLabel("print_amount") + formatPrice(resultObj.cash) + getCurrency();
+    return printStr;
+  }
+
+  function getCrypto() {
+    if (getCoin() == 'btc') {
+      return '    Bitcoin : ';
+    }
+    if (getCoin() == 'eth') {
+      return '    Ethereum : ';
+    }
+    return '    Crypto : ';
+  }
+
+  // 组装footer str
+  function getFooterStr(showAmount, showAddress) {
+    return "How to proceed：\n" +
+      "1.Please send exactly " + showAmount + btcUnit + " to\n" +
+      "  " + showAddress + " in 10 mins.\n" +
+      "2.Wait minutes before the payment is confirmed.\n" +
+      "3.On the machine choose REDEEM TICKET.\n" +
+      "4.Scan QR code on this ticket.\n";
+  }
+
+  function stringBetter(str, frontLen, endLen) {
+    var xing = '******';
+    return str.substring(0, frontLen) + xing + str.substring(str.length - endLen);
+  }
+
+</script>
+
+</html>

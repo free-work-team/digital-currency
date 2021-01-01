@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Video</title>
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+  <style>
+
+    .index-item-video {
+      width: 20%;
+      height: auto;
+      text-align: center;
+      display: inline-block;
+      margin-top: 60px;
+    }
+
+    .index-item-video img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .index-video-font {
+      color: #d4c59a;
+      font-size: 25px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body class="back-allBg">
+<div class="info-content">
+  <div class="" id="lan_video" style="width:70%;height:170px;margin:0 auto;line-height:100px;font-size:60px;color:#d4c59a;">&emsp;</div>
+  <div class="videos_area" id="item_area">
+    <!--    <div class="index-item-video">-->
+    <!--      <a href="../user/choose.html">-->
+    <!--        <img src="../../img/icon-home/folder.png">-->
+    <!--        <div class="item-font">20190908</div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+
+  </div>
+</div>
+
+<div class="to_home_div" style="float: right">
+  <div class="to_back_btn" onclick="goIndex();"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript">
+  // 所有文件夹对象
+  var allVideoObj = {};
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_video"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function renderFolder() {
+    var videoList =  window.camera.getSDCardVideo();
+    // videoList = '[{"duration":0,"path":"/storage/emulated/0/Video/0/20190930/video133041.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190912/video133012.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190913/video13312.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190911/video13312.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20191020/video13312.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190930/video133105.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190930/video133105.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190929/video132325.m4v"},{"duration":0,"path":"/storage/emulated/0/Video/0/20190931/41232.m4v"}]';
+    var videoObj = JSON.parse(videoList);
+    if (videoObj) {
+      // 组装，给obj 创建key
+      $.each(videoObj, function (index, item) {
+        var urlArrays = item.path.split('/');
+        var folderName = urlArrays[urlArrays.length - 2];
+        allVideoObj[folderName] = [];
+      });
+      // 给key 里push 文件对象
+      $.each(videoObj, function (index, item) {
+        var urlArrays = item.path.split('/');
+        var folderName = urlArrays[urlArrays.length - 2];
+        var fileName = urlArrays[urlArrays.length - 1];
+        allVideoObj[folderName].push({
+          'path'    : item.path,
+          'fileName': fileName
+        });
+      });
+      var htmlStr = '';
+
+      var allFileFolders = Object.keys(allVideoObj);
+      allFileFolders.sort(function (a, b) {
+        return b > a ? 1 : -1;
+      });
+
+      $.each(allFileFolders, function (index, item) {
+        htmlStr += '<div class="index-item-video" onclick="toDetail(\'' + item + '\')">\n' +
+          '      <a >\n' +
+          '        <img src="../../img/icon-home/folder.png">\n' +
+          '        <div class="index-video-font">' + item + '</div>\n' +
+          '      </a>\n' +
+          '    </div>';
+      });
+
+      $('#item_area').html(htmlStr);
+      localStorage.setItem('videos', JSON.stringify(allVideoObj));
+    }
+  }
+
+  function toDetail(folder) {
+    window.location.href = "videoDetail.html?folder="+folder;
+  }
+
+  window.onload= function() {
+    initLanguage();
+    renderFolder();
+  }
+
+
+</script>
+</html>

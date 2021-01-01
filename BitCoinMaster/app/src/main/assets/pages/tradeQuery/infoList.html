@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>List</title>
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+
+  <style>
+    body {
+      background-color: #fdf6e1;
+    }
+
+    .page {
+      margin: 0 auto;
+      width: 90%;
+      margin-top: 10px;
+    }
+    .tableDiv {
+      border: 1px solid #7B7B7B;
+    }
+    .table {
+      table-layout: fixed;
+      overflow-y: visible;
+      margin: 0 auto;
+      width: 100%;
+      border-collapse: collapse;
+      border-color: #7B7B7B;
+    }
+
+    table tr {
+      font-size: 15px;
+    }
+
+    table td {
+      border: 1px solid #d4c59a;
+      font-size: 15px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    table td a {
+      text-decoration: underline;
+      color: #2196F3;
+    }
+
+    .search_area {
+      height: 34px;
+      margin: 0 auto;
+      margin-top: 10px;
+      text-align: left;
+      display: flex;
+    }
+
+    .search-input {
+      border: 1px solid #d4c59a;
+      height: 30px;
+      border-radius: 5px;
+    }
+
+    .search-input-long {
+      width: 310px;
+      color: #1c2641;
+      outline: none;
+    }
+
+    .search-input-short {
+      width: 150px;
+      color: #1c2641;
+      outline: none;
+    }
+
+    .search-select {
+      width: 100px;
+      border: 1px solid #d4c59a;
+      height: 30px;
+      border-radius: 5px;
+      outline: none;
+      background-color: white;
+      margin-left: -17px;
+    }
+
+    .search-label {
+      width: 160px;
+      color: #1c2641;
+      font-weight: 500;
+    }
+
+    .title {
+      margin: 0 auto;
+    }
+
+    .content {
+      height: 100%;
+      overflow-y: visible;
+      overflow-x: hidden;
+      margin: 0 auto;
+    }
+
+    /*分页样式:*/
+    /* 外面盒子样式---自己定义 */
+    .page_div {
+      margin: 20px 10px 20px 0;
+      color: #1c2641
+    }
+
+    /* 页数按钮样式 */
+    .page_div button {
+      display: inline-block;
+      min-width: 35px;
+      height: 28px;
+      cursor: pointer;
+      color: #666;
+      font-size: 13px;
+      line-height: 28px;
+      background-color: #fff;
+      border: 1px solid #1c2641;
+      text-align: center;
+      margin: 0 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none !important;
+      border-radius: 4px;
+    }
+
+    #firstPage, #lastPage, #nextPage, #prePage {
+      width: 50px;
+      color: #d4c59a;
+      border: 1px solid #d4c59a
+    }
+
+    #nextPage, #prePage {
+      width: 70px
+    }
+
+    .page_div .current {
+      background-color: #1c2641;
+      border-color: #1c2641;
+      color: #FFF;
+    }
+
+    /* 页面数量 */
+    .totalPages {
+      margin: 0 10px
+    }
+
+    .totalPages span, .totalSize span {
+      color: #d4c59a;
+      margin: 0 5px
+    }
+
+    /*button禁用*/
+    .page_div button:disabled {
+      opacity: .5;
+      cursor: no-drop
+    }
+
+    /*tabs*/
+
+    .tabs li {
+      float: left;
+      display: block;
+      width: 50%;
+      text-align: center;
+    }
+
+
+    .tabs input[type="radio"] {
+      position: absolute;
+      top: 0;
+      left: -9999px;
+    }
+
+    .tabs label {
+      height: 60px;
+      line-height: 60px;
+      font-weight: bolder;
+      border: 1px SOlid #9E9E9E;
+      border-bottom: none;
+      display: block;
+      padding: 14px 21px;
+      border-radius: 2px 2px 0 0;
+      font-size: 30px;
+      /* font-weight: normal; */
+      text-transform: uppercase;
+      background: #1c2641;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      /* height: 60px; */
+      /* line-height: 60px; */
+      top: 4px;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .tabs .tab-content {
+      z-index: 2;
+      display: none;
+      overflow: hidden;
+      font-size: 17px;
+      line-height: 25px;
+      position: absolute;
+      left: 0;
+      background: #fdf6e1;
+    }
+
+    .tabs [id^="tab"]:checked + label {
+      top: 0;
+      padding-top: 17px;
+      background: #fdf6e1;
+      color: #1c2641;
+    }
+
+    .tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+      display: block;
+    }
+  </style>
+</head>
+<body class="">
+<div class="setting-content" style=" width: 98%;margin: 0 auto;">
+  <ul class="tabs" role="tablist">
+    <!--tab Item买币记录-->
+    <li>
+      <input type="radio" name="tabs" id="tab1" checked/>
+      <label class="tabClick" for="tab1" role="tab" aria-selected="true" aria-controls="panel1" tabindex="1" id="lan_buyLogList"></label>
+      <div id="tab-content1" class="tab-content" role="tabpanel" aria-labelledby="description" aria-hidden="false">
+        <div class="info-content">
+          <div class="search_area">
+            <a class="search-label" id="lan_transId_buy"></a>
+            <input class="search-input search-input-long" id="transId_buy" type="text" placeholder="Please enter the transId to search"/>
+            <div class="to_search_btn searchBtn" data-index="1"></div>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_address_buy"></a>
+            <input class="search-input search-input-long" id="address_buy" type="text" placeholder="Please enter the address to search"/>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_transactionTime_buy_q"></a>
+            <input class="search-input search-input-short" id="startTime_buy" type="text" readonly/>
+            <a style="width: 10px">-</a>
+            <input class="search-input search-input-short" id="endTime_buy" type="text" readonly/>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_coin_buy_query"></a>&emsp;
+            <select id="coin_buy" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="btc">Bitcoin</option>
+              <option value="eth">Ethereum</option>
+            </select>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_status_buy_query"></a>&emsp;
+            <select id="status_buy" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="0">Init</option>
+              <option value="1">Pending</option>
+              <option value="2">Confirmed</option>
+              <option value="3">Fail</option>
+              <option value="4">Error</option>
+            </select>
+          </div>
+
+          <div class="tableDiv">
+            <div class="title">
+              <table class="table" border="1">
+                <thead>
+                <tr>
+                  <th id="lan_transId_buy_list">&emsp;</th>
+                  <th id="lan_price_buy" style="width: 115px;">&emsp;</th>
+                  <th id="lan_amount" style="width: 100px;">&emsp;</th>
+                  <th id="lan_Bitcoin_buy" style="width: 100px;">&emsp;</th>
+                  <th id="lan_fee_buy" style="width: 100px;">&emsp;</th>
+                  <th id="lan_transactionTime_buy" style="width: 100px;">&emsp;</th>
+                  <th id="lan_buy_status" style="width: 80px;">&emsp;</th>
+                  <th id="lan_operate_buy" style="width: 85px;">&emsp;</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="content">
+              <table style="width:100%;border-collapse:collapse;overflow-y:visible;table-layout:fixed;">
+                <tbody class="content-list" id="table_data_buy">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!--tab Item卖币记录-->
+    <li id="doubleWay" class="hidden">
+      <input type="radio" name="tabs" id="tab2"/>
+      <label class="tabClick" for="tab2" role="tab" aria-selected="false" aria-controls="panel2" tabindex="2" id="lan_withdrawLogList"></label>
+      <div id="tab-content2" class="tab-content" role="tabpanel" aria-labelledby="specification" aria-hidden="true">
+        <div class="info-content">
+          <div class="search_area">
+            <a class="search-label" id="lan_transId_sell"></a>
+            <input class="search-input search-input-long" id="transId_sell" type="text" placeholder="Please enter the transId to search"/>
+            <div class="to_search_btn searchBtn" data-index="2"></div>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_transactionId_sell">&emsp;</a>
+            <input class="search-input search-input-long" id="targetAddress" type="text" placeholder="Please enter the address to search"/>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_transactionTime_sell_q">&emsp;</a>
+            <input class="search-input search-input-short" id="startTime_sell" type="text" readonly/>
+            <a style="width: 10px">-</a>
+            <input class="search-input search-input-short" id="endTime_sell" type="text" readonly/>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_coin_sell_query"></a>&emsp;
+            <select id="coin_sell" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="btc">Bitcoin</option>
+              <option value="eth">Ethereum</option>
+            </select>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_status_sell_query"></a>&emsp;
+            <select id="status_sell" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="0">Init</option>
+              <option value="1">Pending</option>
+              <option value="2">Confirmed</option>
+              <option value="3">Fail</option>
+              <option value="4">Error</option>
+            </select>
+          </div>
+
+          <div class="tableDiv">
+            <div class="title">
+              <table class="table" border="1">
+                <thead>
+                <tr style="">
+                  <th id="lan_transId_sell_list">&emsp;</th>
+                  <th id="lan_price_sell" style="width: 115px;">&emsp;</th>
+                  <th id="lan_cash" style="width: 100px;">&emsp;</th>
+                  <th id="lan_Bitcoin_sell" style="width: 100px;">&emsp;</th>
+                  <th id="lan_fee_sell" style="width: 100px;">&emsp;</th>
+                  <th id="lan_status" style="width: 70px;">&emsp;</th>
+                  <th id="lan_transactionTime_sell" style="width: 100px;">&emsp;</th>
+                  <th id="lan_sell_status" style="width:80px;">&emsp;</th>
+                  <th id="lan_operate_sell" style="width: 85px;">&emsp;</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="content">
+              <table style="width:100%;border-collapse:collapse;overflow-y:visible;table-layout:fixed;">
+                <tbody class="content-list" id="table_data_sell">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--tab Item订单记录-->
+    <li>
+      <input type="radio" name="tabs" id="tab3"/>
+      <label class="tabClick" for="tab3" role="tab" aria-selected="false" aria-controls="panel3" tabindex="3" id="lan_orderList"></label>
+      <div id="tab-content3" class="tab-content" role="tabpanel" aria-labelledby="specification" aria-hidden="true">
+        <div class="info-content">
+          <div class="search_area">
+            <a class="search-label" id="lan_transactionId_order"></a>
+            <input class="search-input search-input-long" id="transId_order" type="text" placeholder="Please enter the transId to search"/>
+            <div class="to_search_btn searchBtn" data-index="3">&emsp;</div>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_createTime_order_q"></a>
+            <input class="search-input search-input-short" id="startTime_order" type="text" readonly/>
+            <a style="width: 10px">-</a>
+            <input class="search-input search-input-short" id="endTime_order" type="text" readonly/>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_order_side_query"></a>&emsp;
+            <select id="side" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="buy">Buy</option>
+              <option value="sell">Sell</option>
+            </select>
+          </div>
+          <div class="search_area">
+            <a class="search-label" id="lan_coin_order_query"></a>&emsp;
+            <select id="coin_order" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="btc">Bitcoin</option>
+              <option value="eth">Ethereum</option>
+            </select>
+          </div>
+
+          <div class="search_area">
+            <a class="search-label" id="lan_status_order_query"></a>&emsp;
+            <select id="status_order" class="search-select">
+              <option value="" selected="selected">All</option>
+              <option value="0">Create</option>
+              <option value="1">Pending</option>
+              <option value="2">Confirmed</option>
+              <option value="3">Fail</option>
+              <option value="4">Cancel</option>
+            </select>
+          </div>
+
+          <div class="tableDiv">
+            <div class="title">
+              <table class="table" border="1">
+                <thead>
+                <tr>
+                  <th id="lan_transactionId2"></th>
+                  <th id="lan_side" style="width: 80px;"></th>
+                  <th id="lan_exchange_type" style="width: 80px;"></th>
+                  <th id="lan_size" style="width: 160px;"></th>
+                  <th id="lan_funds" style="width: 80px;"></th>
+                  <th id="lan_createTime_order" style="width: 120px;">&emsp;</th>
+                  <th id="lan_order_status" style="width: 80px;">&emsp;</th>
+                  <th id="lan_operate_order" style="width: 85px;">&emsp;</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="content">
+              <table style="width:100%;border-collapse:collapse;overflow-y:visible;table-layout:fixed;">
+                <tbody class="content-list" id="table_data_order">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="totalArea">
+    <div id="totalStrArea" style="text-align: left; ">
+    </div>
+<!--    <span style="font-weight: bolder;font-size: 25px">Total(CNY)</span>:&emsp;<strong>Amount</strong>: <strong style="color: red">20</strong> CNY,&emsp;<strong>Fee</strong>: <strong style="color: red">2.2006221318</strong> CNY</span>-->
+  </div>
+  <div class="page" style="height: 10%;">
+    <div id="barcon" name="barcon" style="margin-left:80px;float:left;width: 80%;">
+      <div id="page" class="page_div"></div>
+    </div>
+  </div>
+  <div class="bottom-btn">
+    <div class="to_back_btn">&emsp;</div>
+  </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/datePicker.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="./../../js/tradeQuery/infoList.js"></script>
+<script type="text/javascript" src="../../js/back/pages.js"></script><!-- 分页 -->
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+
+<script>
+  var dateItems = ['#startTime_buy', '#endTime_buy', '#startTime_sell', '#endTime_sell', '#startTime_order', '#endTime_order'];
+
+  function initCalendar(items) {
+    $.each(items, function (index, item) {
+      var calendar = new datePicker();
+      calendar.init({
+        'trigger' : item, /*按钮选择器，用于触发弹出插件*/
+        'type'    : 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+        'minDate' : '1900-1-1',/*最小日期*/
+        'maxDate' : '2100-12-31',/*最大日期*/
+        'onSubmit': function () {/*确认时触发事件*/
+          var theSelectData = calendar.value;
+        },
+        'onClose' : function () {/*取消时触发事件*/
+        }
+      });
+    })
+  }
+
+  initCalendar(dateItems);
+</script>
+</html>

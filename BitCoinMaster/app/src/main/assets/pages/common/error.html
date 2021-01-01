@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Error</title>
+  <style>
+    @import "../../css/styles.css";
+  </style>
+</head>
+<body class="all-bg error_div">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg" onclick="toSetting()" ></div>
+</div>
+
+<div class="buying short">
+  <div id="lan_sorrySome"></div>
+  <div style="font-size: 30px;" id="errorMessage"></div>
+</div>
+
+<div class="to_home_div">
+  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_label"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/error.js"></script>
+<script type="text/javascript">
+
+  // 初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_sorrySome"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  var clickCount = 0;
+  var clickInterval;
+  // 进个人设置
+  function toSetting() {
+    // 3s内点击5次可进入设置页面
+    clickInterval && clearInterval(clickInterval);
+    clickCount++;
+    if (clickCount >= 5) {
+      window.location.href = "../login.html";
+      return;
+    }
+    clickInterval = setInterval(function () {
+      clickCount = 0;
+    }, 3000);
+  }
+
+  window.onload= function() {
+    initLanguage();
+    var errorMessage = decodeURI(window.location.href.split("error=")[1]);
+    // console.log("error:------------------------------------"+decodeURI(errorMessage));
+    $("#errorMessage").text(decodeURI(errorMessage)||"Please contact the administrator above");
+  }
+
+</script>
+</html>

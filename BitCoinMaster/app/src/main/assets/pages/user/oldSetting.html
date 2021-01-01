@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Setting</title>
+  <link rel="stylesheet" href="../../css/question.css" type="text/css">
+  <style>
+    @import "../../css/back/styles.css";
+  </style>
+  <style>
+    /*Andriod 上去掉语音输入按钮:*/
+    /*input::-webkit-input-speech-button {*/
+    /*display: none*/
+    /*}*/
+    .required_input {
+      color: red;
+    }
+    .setting-input {
+      background-image: url(../../img/icon-home/3.phone01.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 50%;
+      height: 40px;
+      margin: auto;
+      margin-top: 10px;
+    }
+    .info-input-setting {
+      background-image: url(../../img/icon-home/3.phone01.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 50%;
+      height: 40px;
+      margin: auto;
+      margin-top: 10px;
+    }
+    .label_div {
+      display: inline-block;
+      width: 26%;
+      text-align: left;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .input_setting {
+      display: inline-block;
+      width: 56%;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      font-size: 12px;
+      height: 20px;
+    }
+
+    .small_input {
+      width: 15%;
+    }
+
+    .small_input_label {
+      width:15%;
+      outline: none;
+      background: none;
+      border: none;
+    }
+
+
+
+
+  </style>
+</head>
+<body class="back-allBg">
+<div class="setting-content">
+  <div class="info-titile">
+    <div style="color: #d4c59a;">Settings</div>
+  </div>
+  <div class="onlineArea hidden">
+    <div class="info-small-titile">
+      <div >Online Login</div>
+    </div>
+    <div class="setting-input ">
+      <div class="label_div" id="lan_webAddress">&emsp;</div>
+      <input class="input_setting online_required_input" id="webAddress" type="text" placeholder="please enter the webAddress example: http://192.168.2.185:8080" autocapitalize="off" autocorrect="off"/>
+    </div>
+    <div class="setting-input ">
+      <div class="label_div" id="lan_terminalNo">&emsp;</div>
+      <input class="input_setting  online_required_input" id="terminalNo" type="text" placeholder="please enter the Terminal number" autocapitalize="off" autocorrect="off"/>
+    </div>
+    <div class="setting-input">
+      <div class="label_div" id="lan_onlinePassword">&emsp;</div>
+      <input class="input_setting online_required_input" id="password" type="password" placeholder="please enter the online password" autocapitalize="off" autocorrect="off"/>
+    </div>
+    <!--    <div style="color:red" id="error"></div>-->
+  </div>
+
+  <div class="first-input hidden">
+    <div class="info-small-titile">
+      <div >Exchange Information</div>
+    </div>
+    <!--交易所策略-->
+    <div class="info-input-setting">
+      <div class="label_div" id="lan_exchangeStrategy">&emsp;</div>
+      <select class="input_setting first_required_input" id="exchangeStrategy" style="width:53%">
+        <option value="0" id="lan_exchangeStrategy_0" >0</option>
+        <option value="1" id="lan_exchangeStrategy_1">1</option>
+        <option value="2" id="lan_exchangeStrategy_2">2</option>
+      </select>
+      <span class="help-tip">
+        <p>0.No exchange,Send and receive coins from Hot Wallet<br>
+        1.Hot Wallet pre-stores coins,Send and receive coins from Hot Wallet,After that,trade coins on the exchange and if the purchase is successful,send this coins to the Hot Wallet<br>
+        2.Hot Wallet does not pre-store coins,trade coins directly on the exchange</p>
+      </span>
+    </div>
+    <div class="info-input-setting ">
+      <div class="label_div" id="lan_hot_wallet">&emsp;</div>
+      <select class="input_setting " id="hotWallet" >
+        <option value="0">No</option>
+        <option value="1" >Coinbase Pro</option>
+        <option value="2" >Kraken</option>
+      </select>
+    </div>
+
+    <div class="hidden" id="exchangeDiv">
+      <!-- pro-->
+      <div class="hidden" id="proDiv">
+        <div class="setting-input " id="proKey_div">
+          <div class="label_div" id="lan_pro_key">&emsp;</div>
+          <input class="pro_input input_setting " id="proKey" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro key" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div class="setting-input " id="proSecret_div">
+          <div class="label_div" id="lan_pro_secret">&emsp;</div>
+          <input class="pro_input input_setting " id="proSecret" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro secret" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div class="setting-input " id="proPassphrase_div">
+          <div class="label_div" id="lan_pro_passphrase">&emsp;</div>
+          <input class="pro_input input_setting " id="proPassphrase" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter pro passphrase" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+
+      <!-- Kraken-->
+      <div class="hidden" id="krakenDiv">
+        <div class="setting-input " id="krakenProKey_div">
+          <div class="label_div" id="lan_kraken_apiKey">&emsp;</div>
+          <input class="kraken_input input_setting " id="krakenApiKey" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter kraken ApiKey" />
+        </div>
+        <div class="setting-input " id="krakenSecret_div">
+          <div class="label_div" id="lan_kraken_secret">&emsp;</div>
+          <input class="kraken_input input_setting " id="krakenSecret" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter kraken Secret" />
+        </div>
+        <div class="setting-input " id="krakenAddressName_div">
+          <div class="label_div" id="lan_kraken_addressName">&emsp;</div>
+          <input class="kraken_input input_setting " id="krakenWithdrawalsAddressName" type="text" placeholder="please enter kraken Withdrawals  AddressName" />
+        </div>
+      </div>
+      <!--交易对-->
+      <div class="info-input-setting exchangeDiv">
+        <div class="label_div" id="lan_currency_pair">&emsp;</div>
+        <select class="input_setting " id="currencyPair">
+          <option value="1">BTC-USD</option>
+          <option value="2">BTC-EUR</option>
+          <option value="3">BTC-JPY</option>
+          <option value="4">BTC-CAD</option>
+          <option value="5">BTC-GBP</option>
+        </select>
+      </div>
+      <!--下单类型-->
+      <div class="info-input-setting exchangeDiv">
+        <div class="label_div" id="lan_order_type">&emsp;</div>
+        <select class="input_setting " id="orderType">
+          <option value="1">market</option>
+          <option value="2">limit</option>
+        </select>
+      </div>
+    </div>
+    <div class="info-small-titile">
+      <div >Wallet Information</div>
+    </div>
+    <!--币种由纸币接收模块决定-->
+    <div class="info-input-setting hidden">
+      <div class="label_div" id="lan_currency">&emsp;</div>
+      <input class="input_setting " id="currency"/>
+    </div>
+
+    <div class="setting-input">
+      <div class="label_div" id="lan_rate"></div>
+      <input class="input_setting"  id="rate" type="text"  style="width:38%"  placeholder="please enter rate" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9.]/,'');" /><input class="small_input_label currency_input" value=""  disabled/>
+      <span class="help-tip"><p>Set bitcoin price, don't set it if you want to use current exchange prices</p></span>
+    </div>
+
+    <div class="setting-input">
+      <div class="label_div" id="lan_rateSource">Rate Source</div>
+      <select class="input_setting first_required_input" id="rateSource" >
+        <option value="1" >Coinbase</option>
+      </select>
+<!--      <span class="help-tip"><p></p></span>-->
+    </div>
+    <!--<div class="setting-input ">
+      <div class="label_div" id="lan_min_need_bitcoin">&emsp;</div>
+      <input class="input_setting first_required_input"  style="width:38%" id="minNeedBitcoin" type="text" placeholder="please enter minimum wallet balance,0.00000000" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9.]/,'');" /><input class="small_input_label"  value="(bitcoin)"  disabled/>
+      <span class="help-tip"><p>When the wallet balance is lower than it, send an email to notify the merchant</p></span>
+    </div>-->
+    <div class="info-input-setting ">
+      <div class="label_div" id="lan_channel">&emsp;</div>
+      <select class="input_setting" id="channel" >
+        <option value="coinbase" >Coinbase</option>
+        <option value="blockchain" >Blockchain</option>
+        <option value="bitgo">Bitgo</option>
+      </select>
+    </div>
+    <div  id="channelDiv">
+      <div class="bitgoDiv hidden">
+        <div class="setting-input">
+          <div class="label_div" id="lan_accessToken">&emsp;</div>
+          <input class="input_setting bitgo_required_input" id="accessToken" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter bitgoToken" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div class="setting-input">
+          <div class="label_div" id="lan_walletId_query">&emsp;</div>
+          <input class="input_setting bitgo_required_input" id="walletId" onfocus="focusInput(this)" onblur="blurInput(this)"  type="password" placeholder="please enter walletId" autocapitalize="off" autocorrect="off" />
+        </div>
+        <div class="info-input-setting">
+          <div class="label_div" id="lan_walletPassPhrase">&emsp;</div>
+          <input class="input_setting bitgo_required_input" id="walletPassphrase" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" placeholder="please enter wallet password" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+
+      <div class="coinbaseDiv hidden">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_api_key">&emsp;</div>
+          <input class="input_setting coinbase_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" id="apiKey"  placeholder="please enter api key" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div class="setting-input ">
+          <div class="label_div" id="lan_api_secret">&emsp;</div>
+          <input class="input_setting coinbase_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" type="password" id="apiSecret" placeholder="please enter api secret" autocapitalize="off" autocorrect="off"/>
+        </div>
+        </div>
+      </div>
+
+      <div class="blockchainDiv hidden">
+        <div class="setting-input ">
+          <div class="label_div" id="lan_blockchain_walletId">&emsp;</div>
+          <input class="input_setting blockchain_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" id="bcWalletId" type="password" placeholder="please enter blockchain wallet id" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div class="setting-input ">
+          <div class="label_div" id="lan_blockchain_password">&emsp;</div>
+          <input class="input_setting blockchain_required_input" onfocus="focusInput(this)" onblur="blurInput(this)" id="bcPassword" type="password" placeholder="please enter blockchain password" autocapitalize="off" autocorrect="off"/>
+        </div>
+      </div>
+
+    <div class="info-small-titile">
+      <div >Basic Business Information</div>
+    </div>
+    <!--<div class="setting-input ">
+      <div class="label_div" id="lan_terminalNo">&emsp;</div>
+      <input class="input_setting personal_required_input online_required_input" id="terminalNo" type="text" placeholder="please enter the Terminal number" autocapitalize="off" autocorrect="off"/>
+    </div>-->
+    <div class="setting-input ">
+      <div class="label_div" id="lan_merchantName">&emsp;</div>
+      <input class="input_setting first_required_input" id="merchantName" type="text" placeholder="please enter the Merchant name" autocapitalize="off" autocorrect="off"/>
+    </div>
+    <div class="setting-input">
+      <div class="label_div" id="lan_hotline">&emsp;</div>
+      <input class="input_setting first_required_input" id="hotLine" type="text" placeholder="please enter the hotline" autocapitalize="off" autocorrect="off"/>
+    </div>
+    <div class="setting-input">
+      <div class="label_div" id="lan_email">&emsp;</div>
+      <input class="input_setting first_required_input" id="mail" type="text" placeholder="please enter the E-mail" autocapitalize="off" autocorrect="off"/>
+    </div>
+
+  </div>
+
+  <div class="secound-input hidden">
+    <div class="info-small-titile">
+      <div >Buy Transaction Information</div>
+    </div>
+    <div class="setting-input ">
+      <div class="label_div"  id="lan_buyBasicFee">&emsp;</div>
+      <input class="input_setting secound_required_input "  style="width: 45%;" id="buySingleFee" placeholder="please enter the basic buy fee" onkeyup="this.value=this.value.replace(/[^\d.]/g,'');"/><input class="small_input_label currency_input" value=""  disabled/>
+      <span class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></span>
+    </div>
+
+    <div class="setting-input ">
+      <div class="label_div" id="lan_buyTransactionFee"></div>
+      <input class="input_setting secound_required_input "  style="width:45%" id="buyTransactionFee" placeholder="please enter the buy transaction Fee" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"/><input class="small_input_label" style="width:18%" value="%"  disabled/>
+
+    </div>
+
+    <div class="setting-input ">
+      <div class="label_div" id="lan_min_need_cash">&emsp;</div>
+      <input class="input_setting secound_required_input"  style="width: 45%;"  id="minNeedCash" type="text" placeholder="please enter minimum transaction amount" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9.]/,'');" /><input class="small_input_label currency_input"  value=""  disabled/>
+      <span class="help-tip"><p>Minimum cash amount per transaction(total banknote inserted by customer must be equal or higher than this value)</p></span>
+    </div>
+    <div class="info-small-titile">
+      <div >Sell Transaction Information</div>
+    </div>
+
+    <div class="setting-input ">
+      <div class="label_div"  id="lan_sellBasicFee">&emsp;</div>
+      <input class="input_setting secound_required_input " style="width: 45%;" id="sellSingleFee" placeholder="please enter the basic sell Fee" onkeyup="this.value=this.value.replace(/[^\d.]/g,'');"/><input class="small_input_label currency_input" value=""  disabled/>
+      <span class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></span>
+    </div>
+    <div class="setting-input ">
+      <div class="label_div" id="lan_sellTransFee"></div>
+      <input class="input_setting secound_required_input "  style="width:45%" id="sellTransactionFee" placeholder="please enter the sell transaction Fee" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"/><input class="small_input_label" value="%"   style="width:18%"  disabled/>
+    </div>
+
+    <div class="info-input-setting ">
+      <div class="label_div" id="lan_sell_type">&emsp;</div>
+      <select class="input_setting secound_required_input" style="width: 63%;" id="sellType" >
+        <option value="6">6-conf</option>
+        <option value="5">5-conf</option>
+        <option value="4">4-conf</option>
+        <option value="3">3-conf</option>
+        <option value="2">2-conf</option>
+        <option value="1">1-conf</option>
+      </select>
+    </div>
+
+    <div class="info-small-titile" style="display: -webkit-box;">
+      <div >AML/KYC</div>&nbsp;&nbsp;&nbsp;<input type="checkbox" checked id="kycEnable" style="zoom: 225%;">
+    </div>
+
+    <div class="setting-input kycArea">
+      <div class="label_div" id="lan_limit_cash">&emsp;</div>
+      <input class="input_setting kyc_required_input"  style="width: 45%;"  id="limitCash" type="text" placeholder="please enter limit amount" autocapitalize="off" autocorrect="off" onkeyup="this.value=this.value.replace(/[^0-9]/,'');" /><input class="small_input_label currency_input" value=""  disabled/>
+      <span class="help-tip"><p>Anonymous customer cash limit per transaction(if the transaction value is beyond the limit, the customer need to upload the ID card photo)</p></span>
+    </div>
+    <div class="setting-input kycArea">
+      <div class="label_div" id="lan_kyc_url">&emsp;</div>
+      <input class="input_setting kyc_required_input" style="width: 60%;" id="kycUrl" type="text" placeholder="please enter submitted url" autocapitalize="off" autocorrect="off"/>
+      <span class="help-tip"><p>Identity information request URL</p></span>
+    </div>
+  </div>
+  <div class="bottom-btn">
+    <div class="to_back_btn hidden" onclick="goChoose();" id="lan_return"  style="left: 25px;" ></div>
+    <div class="to_back_btn hidden" onclick="goLogin();"  id="goLogin"  style="left: 25px;" ></div>
+    <div class="to_back_btn hidden" onclick="goFirst();"  id="goFirst"  style="left: 25px;" ></div>
+
+    <div class="to_next_btn hidden" onclick="login();" id="loginButtom" ></div>
+    <div class="to_next_btn hidden" onclick="next();"  id="nextButtom"  ></div>
+    <div class="to_save_btn hidden" onclick="save();"  id="lan_save" style="left: unset;right: 25px;" ></div>
+
+  </div>
+  <!-- <div class="to_home_div">
+    <div class="to_home_btn" onclick="toHome()"></div>
+  </div> -->
+</div>
+
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/back/back-common.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+
+<script type="text/javascript">
+  var isEdit = (window.location.href.split("edit=")[1])&&(window.location.href.split("edit=")[1]).split("&&")[0];
+  var isOnline = window.location.href.split("online=")[1];
+
+  //初始化语言label
+  function initLanguage() {
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_rateSource","lan_onlinePassword","lan_webAddress","lan_terminalNo", "lan_merchantName", "lan_hotline", "lan_email", "lan_buyBasicFee","lan_buyTransactionFee", "lan_sellTransFee","lan_sellBasicFee", "lan_rate","lan_account_id","lan_api_key","lan_api_secret","lan_min_need_bitcoin","lan_min_need_cash","lan_sell_type","lan_currency","lan_hot_wallet","lan_pro_key","lan_pro_secret","lan_pro_passphrase","lan_limit_cash","lan_kyc_url","lan_channel","lan_accessToken","lan_walletId_query","lan_walletPassPhrase","lan_exchangeStrategy","lan_blockchain_walletId","lan_blockchain_password","lan_currency_pair","lan_order_type","lan_kraken_apiKey","lan_kraken_secret","lan_kraken_addressName"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  function login(){
+    var requiredFlag = true;
+    $.each($(".online_required_input"), function (index, item) {
+        if ($(item).val()) {
+          $(item).siblings("div").removeClass("required_input");
+        } else {
+          $(item).siblings("div").addClass("required_input");
+          requiredFlag = false;
+        }
+      });
+    if (requiredFlag){
+
+      var setting = window.webTimer.queryTermSet($('#webAddress').val(),$('#terminalNo').val(),$('#password').val());
+      if (setting) {
+        localStorage.setItem("online", "1");
+        setting = JSON.parse(setting);
+         if (setting.code === 0) {
+           settingLogin(setting);
+           //从数据库读取数据显示
+            var merchantObj = getDatabaseMerchant();
+            if(merchantObj){
+              setObj(merchantObj);
+            }
+            $('.currency_input').val($("#currency").val());
+            if($("#channel").val() =="bitgo"){
+              $(".bitgoDiv").removeClass("hidden");
+              $(".coinbaseDiv").addClass("hidden");
+              $(".blockchainDiv").addClass("hidden");
+            }else if($("#channel").val() =="coinbase"){
+              $(".bitgoDiv").addClass("hidden");
+              $(".blockchainDiv").addClass("hidden");
+              $(".coinbaseDiv").removeClass("hidden");
+            }else if($("#channel").val() =="blockchain"){
+              $(".coinbaseDiv").addClass("hidden");
+              $(".bitgoDiv").addClass("hidden");
+              $(".blockchainDiv").removeClass("hidden");
+            }
+
+
+            if($("#hotWallet").val() !=0){
+              $("#exchangeDiv").removeClass("hidden");
+              if($("#hotWallet").val() ==1){
+                $("#proDiv").removeClass("hidden");
+                $("#krakenDiv").addClass("hidden");
+              }else if($("#hotWallet").val() ==2){
+                $("#krakenDiv").removeClass("hidden");
+                $("#proDiv").addClass("hidden");
+              }
+            }else{
+               $("#exchangeDiv").addClass("hidden");
+            }
+
+
+            $('.onlineArea').addClass("hidden");
+            $(".first-input").removeClass("hidden");
+
+            $("#loginButtom").addClass("hidden");
+            $("#nextButtom").removeClass("hidden");
+
+            $("#lan_return").addClass("hidden");
+            $("#goLogin").removeClass("hidden");
+
+         }else if (setting.code === 200) {// 无可更新参数
+            $('.onlineArea').addClass("hidden");
+            $(".first-input").removeClass("hidden");
+
+            $("#loginButtom").addClass("hidden");
+            $("#nextButtom").removeClass("hidden");
+
+            $("#lan_return").addClass("hidden");
+            $("#goLogin").removeClass("hidden");
+         } else {
+           showError(setting.error||setting.message);
+         }
+      }
+    }
+  }
+// 将上游取到的值更新下来
+  function  settingLogin(setting) {
+
+    localStorage.setItem("channel", setting.channel);
+    localStorage.setItem("balance", setting.rate);
+
+    // 替换缓存数据
+    delete setting.channelParam;
+    // console.log("存入localstorage merchant:"+JSON.stringify(setting));
+
+
+    localStorage.setItem("merchant", JSON.stringify(setting));
+  }
+
+
+  function next(){
+    var requiredFlag = true;
+    if($("#exchangeStrategy").val() != 0 && $("#hotWallet").val() == 0){
+      $("#lan_hot_wallet").addClass("required_input");
+       requiredFlag = false;
+    }else{
+      $("#lan_hot_wallet").removeClass("required_input");
+    }
+    if($("#channel").val() == "bitgo"){
+
+      $(".bitgo_required_input").addClass("first_required_input");
+      $(".coinbase_required_input").removeClass("first_required_input");
+      $(".blockchain_required_input").removeClass("first_required_input");
+     }else if ($("#channel").val() == "coinbase"){
+      $(".bitgo_required_input").removeClass("first_required_input");
+      $(".blockchain_required_input").removeClass("first_required_input");
+      $(".coinbase_required_input").addClass("first_required_input");
+     }else if ($("#channel").val() == "blockchain"){
+      $(".bitgo_required_input").removeClass("first_required_input");
+      $(".coinbase_required_input").removeClass("first_required_input");
+      $(".blockchain_required_input").addClass("first_required_input");
+     }
+
+    if($("#hotWallet").val() == 1){
+      $(".pro_input").addClass("first_required_input");
+      $(".kraken_input").removeClass("first_required_input");
+      //$("#proDiv").removeClass("hidden");
+     }else if($("#hotWallet").val() == 2){
+      $(".kraken_input").addClass("first_required_input");
+      $(".pro_input").removeClass("first_required_input");
+      //$("#krakenDiv").removeClass("hidden");
+     }else{
+      $("#pro_input").removeClass("first_required_input");
+      $("#kraken_input").removeClass("first_required_input");
+      //$("#proDiv").addClass("hidden");
+      //$("#krakenDiv").addClass("hidden");
+     }
+
+    $.each($(".first_required_input"), function (index, item) {
+        if ($(item).val()) {
+          $(item).siblings("div").removeClass("required_input");
+        } else {
+          $(item).siblings("div").addClass("required_input");
+          requiredFlag = false;
+        }
+      });
+    if (requiredFlag){
+      $('.first-input').addClass("hidden");
+      $(".secound-input").removeClass("hidden");
+
+      $("#nextButtom").addClass("hidden");
+      $("#lan_save").removeClass("hidden");
+
+      $("#goLogin").addClass("hidden");
+      $("#goFirst").removeClass("hidden");
+    }
+  }
+
+  // save 操作
+  function save() {
+    var requiredFlag = true;
+
+
+    if($('#kycEnable').prop("checked")){
+      $(".kyc_required_input").addClass("secound_required_input");
+    }else{
+      $(".kyc_required_input").removeClass("secound_required_input");
+    }
+
+    $.each($(".secound_required_input"), function (index, item) {
+      if ($(item).val()) {
+        $(item).siblings("div").removeClass("required_input");
+      } else {
+        $(item).siblings("div").addClass("required_input");
+        requiredFlag = false;
+      }
+    });
+
+    if (!requiredFlag) return;
+    if($("#rate").val() == 0){
+       $("#rate").val("");
+    }
+    var localMerchant = getSettingObj();
+    // 存入user 数据库
+    var resp = window.back.parameterSetting(JSON.stringify(localMerchant));
+
+    // 替换缓存数据
+    delete localMerchant.accessToken;
+    delete localMerchant.walletPassphrase;
+    delete localMerchant.apiKey;
+    delete localMerchant.apiSecret;
+    delete localMerchant.proKey;
+    delete localMerchant.proSecret;
+    delete localMerchant.proPassphrase;
+    delete localMerchant.krakenApiKey;
+    delete localMerchant.krakenSecret;
+    delete localMerchant.krakenWithdrawalsAddressName;
+    delete localMerchant.bcPassword;
+
+
+    localStorage.setItem("merchant", JSON.stringify(localMerchant));
+    localStorage.setItem("online", localMerchant.online);
+    localStorage.setItem("balance", localMerchant.rate);
+
+
+
+
+    // $("#lan_save").text("SUCCESS");
+    showSuccess("Success");
+    // 清空临时商户信息
+    localStorage.setItem("merchantTem", "");
+    localStorage.setItem("onlineInfoTem", "");
+    setTimeout(function () {
+      window.location.href = "../index.html";
+    }, 1000)
+  }
+
+
+  // 获取setting 对象
+  function getSettingObj() {
+    localStorage.setItem("balance", $("#rate").val());
+      if( 0 == $("#hotWallet").val()){
+        $("#proKey").val("")
+        $("#proSecret").val("")
+        $("#proPassphrase").val("")
+        $("#krakenApiKey").val("")
+        $("#krakenSecret").val("")
+        $("#krakenWithdrawalsAddressName").val("")
+      }
+      return {
+        webAddress        : $("#webAddress").val(),
+        terminalNo        : $("#terminalNo").val(),
+        password          : $("#password").val(),
+        merchantName      : $("#merchantName").val(),
+        hotline           : $("#hotLine").val(),
+        email             : $("#mail").val(),
+        buyTransactionFee : $("#buyTransactionFee").val(),
+        sellTransactionFee: $("#sellTransactionFee").val(),
+        buySingleFee      : $("#buySingleFee").val(),
+        sellSingleFee     : $("#sellSingleFee").val(),
+        rate              : $("#rate").val(),
+        minNeedCash       : $("#minNeedCash").val(),
+        accessToken       : $("#accessToken").val(),
+        walletId          : $("#walletId").val(),
+        walletPassphrase  : $("#walletPassphrase").val(),
+        apiKey            : $("#apiKey").val(),
+        apiSecret         : $("#apiSecret").val(),
+        sellType          : $("#sellType").val(),
+        currency          : $("#currency").val(),
+        hotWallet         : $("#hotWallet").val(),
+        proKey            : $("#proKey").val(),
+        proSecret         : $("#proSecret").val(),
+        proPassphrase     : $("#proPassphrase").val(),
+        online            : isOnline,
+        channel           : $("#channel").val(),
+        limitCash         : $("#limitCash").val(),
+        kycUrl            : $("#kycUrl").val(),
+        exchangeStrategy  : $("#exchangeStrategy").val(),
+        rateSource        : $("#rateSource").val(),
+        currencyPair      : $("#currencyPair").val(),
+        orderType         : $("#orderType").val(),
+        bcWalletId        : $("#bcWalletId").val(),
+        bcPassword        : $("#bcPassword").val(),
+        krakenApiKey      : $("#krakenApiKey").val(),
+        krakenSecret      : $("#krakenSecret").val(),
+        krakenWithdrawalsAddressName    : $("#krakenWithdrawalsAddressName").val(),
+        kycEnable         :$('#kycEnable').prop("checked")?1:0
+      };
+
+  }
+  // 赋值
+  function setObj(merchantObj) {
+
+    $("#hotLine").val(merchantObj.hotline);
+    $("#merchantName").val(merchantObj.merchantName);
+    $("#terminalNo").val(merchantObj.terminalNo);
+    $("#mail").val(merchantObj.email);
+    $("#buyTransactionFee").val(merchantObj.buyTransactionFee);
+    $("#sellTransactionFee").val(merchantObj.sellTransactionFee);
+    $("#buySingleFee").val(merchantObj.buySingleFee);
+    $("#sellSingleFee").val(merchantObj.sellSingleFee);
+    $("#rate").val(merchantObj.rate);
+    $("#minNeedCash").val(merchantObj.minNeedCash);
+    $("#channel").val(merchantObj.channel);
+    $("#accessToken").val(merchantObj.accessToken);
+    $("#walletId").val(merchantObj.walletId);
+    $("#walletPassphrase").val(merchantObj.walletPassphrase);
+    $("#apiKey").val(merchantObj.apiKey);
+    $("#apiSecret").val(merchantObj.apiSecret);
+    $("#hotWallet").val(merchantObj.hotWallet);
+    $("#proKey").val(merchantObj.proKey);
+    $("#proSecret").val(merchantObj.proSecret);
+    $("#proPassphrase").val(merchantObj.proPassphrase);
+    $("#sellType").val(merchantObj.sellType);
+    $("#password").val(merchantObj.password);
+    $("#webAddress").val(merchantObj.webAddress);
+    $("#limitCash").val(merchantObj.limitCash);
+    $("#kycUrl").val(merchantObj.kycUrl);
+
+    $("#exchangeStrategy").val(merchantObj.exchangeStrategy);
+    $("#rateSource").val(merchantObj.rateSource);
+    $("#currencyPair").val(merchantObj.currencyPair);
+    $("#orderType").val(merchantObj.orderType);
+    $("#bcWalletId").val(merchantObj.bcWalletId);
+    $("#bcPassword").val(merchantObj.bcPassword);
+    $("#krakenApiKey").val(merchantObj.krakenApiKey);
+    $("#krakenSecret").val(merchantObj.krakenSecret);
+    $("#krakenWithdrawalsAddressName").val(merchantObj.krakenWithdrawalsAddressName);
+
+    // console.log("kycEnable:"+merchantObj.kycEnable);
+    // 赋值是否kyc
+    $('#kycEnable').prop("checked", merchantObj.kycEnable == 1);
+    if (merchantObj.kycEnable != 1) {
+      $('.kycArea').addClass('hidden');
+    }else{
+      $('.kycArea').removeClass('hidden');
+    }
+
+  }
+  var inputValue = '';
+  function focusInput(obj){
+    if($(obj).attr("type") == 'password'){
+      inputValue = $(obj).val();
+      $(obj).val('');
+      $(obj).attr("type","text");
+    }
+  }
+  function blurInput(obj){
+    if(!$(obj).val()){
+      $(obj).val(inputValue);
+      $(obj).attr("type","password");
+    }
+  }
+
+
+
+  // 获取商户信息
+  function getDatabaseMerchant() {
+    var param = window.back.queryParam();
+     //console.log("前端接收到参数："+param);
+    return JSON.parse(param);
+  }
+
+
+  function goChoose() {
+    window.location.href = "choose.html";
+  }
+
+  function goLogin() {
+      if(isOnline == 1){
+        $('.first-input').addClass("hidden");
+        $(".onlineArea").removeClass("hidden");
+
+        $("#nextButtom").addClass("hidden");
+        $("#loginButtom").removeClass("hidden");
+
+        $("#goLogin").addClass("hidden");
+        $("#lan_return").removeClass("hidden");
+      }else{
+        goChoose();
+      }
+
+  }
+
+  function goFirst() {
+      $('.secound-input').addClass("hidden");
+      $(".first-input").removeClass("hidden");
+
+      $("#lan_save").addClass("hidden");
+      $("#nextButtom").removeClass("hidden");
+
+      $("#goFirst").addClass("hidden");
+      $("#goLogin").removeClass("hidden");
+  }
+
+
+
+  window.onload= function() {
+
+    initLanguage();
+    if (isOnline ==='1') {
+      $('.onlineArea').removeClass("hidden");
+      $('#loginButtom').removeClass("hidden");
+      $('#lan_return').removeClass("hidden");
+    }else{
+      $('.first-input').removeClass("hidden");
+      $('#nextButtom').removeClass("hidden");
+      $('#goLogin').removeClass("hidden");
+    }
+
+    //从数据库读取数据显示
+    var merchantObj = getDatabaseMerchant();
+    if(merchantObj){
+      setObj(merchantObj);
+    }
+
+    if($("#channel").val() =="bitgo"){
+      $(".bitgoDiv").removeClass("hidden");
+      $(".coinbaseDiv").addClass("hidden");
+      $(".blockchainDiv").addClass("hidden");
+    }else if($("#channel").val() =="coinbase"){
+      $(".bitgoDiv").addClass("hidden");
+      $(".blockchainDiv").addClass("hidden");
+      $(".coinbaseDiv").removeClass("hidden");
+    }else if($("#channel").val() =="blockchain"){
+      $(".coinbaseDiv").addClass("hidden");
+      $(".bitgoDiv").addClass("hidden");
+      $(".blockchainDiv").removeClass("hidden");
+    }
+    $("#channel").change(function(){
+      if($("#channel").val() =="bitgo"){
+        $(".bitgoDiv").removeClass("hidden");
+        $(".coinbaseDiv").addClass("hidden");
+        $(".blockchainDiv").addClass("hidden");
+      }else if($("#channel").val() =="coinbase"){
+        $(".bitgoDiv").addClass("hidden");
+        $(".blockchainDiv").addClass("hidden");
+        $(".coinbaseDiv").removeClass("hidden");
+      }else if($("#channel").val() =="blockchain"){
+        $(".coinbaseDiv").addClass("hidden");
+        $(".bitgoDiv").addClass("hidden");
+        $(".blockchainDiv").removeClass("hidden");
+      }
+    });
+    $("#hotWallet").change(function(){
+      var optionChannel = document.getElementById("channel");
+      if($("#hotWallet").val() !=0){
+        $("#exchangeDiv").removeClass("hidden");
+        if($("#hotWallet").val() ==1){
+          optionChannel.options.length=1;
+          $("#proDiv").removeClass("hidden");
+          $("#krakenDiv").addClass("hidden");
+
+          $(".bitgoDiv").addClass("hidden");
+          $(".blockchainDiv").addClass("hidden");
+          $(".coinbaseDiv").removeClass("hidden");
+        }else if($("#hotWallet").val() ==2){
+          if(optionChannel.length ==1){
+            optionChannel.innerHTML +="<option value='blockchain' >blockchain</option>";
+            optionChannel.innerHTML +="<option value='bitgo' >bitgo</option>";
+          }
+          $("#krakenDiv").removeClass("hidden");
+          $("#proDiv").addClass("hidden");
+        }
+      }else{
+         if(optionChannel.length ==1){
+            optionChannel.innerHTML +="<option value='blockchain' >blockchain</option>";
+            optionChannel.innerHTML +="<option value='bitgo' >bitgo</option>";
+         }
+        $("#exchangeDiv").addClass("hidden");
+      }
+    });
+    // 币种
+    $('.currency_input').val(getCurrency());
+    //$('.currency_input').val("USD");
+
+    if($("#hotWallet").val() !=0){
+      $("#exchangeDiv").removeClass("hidden");
+      if($("#hotWallet").val() ==1){
+       $("#proDiv").removeClass("hidden");
+      }else if($("#hotWallet").val() ==2){
+        $("#krakenDiv").removeClass("hidden");
+      }
+    }
+
+
+
+
+    var editToken =  $("#accessToken").val();
+    $("#accessToken").focus(function(){
+      $("#accessToken").val('');
+      $("#accessToken").attr("type","text");
+    });
+    $("#accessToken").blur(function(){
+      $("#accessToken").attr("type","password");
+      if( $("#accessToken").val() == ''){
+        $("#accessToken").val(editToken);
+      }else{
+        editToken = $("#accessToken").val();
+      }
+    });
+
+
+    //  切换是否kyc事件
+    $('#kycEnable').on('change', function () {
+      var that = $(this);
+      if (that.prop("checked")) {
+        $('.kycArea').removeClass('hidden');
+      } else {
+        $('.kycArea').addClass('hidden');
+      }
+    });
+
+  }
+
+
+</script>
+</html>

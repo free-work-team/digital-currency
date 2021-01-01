@@ -1,0 +1,222 @@
+/*Andriod 上去掉语音输入按钮:*/
+/*input::-webkit-input-speech-button {*/
+/*display: none*/
+/*}*/
+.required_input {
+  color: red;
+}
+
+.info-small-titile {
+  text-align: left;
+  margin: auto;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #d4c59a;
+  line-height: 40px;
+}
+
+
+.label_div {
+  display: inline-block;
+  text-align: left;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 35%;
+  padding-left: 10px;
+}
+
+.input_setting {
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 12px;
+  height: 20px;
+  width: 40%;
+}
+
+.small_input {
+  width: 15%;
+}
+
+.small_input_label {
+  width: 15%;
+  outline: none;
+  background: none;
+  border: none;
+  text-align: right;
+}
+
+/*导航*/
+nav a img {
+  height: 80px;
+}
+
+nav a {
+  padding: 20px;
+}
+
+.active {
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation: mymove 1s;
+  -webkit-animation: mymove 1s; /*Safari and Chrome*/
+  animation-fill-mode: forwards;
+}
+
+.active img {
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation: myheight 1s;
+  -webkit-animation: myheight 1s; /*Safari and Chrome*/
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes mymove {
+  from {
+  }
+  to {
+    border-bottom: 8px #fb9a2a solid;
+  }
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  from {
+  }
+  to {
+    border-bottom: 8px #fb9a2a solid;
+  }
+}
+
+@keyframes myheight {
+  from {
+    height: 60px;
+  }
+  to {
+    height: 100px;
+  }
+}
+
+@-webkit-keyframes myheight /*Safari and Chrome*/
+{
+  from {
+    height: 60px;
+  }
+  to {
+    height: 100px;
+  }
+}
+
+/*flex布局*/
+/* Grid */
+
+.column {
+  flex-basis: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media screen and (min-width: 800px) {
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .column {
+    flex: 1;
+  }
+
+  ._25 {
+    flex: 2.5;
+  }
+
+  ._5 {
+    flex: 5;
+  }
+}
+
+
+/*开关效果*/
+:root {
+  font-size: calc(48px + (60 - 48)*(100vw - 320px)/(1024 - 320));
+}
+#way {
+  color: #fff;
+  font: 1em "Helvetica Neue", Helvetica, sans-serif;
+  line-height: 1.5;
+}
+.toggle, .toggle:before, .slot__label, .curtain {
+  transition-property: background-color, transform, visibility;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in, cubic-bezier(0.6,0.2,0.4,1.5), linear;
+}
+.toggle:before, .slot, .slot__label {
+  display: block;
+}
+.toggle:before {
+  position: absolute;
+}
+.toggle:checked {
+  background-color: #f3b71d;
+}
+.toggle:focus {
+  outline: transparent;
+}
+.toggle {
+  border-radius: 0.75em;
+  box-shadow: 0 0 0 0.1em inset;
+  cursor: pointer;
+  position: relative;
+  margin-right: 0.25em;
+  width: 3em;
+  height: 1.5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle:before {
+  background: currentColor;
+  border-radius: 50%;
+  content: "";
+  top: 0.2em;
+  left: 0.2em;
+  width: 1.1em;
+  height: 1.1em;
+}
+.toggle:checked:before {
+  transform: translateX(1.5em);
+}
+/*.toggle:checked ~ .slot .slot__label, .slot__label:nth-child(2) {*/
+/*  transform: translateY(-50%) scaleY(0);*/
+/*}*/
+/*.toggle:checked ~ .slot .slot__label:nth-child(2) {*/
+/*  transform: translateY(-100%) scaleY(1);*/
+/*}*/
+
+.slot {
+  color: transparent;
+  font-size: 30px;
+  font-weight: bold;
+  /* letter-spacing: 0.1em; */
+  line-height: 50px;
+  overflow: hidden;
+  height: 50px;
+  /* text-indent: -0.9em; */
+
+}
+.slot__label {
+  transform-origin: 50% 0;
+}
+.slot__label:nth-child(2) {
+  transform-origin: 50% 100%;
+}
+.small_span{
+  font-size: 20px;
+  color: #a59e9e;
+}

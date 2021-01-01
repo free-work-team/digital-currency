@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">BitCoinMaster</string>
+
+    <string name="confrim">confirm</string>
+    <string name="cdm_type">CDM Type:</string>
+    <string name="Communication_dev">Communication Dev:</string>
+    <string name="cdm_dev">CDM Dev:</string>
+    <string name="electric_door_dev">Electric Dev:</string>
+    <string name="led_bussiness">LED Bussiness:</string>
+    <string name="led_dev">LED Dev:</string>
+    <string name="led_id">LED Id:</string>
+    <string name="before">Before-1</string>
+    <string name="kunming">KunMing-2</string>
+    <string name="shenzheng">ShenZheng-3</string>
+    <string name="select">Please Select</string>
+    <string name="select_bussiness">========Please Select Bussiness=========</string>
+    <string name="printer_communication">PrinterComType:</string>
+    <string name="print_dev">Printer Dev:</string>
+    <string name="print_baudrate">Baudrate:</string>
+    <string-array name="print_comm_array">
+        <item>USB</item>
+        <item>SerialPort</item>
+    </string-array>
+
+    <string-array name="print_baudrate_array">
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+    </string-array>
+
+    <string-array name="spingarr">
+        <item>@string/before</item>
+        <item>@string/kunming</item>
+        <item>@string/shenzheng</item>
+    </string-array>
+    <string-array name="led">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+</resources>

@@ -1417,7 +1417,7 @@ var LanguageManager = {
       "lan_onlinePassword"        : "Online Password :",
       "lan_rateSource"            : "Rate Source :",
       "lan_webAddress"            : "Web Address :",
-      "lan_Welcome"               : "Management System",
+      "lan_Welcome"               : "MENU",
       "lan_backManagerSystem"     : "Management System",
       "lan_password"              : "Password :",
       "lan_account"               : "Account :",

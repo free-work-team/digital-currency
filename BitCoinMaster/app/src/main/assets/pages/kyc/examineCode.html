@@ -27,16 +27,11 @@
   </style>
 </head>
 <body class="all-bg">
-<div class="header">
-  <div class="header-contact">
-    <div class="merchant_hotLine"></div>
-    <div class="merchant_mail"></div>
-  </div>
-</div>
+
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-<div class="log-buy-info">
+<div class="balance-info">
   <div class="buy-left">
     <label>1</label><span class="btcUnit"></span>
   </div>
@@ -56,11 +51,15 @@
 <div class="cash-limit-desc">
   <div id="lan_or_visit"></div>
 </div>
-<div class="cash-limit-desc" >
-  <div id="kycUrl" ></div>
+<div class="cash-limit-desc">
+  <div id="kycUrl"></div>
+</div>
+<div class="bottom-contact">
+  <!--  <div class="merchant_hotLine">100</div>-->
+  <div class="merchant_mail">www.huanghui-it.com</div>
 </div>
 <div class="to_home_div">
-  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_label"></div>
 </div>
 </body>
@@ -75,10 +74,59 @@
 <script type="text/javascript">
 
   var merchantObj = getMerchant();
+  var isExceedQuota = window.location.href.split("isExceedQuota=")[1];
+  var type = localStorage.getItem("operationType");
+  var kycId = generateID(10);
+
+
+  /**
+   * 去买币
+   */
+  function tobuyCoin() {
+    if (merchantObj) {
+      window.location.href = "../buy/scanllerAddress.html?examine=" + isExceedQuota;
+    } else {
+      ErrorPage.toError("merchat setting is required")
+    }
+  }
+
+  /**
+   * 去卖币
+   *
+   */
+  function tosellCoin() {
+    showWait();
+    setTimeout(function () {
+      // 打印机初始化
+      window.print.getStatus();
+    }, 1000);
+  }
+
+  //初始化打印机回调
+  function printCallBack(data) {
+    // console.log("初始化打印机回调 =========== " + JSON.stringify(data));
+    if (data.status) {
+      // 获取最新汇率和最大交易额
+      refreshPrice(function (newPrice) {
+        if (newPrice) {
+          hideWait();
+          var currentPrice = localStorage.getItem("balance");
+          var walletBalance = localStorage.getItem("walletBalance");
+          var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
+          console.log("钱包余额允许的最大交易金额为" + maxTrade);
+          window.location.href = "../sell/chooseAmount.html?examine=" + isExceedQuota + "&&maxTrade=" + maxTrade;
+        } else {
+          ErrorPage.toError("The price request failed, Please try again later!");
+        }
+      });
+    } else {
+      ErrorPage.toError(data.message);
+    }
+  }
 
   // 初始化语言label
   function initLanguage() {
-    var LanguageObjs = ["lan_verify2","lan_please_scan","lan_or_visit"];
+    var LanguageObjs = ["lan_verify2", "lan_please_scan", "lan_or_visit"];
     // id名必须和language key 相同
     LanguageManager.getLanguageLabel(LanguageObjs);
   }
@@ -93,10 +141,28 @@
     });
   }
 
-  window.onload= function() {
+  window.onload = function () {
     initLanguage();
     $('#kycUrl').text(merchantObj.kycUrl);
-    createQRCode(merchantObj.kycUrl);
+    createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
+    //定时校验人脸
+    setTimeout(function () {
+      checkFace();
+    }, 5000)
+  }
+
+
+  function checkFace() {
+    if (window.webTimer.checkFace(kycId)) {
+      //验证成功
+      if (type == 1) {
+        tobuyCoin();
+      } else {
+        tosellCoin();
+      }
+    } else {
+      showWarn("Verification failed");
+    }
   }
 
 

@@ -987,4 +987,59 @@ public class UploadTimer extends Activity {
         }
         return str;
     }
+
+
+    /**
+     * 人脸识别请求图片回来并校验
+     *
+     * @param kycId
+     * @return
+     */
+    @JavascriptInterface
+    public boolean checkFace(String kycId) {
+        if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
+            log.error("token为空,人脸识别失败");
+            return false;
+        }
+        reqParams = new HashMap<>();
+        String method = "api/upload/cashBoxRecord";
+        reqParams.put("kycId", kycId);
+        //发送数据
+        String resp = null;
+        try {
+            resp = requestWeb(method);
+            return StringUtils.isNotBlank(resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param terminalNo
+     * @param phone
+     * @return
+     */
+    @JavascriptInterface
+    public String sendMsg(String terminalNo, String phone) {
+        if (StringUtils.isBlank(token)) {
+            log.error("token为空,发送短信失败");
+            return "";
+        }
+        reqParams = new HashMap<>();
+        String method = "api/sms/sendSMS";
+        reqParams.put("termNo", terminalNo);
+        reqParams.put("phone", phone);
+        //发送数据
+        String resp = null;
+        try {
+            resp = requestWeb(method);
+            return resp;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

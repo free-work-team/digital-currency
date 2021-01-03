@@ -355,3 +355,40 @@ body {
   margin: 0 auto;
   margin-top: 20px;
 }
+
+
+.switch-area {
+  background: #1c416e;
+  display: flex;
+  margin-right: 180px;
+  height: 155px;
+  width: 580px;
+  margin-bottom: 25px;
+}
+.swticth-icon{
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position-x: center;
+  background-position-y: center;
+  width: 155px;
+}
+.switch-white-back{
+  background-image: url(../img/icon-home/switch-back.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 425px;
+  color: gray;
+  font-size: 46px;
+  padding-top: 47px;
+}
+.panel-right-area{
+   background-repeat: no-repeat;
+   background-size: 100%;
+   width: 315px;
+   color: #fffcfa;
+   font-size: 30px;
+   text-align: left;
+   padding-top: 34px;
+   margin-left: 70px;
+   line-height: 35px;
+}

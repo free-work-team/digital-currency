@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>Start</title>
+  <style>
+    @import "../../css/styles.css";
+
+
+    .language-item:active {
+      transform: scale(0.9);
+      -ms-transform: rotate(0.9); /* IE 9 */
+      -moz-transform: rotate(0.9); /* Firefox */
+      -webkit-transform: rotate(0.9); /* Safari 和 Chrome */
+      -o-transform: rotate(0.9); /* Opera */
+    }
+
+    .language-item-checked {
+      box-shadow: 12px 12px 10px -3px #8e8e8e;
+    }
+
+
+  </style>
+</head>
+<body class="all-bg">
+<div class="header">
+  <div class="header-contact">
+    <div class="merchant_hotLine"></div>
+    <div class="merchant_mail"></div>
+  </div>
+</div>
+<div class="log-content">
+  <div class="log-bg" onclick="toSetting()"></div>
+</div>
+<div class="info-titile-big">
+  <div>SMARTKIOSK</div>
+</div>
+<div class="click-to-change">
+  <span id="lan_touchTip1"></span><span id="lan_touchTip2"></span>
+</div>
+<!--两个图标-->
+<div style="display: flex;margin-top: 40px;justify-content: center;">
+  <div id="btcArea" style=" width: 35%;" class="hidden">
+    <img class="icon-img" src="../../img/icon-home/btc.png" onclick="toStart('btc')">
+    <div class="log-buy-info-big">
+      <div class="buy-big-left">
+        <label>1</label> BTC
+      </div>
+      <div class="buy-big-right">
+        <label class="btcTo"></label><span class="currency"></span>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="ethArea" style=" width: 35%;" class="hidden">
+    <img class="icon-img" src="../../img/icon-home/eth.png" onclick="toStart('eth')">
+    <div class="log-buy-info-big">
+      <div class="buy-big-left">
+        <label>1</label> ETH
+      </div>
+      <div class="buy-big-right">
+        <label class="ethTo"></label><span class="currency"></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="tochangeLan" class="select-luanguage-btn" data-lanType="English">
+  <div class="language-item" id="SpanishType" data-lanType="Spanish" onclick=" changeLan(this)" style="background-image: url(../../img/icon-home/colombia.png);margin-right: 20px"></div>
+  <div class="language-item" id="EnglishType" data-lanType="English" onclick=" changeLan(this)" style="background-image: url(../../img/icon-home/England.png);margin-right: 20px"></div>
+  <div class="language-item" id="GermanyType" data-lanType="Germany" onclick=" changeLan(this)" style="background-image: url(../../img/icon-home/Germany.png);margin-right: 20px"></div>
+  <div class="language-item" id="FrenchType" data-lanType="French" onclick=" changeLan(this)" style="background-image: url(../../img/icon-home/French.png);margin-right: 20px"></div>
+  <div class="language-item" id="ChineseType" data-lanType="Chinese" onclick=" changeLan(this)" style="background-image: url(../../img/icon-home/China.png);"></div>
+</div>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/common/scrollerAD.js"></script>
+<script type="text/javascript">
+  var merchantObj = getMerchant();
+  var coinSetting = JSON.parse(window.front.queryCryptoCurrency());
+  var btcPrice = 0, ethPrice = 0, btcExchangeRate = 0, ethExchangeRate = 0;
+
+
+  function cameraCallBack() {
+  }
+
+  // 点击start
+  function toStart(coin) {
+    localStorage.setItem("currentCoin", coin);
+    if (coin == "btc") {
+      localStorage.setItem("balance", btcPrice);
+      localStorage.setItem("exchangeRate", btcExchangeRate);
+    }
+    if (coin == "eth") {
+      localStorage.setItem("balance", ethPrice);
+      localStorage.setItem("exchangeRate", ethExchangeRate);
+    }
+
+    if (merchantObj) {
+      // 判断单双向
+      if (window.business.getTranWay() == 2) {
+        window.location.href = "../common/switch.html";
+      } else {
+        tobuyCoin();
+      }
+    } else {
+      toError("merchat setting is required")
+    }
+  }
+
+  var clickCount = 0;
+  var clickInterval;
+
+  // 进个人设置
+  function toSetting() {
+    // 3s内点击5次可进入设置页面
+    clickInterval && clearInterval(clickInterval);
+    clickCount++;
+    if (clickCount >= 5) {
+      window.location.href = "../login.html";
+      return;
+    }
+    clickInterval = setInterval(function () {
+      clickCount = 0;
+    }, 3000);
+  }
+
+  // 设置选中语言状态
+  function languageCheck() {
+    var currentLanguageType = localStorage.getItem("LanguageType");
+    $('.language-item').removeClass('language-item-checked');
+    if (currentLanguageType === "Chinese") {
+      $('#ChineseType').addClass('language-item-checked');
+    } else if (currentLanguageType === "Germany") {
+      $('#GermanyType').addClass('language-item-checked');
+    } else if (currentLanguageType === "Spanish") {
+      $('#SpanishType').addClass('language-item-checked');
+    }else if (currentLanguageType === "French") {
+      $('#FrenchType').addClass('language-item-checked');
+    } else {
+      $('#EnglishType').addClass('language-item-checked');
+    }
+  }
+
+  // 切换语言
+  function changeLan(e) {
+    var that = $(e);
+    var current = that.attr("data-lanType");
+    if (current === "Chinese") {
+      localStorage.setItem("LanguageType", "Chinese");
+    } else if (current === "Germany") {
+      localStorage.setItem("LanguageType", "Germany");
+    }else if (current === "Spanish") {
+      localStorage.setItem("LanguageType", "Spanish");
+    }else if (current === "French") {
+      localStorage.setItem("LanguageType", "French");
+    } else {
+      localStorage.setItem("LanguageType", "English");
+    }
+    LanguageManager.getLanguage();
+    initLanguage();
+  }
+
+  // 初始化语言label
+  function initLanguage() {
+    languageCheck();
+    // id名必须和language key 相同
+    var LanguageObjs = ["lan_buying", "lan_changeLan", "lan_start", "lan_touchTip1", "lan_touchTip2", "lan_touchTip3"];
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  //初始化热线邮件显示
+  function initMerchantInfo() {
+    if (merchantObj) {
+      $(".merchant_hotLine").text(merchantObj.hotline);
+      $(".merchant_mail").text(merchantObj.email);
+    }
+  }
+
+  // 闲置定时10min后，更新数据
+  function unusedTime() {
+    var unusedInterval = setInterval(function () {
+      // 获取线上登录信息
+      var isOnline = localStorage.getItem("online");
+      var setting = JSON.parse(window.back.queryParam());
+      // 是否设置在线
+      if (isOnline === '1') {
+        showWait("Data Synchronization Processing...");
+        // 组装设备状态list
+        // var deviceObject = JSON.parse(localStorage.getItem("deviceInfo"));
+        // var deviceList = [];
+        // deviceList.push(deviceObject.printer);
+        // // deviceList.push(deviceObject.cashDispenser);
+        // deviceList.push(deviceObject.cashAcceptor);
+        // deviceList.push(deviceObject.scanner);
+        // console.log("-----------------------------闲置时间,联网模式，同步数据开始-----------------------------");
+        // window.webTimer.getSettingFromWeb(JSON.stringify(deviceList), JSON.stringify(setting));
+        setTimeout(function () {
+          window.webTimer.getSettingFromWeb("", JSON.stringify(setting));
+          refreshWayText();
+        }, 2000);
+      }
+    }, 600000);
+  }
+
+  // 获取参数回调
+  function uploadTimerCallBack(setting) {
+    hideWait();
+    if (setting) {
+      //广告信息
+      localStorage.setItem("ADStr", setting.advertContent || '');
+      scrollerAD.restart();
+      // console.log("管理端取到商户设置参数  =========== " + JSON.stringify(setting));
+      if (setting.code === 0) {
+        settingToLocalStorage(setting);
+      }
+      // console.log("获取参数 =========== " + setting.message);
+    }
+  }
+
+  // 将上游取到的值更新下来
+  function settingToLocalStorage(setting) {
+
+    // localStorage.setItem("channel", setting.channel);
+    // localStorage.setItem("balance", setting.rate);
+
+    // 替换缓存数据
+    var coinArray = ['btc', 'eth'];
+    $.each(coinArray, function (index, item) {
+      if (setting.cryptoSettings[item]) {
+        delete setting.cryptoSettings[item].channelParam;
+      }
+    });
+    // console.log("存入localstorage merchant:"+JSON.stringify(setting));
+    localStorage.setItem("merchant", JSON.stringify(setting));
+  }
+
+  // 获取商户信息
+  function getMerchant() {
+    var localMerchant = localStorage.getItem("merchant");
+    if (localMerchant) {
+      return JSON.parse(localMerchant);
+    }
+    return null;
+  }
+
+  // 实时市场价格
+  function getIndexBalance(coin) {
+    var merchantObj = getMerchant();
+    var newBalance = merchantObj['cryptoSettings'][coin].price;
+    if (!newBalance) {
+      var resp = JSON.parse(window.front.queryMarketPrice(coin));
+      if (resp.code == "00") {
+        newBalance = resp.price;
+        if (coin == "btc") {
+          btcPrice = resp.price;
+          btcExchangeRate = resp.exchangeRate;
+        }
+        if (coin == "eth") {
+          ethPrice = resp.price;
+          ethExchangeRate = resp.exchangeRate;
+        }
+      }
+    }
+    newBalance && $('.' + coin + 'To').text(formatPrice(newBalance));
+  }
+
+  /*直接去买币流程所需方法 start*/
+  var kycEnable = window.front.getKycEnable();// 是否需要kyc
+  var buyFlag = '1';
+
+  // 获取已选虚拟币种
+  function getCoin() {
+    var currentCoin = localStorage.getItem("currentCoin");
+    return currentCoin ? currentCoin : '';
+  }
+
+  /**
+   * 去买币
+   */
+  function tobuyCoin() {
+    showWait();
+    setTimeout(function () {
+      // 策略0,1的买币
+      var currentCoin = getCoin();
+      if (merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 1 || merchantObj.cryptoSettings[currentCoin].exchangeStrategy == 0) {
+        merchantBalanceByWalletId(function (balance) {
+          if (balance < 0) {
+            ErrorPage.toError("Connection failed, please try again later!");
+            return;
+          }
+          localStorage.setItem("walletBalance", balance);
+          kycToBuy();
+        }, buyFlag);
+      } else {
+        localStorage.setItem("walletBalance", 10000);
+        kycToBuy();
+      }
+    }, 1000);
+
+  }
+
+  function kycToBuy() {
+    if (checkCanTransfer()) {
+      //发送邮件提醒商户
+      if (merchantObj.email) {
+        window.front.sendEmail(merchantObj.email, "Insufficient Balance", "No." + merchantObj.terminalNo + " device bitcoin balance insufficient.Please deal with it in time");
+      }
+      ErrorPage.toError("Sorry, Balance is insufficient, please try again later!");
+      return;
+    }
+    if (kycEnable) {
+      localStorage.setItem("operationType", buyFlag);
+      window.location.href = "../common/chooseCashLimit.html";
+    } else {
+      window.location.href = "../buy/scanllerAddress.html?examine=1";
+    }
+  }
+
+  // 校验余额与最小交易数量
+  function checkCanTransfer() {
+    getBalance();
+    var currentPrice = localStorage.getItem("balance");
+    var walletBalance = localStorage.getItem("walletBalance");
+    var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
+    var minNeed = parseInt(merchantObj.minNeedCash) || 0;
+    return minNeed > maxTrade;
+  }
+
+  // 币种市场价格
+  function getBalance() {
+    var currentCoin = getCoin();
+    if (!currentCoin) {
+      ErrorPage.toError("The coin not found, Please try again later!");
+      return;
+    }
+    var newBalance = merchantObj.cryptoSettings[currentCoin].price;
+    var exchangeRate = "";
+    if (!newBalance) {
+      var resp = JSON.parse(window.front.queryMarketPrice(currentCoin));
+      if (resp.code == "00") {
+        newBalance = resp.price;
+        exchangeRate = resp.exchangeRate;
+        localStorage.setItem("balance", newBalance);
+        localStorage.setItem("exchangeRate", exchangeRate);
+      } else {
+        ErrorPage.toError("The price request failed, Please try again later!");
+      }
+    } else {
+      localStorage.setItem("balance", newBalance);
+      localStorage.setItem("exchangeRate", exchangeRate);
+    }
+  }
+
+  // 商户获取余额
+  function merchantBalanceByWalletId(callback, type) {
+    var balance = -1;
+    resp = JSON.parse(window.front.queryBalance(type, getCoin()));
+
+    if (resp.code == "00") {
+      balance = resp.balance;
+    }
+    callback(balance);
+  }
+
+  /*直接去买币流程 end*/
+
+  //刷新单双向显示内容
+  function refreshWayText() {
+    if (window.business.getTranWay() == 1) {//单向
+      $('#lan_touchTip2,#lan_touchTip3').attr("id", "lan_touchTip2");
+    }
+    if (window.business.getTranWay() == 2) {//双向
+      $('#lan_touchTip2,#lan_touchTip3').attr("id", "lan_touchTip3");
+    }
+    initLanguage();
+  }
+
+  window.onload = function () {
+    refreshWayText();
+    initMerchantInfo();
+    if (coinSetting.btc) {
+      $('#btcArea').removeClass('hidden');
+    }
+    if (coinSetting.eth) {
+      $('#ethArea').removeClass('hidden');
+    }
+
+    var currentLan = localStorage.getItem("LanguageType") || "English";
+    $("#tochangeLan").attr("data-lanType", currentLan);
+    // 启动闲置时间设置
+    unusedTime();
+
+    //关闭摄像头
+    window.camera.stopMonitor();
+    $('.currency').text(window.business.getCurrency());
+    // 延时执行定时
+    setTimeout(function () {
+      if (coinSetting.btc) {
+        getIndexBalance('btc');
+      }
+      if (coinSetting.eth) {
+        getIndexBalance('eth');
+      }
+    }, 500);
+    setTimeout(function () {
+      setInterval(function () {
+        // console.log("60s 首页定时刷新汇率....");
+        if (coinSetting.btc) {
+          getIndexBalance('btc');
+        }
+        if (coinSetting.eth) {
+          getIndexBalance('eth');
+        }
+      }, 120000);
+    }, 60000);
+  };
+
+
+  /**
+   * 加法运算，避免数据相加小数点后产生多位数和计算精度损失。
+   *
+   * @param num1加数1 | num2加数2
+   */
+  function numAdd(num1, num2) {
+    var baseNum, baseNum1, baseNum2;
+    try {
+      baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum1 = 0;
+    }
+    try {
+      baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum2 = 0;
+    }
+    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+    return (num1 * baseNum + num2 * baseNum) / baseNum;
+  }
+
+  /**
+   * 减法运算，避免数据相减小数点后产生多位数和计算精度损失。
+   *
+   * @param num1被减数 | num2减数
+   */
+  function numSub(num1, num2) {
+    var baseNum, baseNum1, baseNum2;
+    var precision;// 精度
+    try {
+      baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum1 = 0;
+    }
+    try {
+      baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum2 = 0;
+    }
+    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+    precision = (baseNum1 >= baseNum2) ? baseNum1 : baseNum2;
+    return ((num1 * baseNum - num2 * baseNum) / baseNum).toFixed(precision);
+  }
+
+  /**
+   * 乘法运算，避免数据相乘小数点后产生多位数和计算精度损失。
+   *
+   * @param num1被乘数 | num2乘数
+   */
+  function numMulti(num1, num2) {
+    var baseNum = 0;
+    try {
+      baseNum += num1.toString().split(".")[1].length;
+    } catch (e) {
+    }
+    try {
+      baseNum += num2.toString().split(".")[1].length;
+    } catch (e) {
+    }
+    return scientificToNumber(Number(num1.toString().replace(".", "")) * Number(num2.toString().replace(".", "")) / Math.pow(10, baseNum));
+  }
+
+  /**
+   * 除法运算，避免数据相除小数点后产生多位数和计算精度损失。
+   *
+   * @param num1被除数 | num2除数
+   */
+  function numDiv(num1, num2) {
+    var baseNum1 = 0, baseNum2 = 0;
+    var baseNum3, baseNum4;
+    try {
+      baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum1 = 0;
+    }
+    try {
+      baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+      baseNum2 = 0;
+    }
+    with (Math) {
+      baseNum3 = Number(num1.toString().replace(".", ""));
+      baseNum4 = Number(num2.toString().replace(".", ""));
+      return scientificToNumber((baseNum3 / baseNum4) * pow(10, baseNum2 - baseNum1));
+    }
+  }
+
+  // 处理科学计数法显示问题
+  function scientificToNumber(num) {
+    if (/\d+\.?\d*e[\+\-]*\d+/i.test(num)) {    //正则匹配科学计数法的数字
+      var zero        = '0',                                    //
+          parts       = String(num).toLowerCase().split('e'), //拆分成系数和指数
+          e           = parts.pop(),//存储指数
+          l           = Math.abs(e), //取绝对值，l-1就是0的个数
+          sign        = e / l,          //判断正负
+          coeff_array = parts[0].split('.');   //将系数按照小数点拆分
+      if (sign === -1) {           //如果是小数
+        num = zero + '.' + new Array(l).join(zero) + coeff_array.join('');   //拼接字符串，如果是小数，拼接0和小数点
+      } else {
+        var dec = coeff_array[1];
+        if (dec) l = l - dec.length;  //如果是整数，将整数除第一位之外的非零数字计入位数，相应的减少0的个数
+        num = coeff_array.join('') + new Array(l + 1).join(zero);    //拼接字符串，如果是整数，不需要拼接小数点
+      }
+    }
+    return num;
+  }
+</script>
+</body>
+</html>

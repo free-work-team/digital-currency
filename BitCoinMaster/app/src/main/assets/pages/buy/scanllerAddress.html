@@ -14,46 +14,97 @@
   <title>Scaner</title>
   <style>
     @import "../../css/styles.css";
+    .testScan{
+      width: 560px;
+      background-image: url(../../img/icon-home/scanTest.png);
+      background-size: 100%;
+      height: 441px;
+      margin-left: 150px;
+      background-repeat: no-repeat;
+    }
   </style>
 </head>
 <body class="all-bg" id="waiting_background">
-<div class="header">
-  <div class="header-contact">
-    <div class="merchant_hotLine"></div>
-    <div class="merchant_mail"></div>
-  </div>
-</div>
+
+
+
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-<div class="log-buy-info">
+
+<div class="balance-info">
   <div class="buy-left">
-    <label>1</label><span class="btcUnit"></span>
+    <label></label><span class="btcUnit"></span>
   </div>
   <div class="buy-right">
     <label class="toUsd"></label><span class="currency"></span>
   </div>
 </div>
-<div id="waiting_context">
-  <div class="info-content-middle">
-    <div id="lan_walletAddressScan">&emsp;</div>
+
+<div id="waiting_context" class="new-panel">
+  <div style="width: 60%">
+    <br>
+    <br>
+    <br>
+    <div class="new-panel-title">Wallet Scan</div>
+    <br>
+    <div class="new-panel-content">Make sure that your entire QR Code is visible on the screen below </div>
+    <br>
+    <br>
+    <br>
+    <div class="testScan" ></div>
   </div>
-  <div class="middle-little-title short-distance" id="lan_scanWallet">
-    &emsp;
+  <div class="switchArea" id="loadingArea" style="width: 40%;margin-top: 300px">
+    <!--    <div class="info-content-big">-->
+    <!--      <div id="currentCoin">&ensp;BTC</div>-->
+    <!--    </div>-->
+
+    <div class="switch-area" onclick="tobuyCoin();" style="background: #1c3c6a40">
+      <div style="background-image: url(../../img/icon-home/youcode.png);" class="swticth-icon"></div>
+      <div class="panel-right-area" id="lan_buyCoins"  >Have your Mobile Wallet ready</div>
+    </div>
+    <div class="switch-area"  onclick="tosellCoin();" style="background: #1c3c6a40;margin-top: 70px">
+      <div style="background-image: url(../../img/icon-home/showcode.png);" class="swticth-icon"></div>
+      <div class="panel-right-area" id="lan_withdrawCash" >Show your QR Code to the QR scanner</div>
+    </div>
   </div>
-  <div class="contents">
-<!--    <div id="lan_scanContent1">&emsp;</div>-->
-<!--    <div id="lan_scanContent2">&emsp;</div>-->
-    <div id="lan_scanContent3">&emsp;</div>
-    <div id="lan_scanContent4">&emsp;</div>
-  </div>
-  <div class="scan-btn" style="    background-image: url(../../img/icon-home/6.over0.png);">
-  </div>
+</div>
+
+
+
+
+
+
+
+
+<!--<div id="waiting_context">-->
+<!--  <div class="info-content-middle">-->
+<!--    <div id="lan_walletAddressScan">&emsp;</div>-->
+<!--  </div>-->
+<!--  <div class="middle-little-title short-distance" id="lan_scanWallet">-->
+<!--    &emsp;-->
+<!--  </div>-->
+<!--  <div class="contents">-->
+<!--&lt;!&ndash;    <div id="lan_scanContent1">&emsp;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div id="lan_scanContent2">&emsp;</div>&ndash;&gt;-->
+<!--    <div id="lan_scanContent3">&emsp;</div>-->
+<!--    <div id="lan_scanContent4">&emsp;</div>-->
+<!--  </div>-->
+<!--  <div class="scan-btn" style="    background-image: url(../../img/icon-home/6.over0.png);">-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<div class="bottom-contact">
+  <!--  <div class="merchant_hotLine">100</div>-->
+  <div class="merchant_mail">www.huanghui-it.com</div>
 </div>
 <div class="to_home_div">
-  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_label"></div>
 </div>
+
 </body>
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/transaction/scanllerCommon.js"></script>
@@ -95,7 +146,7 @@
               var walletBalance = localStorage.getItem("walletBalance");
               var maxTrade =parseInt(numMulti(walletBalance, currentPrice)) ;
             console.log("钱包余额允许的最大交易金额为" + maxTrade);
-              window.location.href = "putMoney.html?examine=" + examine + "&&maxTrade=" + maxTrade;
+              window.location.href = "choosePay.html?examine=" + examine + "&&maxTrade=" + maxTrade;
           } else {
             ErrorPage.toError("The price request failed, Please try again later!");
           }

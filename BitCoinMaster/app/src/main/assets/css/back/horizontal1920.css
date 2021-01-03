@@ -64,7 +64,7 @@
   }
 
   .info-content {
-    margin-top: 50px;
+    margin-top: 0px;
   }
 
   .info-titile {
@@ -669,7 +669,7 @@
   }
 
   .bottom-btn {
-    width: 70%;
+    width: 50%;
     height: 120px;
     margin: 0 auto;
     color: white;
@@ -749,7 +749,7 @@
   }
 
   .back-allBg {
-    background-image: url(../../img/icon-home/back-background01.jpg);
+    background-image: url(../../img/icon-home/bottom1080.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
@@ -852,12 +852,14 @@
     width: 100% !important;
   }
   #lan_Welcome {
-    width: 70%;
-    height: 220px;
+    width: 60%;
+    height: 110px;
     margin: 0 auto;
     line-height: 100px;
     font-size: 60px;
-    color: #d4c59a;
+    color: #fff;
+    background: #1d3362;
+    margin-top: 145px;
   }
 
   .index-item {
@@ -878,6 +880,21 @@
     line-height: 35px;
   }
 
+  .index-new-item {
+    width: 45%;
+    height: 80px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 60px;
+    border: 1px solid #fff;
+    font-size: 35px;
+    line-height: 75px;
+  }
+
+  .index-new-item:nth-child(even) {
+    margin-left: 9%;
+  }
+
   .tableDiv table td{
     font-size: 25px;
     text-align: left;
@@ -894,6 +911,7 @@
     height: auto;
     text-align: center;
     margin-top: 60px;
+    color: #fff;
   }
   .box {
     width: 500px;

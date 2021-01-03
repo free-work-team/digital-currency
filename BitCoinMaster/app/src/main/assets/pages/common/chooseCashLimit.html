@@ -18,16 +18,11 @@
   </style>
 </head>
 <body class="all-bg">
-<div class="header">
-  <div class="header-contact">
-    <div class="merchant_hotLine"></div>
-    <div class="merchant_mail"></div>
-  </div>
-</div>
+
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-<div class="log-buy-info">
+<div class="balance-info">
   <div class="buy-left">
     <label>1</label><span class="btcUnit"></span>
   </div>
@@ -52,8 +47,12 @@
   </div>
 </div>
 
+<div class="bottom-contact">
+  <!--  <div class="merchant_hotLine">100</div>-->
+  <div class="merchant_mail">www.huanghui-it.com</div>
+</div>
 <div class="to_home_div">
-  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_label"></div>
 </div>
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
@@ -75,7 +74,7 @@
 
   /**
    * 跳转买币或卖币
-   * examine : 0 不用kyc，1 需要kyc
+   * isExceedQuota : 0 验证数量，1 不需要验证最大数量
    */
   function tobuyOrsell(isExceedQuota) {
     // 选择morethen 校验余额,策略1的卖币，策略0,1的买币
@@ -91,7 +90,9 @@
         return;
       }
     }
+    //无论less then 还是more then 都要kyc,isExceedQuota代表是否是lessthan ,0 lessthan 校验最大数
     toKYC(isExceedQuota);
+
   }
 
   /**
@@ -99,7 +100,7 @@
    * type 1买 2 卖
    */
   function toKYC(isExceedQuota) {
-    window.location.href = "../kyc/inputEmail.html?isExceedQuota=" + isExceedQuota;
+    window.location.href = "../kyc/examineCode.html?isExceedQuota=" + isExceedQuota;
   }
 
   // 初始化语言label

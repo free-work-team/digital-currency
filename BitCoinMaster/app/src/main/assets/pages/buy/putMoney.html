@@ -32,7 +32,7 @@
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-<div class="log-buy-info">
+<div class="balance-info">
   <div class="buy-left">
     <label>1</label><span class="btcUnit"></span>
   </div>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="to_home_div">
-  <div class="to_home_btn" id="to_home_btn" onclick="toHome()"></div>
+  <div class="to_home_btn" id="to_home_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_btn home_btn_label" id="lan_to_home_btn_label">CLICK WHEN ABNORMAL</div>
   <div class="to_home_label"></div>
 </div>
@@ -125,7 +125,7 @@
   $("#merchant_buyTransactionFee").text(formatPrice()+ getCurrency());
 
   // 限制
-  //是否限制交易
+  //是否限制交易 less than那个
   var noLimit = (window.location.href.split("examine=")[1].split("&&")[0]) == 1;
   var limitCash = parseInt(merchantObj.limitCash);
   // 根据钱包余额计算的最大交易金额

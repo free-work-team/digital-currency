@@ -11,26 +11,26 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Cache-control" content="no-cache">
   <meta http-equiv="Cache" content="no-cache">
-  <title>Switch</title>
+  <title>Phone</title>
   <style>
     @import "../../css/styles.css";
 
     .btn_disabled {
       color: #8c8c8c;
     }
+
   </style>
 </head>
 <body class="all-bg">
-<div class="header">
-  <div class="header-contact">
-    <div class="merchant_hotLine"></div>
-    <div class="merchant_mail"></div>
-  </div>
-</div>
+
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-<div class="log-buy-info">
+
+<!--    <div class="info-content-big">-->
+<!--      <div id="currentCoin">&ensp;BTC</div>-->
+<!--    </div>-->
+<div class="balance-info">
   <div class="buy-left">
     <label>1</label><span class="btcUnit"></span>
   </div>
@@ -39,24 +39,46 @@
   </div>
 </div>
 
-<div class="info-content-big">
-  <div id="currentCoin">&ensp;</div>
+<div class="new-panel">
+  <div style="width: 60%">
+    <br>
+    <br>
+    <br>
+    <div class="new-panel-title">
+      Please Select one of the following options</div>
+    <br>
+    <br>
+    <div class="new-panel-content">Current Transanction Limit 10,000 USD</div>
+  </div>
+  <div class="switchArea" id="loadingArea" style="width: 40%;margin-top: 86px">
+
+
+    <div id="buyArea" class="switch-area hidden" onclick="tobuyCoin();">
+      <div style="background-image: url(../../img/icon-home/buy-icon.png);" class="swticth-icon"></div>
+      <div class="switch-white-back" id="lan_buyCoins"></div>
+    </div>
+    <div id="sellArea" class="switch-area hidden"  onclick="tosellCoin();">
+      <div style="background-image: url(../../img/icon-home/sell-icon.png);" class="swticth-icon"></div>
+      <div class="switch-white-back" id="lan_withdrawCash"></div>
+    </div>
+    <div id="redeemArea" class="switch-area hidden" onclick="redeem();">
+      <div style="background-image: url(../../img/icon-home/sell-icon.png);" class="swticth-icon"></div>
+      <div class="switch-white-back" id="lan_redeem"></div>
+    </div>
+    <div id="moreArea" class="switch-area hidden" onclick="toMore();" style="background: #54b1e7">
+      <div style="background-image: url(../../img/icon-home/morCoin.png);" class="swticth-icon"></div>
+      <div class="switch-white-back" id="" style="background-color: #1c416e;background-image: none; color: #fff;">More</div>
+    </div>
+  </div>
 </div>
-<div class="switchArea" id="loadingArea">
-  <div class="log-buy-icon" id="buyCoin" onclick="tobuyCoin();">
-    <div class="button-font-div" id="lan_buyCoins">&emsp;</div>
-  </div>
 
-  <div class="log-buy-icon" id="sellCoin" onclick="tosellCoin();">
-    <div class="button-font-div" id="lan_withdrawCash">&emsp;</div>
-  </div>
 
-  <div id="redeem" class="log-buy-icon" onclick="redeem();">
-    <div class="button-font-div" id="lan_redeem">&emsp;</div>
-  </div>
+<div class="bottom-contact">
+<!--  <div class="merchant_hotLine">100</div>-->
+  <div class="merchant_mail">www.huanghui-it.com</div>
 </div>
 <div class="to_home_div">
-  <div class="to_home_btn" onclick="toHome()"></div>
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_label"></div>
 </div>
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
@@ -142,6 +164,11 @@
     }, 1000);
   }
 
+  //toMore 更多币种
+  function toMore() {
+    window.location.href = "../index/more.html";
+  }
+
   function kycToSell() {
     if (kycEnable) {
       localStorage.setItem("operationType", sellFlag);
@@ -183,6 +210,13 @@
     window.location.href = "../cash/scanller.html";
   }
 
+  /**
+   * 更多
+   */
+  function toMore() {
+    window.location.href = "../index/more.html";
+  }
+
   // 初始化语言label
   function initLanguage() {
     // id名必须和language key 相同
@@ -211,6 +245,20 @@
     }
     if (getCoin() == 'eth') {
       $('#currentCoin').text('ETHEREUM');
+    }
+
+    //判断单双向
+    if (merchantObj) {
+      // 判断单双向
+      if (window.business.getTranWay() == 2) {
+        $('#sellArea').removeClass('hidden');
+        $('#redeemArea').removeClass('hidden');
+      }
+      $('#buyArea').removeClass('hidden');
+      $('#moreArea').removeClass('hidden');
+
+    } else {
+      toError("merchat setting is required")
     }
   };
 

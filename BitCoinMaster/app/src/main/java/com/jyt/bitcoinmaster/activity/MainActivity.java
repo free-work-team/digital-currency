@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 打开js接口給H5调用，参数1为本地类名，参数2为别名；h5用window.别名.类名里的方法名才能调用方法里面的内容，例如：window.android.back();
          * */
-        mWebView.addJavascriptInterface(new ScannerJsInterface(this,mWebView,mUsbManager,mPermissionIntent), "scanner");
+        mWebView.addJavascriptInterface(new XZGScannerJsInterface(this,mWebView), "scanner");
         mWebView.addJavascriptInterface(new BillAcceptorInterface(this,mWebView), "billAcceptor");
         mWebView.addJavascriptInterface(new YSPrinterJsInterface(this,mWebView), "print");
         mWebView.addJavascriptInterface(new BackJsInterface(this,mWebView), "back");

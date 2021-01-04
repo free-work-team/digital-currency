@@ -54,5 +54,5 @@ dependencies {
     implementation files('libs/CPI_Integration_Toolkit.jar')
     implementation files('libs/jssc.jar')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
+    implementation(name: 'HungHuiLEDControlLib', ext: 'aar')
 }

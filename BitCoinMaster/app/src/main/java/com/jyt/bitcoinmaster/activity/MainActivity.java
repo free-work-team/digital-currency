@@ -165,11 +165,11 @@ public class MainActivity extends AppCompatActivity {
          * */
         mWebView.addJavascriptInterface(new ScannerJsInterface(this,mWebView,mUsbManager,mPermissionIntent), "scanner");
         mWebView.addJavascriptInterface(new BillAcceptorInterface(this,mWebView), "billAcceptor");
-        mWebView.addJavascriptInterface(new PrinterJsInterface(this,mWebView,mUsbManager,mPermissionIntent), "print");
+        mWebView.addJavascriptInterface(new YSPrinterJsInterface(this,mWebView), "print");
         mWebView.addJavascriptInterface(new BackJsInterface(this,mWebView), "back");
         mWebView.addJavascriptInterface(new UploadTimer(this,mWebView), "webTimer");
         mWebView.addJavascriptInterface(new CameraJsInterface(this,mWebView), "camera");
-        mWebView.addJavascriptInterface(new LEDJsInterface(this,mWebView), "led");
+        mWebView.addJavascriptInterface(new HungHuiLedJsInterface(this,mWebView), "led");
         mWebView.addJavascriptInterface(new BusinessJsInterface(this,mWebView), "business");
         mWebView.addJavascriptInterface(new FrontJsInterface(this,mWebView), "front");
 
@@ -304,8 +304,6 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
                             }
-
-
                             initView();
                         }else{
                             finish();

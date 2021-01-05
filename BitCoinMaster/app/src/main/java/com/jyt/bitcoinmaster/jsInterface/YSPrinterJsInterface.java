@@ -43,7 +43,7 @@ public class YSPrinterJsInterface {
     private COMPrinter comPrinter = COMPrinter.getInstance();
     private WebView webView;
     private InterfaceAPI io;
-    private static PrinterAPI mPrinter;;
+    private static PrinterAPI mPrinter;
     private Config config;
     private  String printType;
     private static final int INIT = 2;
@@ -78,6 +78,7 @@ public class YSPrinterJsInterface {
      */
     @JavascriptInterface
     public void init(){
+        mPrinter= new PrinterAPI();
         log.info("[PrinterJsInterface]:"+"正在连接打印机");
             io = new USBAPI(context);
             int ret =  mPrinter.connect(io);

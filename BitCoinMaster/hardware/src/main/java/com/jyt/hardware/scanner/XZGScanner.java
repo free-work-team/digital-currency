@@ -45,7 +45,7 @@ public class XZGScanner {
     public boolean init(String dev, ScannerResultListener listener) {
         this.listener = listener;
         try {
-            serialPort =  new SerialPort(dev, 115200, 8,1,'E');
+            serialPort =  new SerialPort(dev, 115200, 8,1,'n');
             mOutputStream = serialPort.getOutputStream();
             mInputStream = serialPort.getInputStream();
             isConnect = true;

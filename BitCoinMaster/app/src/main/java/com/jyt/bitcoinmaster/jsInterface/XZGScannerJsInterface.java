@@ -47,6 +47,7 @@ public class XZGScannerJsInterface implements ScannerResultListener {
      */
     @JavascriptInterface
     public void connectDevices(String dev){
+        scanner = new XZGScanner();
         log.info("正在连接扫码器...");
         boolean isSuccess = scanner.init(dev,this);
         Message msg = Message.obtain();

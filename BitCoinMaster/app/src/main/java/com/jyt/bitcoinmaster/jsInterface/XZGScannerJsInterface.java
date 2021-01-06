@@ -30,7 +30,7 @@ public class XZGScannerJsInterface implements ScannerResultListener {
             super.handleMessage(msg);
             if (msg.what == RESULT){
                 String data = (String) msg.obj;
-//                log.info("[ScannerJsInterface]: data=" + data);
+                log.info("[XZGScannerJsInterface]: data=" + data);
                 webView.evaluateJavascript("javascript:scanllerResult('" + data + "')",null);
             }
         }
@@ -46,10 +46,10 @@ public class XZGScannerJsInterface implements ScannerResultListener {
      * 连接设备
      */
     @JavascriptInterface
-    public void connectDevices(String dev){
-        scanner = new XZGScanner();
+    public void connectDevices(){
+        scanner = XZGScanner.getInstance();
         log.info("正在连接扫码器...");
-        boolean isSuccess = scanner.init(dev,this);
+        boolean isSuccess = scanner.init("/dev/ttyACM0",this);
         Message msg = Message.obtain();
         msg.what = RESULT;
         if(isSuccess){

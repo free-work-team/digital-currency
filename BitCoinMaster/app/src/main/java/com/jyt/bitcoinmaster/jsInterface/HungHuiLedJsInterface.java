@@ -9,9 +9,7 @@ import android.webkit.WebView;
 import com.alibaba.fastjson.JSONObject;
 import com.jyt.bitcoinmaster.activity.MyApp;
 import com.jyt.hardware.config.Config;
-import com.jyt.hardware.led.FTQLedBoard;
 import com.jyt.hardware.led.ILedBoard;
-import com.jyt.hardware.led.KMLedBoard;
 import com.jyt.hardware.led.Led;
 
 import org.apache.log4j.Logger;

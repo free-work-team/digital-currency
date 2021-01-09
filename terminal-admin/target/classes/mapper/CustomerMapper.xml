@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.CustomerMapper">
+
+	<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Customer">
+        <id column="id" property="id" />   
+        <result column="cust_name" property="custName" />
+        <result column="e_mail" property="email" />
+        <result column="id_card_positive" property="idCardPositive" />
+        <result column="id_card_obverse" property="idCardObverse" />
+        <result column="id_card_handheld" property="idCardHandheld" />
+        <result column="id_passport" property="idPassport" />
+        <result column="audit_opinion" property="auditOpinion" />
+        <result column="status" property="status" />
+        <result column="card_type" property="cardType" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,cust_name,e_mail,card_type,id_passport, id_card_positive,id_card_obverse, id_card_handheld, status, audit_opinion, create_user, create_time, update_user, update_time
+    </sql>
+    <!-- 分页查询客户信息 -->
+    <select id="getCustomerList" resultType="map">
+        select t1.* from t_customer t1 
+        where 1 = 1
+        <if test="entity.cardType != null">
+            and t1.card_type = #{entity.cardType}
+        </if>
+        <if test="entity.email != null and entity.email != ''">
+            and t1.e_mail = #{entity.email}
+        </if>
+        <if test="entity.status != null and entity.status != '' or entity.status == 0">
+            and t1.status = #{entity.status}
+        </if>
+        <if test="entity.beginTime != null and entity.beginTime != ''">
+            and t1.create_time <![CDATA[ >= ]]> CONCAT(#{entity.beginTime},' 00:00:00')
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and t1.create_time <![CDATA[ <= ]]> CONCAT(#{entity.endTime},' 23:59:59')
+        </if>
+        order by t1.create_time desc
+    </select>
+    <!-- 分页查询待审核信息 -->
+    <select id="getKycReviewList" resultType="map">
+        select t1.* from t_customer t1 
+        where status = 0
+        <if test="entity.cardType != null">
+            and t1.card_type = #{entity.cardType}
+        </if>
+        <if test="entity.email != null and entity.email != ''">
+            and t1.e_mail = #{entity.email}
+        </if>
+        <if test="entity.beginTime != null and entity.beginTime != ''">
+            and t1.create_time <![CDATA[ >= ]]> CONCAT(#{entity.beginTime},' 00:00:00')
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and t1.create_time <![CDATA[ <= ]]> CONCAT(#{entity.endTime},' 23:59:59')
+        </if>
+        order by t1.create_time desc
+    </select>
+	
+</mapper>

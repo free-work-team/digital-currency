@@ -1,0 +1,71 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-12">
+												<#NameCon id="userPhone" name="" lanId="userPhone" placeholder=""/>
+											</div>											
+											<div class="col-lg-4 col-sm-12">
+				                                <#SelectCon id="smsOrderStatu"  lanId="smsOrderStatu" name="" >
+				                                    <option class="lanClass" data-lanid="all" value="" ></option>
+				                                    @for(ct in smsOrderStatuList!){
+				                                    <option value="${ct.code}">${ct.endesc}</option>
+				                                    @}
+				                                </#SelectCon>
+				                            </div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="beginTime" lanId="beginTime"  name="开始时间" isTime="false"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="endTime" lanId="endTime"  name="结束时间" isTime="false"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="" id="managerTableToolbar" role="group">
+									<div class="row">
+									<div class="col-sm-12">
+										<#button name="Search" icon="fa-search" lanId="searchBtn" clickFun="MgrTerm.search()"/>
+										<#button name="Reset" icon="fa-refresh" lanId="resetBtn" clickFun="MgrTerm.resetSearch()"/>
+										@if(shiro.hasPermission("/sms/send")){
+										<#button name="send" icon="fa-plus" lanId="sendBtn" clickFun="MgrTerm.openSendSms()"/>
+										@}
+										@if(shiro.hasPermission("/sms/config")){
+										<#button name="sconfig" icon="fa-plus" lanId="sconfigBtn" clickFun="MgrTerm.openConfig()"/>
+										@}
+										@if(shiro.hasPermission("/sms/detail")){
+										<#button name="Detail" icon="fa-asterisk" lanId="detailBtn" clickFun="MgrTerm.openSmsDetail()"/>
+										@}
+									</div>
+									</div>
+								</div>
+								<#table id="managerTable"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/terminal/terminal.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

@@ -1,0 +1,65 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/question/question.css" rel="stylesheet">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="advertSettingInfoForm">
+			<div class="row" style="text-align:center;margin:60px 0;">
+				<div class="col-sm-12">
+					<h2 class="lanClass" data-lanid="advertSetting">广告设置</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-1 col-sm-10">
+					@if(isEmpty(entity)){
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="advertTitle" name="标题"  lanId="advertTitle" value="" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="advertContent" name="内容" row="20" lanId="advertContent" value="" underline="true"></#textarea>
+							</div>
+						</div>
+					@}else{
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="advertTitle"  name="标题" lanId="advertTitle" value="${entity.advertTitle}" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="advertContent" name="内容" row="20" lanId="advertContent" value="${entity.advertContent}" underline="true">${entity.advertContent}</#textarea>
+							</div>
+						</div>
+					@}
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-5 col-sm-6"  style="margin-top:30px;">
+					@if(isEmpty(entity)){
+							@if(shiro.hasPermission("/advert/add")){
+								<#button btnCss="test" name="添加" lanId="add" id="fa fa-check" icon="fa-check" clickFun="Advert.addSubmit()"/>
+							@}
+						@}else{
+							@if(shiro.hasPermission("/advert/edit")){
+								<#button btnCss="test" name="修改" lanId="updateBtn" id="fa fa-check" icon="fa-check" clickFun="Advert.editSubmit()"/>
+							@}
+					@}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="Advert.close()"/>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/advert/advert.js"></script>
+<script>
+document.onkeydown=function(e){
+    if(e.keyCode == 13){
+        // 避免回车键换行
+        e.preventDefault();
+    }
+}
+</script>
+<style>
+$("input").removeAttr("readonly");
+</style>
+@}

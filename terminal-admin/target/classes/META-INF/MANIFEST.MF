@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: terminal-admin
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: John.123
+Implementation-Vendor-Id: com.jyt.terminal
+Build-Jdk: 1.8.0_77
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/terminal-admin
+Created-By: Maven Integration for Eclipse
+

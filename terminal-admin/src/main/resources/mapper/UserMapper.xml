@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.UserMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.User">
+        <id column="id" property="id" />   
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="role_id" property="roleId" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createtime" />
+        <result column="update_time" property="updateTime" />
+        <result column="email" property="email" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,account, password,salt, name, phone, role_id, status, create_time, update_time, email
+    </sql>
+    
+    <select id="getUserListCount" resultType="int">
+		select count(*) from sys_user where 1=1
+		<if test="user.name != null and user.name != ''">
+			and name like CONCAT('%',#{user.name},'%')
+		</if>
+		<if test="user.account != null and user.account != ''">
+			and account like CONCAT('%',#{user.account},'%') 
+		</if>
+		<if test="user.phone != null and user.phone != ''">
+			and phone = #{user.phone}
+		</if>
+		<if test="user.status != null and user.status != ''">
+			and status = #{user.status}
+		</if>
+		<if test="user.beginTime != null and user.beginTime !='' and user.endTime != null and user.endTime != ''">
+			and (create_time between CONCAT(#{user.beginTime},' 00:00:00') and CONCAT(#{user.endTime},' 23:59:59'))
+		</if>
+		order by status
+	</select>
+	
+     <select id="getUserList" resultType="map">
+		select * from sys_user where 1 = 1
+		<if test="user.name != null and user.name != ''">
+			and name like CONCAT('%',#{user.name},'%')
+		</if>
+		<if test="user.account != null and user.account != ''">
+			and account like CONCAT('%',#{user.account},'%') 
+		</if>
+		<if test="user.phone != null and user.phone != ''">
+			and phone = #{user.phone}
+		</if>
+		<if test="user.status != null and user.status != ''">
+			<choose>
+				<when test="user.status == 2">
+					and (status = #{user.status} or status = 4)
+				</when>
+				<otherwise>
+					and status = #{user.status}
+				</otherwise>
+			</choose>
+		</if>
+		<if test="user.beginTime != null and user.beginTime !='' and user.endTime != null and user.endTime != ''">
+			and (create_time between CONCAT(#{user.beginTime},' 00:00:00') and CONCAT(#{user.endTime},' 23:59:59'))
+		</if>
+		order by status
+	</select>
+	
+    <select id="getByAccount" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user where account = #{account}
+	</select>
+	
+	<update id="changePwd">
+		update sys_user set password = #{pwd} where id =
+		#{userId}
+	</update>
+	
+	<update id="setStatus">
+		update sys_user set status = #{status} where id =
+		#{userId}
+	</update>
+	
+	<update id="setRoles">
+		update sys_user set role_id = #{roleId} where id =
+		#{userId}
+	</update>
+</mapper>

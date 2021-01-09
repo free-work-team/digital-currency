@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div id="driverInfoContent">
+						<#input id="transId"  lanId="tranId" name="" underline="true" value="${order.transId}"/>
+						<#input id="id"  lanId="orderId" name="" underline="true" value="${order.id}"/>
+						<#input id="status" lanId="status" underline="true" name="" value="${order.status}"/>
+						<#textarea row="4" id="message" lanId="message" underline="true" name="" value='${order.message}'></#textarea>
+						<#input id="cryptoCurrency" lanId="cryptoCurrency" name="cryptoCurrency" underline="true" value="${order.cryptoCurrency}"/>
+						<#input id="currency" lanId="currency" name="currency" underline="true" value="${order.currency}"/>
+						<#input id="size"  lanId="coin" name="coin" underline="true" value="${order.size}"/>
+						<#input id="productId"  lanId="productId" name="" underline="true" value="${order.productId}"/>
+						<#input id="side"  lanId="side" name="" underline="true" value="${order.side}"/>
+						<#input id="type"  lanId="type" name="" underline="true" value="${order.type}"/>
+						<!-- <#input id="createdAt" lanId="transTime" name="" underline="true" value="${order.createdAt}"/>  -->
+						<#input id="fillFees" lanId="fillFees" name="" underline="true" value="${order.fillFees}"/>
+						<#input id="filledSize" lanId="filledSize" name="" underline="true" value="${order.filledSize}"/>
+						<#input id="executedValue" lanId="executedValue" name="" underline="true" value="${order.executedValue}"/>
+						<#input id="funds" lanId="funds" underline="true" name="" value="${order.funds}"/>
+						<#input id="terminalNo" lanId="terminalNo" name="" underline="true" value="${order.terminalNo}"/>
+						<#input id="price" lanId="rate" name="" underline="true" value="${order.price}"/>
+						<#input id="createTime" lanId="transTime" name="" underline="true" value="${order.createTime}"/>
+						<#input id="updateTime" lanId="lastTime" name="Last Time" underline="true" value="${updateTime}"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+$(function() {
+	$(".form-control").each(function(){
+		$(this).attr("disabled","disabled"); 
+	})
+	
+	 $("input[type='checkbox']").prop("disabled", "disabled");//禁用
+});
+</script>
+@}

@@ -1,0 +1,211 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/terminal/term_info.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/common/way-checkbox.css" rel="stylesheet">
+<style>
+.small-title{
+	font-size: 20px;
+    font-weight: bolder;
+    text-align: left;
+    margin: 20px;
+}
+.kycEnableTip{
+	float: left;
+	padding-left: 10px;
+	height: 34px;
+	line-height:34px;
+	text-align: left;
+	color:green;
+}
+</style>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div class="row"><div class="col-sm-12">
+						<div class="row">
+						<div class="col-sm-12">
+							<div class="tgl-flat-fontone">One Way</div>
+							<div class="tgl-flat-div">
+								@if(term.way == 2){
+								<input class="tgl tgl-flat" id="way" type="checkbox" checked>
+								@}else{
+								<input class="tgl tgl-flat" id="way" type="checkbox" >
+								@}
+							    <label class="tgl-btn" for="way"></label>
+						    </div>
+						    <div class="tgl-flat-fonttwo">Two Way</div>
+						</div>
+					    </div>
+					</div></div>
+					<hr>
+					<div class="small-title" >Basic Information:</div><hr>
+					<#input id="account" name="终端号" lanId="terminalNo" underline="true" value="${term.terminalNo}"/>
+					<#input id="merchantName" name="商户名" lanId="merchantName"  underline="true" value="${term.merchantName}"/>
+					<#input id="email" name="邮箱" lanId="userEmail" underline="true" value="${term.email}"/>
+					<#input id="hotline" lanId="hotline" name="电话热线" underline="true" value="${term.hotline}"/>
+					
+					<div class="small-title" >AML/KYC:</div><hr>
+					<div class="row">
+						<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="kycEnable">kyc Enable</div><div class="iconMust">&nbsp;&nbsp;</div></div></div>
+						<div class="col-sm-8 col-xs-10" style="text-align:center;">
+							@if(term.kycEnable == 1){
+							<input type="checkbox" id="kycEnable" checked="checked" style="width:20px;height:34px;float:left;margin:0 auto;"/>
+							@}else{
+							<input type="checkbox" id="kycEnable" style="width:20px;height:34px;float:left;margin:0 auto;"/>
+							@}
+						</div>
+					</div>
+					<hr>
+					@if(term.kycEnable == 1){
+					<#input id="limitCash" lanId="limitCash" name="限制金额" underline="true" value="${term.limitCash}"/>
+					<#input id="kycUrl" lanId="kycUrl" name="信息提交链接" underline="true" value="${term.kycUrl}"/>
+					@}
+					<div class="small-title" >CryptoSettings:</div>
+					<hr>
+					<div class="row">
+						<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="virtualCurrency">Virtual Currency</div><div class="iconMust">&nbsp;&nbsp;</div></div></div>
+					</div>
+					<div class="row"><div class="col-sm-12">
+							@for(vs in virtualCurrencyEnum!){
+								@if(vs.code == 1){
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+									<#select id="cryptoSettings1" name="cryptoSettings1" lanId="btc">
+									<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+									@for(cs in cryptoSettingsList!){
+									@if(cs.virtualCurrency == vs.code){
+										@if(isEmpty(cryptoSetList)){
+										<option value="${cs.id}">${cs.name}</option>
+										@}else{
+											@for(cl in cryptoSetList!){
+											@if(cs.id == cl){
+											<option value="${cs.id}" selected="selected">${cs.name}</option>
+											@break;
+											@}else{
+												@if(clLP.last){
+												<option value="${cs.id}">${cs.name}</option>
+												@}
+											@}
+											@}
+										@}
+										
+									@}
+									@}
+									</#select>
+									</div>
+								</div>
+								@}
+								@if(vs.code == 2){
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+									<#select id="cryptoSettings2" name="cryptoSettings2" lanId="eth">
+									<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+									@for(cs in cryptoSettingsList!){
+									@if(cs.virtualCurrency == vs.code){
+										@if(isEmpty(cryptoSetList)){
+										<option value="${cs.id}">${cs.name}</option>
+										@}else{
+											@for(cl in cryptoSetList!){
+											@if(cs.id == cl){
+											<option value="${cs.id}" selected="selected">${cs.name}</option>
+											@break;
+											@}else{
+												@if(clLP.last){
+												<option value="${cs.id}">${cs.name}</option>
+												@}
+											@}
+											@}
+										@}
+										
+									@}
+									@}
+									</#select>
+									</div>
+								</div>
+								@}
+							@}
+					</div></div>
+					<hr>
+					
+					<!-- <div class="row">
+						<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="virtualCurrency">Virtual Currency</div><div class="iconMust">&nbsp;&nbsp;</div></div></div>
+						<div class="col-sm-8 col-xs-10" style="text-align:center;line-height:34px;">
+							@for(vs in virtualCurrencyEnum!){
+								<div class="row"><div class="col-sm-12">
+								@if(vs.code == 1){
+								<div style="float:left;">BTC:</div>
+								@}
+								@if(vs.code == 2){
+								<div style="float:left;">ETH:</div>
+								@}
+								</div></div>
+								<div class="row">
+								@for(cs in cryptoSettingsList!){
+									
+									@if(cs.virtualCurrency == vs.code){
+									<div class="col-sm-6 col-xs-12">
+										@if(isEmpty(cryptoSetList)){
+										<input type="radio" name="cryptoSettings${vs.code}" value="${cs.id}" style="width:20px;height:34px;float:left;margin:0 auto;" />
+										@}else{
+											@for(cl in cryptoSetList!){
+											@if(cs.id == cl){
+											<input type="radio" name="cryptoSettings${vs.code}" value="${cs.id}" checked style="width:20px;height:34px;float:left;margin:0 auto;" />
+											@break;
+											@}else{
+												@if(clLP.last){
+												<input type="radio" name="cryptoSettings${vs.code}" value="${cs.id}" style="width:20px;height:34px;float:left;margin:0 auto;" />
+												@}
+											@}
+											@}
+										@}
+										<div style="float:left;margin-right:20px;">${cs.name}</div>
+									</div>
+									@}
+								@}
+								</div><br/>
+							@}	
+						</div>
+					</div>
+					<hr> -->
+						
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+$(function() {
+	$(".form-control").each(function(){
+		$(this).attr("disabled","disabled"); 
+	})
+	
+	 $("input[type='checkbox']").prop("disabled", "disabled");//禁用
+
+//kyc
+var kycEnable = $("#kycEnable").prop("checked");
+if(kycEnable){
+	var html = '<div class="kycEnableTip">KYC Enabled</div>';
+   	$(".kycEnableTip").remove();
+   	$("#kycEnable").after(html);
+	$(".kycDiv").attr("style","display:block;");
+}else{
+	$(".kycEnableTip").remove();
+	$(".kycDiv").attr("style","display:none;");
+}
+$("#kycEnable").on("change", function () {
+    var that = $(this);
+    if (that.prop("checked")) {
+    	var html = '<div class="kycEnableTip">KYC Enabled</div>';
+        	$(".kycEnableTip").remove();
+        	$("#kycEnable").after(html);
+		$(".kycDiv").attr("style","display:block;");
+    } else {
+    	$(".kycEnableTip").remove();
+		$(".kycDiv").attr("style","display:none;");
+    }
+});
+});
+</script>
+@}

@@ -1,0 +1,87 @@
+/**
+* 设置input - placeholder 属性 开始
+*/
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #DCDEDF;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #DCDEDF;
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #DCDEDF;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #DCDEDF;
+}
+/**
+* 设置input - placeholder 属性 结束
+*/
+@media (min-width: 768px) {
+	.label-div{
+		line-height:34px;
+		//text-align:right;
+		float:left;
+	}
+	.title-name{
+		float: right;
+	}
+	.title-div{
+		float: left;
+		line-height: 34px;
+		text-align: right;
+	}
+	.iconMust{
+		color: red;
+		float: left;
+		line-height: 34px;
+		padding: 3px 5px;
+	}
+}
+@media (max-width: 767px) {
+	.label-div{
+		line-height:34px;
+		//text-align:right;
+		float:left;
+		text-align:left;
+	}
+	.title-div{
+		float: left;
+		line-height: 34px;
+		text-align: right;
+	}
+	.iconMust{
+		color: red;
+		float: left;
+		line-height: 34px;
+		padding: 3px 5px;
+	}
+}
+.content-div{
+	width:100%;
+	height:34px;
+	
+}
+
+.content-input{
+	width:100%;
+	height:34px;
+}
+
+input{
+	border:1px solid #a9a9a9;
+}
+
+span{
+	color:red;
+	position: relative;
+	top:-10px;
+	background-color:#fff;
+	
+}
+
+select{
+	background-color:#fff;
+}

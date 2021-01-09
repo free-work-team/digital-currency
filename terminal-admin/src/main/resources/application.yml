@@ -1,0 +1,137 @@
+terminal:
+  swagger-open: true              #是否开启swagger (true/false)
+  kaptcha-open: true             #是否开启登录时验证码 (true/false)
+#  file-upload-path: d:/tmp       #文件上传目录(不配置的话为java.io.tmpdir目录)
+  spring-session-open: false      #是否开启spring session,如果是多机环境需要开启(true/false)
+  session-invalidate-time: 1800     #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
+  session-validation-interval: 900  #多久检测一次失效的session(只在单机环境下生效) 单位：秒
+
+
+
+rest:
+  auth-open: true #jwt鉴权机制是否开启(true或者false)
+  sign-open: true #签名机制是否开启(true或false)
+
+jwt:
+  header: Authorization   #http请求头所需要的字段
+  secret: 49536b4e8a9a6b21        #jwt秘钥
+  expiration: 31536000      #365天 单位:秒
+  auth-path: api         #认证请求的路径
+  md5-key: randomKey      #md5加密混淆key
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.jyt.terminal.model
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
+###################  beetl配置  ###################
+beetl:
+  delimiter-statement-start: \@   #开始结束标签(yaml不允许@开头)
+  delimiter-statement-end: null
+  resource-tagroot: common/tags   #自定义标签文件Root目录和后缀
+  resource-tagsuffix: tag
+  resource-auto-check: true #是否检测文件变化,开发用true合适，但线上要改为false
+  
+spring:
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+  mail: # JavaMailSender 邮件发送的配置
+    host: hwsmtp.exmail.qq.com
+    username: no-reply@jypay.com
+    password: Jyt2019888
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/terminal_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=Hongkong
+    username: admin
+    password: CCXXnXsLgQZGYPvCN9HL0BekN2SmzdqYvfyiZ0ZCtm/ztlMLf4lU/8B7GMkURzjBq1aoSVHcD4IjwcC4v1pPSQ==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #db-name: terminal_admin #用来搜集数据库的所有表
+    filters: wall,mergeStat,config
+    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANEs48r+z9uI0xaOIWbTyPop4O7KhT6Lmjsm6Uvq5P4ZkxcAgCIpTYsxzCd42DO9B/lYkLGbuG8Hg+7mGb5xY0kCAwEAAQ==
+    druid:
+      initial-size: 5
+      max-active: 20
+      web-stat-filter.enabled: false
+server:
+  port: 8080
+  connectionTimeout: 180000 
+  
+log:
+  path: /home/tomcat/log/terminal-admin
+
+upload-path: /home/tomcat/
+
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://localhost:3306/terminal_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=Hongkong
+    username: admin
+    password: CCXXnXsLgQZGYPvCN9HL0BekN2SmzdqYvfyiZ0ZCtm/ztlMLf4lU/8B7GMkURzjBq1aoSVHcD4IjwcC4v1pPSQ==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #db-name: terminal_admin #用来搜集数据库的所有表
+    filters: wall,mergeStat,config
+    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANEs48r+z9uI0xaOIWbTyPop4O7KhT6Lmjsm6Uvq5P4ZkxcAgCIpTYsxzCd42DO9B/lYkLGbuG8Hg+7mGb5xY0kCAwEAAQ==
+    druid:
+      initial-size: 5
+      max-active: 20
+      web-stat-filter.enabled: false
+server:
+  port: 8080
+  connectionTimeout: 180000 
+  
+log:
+  path: /home/tomcat/log/terminal-admin
+
+upload-path: /home/tomcat/
+
+
+---
+spring:
+  profiles: produce
+  datasource:
+    url: jdbc:mysql://localhost:3306/terminal_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=GMT
+    username: admin
+    password: CCXXnXsLgQZGYPvCN9HL0BekN2SmzdqYvfyiZ0ZCtm/ztlMLf4lU/8B7GMkURzjBq1aoSVHcD4IjwcC4v1pPSQ==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #db-name: terminal_admin #用来搜集数据库的所有表
+    filters: wall,mergeStat,config
+    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANEs48r+z9uI0xaOIWbTyPop4O7KhT6Lmjsm6Uvq5P4ZkxcAgCIpTYsxzCd42DO9B/lYkLGbuG8Hg+7mGb5xY0kCAwEAAQ==
+    druid:
+      initial-size: 5
+      max-active: 20
+      web-stat-filter.enabled: false
+server:
+  port: 8080
+  connectionTimeout: 180000 
+  
+log:
+  path: /home/tomcat/log/terminal-admin
+
+upload-path: /home/tomcat/
+
+            

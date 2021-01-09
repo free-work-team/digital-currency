@@ -1,0 +1,60 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div id="driverInfoContent">
+						<#input id="transId" name="交易ID" lanId="tranId" underline="true" value="${buy.trans_id}"/>
+						<#input id="address" name="发送地址" lanId="address" underline="true" value="${buy.address}"/>
+						<#input id="status" lanId="status" name="状态" underline="true" value="${buy.status}"/>
+						@for(ct in hotWallet!){
+							@if(ct.code == buy.channel){
+							<#input id="channelType" name="渠道类型" lanId="channelType"  underline="true" value="${ct.message}"/>
+							@}
+						@}
+						<#textarea  id="exchangeStrategy" row="4" name="exchangeStrategy" lanId="exchangeStrategy"  value="${buy.exchangeStrategy}"  underline="true"></#textarea>
+						<#input id="cryptoCurrency" lanId="cryptoCurrency" name="cryptoCurrency" underline="true" value="${buy.crypto_currency}"/>
+						<#input id="currency" lanId="currency" name="币种" underline="true" value="${buy.currency}"/>
+						<#input id="strategy" lanId="exchange" name="交易所" underline="true" value="${buy.strategy}"/>
+						<#input id="customerId" name="customer Id" lanId="customerId" underline="true" value="${buy.customer_id}"/>
+						<#input id="terminalNo" name="终端号" lanId="terminalNo"  underline="true" value="${buy.terminal_no}"/>
+						<#input id="cash" lanId="cash" name="现金" underline="true" value="${buy.cash}"/>
+						<#input id="coin" lanId="coin"  name="Coin" underline="true" value="${buy.coin}"/>
+						<#input id="cFee" lanId="cFee" name="平台手续费" underline="true" value="${buy.channel_fee}"/>
+						<#input id="fee" lanId="btcFee" name="商户手续费(聪)" underline="true" value="${buy.fee}"/>
+						<#input id="price" lanId="price" name="Price" underline="true" value="${buy.price}"/>
+						<#input id="transTime" lanId="transTime" name="交易时间" underline="true" value="${buy.trans_time}"/>
+						<#input id="updateTime" lanId="lastTime" name="Last Time" underline="true" value="${buy.update_time}"/>
+						<!-- <#textarea id="remark" row="2" lanId="remark" name="描述" underline="true" value="${buy.remark}"></#textarea> -->
+						<div class="form-group">
+							<label class="col-sm-3 control-label lanClass" data-lanid="remark">Remark</label>
+							<div class="col-sm-9">
+							<div id="remark" style="border:1px solid #E5E6E7;background-color:#EEEEEE;height:54px;padding:6px 12px;overflow-y:auto;">${buy.remark}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+$(function() {
+	$(".form-control").each(function(){
+		$(this).attr("disabled","disabled"); 
+	})
+	$("input[type='checkbox']").prop("disabled", "disabled");//禁用
+	//remark 错误标红
+	var remark = $("#remark").html();
+	var index = remark.indexOf(",");
+	var before = remark.substring(0,index);
+	var after = remark.substring(index,remark.length);
+	before = before.fontcolor('red');
+	remark = before.concat(after);
+	$("#remark").text("");
+	$("#remark").append(remark);
+});
+</script>
+@}

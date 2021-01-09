@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.TradeStatisticsMapper">
+
+	<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.TradeStatistics">
+        <result column="date" property="date" />   
+        <result column="terminal_no" property="terminalNo" />
+        <result column="crypto_currency" property="cryptoCurrency" />
+        <result column="amount" property="amount" />
+        <result column="cash" property="cash" />
+        <result column="fee" property="fee" />
+        <result column="c_fee" property="cFee" />
+        <result column="trade_type" property="tradeType" />
+        <result column="profit" property="profit" />
+        <result column="count" property="count" />
+        <result column="currency" property="currency" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        date,terminal_no,crypto_currency,amount,cash,fee,c_fee,trade_type,profit,count,currency
+    </sql>
+    
+    <select id="getTradeStatisticsList" resultType="map">
+		select * from t_trade_statistics 
+		where 1=1
+		<if test="entity.terminalNo != null and entity.terminalNo != ''">
+			and terminal_no = #{entity.terminalNo}
+		</if>
+		<if test="entity.tradeType != null and entity.tradeType != ''">
+			and trade_type = #{entity.tradeType}
+		</if>
+		<if test="entity.cryptoCurrency != null and entity.cryptoCurrency != ''">
+			and crypto_currency = #{entity.cryptoCurrency}
+		</if>
+		<if test="entity.beginTime != null and entity.beginTime != ''">
+            and date <![CDATA[ >= ]]> #{entity.beginTime}
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and date <![CDATA[ <= ]]> #{entity.endTime}
+        </if>
+		order by date desc
+	</select>
+    
+    <select id="getTradeStatisticsSum" resultType="map">
+		select convert(SUM(amount)/100000000,decimal(10,8)) as amount,Round(SUM(fee),2) as fee,Round(SUM(cash),2) as cash,Round(SUM(profit),2) as profit,SUM(count) as count from t_trade_statistics 
+		where 1=1
+		<if test="entity.terminalNo != null and entity.terminalNo != ''">
+			and terminal_no = #{entity.terminalNo}
+		</if>
+		<if test="entity.tradeType != null and entity.tradeType != ''">
+			and trade_type = #{entity.tradeType}
+		</if>
+		<if test="entity.cryptoCurrency != null and entity.cryptoCurrency != ''">
+			and crypto_currency = #{entity.cryptoCurrency}
+		</if>
+		<if test="entity.beginTime != null and entity.beginTime != ''">
+            and date <![CDATA[ >= ]]> #{entity.beginTime}
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and date <![CDATA[ <= ]]> #{entity.endTime}
+        </if>
+	</select>
+	
+    <!-- 统计图查询 -->
+    <select id="queryStatisticsInfo" resultMap="BaseResultMap" >
+    	
+		select date,SUM(amount) as amount,SUM(cash) as cash,SUM(profit) as profit,SUM(count) as count from t_trade_statistics where 1 =1 
+		
+		<if test="entity.terminalNo != null and entity.terminalNo != ''">
+			and terminal_no = #{entity.terminalNo}
+		</if>
+		<if test="entity.tradeType != null and entity.tradeType != ''">
+			and trade_type = #{entity.tradeType}
+		</if>
+		<if test="entity.cryptoCurrency != null and entity.cryptoCurrency != ''">
+			and crypto_currency = #{entity.cryptoCurrency}
+		</if>
+		<if test="entity.beginTime != null and entity.beginTime != ''">
+            and date <![CDATA[ >= ]]> #{entity.beginTime}
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and date <![CDATA[ <= ]]> #{entity.endTime}
+        </if>
+		GROUP BY date 
+		order by date asc
+		
+	</select>
+	
+</mapper>

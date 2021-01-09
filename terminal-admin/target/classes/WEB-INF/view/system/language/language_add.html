@@ -1,0 +1,25 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <div class="form-horizontal" id="roleInfoForm">
+
+      <div class="row">
+        <div class="col-sm-12 b-r">
+          <#input id="languageId" lanId="languageId" name="ID" underline="true" value=""/>
+          <#input id="lanEnglish" lanId="englishOption" name="English" underline="true" value=""/>
+          <#input id="lanChinese" lanId="chineseOption" name="Chinese" underline="true" value=""/>
+        </div>
+      </div>
+
+      <div class="row btn-group-m-t">
+        <div class="col-sm-offset-3 col-sm-8">
+          <#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="Language.addSubmit()"/>
+        	<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="Language.close()"/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="${ctxPath}/static/modular/system/language/language.js"></script>
+@}

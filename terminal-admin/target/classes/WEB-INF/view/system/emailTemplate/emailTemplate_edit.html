@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/customer/emailTemplate.css" rel="stylesheet">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="emailSettingInfoForm">
+			<div class="row">
+				<div class="col-sm-12">
+				<input id="id" type="hidden" value="${emailTemplate.id}">
+					<div class="row">
+						<div class="col-sm-2 lanClass" data-lanid="templateName">
+							名称
+						</div>
+						<div class="col-sm-10">
+						<input id="name" value="${emailTemplate.name}">
+						</div>
+					</div><br/>
+					<div class="row">
+						<div class="col-sm-2 lanClass" data-lanid="template">
+							模板
+						</div>
+						<div class="col-sm-10">
+						<textarea id="template" class="area">${emailTemplate.template}</textarea>
+						</div>
+					</div><br/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+				  	<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="EmailTemplate.editSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="EmailTemplate.close()"/>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/emailTemplate/emailTemplate.js"></script>
+@}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.TerminalSettingMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.TerminalSetting">
+        <id column="id" property="id" />   
+        <result column="terminal_no" property="terminalNo" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="merchant_name" property="merchantName" />
+        <result column="hotline" property="hotline" />
+        <result column="e_mail" property="email" />
+        <result column="buy_transaction_fee" property="buyTransactionFee" />
+        <result column="buy_single_fee" property="buySingleFee" />
+        <result column="sell_transaction_fee" property="sellTransactionFee" />
+        <result column="sell_single_fee" property="sellSingleFee" />
+        <result column="rate" property="rate" />
+        <result column="min_need_bitcoin" property="minNeedBitcoin" />
+        <result column="min_need_cash" property="minNeedCash" />
+        <result column="channel_param" property="channelParam" />
+        <result column="is_send" property="isSend" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="hot_wallet" property="hotWallet" />
+        <result column="currency" property="currency" />
+        <result column="sell_type" property="sellType" />
+        <result column="exchange" property="exchange" />
+        <result column="limit_cash" property="limitCash" />
+        <result column="kyc_url" property="kycUrl" />
+        <result column="exchange_strategy" property="exchangeStrategy" />
+        <result column="rate_source" property="rateSource" />
+        <result column="kyc_enable" property="kycEnable" />
+        <result column="crypto_settings" property="cryptoSettings" />
+        <result column="way" property="way" />
+    </resultMap>
+
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,terminal_no,password, salt,merchant_name, hotline, e_mail, buy_transaction_fee,buy_single_fee, sell_transaction_fee,
+        sell_single_fee,rate,min_need_bitcoin,min_need_cash, channel_param,is_send,status,create_time,update_time,hot_wallet,
+        currency,sell_type,exchange,limit_cash,kyc_url,exchange_strategy,rate_source,kyc_enable,crypto_settings,way
+    </sql>
+    
+    <select id="getByTermNo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_terminal_setting where terminal_no = #{terminalNo}
+	</select>
+    
+	<update id="changePwd">
+		update t_terminal_setting set password = #{pwd} where terminal_no =
+		#{terminalNo}
+	</update>
+	
+	<select id="getTermList" resultType="map">
+		select * from t_terminal_setting where status=1
+		<if test="term.merchantName != null and term.merchantName != ''">
+			and merchant_name like CONCAT('%',#{term.merchantName},'%')
+		</if>
+		<if test="term.terminalNo != null and term.terminalNo != ''">
+			and terminal_no like CONCAT('%',#{term.terminalNo},'%') 
+		</if>
+		<if test="term.hotline != null and term.hotline != ''">
+			and hotline = #{term.hotline}
+		</if>
+		<if test="term.hotWallet != null and term.hotWallet != ''">
+			and hot_wallet = #{term.hotWallet}
+		</if>
+		<if test="term.beginTime != null and term.beginTime !='' and term.endTime != null and term.endTime != ''">
+			and (create_time between CONCAT(#{term.beginTime},' 00:00:00') and CONCAT(#{term.endTime},' 23:59:59'))
+		</if>
+		order by create_time desc
+	</select>
+	
+	<select id="getTermListCount" resultType="int">
+		select count(*) from t_terminal_setting where status=1
+		<if test="term.merchantName != null and term.merchantName != ''">
+			and merchant_name like CONCAT('%',#{term.merchantName},'%')
+		</if>
+		<if test="term.terminalNo != null and term.terminalNo != ''">
+			and terminal_no like CONCAT('%',#{term.terminalNo},'%') 
+		</if>
+		<if test="term.hotline != null and term.hotline != ''">
+			and hotline = #{term.hotline}
+		</if>
+		<if test="term.beginTime != null and term.beginTime !='' and term.endTime != null and term.endTime != ''">
+			and (create_time between CONCAT(#{term.beginTime},' 00:00:00') and CONCAT(#{term.endTime},' 23:59:59'))
+		</if>
+	</select>
+	<update id="setStatus">
+		update t_terminal_setting set status = #{status} where id =
+		#{termId}
+	</update>
+	<!-- 更新状态为已发送 -->
+	<update id="isSend">
+		update t_terminal_setting set is_send = #{isSend},update_time = NOW() where id = #{id}
+	</update>
+	<!-- 批次更新下发状态 -->
+    <select id="updateSendStatus">
+        update t_terminal_setting set is_send = #{status},update_time = NOW()
+        WHERE ID IN
+        <foreach collection="list" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
+</mapper>

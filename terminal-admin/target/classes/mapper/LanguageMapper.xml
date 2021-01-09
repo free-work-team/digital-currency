@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.LanguageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Language">
+        <id column="id" property="id"/>
+        <result column="lan_english" property="lanEnglish"/>
+        <result column="lan_chinese" property="lanChinese"/>
+    </resultMap>
+
+
+    <select id="getLanguageList" resultMap="BaseResultMap" parameterType="com.jyt.terminal.dto.LanguageQuery">
+        select
+        id,
+        lan_english,
+        lan_chinese
+        from sys_language
+        <if test="languageQuery.keyword != null and languageQuery.keyword != '' ">
+            where id like CONCAT('%',#{languageQuery.keyword},'%') or
+            lan_english like CONCAT('%',#{languageQuery.keyword},'%')or
+            lan_chinese like CONCAT('%',#{languageQuery.keyword},'%')
+        </if>
+        order by `id` asc
+    </select>
+    <select id="getCount" resultType="java.lang.Integer" parameterType="com.jyt.terminal.dto.LanguageQuery">
+        select count(id)
+        from sys_language
+        <if test="languageQuery.keyword != null and languageQuery.keyword != '' ">
+            where id like CONCAT('%',#{languageQuery.keyword},'%') or
+            lan_english like CONCAT('%',#{languageQuery.keyword},'%')or
+            lan_chinese like CONCAT('%',#{languageQuery.keyword},'%')
+        </if>
+    </select>
+    <select id="selectALL" resultMap="BaseResultMap">
+        select
+        id,
+        lan_english,
+        lan_chinese
+        from sys_language
+        order by `id` asc
+    </select>
+</mapper>

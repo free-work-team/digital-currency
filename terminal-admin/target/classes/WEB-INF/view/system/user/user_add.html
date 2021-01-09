@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<input type="hidden" id="id" value="">
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<#input id="account" name="登录名" lanId="userAccount" underline="true"/>
+					<#input id="name" name="姓名" lanId="userName"  underline="true"/>
+					<#input id="email" name="邮箱"  lanId="email" underline="true"/>
+					<#input id="phone" name="手机号"  lanId="userPhone" underline="true"/>
+
+				</div>
+			</div>
+
+			<!-- 这是部门选择的下拉框 -->
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+				  <#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="UserInfoDlg.addSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="UserInfoDlg.close()"/>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/user/user_info.js"></script>
+<script>
+    laydate.render({
+        elem: '#birthday'
+    });
+</script>
+@}

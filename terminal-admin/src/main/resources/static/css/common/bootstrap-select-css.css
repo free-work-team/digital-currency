@@ -1,0 +1,93 @@
+/* bootstrap-select - start */
+bootstrap-select .dropdown-menu {
+	max-width: 100%;
+	min-width: 100%;
+	line-heigth:34px;
+	border: 1px solid cornflowerblue;
+	border-radius: 2px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.bootstrap-select .dropdown-menu li a span.text {
+	display: inline-block;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	max-width: 100%;
+}
+.btn{
+	height:34px;
+	margin:0;
+	padding:0px;
+	border-radius:0;
+	border:1px solid #a9a9a9;
+}
+.btn-default{
+	background-color:#fff !important;
+}
+/* select */
+.bootstrap-select>.dropdown-toggle{
+	padding-left:5px;
+	padding-right:10px;
+	margin:0;
+}
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+}
+.exchangeStrategy-select span{
+	margin:0;
+	height:32px;
+	line-height:32px;
+    color: #777F83 !important;
+	position: static;
+	background-color:transparent;
+}
+/* option */
+ul li:nth-child(1){
+	width:100%;
+	margin:0;
+}
+ul li:nth-child(2){
+	width:100%;
+	margin:0;
+}
+ul li:nth-child(3){
+	width:100%;
+	margin:0;
+}
+ul li:nth-child(1) a{
+	padding:0 0 0 5px;
+	margin:0;
+	width:100%;
+	background-color:#fff;
+}
+ul li:nth-child(2) a{
+	padding:0 0 0 5px;
+	margin:0;
+	width:100%;
+	background-color:#fff;
+}
+ul li:nth-child(3) a{
+	padding:0 0 0 5px;
+	margin:0;
+	width:100%;
+	background-color:#fff;
+}
+/* 倒三角 */
+.caret-background{
+	width:17px;
+	height:32px;
+	background-color: #fff;
+	right: 0;
+	position: absolute;
+    top: 0;
+    vertical-align: middle;
+}
+.caret{
+	right:6px !important;
+	height:5px !important;
+    border-top: 7px dashed;
+    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
+}
+/* bootstrap-select - end */

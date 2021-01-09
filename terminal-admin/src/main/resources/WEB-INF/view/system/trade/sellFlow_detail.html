@@ -1,0 +1,62 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div id="driverInfoContent">
+						<#input id="transId" name="交易ID" lanId="tranId" underline="true" value="${sell.trans_id}"/>
+						<#input id="transStatus" lanId="transStatusDesc" name="交易状态" underline="true" value="${sell.trans_status}"/>
+						<#input id="redeemStatus" lanId="redeemStatusDesc" name="出钞状态" underline="true" value="${sell.redeem_status}"/>
+						@for(ct in hotWallet!){
+							@if(ct.code == sell.channel){
+							<#input id="hotWallet" name="渠道类型" lanId="hotWallet"  underline="true" value="${ct.message}"/>
+							@}
+						@}
+						<#textarea id="exchangeStrategy" name="exchangeStrategy" row="4" lanId="exchangeStrategy"  underline="true" value="${sell.exchangeStrategy}"></#textarea>
+						<#input id="cryptoCurrency" lanId="cryptoCurrency" name="cryptoCurrency" underline="true" value="${sell.crypto_currency}"/>
+						<#input id="currency" lanId="currency" name="Currency" underline="true" value="${sell.currency}"/>
+						<#input id="strategy" lanId="exchange" name="Exchange" underline="true" value="${sell.strategy}"/>
+						<#input id="sellType" lanId="sellType" name="Confirmations" underline="true" value="${sell.sellType}"/>
+						<#input id="customerId" name="customerId" lanId="customerId" underline="true" value="${sell.customer_id}"/>
+						<#input id="terminalNo" name="TerminalNo" lanId="terminalNo"  underline="true" value="${sell.terminal_no}"/>
+						<#input id="cash" lanId="cash" name="Amount" underline="true" value="${sell.cash}"/>
+						<#input id="coin" lanId="coin"  name="coin" underline="true" value="${sell.coin}"/>
+						<#input id="cFee" lanId="cFee" name="Channel Fee" underline="true" value="${sell.c_fee}"/>
+						<#input id="fee" lanId="btcFee" name="Fee" underline="true" value="${sell.fee}"/>
+						<#input id="price" lanId="price" name="Price" underline="true" value="${sell.price}"/>
+						<#input id="outCount" lanId="outCount" name="Out Count" underline="true" value="${sell.out_count}"/>
+						<#input id="transTime" lanId="transTime" name="Transaction Time" underline="true" value="${sell.trans_time}"/>
+						<#input id="updateTime" lanId="lastTime" name="Last Time" underline="true" value="${sell.update_time}"/>
+						<!-- <#textarea row="2" id="remark" lanId="remark" name="Remark" underline="true" value="${sell.remark}"></#textarea> -->
+						<div class="form-group">
+							<label class="col-sm-3 control-label lanClass" data-lanid="remark">Remark</label>
+							<div class="col-sm-9">
+							<div id="remark" style="border:1px solid #E5E6E7;background-color:#EEEEEE;height:54px;padding:6px 12px;overflow-y:auto;">${sell.remark}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+$(function() {
+	$(".form-control").each(function(){
+		$(this).attr("disabled","disabled"); 
+	})
+	$("input[type='checkbox']").prop("disabled", "disabled");//禁用
+	//remark 错误标红
+	var remark = $("#remark").html();
+	var index = remark.indexOf(",");
+	var before = remark.substring(0,index);
+	var after = remark.substring(index,remark.length);
+	before = before.fontcolor('red');
+	remark = before.concat(after);
+	$("#remark").text("");
+	$("#remark").append(remark);
+});
+</script>
+@}

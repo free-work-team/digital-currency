@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-6">
+												<#NameCon id="name" name="名称" lanId="templateName" placeholder="名称"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="" id="emailTemplateTableToolbar" role="group">
+									<div class="row">
+										<div class="col-sm-12">
+										<#button name="Search" icon="fa-search" lanId="searchBtn" clickFun="EmailTemplate.search()"/>
+										<#button name="Refresh" icon="fa-refresh" lanId="resetBtn" clickFun="EmailTemplate.resetSearch()"/>
+										@if(shiro.hasPermission("/emailTemplate/edit")){
+										<#button name="Update" lanId="updateBtn" icon="fa-edit" clickFun="EmailTemplate.openEditView()"/>
+										@}
+										@if(shiro.hasPermission("/emailTemplate/details")){
+										<#button name="Detail" lanId="detailBtn" icon="fa-asterisk" clickFun="EmailTemplate.details()"/>
+										@}
+										</div>
+									</div>
+								</div>
+								<#table id="emailTemplateTable"/>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+</div>
+<script src="${ctxPath}/static/modular/system/emailTemplate/emailTemplate.js"></script>
+
+<script>
+</script>
+@}

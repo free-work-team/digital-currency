@@ -1,0 +1,63 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-6">
+												<#NameCon id="terminalNo" name="终端编号" lanId="terminalNo" placeholder="终端编号"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+													<#SelectCon id="status" name="运行状态 " lanId="runningStatus" >
+															<option class="lanClass" data-lanid="normal"  value="1">正常</option>
+															<option class="lanClass" data-lanid="abnormal"  value="-1" selected="selected">异常</option>
+													</#SelectCon>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#NameCon id="deviceName" name="模块名称" lanId="deviceName" placeholder="模块名称"/>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="beginTime" name="开始日期" lanId="beginTime" isTime="false"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="endTime" name="结束日期" lanId="endTime" isTime="false"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="hidden-xs" id="runManageTableToolbar" role="group">
+									<#button name="搜索" icon="fa-search" lanId="searchBtn" clickFun="RunManage.search()"/>
+									<#button name="重置" icon="fa-refresh" lanId="resetBtn" clickFun="RunManage.resetSearch()" space="true"/>&nbsp;&nbsp;&nbsp;
+								</div>
+								<#table id="runManageTable"/>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/device/runManger.js"></script>
+
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

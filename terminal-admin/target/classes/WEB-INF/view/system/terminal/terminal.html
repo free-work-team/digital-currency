@@ -1,0 +1,83 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-12">
+												<#NameCon id="terminalNo" name="" lanId="terminalNo" placeholder=""/>
+											</div>
+											<div class="col-lg-4 col-sm-12">
+												<#NameCon id="merchantName" name="" lanId="merchantName" placeholder=""/>
+											</div>
+											<div class="col-lg-4 col-sm-12">
+				                                <#SelectCon id="hotWallet"  lanId="hotWallet" name="" >
+				                                    <option class="lanClass" data-lanid="all" value="" ></option>
+				                                    @for(ct in channelType!){
+				                                    <option value="${ct.code}">${ct.message}</option>
+				                                    @}
+				                                </#SelectCon>
+				                            </div>
+											<!-- <div class="col-lg-4 col-sm-6">
+												<#TimeCon id="beginTime" lanId="beginTime"  name="开始日期" isTime="false"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="endTime" lanId="endTime"  name="结束日期" isTime="false"/>
+											</div> -->
+										</div>
+									</div>
+								</div>
+								<div class="" id="managerTableToolbar" role="group">
+									<div class="row">
+									<div class="col-sm-12">
+										<#button name="Search" icon="fa-search" lanId="searchBtn" clickFun="MgrTerm.search()"/>
+										<#button name="Reset" icon="fa-refresh" lanId="resetBtn" clickFun="MgrTerm.resetSearch()"/>
+										@if(shiro.hasPermission("/term/add")){
+										<#button name="New" icon="fa-plus" lanId="addBtn" clickFun="MgrTerm.openAddMgr()"/>
+										@}
+										@if(shiro.hasPermission("/term/edit")){
+										<#button name="Update" lanId="updateBtn" icon="fa-edit" clickFun="MgrTerm.openTermView()"/>
+										@}
+										@if(shiro.hasPermission("/term/delete")){
+										<#button name="Delete" icon="fa-remove" lanId="deleteBtn" clickFun="MgrTerm.delTerm()"/>
+										@}
+										@if(shiro.hasPermission("/term/detail")){
+										<#button name="Detail" icon="fa-asterisk" lanId="detailBtn" clickFun="MgrTerm.openTermDetail()"/>
+										@}
+										@if(shiro.hasPermission("/term/changePwd")){
+										<#button name="Change Password" icon="fa-edit" lanId="changePwdBtn" clickFun="MgrTerm.openChangePwd()"/>
+										@}
+										@if(shiro.hasPermission("/term/resetPwd")){
+										<#button name="Reset Password" icon="fa-refresh" lanId="resetPwdBtn" clickFun="MgrTerm.resetPwd()"/>
+										@}
+									</div>
+									</div>
+								</div>
+								<#table id="managerTable"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/terminal/terminal.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

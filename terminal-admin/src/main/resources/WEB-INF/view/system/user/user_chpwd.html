@@ -1,0 +1,198 @@
+@layout("/common/_container.html"){
+<style>
+	
+.color-lump{
+    width: 100%;
+    height: 120px;
+    background-color:#6587CF;
+    }
+    
+.font{
+   font-size:500%;
+    line-height:120px;
+    text-align: left; 
+	text-indent: 120px;
+	color:white;
+	
+ 	
+	}
+
+
+.form-username{
+		width:80%;
+		height:58px;
+		border:none;
+    	border-radius:0;
+	    box-shadow: 0px 0px 0px 0px;
+		position: absolute;
+		left: 20px;
+		top: 0px;
+		outline:none;
+		 -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.div{
+	  width:100%;height:60px;
+	  border:1px solid #B7B7B7;
+	  position: relative;
+	  left: 0px;
+	  top: 0px;
+
+	}
+	
+
+	.img{
+		  position: absolute;
+		  left:10px;
+		  top:15px;
+}
+	
+		.imgs{
+		  position: absolute;
+		  left:260px;
+		  top:15px;
+}
+	
+	
+	#ensure{
+		width:300px;
+		background-color: #8BA5D8;
+		font-size:20px;
+		color:white;
+		height: 60px;
+	}
+.gray-bg{
+	background-color:#FEFEFE;
+}
+</style>
+<body class="gray-bg">
+<div class="ibox-title">
+        <h5 class="lanClass" data-lanid="updatePassword"></h5>
+    </div>
+<div class="middle-box text-center loginscreen">
+	
+    <div>
+        <h4 style="color: red;">${tips!}</h4>
+        <form class="m-t" role="form" action="${ctxPath}/login" method="post">
+           <div class="">
+            	<div class="div" >
+                	
+                	<input type="password" name="password"  readonly onfocus="this.removeAttribute('readonly');" class="form-username" id="oldPwd" placeholder="old password" required="" style="float:left;">
+                	<img src="/static/img/eyesHide.png"  class="imgs" width="28px" height="28px" alt="" id="oldeyesHide"> 
+	            	<img src="/static/img/eyesShow.png" class="imgs" width="28px" height="28px" alt="" id="oldeyesShow">
+            	
+            	</div>
+            	<div><br></div>
+            	<div class="div">
+            		
+             		<input type="password" name="password"  readonly onfocus="this.removeAttribute('readonly');" class="form-username" id="newPwd" placeholder="new password" required="" style="float:left;">
+            		<img src="/static/img/eyesHide.png"  class="imgs" width="28px" height="28px" alt="" id="eyesHide"> 
+	            	<img src="/static/img/eyesShow.png" class="imgs" width="28px" height="28px" alt="" id="eyesShow">
+            	</div>
+            	<div><br></div>
+            	<div class="div">
+            		
+             		<input type="password" name="password"  readonly onfocus="this.removeAttribute('readonly');" class="form-username" id="rePwd" placeholder="new password again" required="" style="float:left;">
+            		<img src="/static/img/eyesHide.png"  class="imgs" width="28px" height="28px" alt="" id="eyesHideSure"> 
+	            	<img src="/static/img/eyesShow.png" class="imgs" width="28px" height="28px" alt="" id="eyesShowSure">
+            	</div>
+            </div>
+            <div class="form-group">
+              
+            </div>
+            <!-- <div  style="width: 180px;height: 60px;border:1px solid #B7B7B7;position: relative;left: 0px;top: 0px;">
+           	<input id="checkCode" placeholder="验证码"  style="height: 58px;width: 150px;position: absolute;left: 20px;top: 0px;border:none;border-radius:0;outline:none;" type="text"/>&nbsp;&nbsp;&nbsp;
+            <div  style="width: 100px;height: 58px;border:0px solid #B7B7B7;position: absolute; left:200px;top: 0px; ">
+            	<input type="button" value="获取验证码" style="width: 100%; height: 100%; background-color: #FEFEFE;padding: 0px; border: 1px solid #B7B7B7; color: #6587CF"  onclick="UserInfoDlg.Send()"/>
+            </div>
+            </div> -->
+            &nbsp;&nbsp;&nbsp;
+           <!-- 
+           	 <button  class="btn  block full-width m-b" id="ensure"  clickFun="UserInfoDlg.chPwd()">修改</button>
+            --> 
+         	
+             <#button  name="修改" lanId="updateBtn" id="ensure" icon="fa-check" clickFun="UserInfoDlg.chPwd()" btnCss="test"/>
+           
+            </p>
+           
+        </form>
+    </div>
+</div>
+
+<script src="${ctxPath}/static/modular/system/user/user_info.js"></script>
+<script>
+    $(function () {
+        $("#kaptcha").on('click', function () {
+            $("#kaptcha").attr('src', '${ctxPath}/kaptcha?' + Math.floor(Math.random() * 100)).fadeIn();
+        });
+    });
+
+    function cssClearuser() {
+    	$("#username").val("");
+    }
+    
+    
+    
+    function upperCase(){
+    	var username = $("#username").val();
+    	if(username==null && username==""){	
+    		$("#username").val("");
+    	}
+    	
+    }
+    
+    window.onload = function() {//加载就隐藏图片
+    	var password = $("#newPwd").val();
+    	var oldpassword = $("#oldPwd").val();
+    	
+    	if(password==null && password=="" && oldpassword==null && oldpassword=="" ){
+    		
+    	}else{
+    		//$("#eyesHide").hide();		
+    		$("#eyesShow").hide();
+    		$("#oldeyesShow").hide();
+    		$("#eyesShowSure").hide();
+    	}
+      }
+    
+    //老密码显示
+    $("#oldeyesHide").click(function(){ 
+    	if($("#oldPwd").attr("type")=="password"){
+    		$("#oldPwd").attr('type','text');
+    		$("#oldeyesShow").show();
+    		$("#oldeyesHide").hide(); }});
+    $("#oldeyesShow").click(function(){
+    	if($("#oldPwd").attr("type")=="text"){ 
+    		$("#oldPwd").attr('type','password');
+    		$("#oldeyesShow").hide();
+    		$("#oldeyesHide").show(); }});
+    
+    
+    
+    //新密码显示
+    $("#eyesHide").click(function(){ 
+    	if($("#newPwd").attr("type")=="password"){
+    		$("#newPwd").attr('type','text');
+    		$("#eyesShow").show();
+    		$("#eyesHide").hide(); }});
+    $("#eyesShow").click(function(){
+    	if($("#newPwd").attr("type")=="text"){ 
+    		$("#newPwd").attr('type','password');
+    		$("#eyesShow").hide();
+    		$("#eyesHide").show(); }});
+    
+    //新密码确认显示
+    $("#eyesHideSure").click(function(){ 
+    	if($("#rePwd").attr("type")=="password"){
+    		$("#rePwd").attr('type','text');
+    		$("#eyesShowSure").show();
+    		$("#eyesHideSure").hide(); }});
+    $("#eyesShowSure").click(function(){
+    	if($("#rePwd").attr("type")=="text"){ 
+    		$("#rePwd").attr('type','password');
+    		$("#eyesShowSure").hide();
+    		$("#eyesHideSure").show(); }});
+</script>
+</body>
+@}
+

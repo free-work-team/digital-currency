@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.BuyMapper">
+
+	<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Buy">
+        <id column="id" property="id" />   
+        <result column="trans_id" property="transId" />
+        <result column="crypto_currency" property="cryptoCurrency" />
+        <result column="channel" property="channel" />
+        <result column="terminal_no" property="terminalNo" />
+        <result column="address" property="address" />
+        <result column="amount" property="amount" />
+        <result column="fee" property="fee" />
+        <result column="channel_fee" property="channelFee" />
+        <result column="cash" property="cash" />
+        <result column="tx_id" property="txId" />
+        <result column="trans_time" property="transTime" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="currency" property="currency" />
+        <result column="strategy" property="strategy" />
+        <result column="price" property="price" />
+        <result column="exchange_strategy" property="exchangeStrategy" />
+        <result column="customer_id" property="customerId" />
+        <result column="exchange_rate" property="exchangeRate" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,trans_id,crypto_currency,channel, terminal_no,address, amount, fee, channel_fee, cash, tx_id, trans_time,status, remark,currency,strategy,price,exchange_strategy,customer_id,exchange_rate,update_time
+    </sql>
+    
+     <select id="getBuyList" resultType="map">
+		select t1.* from t_buy t1
+		where 1=1
+		<if test="buy.transId != null and buy.transId != ''">
+			and t1.trans_id like CONCAT('%',#{buy.transId},'%')
+		</if>
+		<if test="buy.terminalNo != null and buy.terminalNo != ''">
+			and t1.terminal_no = #{buy.terminalNo}
+		</if>
+		<if test="buy.cryptoCurrency != null and buy.cryptoCurrency != ''">
+			and t1.crypto_currency = #{buy.cryptoCurrency}
+		</if>
+		<if test="buy.status != null and buy.status != ''">
+			and t1.status = #{buy.status}
+		</if>
+		<if test="buy.beginTime != null and buy.beginTime != ''">
+            and t1.trans_time <![CDATA[ >= ]]> CONCAT(#{buy.beginTime},' 00:00:00')
+        </if>
+        <if test="buy.endTime != null and buy.endTime != ''">
+            and t1.trans_time <![CDATA[ <= ]]> CONCAT(#{buy.endTime},' 23:59:59')
+        </if>
+		order by t1.trans_time desc
+	</select>
+	
+     <select id="getBuyDetail" resultType="map">
+		select t1.*
+		from t_buy t1
+		where t1.id = #{id}
+	</select>
+	
+    <!-- 购买汇总列表 -->
+    <select id="getBuyStatisticsList" resultType="com.jyt.terminal.model.TransJoinOrder">
+		SELECT 
+					b.amount as 'amount',
+					b.cash as 'cash',
+					b.fee as 'fee',
+					b.price as 'price',
+					b.channel_fee as 'cFee',
+					o.trans_id as 'transId',
+					o.status as 'status',
+					o.funds as 'funds',
+					o.executed_value as 'executedValue',
+					o.fill_fees as 'fillFees',
+					b.currency as 'tranCurrency',
+					o.product_id as 'orderCurrency',
+					b.crypto_currency as 'cryptoCurrency'
+		FROM t_buy b LEFT JOIN t_order o  ON b.trans_id = o.trans_id 
+		
+		where b.`status` != 0 AND b.`status` !=1
+		
+   		AND b.trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59')
+   		AND b.terminal_no = #{terminalNo}
+   		AND b.crypto_currency = #{cryptoCurrency}
+   		AND b.currency = #{currency}
+	</select>
+	
+	<!-- 购买汇总列表 -->
+    <select id="getBuyStatisticsTerNo"  resultType="java.lang.String" >
+		SELECT terminal_no FROM t_buy WHERE `status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY terminal_no;
+	</select>
+	
+	<!-- 获取存在币种类型 -->
+    <select id="getBuyCryptoCurrencys"  resultType="java.lang.String" >
+		SELECT crypto_currency FROM t_buy WHERE `status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY crypto_currency;
+	</select>
+	
+	<!-- 获取存在法币币种类型 -->
+    <select id="getBuyCurrencys"  resultType="java.lang.String" >
+		SELECT currency FROM t_buy WHERE `status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY currency;
+	</select>
+	
+</mapper>

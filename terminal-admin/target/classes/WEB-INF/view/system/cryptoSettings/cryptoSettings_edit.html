@@ -1,0 +1,290 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/question/question.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/common/bootstrap-select-css.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/bootstrap-select.min.js"></script>
+<style>
+.small-title{
+	font-size: 20px;
+    font-weight: bolder;
+    text-align: left;
+    margin: 20px;
+}
+/* 提交取消按钮 */
+.btn-test{
+	height: 38px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #243544;
+}
+</style>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="cryptoSettingsInfoForm">
+			
+			<div class="row">
+				<div class="col-sm-12 b-r">
+						<input type="hidden" id="id" value="${entity.id}">
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+								<#input id="name" name="name" lanId="cryptoSettingsName" type="text" value="${entity.name}" readonly="readonly" underline="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#select id="virtualCurrency" name="virtualCurrency" lanId="virtualCurrency" underline="true">
+								<option value="" data-lanId="pleaseChoose">Please</option>
+								@for(vc in virtualCurrencyEnum){
+									@if(vc.code == entity.virtualCurrency){
+									<option value="${vc.code}" selected="selected">${vc.endesc}</option>
+									@}else{
+									<option value="${vc.code}">${vc.endesc}</option>
+									@}
+								@}
+							</#select>
+							</div>
+						</div>
+						
+						<div class="small-title" >Exchange Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10 exchangeStrategy-select">
+							<#select id="exchangeStrategy" class="selectpicker" name="exchangeStrategy" lanId="exchangeStrategy" underline="true">
+								@for(es in exchangeStrategyEnum){
+									@if(es.code == entity.exchangeStrategy){
+									<option value="${es.code}" class="optionmouse" selected="selected">${es.endesc}</option>
+									@}else{
+									<option value="${es.code}" class="optionmouse">${es.endesc}</option>
+									@}
+								@}
+							</#select>
+						</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#select id="exchange" name="exchange" lanId="exchange" underline="true">
+								<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+								@for(ec in exchangeEnum){
+									@if(ec.code == entity.exchange){
+									<option value="${ec.code}" class="lanClass" data-lanId="${ec.message}" selected="selected">${ec.message}</option>
+									@}else{
+									<option value="${ec.code}" class="lanClass" data-lanId="${ec.message}">${ec.message}</option>
+									@}
+								@}
+							</#select>
+							</div>
+						</div>
+						
+						<div class="proDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="proKey" name="proKey" lanId="proKey" value="${proKey}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="proSecret" name="proSecret" lanId="proSecret" value="${proSecret}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="proPassphrase" name="proPassphrase" lanId="proPassphrase" value="${proPassphrase}" type="password" underline="true"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="krakenDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="krakenApiKey" name="krakenApiKey" lanId="krakenApiKey" value="${krakenApiKey}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="krakenSecret" name="krakenSecret" lanId="krakenSecret" value="${krakenSecret}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="krakenWithdrawalsAddressName" name="krakenWithdrawalsAddressName" lanId="krakenWithdrawalsAddressName" value="${krakenWithdrawalsAddressName}" type="password" underline="true"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="exchangeParamDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#select id="orderType" name="orderType" lanId="orderType" underline="true">
+									<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+									@for(ot in orderTypeEnum){
+										@if(ot.code == orderType){
+										<option value="${ot.code}" class="lanClass" data-lanId="${ot.message}" selected="selected">${ot.message}</option>
+										@}else{
+										<option value="${ot.code}" class="lanClass" data-lanId="${ot.message}">${ot.message}</option>
+										@}
+									@}
+								</#select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#select id="currencyPair" name="currencyPair" lanId="currencyPair" underline="true">
+									<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+									@for(cp in currencyPairEnum){
+										@if(cp.code == currencyPair){
+										<option value="${cp.code}" class="lanClass" data-lanId="${cp.message}" selected="selected">${cp.message}</option>
+										@}else{
+										<option value="${cp.code}" class="lanClass" data-lanId="${cp.message}">${cp.message}</option>
+										@}
+									@}
+								</#select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="small-title" >Wallet Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#select id="rateSource" name="rateSource" lanId="rateSource" underline="true">
+								<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+								@for(rs in rateSourceEnum){
+									@if(rs.code == entity.rateSource){
+									<option value="${rs.code}" class="lanClass" data-lanId="${rs.message}" selected="selected">${rs.message}</option>
+									@}else{
+									<option value="${rs.code}" class="lanClass" data-lanId="${rs.message}">${rs.message}</option>
+									@}
+								@}
+							</#select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#select id="hotWallet" name="hotWallet" lanId="hotWallet" underline="true">
+								<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+								@for(hw in hotWalletEnum){
+								@if(hw.code == entity.hotWallet){
+								<option value="${hw.code}" class="lanClass" data-lanId="${hw.message}" selected="selected">${hw.message}</option>
+								@}else{
+								<option value="${hw.code}" class="lanClass" data-lanId="${hw.message}">${hw.message}</option>
+								@}
+								@}
+							</#select>
+							</div>
+						</div>
+						
+						<div class="walletDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="walletId" name="walletId" lanId="walletId" value="${walletId}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="walletPassphrase" name="walletPassphrase" lanId="walletPassphrase" value="${walletPassphrase}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="accessToken" name="accessToken" lanId="accessToken" value="${accessToken}" type="password" underline="true"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="apiDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="apiKey" name="apiKey" lanId="apiKey" value="${apiKey}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="apiSecret" name="apiSecret" lanId="apiSecret" value="${apiSecret}" type="password" underline="true"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="blockchainDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="blockchainWalletId" name="blockchainWalletId" lanId="blockchainWalletId" value="${blockchainWalletId}" type="password" underline="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-11 col-xs-10">
+								<#input id="blockchainPassword" name="blockchainPassword" lanId="blockchainPassword" value="${blockchainPassword}" type="password" underline="true"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="price" name="price" lanId="price" value="${entity.price}" underline="true"/>
+							</div>
+							<div class="col-sm-1 col-xs-2 tip-position"><div class="help-tip"><p>Set bitcoin price, don't set it if you want to use current exchange prices.</p></div></div>
+						</div>
+						
+						<div class="small-title" >Buy Transaction Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="buySingleFee" name="buySingleFee" lanId="buySingleFee" value="${entity.buySingleFee}" underline="true"/>
+							</div>
+							<div class="col-sm-1 col-xs-2 tip-position"><div class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></div></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="buyTransactionFee" name="buyTransactionFee" lanId="buyTransactionFee" value="${entity.buyTransactionFee}" underline="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="minNeedCash" name="minNeedCash" lanId="minNeedCash" value="${entity.minNeedCash}" underline="true"/>
+							</div>
+							<div class="col-sm-1 col-xs-2 tip-position"><div class="help-tip"><p>Minimum cash amount per transaction(total banknote inserted by customer must be equal or higher than this value).</p></div></div>
+						</div>
+							
+						<div class="small-title" >Sell Transaction Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="sellSingleFee" name="sellSingleFee" lanId="sellSingleFee" value="${entity.sellSingleFee}" underline="true"/>
+							</div>
+							<div class="col-sm-1 col-xs-2 tip-position"><div class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></div></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#input id="sellTransactionFee" name="sellTransactionFee" lanId="sellTransactionFee" value="${entity.sellTransactionFee}" underline="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-xs-10">
+							<#select id="confirmations" name="confirmations" lanId="confirmations" underline="true">
+							<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+							@for(cf in confirmationsEnum){
+							@if(cf.code == entity.confirmations){
+							<option value="${cf.code}" class="lanClass" data-lanId="${cf.message}" selected="selected">${cf.message}</option>
+							@}else{
+							<option value="${cf.code}" class="lanClass" data-lanId="${cf.message}">${cf.message}</option>
+							@}
+							
+							@}
+						</#select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+					<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="CryptoSettingsInfoDlg.editSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="CryptoSettingsInfoDlg.close()"/>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/cryptoSettings/cryptoSettings_info.js"></script>
+<script src="${ctxPath}/static/modular/system/cryptoSettings/cryptoSettings_edit.js"></script>
+@}

@@ -1,0 +1,49 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<input type="hidden" id="id" value="${user.id}">
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div id="driverInfoContent">
+						<#input id="account" name="登录名" lanId="userAccount" underline="true" value="${user.account}"/>
+						<#input id="name" name="姓名" lanId="userName" underline="true" value="${user.name}"/>
+						<#input id="email" name="邮箱" lanId="email" underline="true" value="${user.email}"/>
+						<#input id="phone" name="手机号" lanId="userPhone" underline="true" value="${user.phone}"/>
+						<!-- <div class="form-group">
+					    <label class="col-sm-3 control-label">登录应用</label>
+					    <div class="col-sm-9">	
+							<input   name="loadApp" id="loadApp1" type="checkbox" value="1">
+								管理后台
+							<input  name="loadApp" id="loadApp2" type="checkbox" value="2">
+								终端应用
+					    </div>
+					</div> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- 这是部门选择的下拉框 -->
+			<!-- <div id="menuContent" class="menuContent"
+				 style="display: none; position: absolute; z-index: 200;">
+				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
+			</div> -->
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+					<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="UserInfoDlg.editSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="UserInfoDlg.close()"/>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/user/user_info.js"></script>
+<script>
+    laydate.render({
+        elem: '#birthday'
+    });
+</script>
+@}

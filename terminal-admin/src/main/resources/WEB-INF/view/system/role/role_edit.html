@@ -1,0 +1,41 @@
+ @layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="roleInfoForm">
+		
+			<input type="hidden" id="id" value="${role.id}">
+
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<#input id="name" name="角色名称" underline="true" value="${role.name}"/>
+					<#input id="deptName" name="商户名称" hidden="deptid" hiddenValue="${role.deptid}" readonly="readonly" value="${deptName}"
+							clickFun="RolInfoDlg.showDeptSelectTree(); return false;"
+							style="background-color: #ffffff !important;"  underline="true" />
+					 <#input id="tips" name="备注" underline="true" value="${role.tips}"/>
+				</div>
+			</div>
+
+			<!-- 这是部门下拉框 -->
+			<div id="deptContent" class="menuContent"
+				style="display: none; position: absolute; z-index: 200;">
+				<ul id="deptTree" class="ztree tree-box" style="width: 250px !important;"></ul>
+			</div>
+			
+			<!-- 这是父级菜单下拉框 -->
+			<div id="pNameContent" class="menuContent"
+				style="display: none; position: absolute; z-index: 200;">
+				<ul id="pNameTree" class="ztree tree-box" style="width: 250px !important;"></ul>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+					<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="RolInfoDlg.editSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="RolInfoDlg.close()"/>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/role/role_info.js"></script>
+@}

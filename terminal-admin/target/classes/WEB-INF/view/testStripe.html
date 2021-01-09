@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Stripe</title>
+<link rel="shortcut icon" href="${ctxPath}/static/favicon.ico">
+<link href="${ctxPath}/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="${ctxPath}/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="${ctxPath}/static/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+	<div class="middle-box text-center">
+		<h1>Stripe</h1>
+		<h3 class="font-bold">create token</h3>
+
+		<div class="error-desc">
+			<form action="/stripe/charge" method="post" id="payment-form">
+				<div class="form-row">
+					<label for="card-element"> Credit or debit card </label>
+					<div id="card-element">
+						<!-- A Stripe Element will be inserted here. -->
+					</div>
+
+					<!-- Used to display Element errors. -->
+					<div id="card-errors" role="alert"></div>
+				</div>
+
+				<button>Submit Payment</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- 全局js -->
+	<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+	<script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="https://js.stripe.com/v3/"></script>
+</body>
+
+<script type="text/javascript">
+	//Set your publishable key: remember to change this to your live publishable key in production
+	//See your keys here: https://dashboard.stripe.com/account/apikeys
+	var stripe = Stripe('pk_test_51HrvN9C19JnVnOgVthb3fBqm8qSe78k4iNh950KavMCEHLd2UoYcCr0RJW7ytLBcErBX7JlNFBAllgkhHyAbzEiF00UwjOaANK');
+	var elements = stripe.elements();
+	
+	
+	// Custom styling can be passed to options when creating an Element.
+	var style = {
+	  base: {
+	    // Add your base input styles here. For example:
+	    fontSize: '16px',
+	    color: '#32325d',
+	  },
+	};
+
+	// Create an instance of the card Element.
+	var card = elements.create('card', {style: style});
+
+	// Add an instance of the card Element into the `card-element` <div>.
+	card.mount('#card-element');
+	
+	/*Add an event listener for when your customer submits their card information
+	   and use stripe.createToken(card) to tokenize that information:  */
+	var form = document.getElementById('payment-form');
+	form.addEventListener('submit', function(event) {
+	  event.preventDefault();
+
+	  stripe.createToken(card).then(function(result) {
+	    if (result.error) {
+	      // Inform the customer that there was an error.
+	      var errorElement = document.getElementById('card-errors');
+	      errorElement.textContent = result.error.message;
+	    } else {
+	      // Send the token to your server.
+	      stripeTokenHandler(result.token);
+	    }
+	  });
+	});
+	
+	
+	function stripeTokenHandler(token) {
+		// Insert the token ID into the form so it gets submitted to the server
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+		
+		var userIdInput = document.createElement('input');
+		userIdInput.setAttribute('type', 'hidden');
+		userIdInput.setAttribute('name', 'userId');
+		userIdInput.setAttribute('value', token.id);
+		form.appendChild(userIdInput);
+		
+		var typeInput = document.createElement('input');
+		typeInput.setAttribute('type', 'hidden');
+		typeInput.setAttribute('name', 'type');
+		typeInput.setAttribute('value', '1');
+		form.appendChild(typeInput);
+		
+		// Submit the form
+		form.submit();
+	}
+	
+</script>
+</html>

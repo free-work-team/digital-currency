@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/question/question.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/terminal/term_info.css" rel="stylesheet">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="emailSettingInfoForm">
+			<div class="row" style="text-align:center;margin:40px 0;">
+				<div class="col-sm-12">
+					<h2 class="lanClass" data-lanid="setNotifyBox">通知邮箱设置</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="email">email</div></div></div>
+				<div class="col-sm-8 col-xs-10" style="text-align:center;">
+					<input id="email" name='email' class="content-input" value="${email}"/>
+				</div>
+				<div class="col-sm-1 col-xs-2"><div class="help-tip" style="float:left;"><p>Email it when there is an audit task.</p></div></div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12" >
+					<div style="text-align:center;">
+					<#button btnCss="test" name="保存" lanId="save" id="fa fa-check" icon="fa-check" clickFun="EmailSetting.addSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="EmailSetting.close()"/>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/customer/notify_mailbox.js"></script>
+<script>
+</script>
+<style>
+$("input").removeAttr("readonly");
+</style>
+@}

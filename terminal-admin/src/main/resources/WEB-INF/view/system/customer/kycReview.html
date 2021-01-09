@@ -1,0 +1,60 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div style="margin-bottom:40px;margin-top:20px;float: right;">
+											<#button name="邮箱设置" icon="fa-edit" lanId="setNotifyBox" clickFun="Customer.setNotifyBox()"/>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-6">
+												<#NameCon id="email" name="邮箱" lanId="email"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#SelectCon id="cardType"  lanId="cardType" name="证件类型" >
+												<option class="lanClass" data-lanid="all" value="" ></option>
+												@for(cs in cardTypes!){
+												<option value="${cs.code}">${cs.label}</option>
+												@}
+											</#SelectCon>
+										</div>
+										</div>
+									</div>
+								</div>
+								<div class="" id="customerTableToolbar" role="group">
+									<#button name="搜索" icon="fa-search" lanId="searchBtn" clickFun="Customer.search()"/>
+									<#button name="重置" icon="fa-refresh" lanId="resetBtn" clickFun="Customer.resetSearch()"/>
+									@if(shiro.hasPermission("/customer/examine")){
+									<#button name=" 审核" lanId="examineBtn" icon="fa-exclamation-circle" clickFun="Customer.openExamineView()"/>
+									@}
+									
+								</div>
+								<#table id="customerTable"/>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+</div>
+<script src="${ctxPath}/static/modular/system/customer/kycReview.js"></script>
+
+<script>
+</script>
+@}

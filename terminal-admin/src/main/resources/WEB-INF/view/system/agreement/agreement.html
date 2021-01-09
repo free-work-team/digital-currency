@@ -1,0 +1,95 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/question/question.css" rel="stylesheet">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="agreementSettingInfoForm">
+			<div class="row" style="text-align:center;margin:60px 0;">
+				<div class="col-sm-12">
+					<h2 class="lanClass" data-lanid="agreementSetting">用户协议设置</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-1 col-sm-10">
+					<input id="id" name="id" value="${entity.id}" class="hidden"/>
+					@if(isEmpty(entity)){
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="agreementTitle" name=""  lanId="title" value="" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="agreementContent" name="" row="20" lanId="content" value="" underline="true"></#textarea>
+							</div>
+						</div>
+					@}else{
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="agreementTitle"  name="" lanId="title" value="${entity.agreementTitle}" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="agreementContent" name="" row="20" lanId="content" value="${entity.agreementContent}" underline="true">${entity.agreementContent}</#textarea>
+							</div>
+						</div>
+					@}
+				</div>
+			</div>
+			
+			<div class="row" style="text-align:center;margin:60px 0;">
+				<div class="col-sm-12">
+					<h2 class="lanClass" data-lanid="privacyPolicySetting"></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-1 col-sm-10">
+					@if(isEmpty(entity)){
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="privacyPolicyTitle" name=""  lanId="title" value="" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="privacyPolicyContent" name="" row="20" lanId="content" value="" underline="true"></#textarea>
+							</div>
+						</div>
+					@}else{
+						<div class="col-sm-12">
+							<div class="col-sm-11"><#input id="privacyPolicyTitle"  name="" lanId="title" value="${entity.privacyPolicyTitle}" underline="true"/></div>
+						</div >
+						<div class="col-sm-12">
+							<div class="col-sm-11">
+							<#textarea id="privacyPolicyContent" name="" row="20" lanId="content" value="${entity.privacyPolicyContent}" underline="true">${entity.privacyPolicyContent}</#textarea>
+							</div>
+						</div>
+					@}
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-5 col-sm-6"  style="margin-top:30px;">
+					@if(isEmpty(entity)){
+							@if(shiro.hasPermission("/agreement/add")){
+								<#button btnCss="test" name="添加" lanId="add" id="fa fa-check" icon="fa-check" clickFun="Agreement.addSubmit()"/>
+							@}
+						@}else{
+							@if(shiro.hasPermission("/agreement/edit")){
+								<#button btnCss="test" name="修改" lanId="updateBtn" id="fa fa-check" icon="fa-check" clickFun="Agreement.editSubmit()"/>
+							@}
+					@}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="Agreement.close()"/>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/agreement/agreement.js"></script>
+<script>
+/* document.onkeydown=function(e){
+    if(e.keyCode == 13){
+        // 避免回车键换行
+        e.preventDefault();
+    }
+} */
+</script>
+<style>
+$("input").removeAttr("readonly");
+</style>
+@}

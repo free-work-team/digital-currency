@@ -1,0 +1,67 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-6">
+												<#NameCon id="name" name="name" lanId="cryptoSettingsName" placeholder=""/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#SelectCon id="virtualCurrency" lanId="virtualCurrency" name="virtualCurrency" >
+				                                    <option value="" class="all" data-lanid="all">All</option>
+				                                    @for(vc in virtualCurrencyEnum){
+				                                    <option value="${vc.code}">${vc.endesc}</option>
+				                                    @}
+				                                </#SelectCon>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+				                                <#SelectCon id="status" lanId="status" name="status" >
+				                                    <option value="" class="all" data-lanid="all">All</option>
+				                                    @for(cs in cryptoSettingsStatusEnum){
+				                                    <option value="${cs.code}">${cs.endesc}</option>
+				                                    @}
+				                                </#SelectCon>
+				                            </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="" id="cryptoSettingsTableToolbar" role="group">
+									<div class="row">
+									<div class="col-sm-12">
+										<#button name="search" icon="fa-search" lanId="searchBtn" clickFun="CryptoSettings.search()"/>
+										<#button name="reset" icon="fa-refresh" lanId="resetBtn"  clickFun="CryptoSettings.resetSearch()"/>
+										@if(shiro.hasPermission("/cryptoSettings/add")){
+										<#button name="add" icon="fa-plus" lanId="addBtn" clickFun="CryptoSettings.openAddView()"/>
+										@}
+										@if(shiro.hasPermission("/cryptoSettings/edit")){
+										<#button name="Update" icon="fa-edit" lanId="updateBtn" clickFun="CryptoSettings.openEditView()"/>
+										@}
+										@if(shiro.hasPermission("/cryptoSettings/delete")){
+										<#button name="Delete" icon="fa-remove" lanId="deleteBtn" clickFun="CryptoSettings.deleteOper()"/>
+										@}
+										@if(shiro.hasPermission("/cryptoSettings/detail")){
+										<#button name="Detail" icon="fa-asterisk" lanId="detailBtn" clickFun="CryptoSettings.openDetailView()"/>
+										@}
+									</div>
+									</div>
+								</div>
+								<#table id="cryptoSettingsTable"/>
+								
+					</div>
+				</div>
+			</div>
+			<br/>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/cryptoSettings/cryptoSettings.js"></script>
+@}

@@ -1,0 +1,567 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/question/question.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/terminal/term_info.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/common/bootstrap-select-css.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/common/way-checkbox.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/bootstrap-select.min.js"></script>
+<script src="${ctxPath}/static/modular/system/terminal/term_validate.js"></script>
+<style>
+.small-title{
+	font-size: 20px;
+    font-weight: bolder;
+    text-align: left;
+    margin: 20px;
+}
+
+/* 提交取消按钮 */
+.btn-test{
+	height: 38px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #243544;
+}
+.kycEnableTip{
+	float: left;
+	padding-left: 10px;
+	height: 34px;
+	line-height:34px;
+	text-align: left;
+	color:green;
+}
+</style>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<div id="driverInfoContent">
+						<!-- <div class="small-title" >Exchange Information:</div>
+						<hr>
+						
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="exchangeStrategy">Exchange Strategy</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10 exchangeStrategy-select" style="text-align:center;">
+								<select id="exchangeStrategy" class="selectpicker content-div" onchange ="dataValidate(this.id);" data-width="100%">
+									@for(es in exchangeStrategy!){
+										@if(es.code == 1){
+										<option value="${es.code}" class="optionmouse" selected="selected" onclick="choose()">${es.message}</option>
+										@}else{
+										<option value="${es.code}" class="optionmouse" onclick="choose()">${es.message}</option>
+										@}
+									@}
+								</select>
+								<span id="exchangeStrategyTip"></span>
+							</div>
+							<div class="help-tip"><p>When the wallet balance is lower than it, send an email to notify the merchant.</p></div>
+						</div>
+						<hr>
+						
+						<div class="exchangeDiv">
+							<div class="row">
+								<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="exchange">Exchange</div><div class="iconMust">*</div></div></div>
+								<div class="col-sm-8 col-xs-10" style="text-align:center;">
+									<select id="exchange" class="content-div" onchange ="dataValidate(this.id);">
+										<option value="" class="lanClass" data-lanid="pleaseChoose"></option>
+										@for(ex in exchange!){
+										<option value="${ex.code}" onclick="choose()">${ex.message}</option>
+										@}
+									</select>
+									<span id="exchangeTip"></span>
+								</div>
+							</div>
+							<hr>
+						</div>
+						
+						<div class="proDiv" style="display:none;">
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="proKey">Pro Key</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="proKey" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="proKeyTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="proSecret">Pro Secret</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="proSecret" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="proSecretTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="proPassphrase">Pro Passphrase</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="proPassphrase" class="content-input" type="password" value="" autocomplete="new-password" onchange ="dataValidate(this.id);"/>
+										<span id="proPassphraseTip"></span>
+									</div>
+								</div><hr>
+						</div>
+						
+						<div class="krakenDiv" style="display:none;">
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="krakenApiKey">Api Key</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="krakenApiKey" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="krakenApiKeyTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="krakenSecret">Secret</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="krakenSecret" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="krakenSecretTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="krakenWithdrawalsAddressName">Address Name</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="krakenWithdrawalsAddressName" class="content-input" type="password" value="" autocomplete="new-password" onchange ="dataValidate(this.id);"/>
+										<span id="krakenWithdrawalsAddressNameTip"></span>
+									</div>
+									<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>Address Name parameter is name of your hotWallet address in Kraken's withdrawal address book.</p></div></div>
+								</div><hr>
+						</div>
+						
+						<div class="exchangeParamDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="orderType">Order Type</div><div class="iconMust">*</div></div></div>
+								<div class="col-sm-8 col-xs-10" style="text-align:center;">
+									<select id="orderType" class="content-div" onchange ="dataValidate(this.id);">
+										<option value="" class="lanClass" data-lanid="pleaseChoose"></option>
+										@for(ot in orderType!){
+										<option value="${ot.code}" onclick="choose()">${ot.message}</option>
+										@}
+									</select>
+									<span id="orderTypeTip"></span>
+								</div>
+							</div>
+							<hr>
+							
+							<div class="row">
+								<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="currencyPair">currencyPair</div><div class="iconMust">*</div></div></div>
+								<div class="col-sm-8 col-xs-10" style="text-align:center;">
+									<select id="currencyPair" class="content-div" onchange ="dataValidate(this.id);">
+										<option value="" class="lanClass" data-lanid="pleaseChoose"></option>
+										@for(pa in currencyPair!){
+										<option value="${pa.code}" onclick="choose()">${pa.message}</option>
+										@}
+									</select>
+									<span id="currencyPairTip"></span>
+								</div>
+							</div>
+							<hr>
+						</div>
+						
+						<div class="small-title" >Wallet Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="Currency">Currency</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<select id="currency" class="content-div" onchange ="dataValidate(this.id);">
+									<option value="" class="lanClass" data-lanid="pleaseChoose">请选择</option>
+									@for(c in currency!){
+										<option value="${c.message}">${c.message}</option>
+									@}
+								</select>
+								<span id="currencyTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="rateSource">Rate Source</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<select id="rateSource" class="content-div" onchange ="dataValidate(this.id);">
+									<option value="" class="lanClass" data-lanid="pleaseChoose"></option>
+									@for(rs in rateSourceEnum!){
+									<option value="${rs.code}">${rs.message}</option>
+									@}
+								</select>
+								<span id="rateSourceTip"></span>
+							</div>
+						</div>
+						<hr>
+						
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="hotWallet">HotWallet</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<select id="hotWallet" class="content-div" onchange ="dataValidate(this.id);">
+									<option value="" class="lanClass" data-lanid="pleaseChoose"></option>
+									@for(hw in hotWallet!){
+										<option value="${hw.code}" onclick="choose()">${hw.message}</option>
+									@}
+								</select>
+								<span id="hotWalletTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="walletDiv" style="display:none;">
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="walletId">Wallet Id</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="walletId" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="walletIdTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="walletPassphrase">Passphrase</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="walletPassphrase" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="walletPassphraseTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="accessToken">Access Token</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" id="accessToken_div" style="text-align:center;">
+										<input id="accessToken" class="content-input" type="password" value="" onchange ="dataValidate(this.id);/>
+										<span id="accessTokenTip"></span>
+									</div>
+								</div><hr>
+						</div>
+						
+						<div class="apiDiv" style="display:none;">
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="apiKey">API Key</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="apiKey" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="apiKeyTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="apiSecret">API Secret</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="apiSecret" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="apiSecretTip"></span>
+									</div>
+								</div><hr>
+						</div>
+						
+						<div class="blockchainDiv" style="display:none;">
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="walletId">Wallet Id</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="blockchainWalletId" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="blockchainWalletIdTip"></span>
+									</div>
+								</div><hr>
+								<div class="row">
+									<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="blockchainPassword">Password</div><div class="iconMust">*</div></div></div>
+									<div class="col-sm-8 col-xs-10" style="text-align:center;">
+										<input id="blockchainPassword" class="content-input" type="password" value="" onchange ="dataValidate(this.id);"/>
+										<span id="blockchainPasswordTip"></span>
+									</div>
+								</div><hr>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="rate">Price</div><div class="iconMust">&nbsp;&nbsp;</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="rate" type="number" class="content-input" value=""  placeholder="The format is 0.00" onchange ="dataValidate(this.id);"/>
+								<span id="rateTip"></span>
+							</div>
+							<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>Set bitcoin price, don't set it if you want to use current exchange prices.</p></div></div>
+						</div>
+						<hr> -->
+						
+						<!-- <div class="row">
+							<div class="col-sm-3 label-div lanClass" data-lanid="minNeedBitcoin">最低钱包余额</div><div style="float:left;line-height:34px;"><p style="color:red;">* </p></div>
+							<div class="col-sm-8" style="text-align:center;">
+								<input id="minNeedBitcoin" type="number" class="content-input" value="" placeholder="The format is 0.00000000" onchange ="dataValidate(this.id);"/>
+								<span id="minNeedBitcoinTip"></span>
+							</div>
+							<div class="help-tip"><p>When the wallet balance is lower than it, send an email to notify the merchant.</p></div>
+						</div>
+						<hr> -->
+						
+						<!-- <div class="small-title" >Buy Transaction Information:</div>
+						<hr>
+						
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="buySingleFee">Buy Fixed Fee</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="buySingleFee" type="number" class="content-input" value="" placeholder="The format is 0.00" onchange ="dataValidate(this.id);"/>
+								<span id="buySingleFeeTip"></span>
+							</div>
+							<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></div></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="buyTransactionFee">buyTransactionFee</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="buyTransactionFee" type="number" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="buyTransactionFeeTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="minNeedCash">Minimum Cash Amount</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="minNeedCash" type="number" class="content-input" value="" placeholder="The format is 0.00" onchange ="dataValidate(this.id);"/>
+								<span id="minNeedCashTip"></span>
+							</div>
+							<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>Minimum cash amount per transaction(total banknote inserted by customer must be equal or higher than this value).</p></div></div>
+						</div>
+						<hr>
+						
+						<div class="small-title" >Sell Transaction Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="sellSingleFee">sell Fixed Fee</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="sellSingleFee" type="number" class="content-input" value="" placeholder="The format is 0.00" onchange ="dataValidate(this.id);"/>
+								<span id="sellSingleFeeTip"></span>
+							</div>
+							<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>A fixed fee is added to the final price. Make sure your fixed fee is high enough to cover your transaction miner fee.</p></div></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="sellTransactionFee">sellTransactionFee</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="sellTransactionFee" class="content-input"  type="number" value="" onchange ="dataValidate(this.id);"/>
+								<span id="sellTransactionFeeTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="sellType">sellType</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<select id="sellType" class="content-div" onchange ="dataValidate(this.id);">
+									<option value=""  class="lanClass" data-lanid="pleaseChoose">请选择</option>
+									@for(st in sellType!){
+										<option value="${st.code}">${st.message}</option>
+									@}
+								</select>
+								<span id="sellTypeTip"></span>
+							</div>
+						</div>
+						<hr>-->
+						<div class="row"><div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="tgl-flat-fontone">One Way</div>
+								<div class="tgl-flat-div">
+									<input class="tgl tgl-flat" id="way" type="checkbox" checked="checked">
+								    <label class="tgl-btn" for="way"></label>
+							    </div>
+							    <div class="tgl-flat-fonttwo">Two Way</div>
+							</div>
+						    </div>
+						</div></div>
+						<hr>
+						<div class="small-title" >Basic Information:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="merchantName">Merchant Name</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="merchantName" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="merchantNameTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="hotline">Hotline</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="hotline" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="hotlineTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="userEmail">Email</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="email" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="emailTip"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="password">Password</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="password" type="password" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="passwordTip"></span>
+							</div>
+							<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>For terminal login.</p></div></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="confirmPwd">ConfirmPwd</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;">
+								<input id="rePwd" type="password" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+								<span id="rePwdTip"></span>
+							</div>
+						</div>
+						<hr>
+						
+						<div class="small-title" >AML/KYC:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="kycEnable">kyc Enable</div><div class="iconMust">&nbsp;&nbsp;</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;line-height:34px;">
+								<input type="checkbox" id="kycEnable" style="width:20px;height:34px;float:left;margin:0 auto;" />
+							</div>
+						</div>
+						<hr>
+						<div class="kycDiv" style="display:none;">
+							<div class="row">
+								<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="limitCash">Limit Amount</div><div class="iconMust">*</div></div></div>
+								<div class="col-sm-8 col-xs-10" style="text-align:center;">
+									<input id="limitCash" type="number" class="content-input" value="" placeholder="The format is 0.00" onchange ="dataValidate(this.id);"/>
+									<span id="limitCashTip"></span>
+								</div>
+								<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>Anonymous customer cash limit per transaction(if the transaction value is beyond the limit, the customer need to upload the ID card photo).</p></div></div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="kycUrl">Submitted Url</div><div class="iconMust">*</div></div></div>
+								<div class="col-sm-8 col-xs-10" style="text-align:center;">
+									<input id="kycUrl" class="content-input" value="" onchange ="dataValidate(this.id);"/>
+									<span id="kycUrlTip"></span>
+								</div>
+								<div class="col-sm-1 col-xs-2"><div class="help-tip"><p>Identity information request URL.</p></div></div>
+							</div>
+							<hr>
+						</div>
+						
+						<div class="small-title" >CryptoSettings:</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="virtualCurrency">Virtual Currency</div><div class="iconMust">*</div></div></div>
+						</div>
+						<div class="row"><div class="col-sm-12">
+								@for(vs in virtualCurrencyEnum!){
+									@if(vs.code == 1){
+									<div class="row">
+										<div class="col-sm-11 col-xs-10">
+										<#select id="cryptoSettings1" name="cryptoSettings1" lanId="btc">
+										<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+										@for(cs in cryptoSettingsList!){
+										@if(cs.virtualCurrency == vs.code){
+										<option value="${cs.id}">${cs.name}</option>
+										@}
+										@}
+										</#select>
+										</div>
+									</div>
+									@}
+									@if(vs.code == 2){
+									<!-- <div style="float:left;">ETH:</div> -->
+									<div class="row">
+										<div class="col-sm-11 col-xs-10">
+										<#select id="cryptoSettings2" name="cryptoSettings2" lanId="eth">
+										<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+										@for(cs in cryptoSettingsList!){
+										@if(cs.virtualCurrency == vs.code){
+										<option value="${cs.id}">${cs.name}</option>
+										@}
+										@}
+										</#select>
+										</div>
+									</div>
+									@}
+									
+								@}
+								<hr>
+						</div>
+						
+						<!-- <div class="row">
+							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="virtualCurrency">Virtual Currency</div><div class="iconMust">*</div></div></div>
+							<div class="col-sm-8 col-xs-10" style="text-align:center;line-height:34px;">
+								@for(vs in virtualCurrencyEnum!){
+									<div class="row"><div class="col-sm-12">
+									@if(vs.code == 1){
+									<div style="float:left;">BTC:</div>
+									@}
+									@if(vs.code == 2){
+									<div style="float:left;">ETH:</div>
+									@}
+									</div></div>
+									<div class="row">
+									@for(cs in cryptoSettingsList!){
+										@if(cs.virtualCurrency == vs.code){
+										<div class="col-sm-6 col-xs-12">
+										<input type="radio" name="cryptoSettings${vs.code}" value="${cs.id}" style="width:20px;height:34px;float:left;margin:0 auto;" />
+										<div style="float:left;">${cs.name}</div>
+										</div>
+										@}
+									@}
+									</div><br/>
+								@}
+							</div>
+						</div>
+						<hr> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+					<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="UserInfoDlg.addSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="UserInfoDlg.close()"/>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script src="${ctxPath}/static/modular/system/terminal/term_info.js"></script>
+<script >
+$(function () {
+	//初始化selectpicker
+    $('#exchangeStrategy').selectpicker();
+    //
+    $(".optionmouse").each(function(index){
+        //移入事件
+    	$(this).mouseenter(function(obj) {
+    	   $(this).attr("style", "background-color:#1E90FF");
+    	   $(this).find("span:first").attr("style", "color: #fff !important");
+    	});
+    });
+    $(".optionmouse").each(function(index){
+        //移出事件
+    	$(this).mouseleave(function(obj) {
+    	   $(this).attr("style","background-color:#fff");
+    	   $(this).find("span:first").attr("style", "color: #777F83 !important");
+    	});
+    });
+    //kyc
+    $("#kycEnable").on("change", function () {
+        var that = $(this);
+        if (that.prop("checked")) {
+        	var html = '<div class="kycEnableTip">KYC Enabled</div>';
+        	$(".kycEnableTip").remove();
+        	$("#kycEnable").after(html);
+			    $(".kycDiv").attr("style","display:block;");
+					$('#kycUrl').val( window.location.origin + "/kyc");
+				} else {
+					$('#kycUrl').val("");
+					$(".kycEnableTip").remove();
+			    $(".kycDiv").attr("style","display:none;");
+        }
+      });
+});
+$("#hotWallet").on("change",function(){
+    pID = $("option:selected",this).val();//需求主键
+    choose();
+});
+$("#exchange").on("change",function(){
+    pID = $("option:selected",this).val();//需求主键
+    choose();
+});
+//单选框
+/* $(function(){
+	$(":radio").click(function () {
+      var r = $(this).attr("name");
+       $(":radio[name=" + r + "]:not(:checked)").attr("tag", 0);
+        if ($(this).attr("tag") == 1) {
+           $(this).attr("checked", false);
+           $(this).attr("tag", 0);
+         }
+          else {
+              $(this).attr("tag",1);
+            }
+     });
+}) */
+
+</script>
+<script src="${ctxPath}/static/js/common/language.js"></script>
+@}

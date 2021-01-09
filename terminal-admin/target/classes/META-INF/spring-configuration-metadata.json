@@ -1,0 +1,257 @@
+{
+  "groups": [
+    {
+      "name": "beetl",
+      "type": "com.jyt.terminal.config.properties.BeetlProperties",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "bit",
+      "type": "com.jyt.terminal.config.properties.BitProperties",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "jwt",
+      "type": "com.jyt.terminal.config.properties.JwtProperties",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "rest",
+      "type": "com.jyt.terminal.config.properties.RestProperties",
+      "sourceType": "com.jyt.terminal.config.properties.RestProperties"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "com.jyt.terminal.config.properties.DruidProperties",
+      "sourceType": "com.jyt.terminal.config.DefaultProperties",
+      "sourceMethod": "public com.jyt.terminal.config.properties.DruidProperties druidProperties() "
+    },
+    {
+      "name": "terminal",
+      "type": "com.jyt.terminal.config.TerminalProperties",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "beetl.delimiter-statement-end",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "beetl.delimiter-statement-start",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "beetl.properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "beetl.resource-auto-check",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "beetl.resource-tagroot",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "beetl.resource-tagsuffix",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BeetlProperties"
+    },
+    {
+      "name": "bit.file-upload-path",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "bit.kaptcha-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "bit.session-invalidate-time",
+      "type": "java.lang.Integer",
+      "description": "session 失效时间（默认为30分钟 单位：秒）",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "bit.session-validation-interval",
+      "type": "java.lang.Integer",
+      "description": "session 验证失效时间（默认为15分钟 单位：秒）",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "bit.spring-session-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "bit.swagger-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.BitProperties"
+    },
+    {
+      "name": "jwt.api-path",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "jwt.header",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "jwt.md5-key",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.JwtProperties"
+    },
+    {
+      "name": "rest.auth-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.RestProperties"
+    },
+    {
+      "name": "rest.sign-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.RestProperties"
+    },
+    {
+      "name": "spring.datasource.connection-properties",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.filters",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.initial-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.max-active",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.max-pool-prepared-statement-per-connection-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.max-wait",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.min-evictable-idle-time-millis",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.password",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.pool-prepared-statements",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.test-on-borrow",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.test-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.test-while-idle",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.time-between-eviction-runs-millis",
+      "type": "java.lang.Integer",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.url",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.username",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "spring.datasource.validation-query",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.properties.DruidProperties"
+    },
+    {
+      "name": "terminal.file-upload-path",
+      "type": "java.lang.String",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    },
+    {
+      "name": "terminal.kaptcha-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    },
+    {
+      "name": "terminal.session-invalidate-time",
+      "type": "java.lang.Integer",
+      "description": "session 失效时间（默认为30分钟 单位：秒）",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    },
+    {
+      "name": "terminal.session-validation-interval",
+      "type": "java.lang.Integer",
+      "description": "session 验证失效时间（默认为15分钟 单位：秒）",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    },
+    {
+      "name": "terminal.spring-session-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    },
+    {
+      "name": "terminal.swagger-open",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.jyt.terminal.config.TerminalProperties"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,5 @@
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.jyt.terminal.controller.admin.GlobalController,\
+com.jyt.terminal.config.DefaultFastjsonConfig,\
+com.jyt.terminal.config.DefaultWebConfig

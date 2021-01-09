@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.CryptoSettingsMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.CryptoSettings">
+        <id column="id" property="id" /> 
+        <result column="name" property="name" />  
+        <result column="virtual_currency" property="virtualCurrency" />
+        <result column="status" property="status" />
+        <result column="channel_param" property="channelParam" />
+        <result column="exchange_strategy" property="exchangeStrategy" />
+        <result column="exchange" property="exchange" />
+        <result column="hot_wallet" property="hotWallet" />
+        <result column="confirmations" property="confirmations" />
+        <result column="rate_source" property="rateSource" />
+        <result column="price" property="price" />
+        <result column="min_need_cash" property="minNeedCash" />
+        <result column="buy_transaction_fee" property="buyTransactionFee" />
+        <result column="buy_single_fee" property="buySingleFee" />
+        <result column="sell_transaction_fee" property="sellTransactionFee" />
+        <result column="sell_single_fee" property="sellSingleFee" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+		id,name,virtual_currency,status,channel_param,exchange_strategy,exchange,hot_wallet,confirmations,rate_source,price,min_need_cash,buy_transaction_fee,buy_single_fee,sell_transaction_fee,sell_single_fee,create_user,create_time,update_user,update_time
+    </sql>
+	
+	<select id="getCryptoSettingsList" resultType="map">
+		select t1.* from t_crypto_settings t1 where 1 = 1
+		<if test="entity.name != null and entity.name !=''">
+			and t1.name = #{entity.name}
+		</if>
+		<if test="entity.virtualCurrency != null and entity.virtualCurrency !=''">
+			and t1.virtual_currency = #{entity.virtualCurrency}
+		</if>
+		<if test="entity.status != null and entity.status !=''">
+			and t1.status = #{entity.status}
+		</if>
+		<if test="entity.beginTime != null and entity.beginTime !=''">
+			and (t1.create_time <![CDATA[ >= ]]> CONCAT(#{entity.beginTime},' 00:00:00'))
+		</if>
+		<if test="entity.endTime != null and entity.endTime != ''">
+			and (t1.create_time <![CDATA[ <= ]]>  CONCAT(#{entity.endTime},' 23:59:59'))
+		</if>
+		order by t1.create_time desc
+	</select>
+	
+	<select id="cryptoSettingsListByIds" resultMap="BaseResultMap">
+        SELECT * FROM t_crypto_settings
+        WHERE ID IN
+        <foreach collection="list" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+    </select>
+    
+</mapper>

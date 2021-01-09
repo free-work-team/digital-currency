@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.RoleMapper">
+
+	<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Role">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="tips" property="tips" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, tips, status, create_time, update_time
+    </sql>
+
+	<select id="getRoleListCount" resultType="int">
+		SELECT count(*) FROM sys_role where 1 = 1
+		<if test="entity.name != null and entity.name != ''">
+			and name like CONCAT('%',#{entity.name},'%')
+		</if>
+	</select>
+
+	<select id="getRoleList" resultType="map">
+		SELECT * FROM sys_role where 1 = 1
+		<if test="entity.name != null and entity.name != ''">
+			and name like CONCAT('%',#{entity.name},'%')
+		</if>
+	</select>
+
+	<delete id="deleteRolesById">
+		delete from sys_relation where roleid = #{roleId}
+	</delete>
+	
+	<select id="roleTreeListByRoleId" resultType="com.jyt.terminal.commom.node.ZTreeNode">
+		SELECT
+		r.id "id",
+		NAME AS "name",
+		(
+		CASE
+		WHEN (r1.ID = 0 OR r1.ID IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		sys_role r
+		LEFT JOIN (
+		SELECT
+		ID
+		FROM
+		sys_role
+		WHERE
+		ID = #{roleId}
+
+		) r1 ON r.ID = r1.ID
+		ORDER BY
+		id ASC
+	</select>
+
+	<select id="roleTreeList" resultType="com.jyt.terminal.commom.node.ZTreeNode">
+		select id "id",name as "name" from sys_role 
+		 
+	</select>
+
+	
+</mapper>

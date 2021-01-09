@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.OrderMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Order">
+        <id column="trans_id" property="transId" />   
+        <result column="order_id" property="id" />
+        <result column="crypto_currency" property="cryptoCurrency" />
+        <result column="size" property="size" />
+        <result column="product_id" property="productId" />
+        <result column="side" property="side" />
+        <result column="type" property="type" />
+        <result column="created_at" property="createdAt" />
+        <result column="fill_fees" property="fillFees" />
+        <result column="filled_size" property="filledSize" />
+        <result column="executed_value" property="executedValue" />
+        <result column="status" property="status" />
+        <result column="message" property="message" />
+        <result column="funds" property="funds" />
+        <result column="terminal_no" property="terminalNo" />
+        <result column="price" property="price" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="currency" property="currency" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        trans_id,order_id,size,product_id,side,type,created_at,fill_fees,filled_size,executed_value,status,message,funds,terminal_no,price,create_time,update_time,currency
+    </sql>
+    
+     <!-- 分页查询卖币流水 -->	
+	<select id="getOrderList" resultType="map">
+		select t1.* from t_order t1
+		where 1=1
+		<if test="order.transId != null and order.transId != ''">
+			and t1.trans_id like CONCAT('%',#{order.transId},'%')
+		</if>
+		<if test="order.terminalNo != null and order.terminalNo != ''">
+			and t1.terminal_no = #{order.terminalNo}
+		</if>
+		<if test="order.cryptoCurrency != null and order.cryptoCurrency != ''">
+			and t1.crypto_currency = #{order.cryptoCurrency}
+		</if>
+		<if test="order.status != null and order.status != ''">
+			and t1.status = #{order.status}
+		</if>
+		<if test="order.side != null and order.side != ''">
+			and t1.side = #{order.side}
+		</if>
+		<if test="order.beginTime != null and order.beginTime != ''">
+            and t1.create_time <![CDATA[ >= ]]> CONCAT(#{order.beginTime},' 00:00:00')
+        </if>
+        <if test="order.endTime != null and order.endTime != ''">
+            and t1.create_time <![CDATA[ <= ]]> CONCAT(#{order.endTime},' 23:59:59')
+        </if>
+		order by create_time desc
+	</select>
+	
+	<!-- 查询卖币利润统计 -->	
+	<select id="getProfitSum" resultType="com.jyt.terminal.model.Order">
+		select t1.* from t_order t1
+		where 1=1
+		<if test="entity.side != null and entity.side != ''">
+			and t1.side = #{entity.side}
+		</if>
+		<if test="entity.status != null and entity.status != ''">
+			and t1.status = #{entity.status}
+		</if>
+		<if test="entity.transId != null and entity.transId != ''">
+			and t1.trans_id like CONCAT('%',#{entity.transId},'%')
+		</if>
+		<if test="entity.terminalNo != null and entity.terminalNo != ''">
+			and t1.terminal_no = #{entity.terminalNo}
+		</if>
+		<if test="entity.beginTime != null and entity.beginTime != ''">
+            and t1.create_time <![CDATA[ >= ]]> CONCAT(#{entity.beginTime},' 00:00:00')
+        </if>
+        <if test="entity.endTime != null and entity.endTime != ''">
+            and t1.create_time <![CDATA[ <= ]]> CONCAT(#{entity.endTime},' 23:59:59')
+        </if>
+	</select>
+	
+</mapper>

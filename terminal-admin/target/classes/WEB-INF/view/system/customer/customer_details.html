@@ -1,0 +1,104 @@
+@layout("/common/_container.html"){
+<meta name="referrer" content="never">
+<style>
+	tr{
+		height: 70px;
+	}
+	.table th, .table td { 
+		text-align: center;
+		vertical-align: middle!important;
+		}
+	.table th{
+		width:40%;
+	
+	}	
+	.table td{
+		width:60%;
+	
+	}
+	
+		
+.table-div{
+	width:1000px;height:500px;border:1px solid #e0e1e3
+}
+
+ .caption-style{
+ 	font-weight: bold;font-size: 16px;color:black
+ }
+ .img-div-class{
+ 	width:80px;height:50px;
+ }
+ th,.first-td{
+ 	border-right: 1px solid #ddd;
+ }
+ th,td{
+ 	
+ }
+</style>
+<div class="ibox float-e-margins"  style="background-color: #FEFEFE">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="userInfoForm">
+
+			<input type="hidden" id="custId" value="${customer.id}">
+			<div class="row">
+				<div class="col-sm-12">
+					<table id="table" class="table table-bordered table-hover table-responsive table-condensed">
+					    <tr>
+					      <th class="lanClass" data-lanid="custName">客户姓名</th>
+					      <td>${customer.custName}</td>
+					    </tr>
+					    <tr>
+					      <th class="lanClass" data-lanid="email">客户邮箱</th>
+					      <td>${customer.email}</td>
+					    </tr>
+
+						@if(customer.cardType == 1){
+						<tr>
+							<th class="lanClass" data-lanid="idCardPositive">身份证ID正面照</th>
+							<td>
+								<!-- <img alt="" src="${customer.idCardPositive}" style="width:80%;height:70px;"> -->
+								<a onclick="preview('${customer.idCardPositive}')" data-url="${customer.idCardPositive}" class="lanClass" data-lanid="lookOver">查看</a>
+							</td>
+						</tr>
+						<tr>
+							<th class="lanClass" data-lanid="idCardObverse">身份证ID反面照</th>
+							<td>
+								<!-- <img alt="" src="${customer.idCardObverse}"  style="width:80%;height:70px;"> -->
+								<a onclick="preview('${customer.idCardObverse}')" data-url="${customer.idCardObverse}" class="lanClass" data-lanid="lookOver">查看</a>
+							</td>
+						</tr>
+						@}
+						@if(customer.cardType == 2){
+						<tr>
+							<th class="lanClass" data-lanid="idPassport">护照证件照</th>
+							<td style="width:100%;height:70px;">
+								<!-- <img src="${customer.idPassport}" data-sourceUrl="${customer.idPassport}" style="width:80%;height:70px;"> -->
+								<a onclick="preview('${customer.idPassport}')" data-url="${customer.idPassport}" class="lanClass" data-lanid="lookOver">查看</a>
+							</td>
+						</tr>
+						@}
+						<tr>
+							<th class="lanClass" data-lanid="idCardHandheld">手持身份证照</th>
+							<td style="width:100%;height:70px;">
+								<!-- <img src="${customer.idCardHandheld}" data-sourceUrl="${customer.idCardHandheld}" style="width:80%;height:70px;"> -->
+								<a onclick="preview('${customer.idCardHandheld}')" data-url="${customer.idCardHandheld}" class="lanClass" data-lanid="lookOver">查看</a>
+							</td>
+						</tr>
+
+					  <tr>
+					    <th class="lanClass" data-lanid="auditOpinion">审核意见</th>
+					    <td>
+					    <textarea id="txtCon" style="width:100%;height:150px;" >${customer.auditOpinion}</textarea>
+					    </td>
+					  </tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<link href="${ctxPath}/static/css/terminal/term_info.css" rel="stylesheet">
+<script >
+</script>
+@}

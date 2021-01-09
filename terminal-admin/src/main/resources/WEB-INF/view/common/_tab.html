@@ -1,0 +1,101 @@
+<nav id="_top_PC" class="navbar-default navbar-static-side" role="navigation" style="background-color:#19233E;">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+					<!-- <div class="language-mobile">
+			          <i class="fa fa-globe" aria-hidden="true"></i>
+			          <select id="languageSelect">
+			            <option value="lanEnglish" class="lanClass" data-lanid="englishOption">English</option>
+			            <option value="lanChinese" class="lanClass" data-lanid="chineseOption">Chinese</option>
+			          </select>
+			        </div>	 -->
+			        <div class="navbar-header" style="float:right;padding-left:0;padding-right:0;">
+				      <button type="button" class="navbar-toggle" id="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse" style="cursor:pointer">
+				        <span class="sr-only">切换导航</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				</div>
+			</div>
+		</div>
+	</div>
+				
+    <div class="nav-close"><i class="fa fa-times-circle"></i>
+    </div>
+    <div class="collapse navbar-collapse sidebar-collapse" id="example-navbar-collapse" style="background-color: #19233e;border-right: 1px solid #c9c9c9;">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header" id="nav-header-userinfo">
+                <div class="dropdown profile-element">
+                    <span></span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear" style="margin-left:40px;">
+                       <span class="block m-t-xs"><strong class="font-bold">${shiro.getUser().name}</strong></span>
+                        <span class="text-muted text-xs block">${shiro.getUser().roleName}<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu m-t-xs">
+                        <li><a class="J_menuItem lanClass" data-lanid="personalInfo" href="${ctxPath}/mgr/user_info" >info</a></li>
+                        <li><a class="J_menuItem lanClass" data-lanid="updatePassword" href="${ctxPath}/mgr/user_chpwd">Update Password</a></li>
+                        <li class="divider"></li>
+                        <li><a href="logout"><i class="fa fa fa-sign-out"></i><span class="lanClass" data-lanid="logout">sign out</span></a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="logo-element">
+                </div>
+                
+            </li>
+            
+            @for(title in titles){
+                @if(tool.isEmpty(title.children)){
+                    <li>
+                        <a class="J_menuItem" href="${ctxPath}${title.url}" name="tabMenuItem"  onclick="navEnumHidden()">
+                            <i class="fa ${title.icon}"></i>
+                            <span class="nav-label lanClass" data-lanid="${title.name}">${title.name}</span>
+                        </a>
+                    </li>
+                @}else{
+                    <li>
+                        <a href="#">
+                            <i class="fa ${title.icon}"></i>
+                            <span class="nav-label lanClass" data-lanid="${title.name}">${title.name}</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            @for(subTitle in title.children){
+                                @if(tool.isEmpty(subTitle.children)){
+                                    <li>
+                                        <a class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem" onclick="navEnumHidden();" onclick="navEnumHidden"><span>●</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="lanClass" data-lanid="${subTitle.name}">${subTitle.name}</span></a>
+                                    </li>
+                                @}else{
+                                    <li>
+                                        <a href="#"  class="lanClass" data-lanid="${subTitle.name}">${subTitle.name} <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            @for(thirdTitle in subTitle.children){
+                                            <li>
+                                                <a class="J_menuItem lanClass" data-lanid="${thirdTitle.name}" href="${ctxPath}${thirdTitle.url}" name="tabMenuItem" onclick="navEnumHidden()">${thirdTitle.name}</a>
+                                            </li>
+                                            @}
+                                        </ul>
+                                    </li>
+                                @}
+                            @}
+                        </ul>
+                    </li>
+                @}
+            @}
+
+        </ul>
+    </div>
+</nav>
+<script>
+function navEnumHidden(){
+	if(/Android|webOS|iPhone|iPad|iPod|Windows Phone|BlackBerry/i.test(navigator.userAgent)) {
+		$("#navbar-toggle").click();
+	} else {
+	}
+}
+</script>

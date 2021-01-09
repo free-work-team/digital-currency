@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.WithdrawMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.Withdraw">
+        <id column="id" property="id" />   
+        <result column="trans_id" property="transId" />
+        <result column="crypto_currency" property="cryptoCurrency" />
+        <result column="channel" property="channel" />
+        <result column="terminal_no" property="terminalNo" />
+        <result column="target_address" property="targetAddress" />
+        <result column="amount" property="amount" />
+        <result column="fee" property="fee" />
+        <result column="c_fee" property="cFee" />
+        <result column="cash" property="cash" />
+        <result column="out_count" property="outCount" />
+        <result column="tx_id" property="txId" />
+        <result column="trans_time" property="transTime" />
+        <result column="trans_status" property="transStatus" />
+        <result column="redeem_status" property="redeemStatus" />
+        <result column="trans_time" property="transTime" />
+        <result column="remark" property="remark" />
+        <result column="strategy" property="strategy" />
+        <result column="price" property="price" />
+        <result column="exchange_strategy" property="exchangeStrategy" />
+        <result column="exchange_rate" property="exchangeRate" />
+        <result column="customer_id" property="customerId" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,trans_id,crypto_currency,channel, terminal_no,target_address, amount, fee, c_fee, cash, out_count,tx_id, trans_time, trans_status,redeem_status,remark,strategy,price,exchange_strategy,exchange_rate,customer_id,update_time
+    </sql>
+
+    <!-- 分页查询卖币流水 -->	
+	<select id="getSellList" resultType="map">
+		select t1.* from t_withdraw t1
+		where 1=1
+		<if test="sell.transId != null and sell.transId != ''">
+			and t1.trans_id like CONCAT('%',#{sell.transId},'%')
+		</if>
+		<if test="sell.terminalNo != null and sell.terminalNo != ''">
+			and t1.terminal_no = #{sell.terminalNo}
+		</if>
+		<if test="sell.cryptoCurrency != null and sell.cryptoCurrency != ''">
+			and t1.crypto_currency = #{sell.cryptoCurrency}
+		</if>
+		<if test="sell.transStatus != null and sell.transStatus != ''">
+			and t1.trans_status = #{sell.transStatus}
+		</if>
+		<if test="sell.redeemStatus != null and sell.redeemStatus != '' or sell.redeemStatus == 0">
+			and t1.redeem_status = #{sell.redeemStatus}
+		</if>
+		<if test="sell.beginTime != null and sell.beginTime != ''">
+            and t1.trans_time <![CDATA[ >= ]]> CONCAT(#{sell.beginTime},' 00:00:00')
+        </if>
+        <if test="sell.endTime != null and sell.endTime != ''">
+            and t1.trans_time <![CDATA[ <= ]]> CONCAT(#{sell.endTime},' 23:59:59')
+        </if>
+		order by trans_time desc
+	</select>
+	
+	<!-- 查询提现详情 -->
+	<select id="getWithdrawDetail" resultType="map">
+		select t1.*
+		from t_withdraw t1
+		where t1.id = #{id}
+	</select>
+	
+	<!-- 卖出汇总列表 -->
+    <select id="getWithdrawStatisticsList" resultType="com.jyt.terminal.model.TransJoinOrder">
+		SELECT 
+			w.amount as 'amount',
+			w.cash as 'cash',
+			w.fee as 'fee',
+			w.price as 'price',
+			w.c_fee as 'cFee',
+			o.trans_id as 'transId',
+			o.status as 'status',
+			o.funds as 'funds',
+			o.executed_value as 'executedValue',
+			o.fill_fees as 'fillFees',
+			w.currency as 'tranCurrency',
+			o.product_id as 'orderCurrency'
+			FROM t_withdraw w LEFT JOIN t_order o  ON w.trans_id = o.trans_id 
+			
+			where w.`trans_status` != 0
+			
+	   		AND w.trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59')
+	   		AND w.terminal_no = #{terminalNo}
+	   		AND w.crypto_currency = #{cryptoCurrency}
+	   		AND w.currency = #{currency}
+	</select>
+	
+	<!-- 卖出汇总列表 -->
+    <select id="getWithdrawStatisticsTerNo"  resultType="java.lang.String" >
+		SELECT terminal_no FROM t_withdraw WHERE `trans_status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY terminal_no;
+	</select>
+	
+	<!-- 获取存在加密币种类型 -->
+    <select id="getWithdrawCryptoCurrencys"  resultType="java.lang.String" >
+		SELECT crypto_currency FROM t_withdraw WHERE `trans_status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY crypto_currency;
+	</select>
+	
+	<!-- 获取存在法币币种类型 -->
+    <select id="getWithdrawCurrencys"  resultType="java.lang.String" >
+		SELECT currency FROM t_withdraw WHERE `trans_status` != 0 AND trans_time BETWEEN CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 00:00:00') AND CONCAT(DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'),' 23:59:59') 
+		GROUP BY currency;
+	</select>
+	
+</mapper>

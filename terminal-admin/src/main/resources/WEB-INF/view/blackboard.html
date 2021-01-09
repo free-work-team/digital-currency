@@ -1,0 +1,356 @@
+@layout("/common/_container.html"){
+<div class="container-fluid" style="padding: 0 !important;">
+	@if(shiro.hasPermission("/tradeStatistics/queryStatisticsInfo")){
+	<div class="row">
+		<div class="ibox-title">
+			<h5 class="lanClass" data-lanid="TradingFlowStatistics">交易流水统计</h5>
+		</div>
+		<!-- <div class="col-sm-12">
+			@for(notice in noticeList){
+				<div class="alert alert-success alert-dismissable">
+					<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+					${notice.content}
+				</div>
+			@}
+		</div>
+			<div name="time" style="width:100px;height:70px;" ></div>-->
+		<div class="row" style="background-color:#ffffff;padding-top:10px;">
+			<!--  <div class="col-lg-3 col-md-4 col-sm-12">
+        <#SelectCon id="channelType" name="渠道类型 " lanId="channelType" >
+          @for(ct in channeltype!){
+            <option class="lanClass" data-lanid=""  value="${ct.code}">${ct.message}</option>
+          @}
+        </#SelectCon>
+      </div>  -->
+			<div class="col-lg-3 col-md-4 col-sm-12">
+				<#SelectCon id="terminalNo" name="终端号 " lanId="terminalNo" >
+				<option class="lanClass" data-lanid="" value="">All</option>
+				@for(dl in terminalList!){
+				<option class="lanClass" data-lanid="" value="${dl.terminalNo}">${dl.terminalNo}</option>
+				@}
+			</#SelectCon>
+		</div>
+		<div class="col-lg-3 col-md-4 col-sm-12">
+			<#SelectCon id="tradeType" name="交易类型 " lanId="side" >
+			<option class="lanClass" data-lanid="" value="">All</option>
+			@for(tt in tradeType!){
+			<option class="lanClass" data-lanid="" value="${tt.code}">${tt.message}</option>
+			@}
+		</#SelectCon>
+	</div>
+</div>
+<div class="row" style="background-color:#ffffff;padding-top:10px;">
+	<div class="col-lg-3 col-md-4 col-sm-12">
+		<#TimeCon id="beginTime" name="开始日期" lanId="beginTime" isTime="false"/>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-12">
+		<#TimeCon id="endTime" name="结束日期" lanId="endTime" isTime="false"/>
+	</div>
+	<div class="col-lg-2 col-md-2 col-sm-12">
+		<#button name="搜索" icon="fa-search" lanId="searchBtn" clickFun="querySubmit()"/>
+	</div>
+</div>
+<!-- echarts 收款统计开始-->
+<div class="bootstarptableSet">
+	<div class="table-unit" style="min-width:1500px;">
+		<div id="main" style="width:100%;height:650px;margin:0 auto;"></div>
+	</div>
+</div>
+
+<!-- echarts 收款统计结束-->
+</div>
+@}else{
+<div id="" style="width: 100%;margin:0 auto;text-align:center;margin-top:100px;;font-size:65px;color:#222A41;">
+	<span class="lanClass" data-lanid="welcome"></span>
+</div>
+@}
+</div>
+
+<div hidden="hidden" class="lanClass" id="amountSum" data-lanid="amount"></div>
+<div hidden="hidden" class="lanClass" id="profitSum" data-lanid="profit"></div>
+<div hidden="hidden" class="lanClass" id="countSum" data-lanid="countSum"></div>
+
+@}
+
+<!-- echarts -->
+<script src="${ctxPath}/static/js/echarts/echarts.js" charset="UTF-8"></script>
+<script>
+laydate.render({
+    elem: '#queryDate'
+  });
+	window.onload = function() {
+		$("#beginTime").val(getBeforeDate(7));//7天前的日期
+		$("#endTime").val(getBeforeDate(1));
+		querySubmit();
+	}
+</script>
+<script type="text/javascript" charset="UTF-8">
+
+//统计
+function querySubmit(){
+	var amountLan = $("#amountSum").html();
+	var profitLan = $("#profitSum").html();
+	/* var countLan = $("#countSum").html(); */
+
+	if(!$("#beginTime").val()){
+		$("#beginTime").val(getBeforeDate(7));
+	}
+	if(!$("#endTime").val() || $("#endTime").val()>=getNowDate()){
+		$("#endTime").val(getBeforeDate(1));
+	}
+	var terminalNo = $("#terminalNo").val();
+	var queryDate = $("#queryDate").val();
+	var tradeType = $("#tradeType").val();
+	var beginTime = $("#beginTime").val();
+	var endTime = $("#endTime").val();
+	var startDate = new Date(beginTime);
+	var endDate = new Date(endTime);
+	var day = (endDate.getTime() - startDate.getTime()) / (24*60*60*1000) + 1;
+	if(day > 20){
+		layer.msg(getSingleLanguage('queryRange')||"查询范围不可超过20天！");
+		return false;
+	}
+	require.config({
+		paths: {
+			echarts: 'http://echarts.baidu.com/build/dist'
+		}
+	});
+	//var data = getData(come);
+	// 使用
+	require(
+		[
+			'echarts',
+			'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+		],
+		function(ec) {
+			// 基于准备好的dom，初始化echarts图表
+			var myChart = ec.init(document.getElementById('main'),{
+              noDataLoadingOption :{
+                  text: '暂无数据',
+                  effect:'bubble',
+                  effectOption : {
+                  	backgroundColor:"#ffffff",
+                      effect: {
+                          n: 0 //气泡个数为0 
+                      }
+                  },
+                  textStyle: {
+                      fontSize: 32,
+                      fontWeight: 'bold'
+                  }
+              }
+          });
+			
+			// 为echarts对象加载数据 
+			//myChart.setOption(ajax);
+			// 显示标题，图例和空的坐标轴
+	      	// myChart.showLoading();    		//数据加载完之前先显示一段简单的loading动画
+			var queryMonth=[];         //查询的月份数组（用来盛放X轴坐标值）
+	 		var amountSum=[];    	   //交易比特币量数组（用来盛放Y坐标值）
+	 		var countSum=[];    	   //平台手续费数组（用来盛放Y坐标值）
+	 		var profitSum=[];    	   //利润数组（用来盛放Y坐标值）
+			//提交信息
+	        var ajax = new $ax(Feng.ctxPath + "/tradeStatistics/queryStatisticsInfo" , function (result) {
+		        if (result) {
+					for(var i=0;i<result.length;i++){  
+						queryMonth.push(result[i].date); 			//日期
+						amountSum.push(result[i].cash); 			//现金存款 	
+						/* countSum.push(result[i].count);  */			
+						profitSum.push(result[i].profit);
+					}  
+		                 
+		                myChart.hideLoading();    //隐藏加载动画
+		                //业务员签约统计坐标开始
+		                myChart.setOption({        //加载数据图表
+		                	backgroundColor: '#ffffff',
+		                	color:['#ffffff'],
+		                	legend: {
+		                		itemGap:100,
+		                		 x: 'center', // 'center' | 'left' | {number},
+		                	     y: '20', // 'center' | 'bottom' | {number}
+		                		selectedMode:false,
+								data: [{
+								    name:amountLan,
+								    textStyle:{
+								        fontSize:15,
+								        fontWeight:'bolder',
+								        color: '#7c5f17'
+								    }
+								},
+								{name:profitLan,
+								    textStyle:{
+								        fontSize:15,
+								        fontWeight:'bolder',
+								        color:'#19233e'}
+								}/* ,
+								{name:countLan,
+								    textStyle:{
+								        fontSize:15,
+								        fontWeight:'bolder',
+								        color:'#1c2948'}
+								} */]
+							},
+		                	xAxis: {
+				                data: queryMonth,
+				                splitLine:{show:false},
+				                
+				             },
+				           
+				             yAxis: [
+				            	 {type : 'value',
+		                        axisLine:{show:true,
+		                        lineStyle:{color:'#ccc'}
+		                        },
+		                        axisTick:{
+		                        show:false,                         
+		                        },
+		                        axisLabel:{
+		                        show:true,
+		                        inside:true
+		                        },
+		                        splitNumber:10}
+				             ],
+				            grid:{
+          		              top:'25%',//距上边距
+          		              left:'25%',//距离左边距
+          		              right:'25%',//距离右边距
+          		              bottom:'25%',//距离下边距
+				            	  },
+							series: [{
+									"name": amountLan,
+									"type": "bar",
+									"data": amountSum,
+									//barWidth : 20, //柱体宽度
+									barGap:'20%',
+									barCategoryGap:'30%',
+									itemStyle: {
+										normal: {
+											color: function(params) {
+					                            // build a color map as your need.
+					                            var color = [
+					                              '#7c5f17'
+					                            ];
+					                            return color;
+					                        },
+											label: {
+												show: true, //开启显示
+												position: 'top', //在上方显示
+												textStyle: { //数值样式
+													color: 'black',
+													fontSize: 13
+												}
+											}
+										}
+									},
+								},{
+									"name": profitLan,
+									"type": "bar",
+									"data": profitSum,
+									//barWidth : 20,
+									barGap: '20%',
+									barCategoryGap:'30%',
+									itemStyle: {
+										normal: {
+											color: function(params) {
+					                            // build a color map as your need.
+					                            var color = [
+					                              '#19233e'
+					                            ];
+					                            return color;
+					                        },
+											label: {
+												show: true, //开启显示
+												position: 'top', //在上方显示
+												textStyle: { //数值样式
+													color: 'black',
+													fontSize: 13
+												}
+											}
+										}
+									},
+								}/* ,{
+									"name": countLan,
+									"type": "bar",
+									"data": countSum,
+									barWidth : 25,
+									barGap:'2',
+									//barCategoryGap:'20%',
+									itemStyle: {
+										normal: {
+											color: function(params) {
+					                            // build a color map as your need.
+					                            var color = [
+					                              '#1c2948'
+					                            ];
+					                            return color;
+					                        },
+											label: {
+												show: true, //开启显示
+												position: 'top', //在上方显示
+												textStyle: { //数值样式
+													color: 'black',
+													fontSize: 13
+												}
+											}
+										}
+									},
+								} */
+							]
+		                });
+	         }
+	        }, function (result) {
+	            Feng.error("图表请求数据失败!" + data.responseJSON.message + "!");
+	            myChart.showLoading();
+	        });
+	        ajax.set("terminalNo",terminalNo);
+	        ajax.set("tradeType",tradeType);
+	        ajax.set("beginTime", beginTime);
+	        ajax.set("endTime", endTime);
+	        ajax.start();
+		}
+	);
+	
+}
+
+//获取当前默认 日期 时间
+function getNowDate(date) {
+	var date = new Date();
+	var sign1 = "-";
+	var year = date.getFullYear(); // 年
+	var month = date.getMonth() + 1; // 月
+	var day = date.getDate(); // 日
+	// var hour = date.getHours(); // 时
+	// var minutes = date.getMinutes(); // 分
+	// var seconds = date.getSeconds(); //秒
+	// 给一位数数据前面加 “0”
+	if (month >= 1 && month <= 9) {
+	  month = "0" + month;
+	}
+	if (day >= 0 && day <= 9) {
+	  day = "0" + day;
+	}
+	return year + sign1 + month + sign1 + day;
+}
+function getBeforeDate(n){
+    var n = n;
+    var d = new Date();
+    var year = d.getFullYear();
+    var mon=d.getMonth()+1;
+    var day=d.getDate();
+    if(day <= n){
+            if(mon>1) {
+               mon=mon-1;
+            }
+           else {
+             year = year-1;
+             mon = 12;
+             }
+           }
+          d.setDate(d.getDate()-n);
+          year = d.getFullYear();
+          mon=d.getMonth()+1;
+          day=d.getDate();
+     s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+     return s;
+}
+</script>

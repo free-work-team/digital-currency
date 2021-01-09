@@ -1,0 +1,33 @@
+@layout("/common/_container.html"){
+<div class="row">
+  <div class="col-sm-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5 class="lanClass" data-lanid="selectList"></h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row row-lg">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-3">
+                <#NameCon id="keyword" lanId="keyword" name="关键字" />
+              </div>
+            </div>
+            <div class="" id="languageTableToolbar" role="group">
+              <#button name="搜索" icon="fa-search" lanId="searchBtn" clickFun="Language.search()"/>
+              @if(shiro.hasPermission("/language/add")){
+              <#button name="New" lanId="addBtn" icon="fa-plus" clickFun="Language.openAddView()"/>
+              @}
+              @if(shiro.hasPermission("/language/update")){
+              <#button name="修改" lanId="updateBtn" icon="fa-edit" clickFun="Language.update()"/>
+              @}
+            </div>
+            <#table id="languageTable"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="${ctxPath}/static/modular/system/language/language.js"></script>
+@}

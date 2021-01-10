@@ -92,8 +92,6 @@ public class SmsUtil {
         List<NameValuePair> paramsList = HttpsClientUtil.getParams(params, values);
         //发送get
         Object result=null;
-        //发送post
-        Object result2 =null;
 		try {
 			result = HttpsClientUtil.sendGet(SEND_SMS_URL, paramsList,0);
 			//result2 = HttpsClientUtil.sendPost(url, paramsList);

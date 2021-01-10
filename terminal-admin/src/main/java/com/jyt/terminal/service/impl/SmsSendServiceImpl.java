@@ -53,30 +53,35 @@ public class SmsSendServiceImpl extends ServiceImpl<SmsSendMapper, SmsSend> impl
 		String smsCode=SmsUtil.generateCode();
 		String phone=smsSendInDTO.getMobile();
 		try {
-		String smsText=SmsUtil.generateSmsContent(phone,smsCode);
-		
-		//生成短信bean
-		SmsSend sms=generateSmsObject(phone,smsCode,smsText);
-		
-		//插入发送短信表记录
-		inserOrUpdateOrder(sms);
-		
-		//插入成功后调用短信接口,发送返回成功的
-		Object result=SmsUtil.sendSMS(phone,smsText);
-		JSONObject retObj=JSONObject.parseObject(result.toString());
-		String resStatus=retObj.getString("status");//0表示成功
-		if(resStatus.equals("0")) {
-			result1.setExtraInfo(smsCode);
-			result1.setTradeStatus(0);
+			String smsText=SmsUtil.generateSmsContent(phone,smsCode);
 			
-			SmsSend retSms=new SmsSend();
-			retSms.setChRetCode(resStatus);
-			retSms.setChTradeNo(retObj.getString("messageid"));
-			retSms.setSendTime(new Date());
-			inserOrUpdateOrder(retSms);	
-		}
+			//生成短信bean
+			SmsSend sms=generateSmsObject(phone,smsCode,smsText,smsSendInDTO.getTerminalId());
+			
+			//插入发送短信表记录
+			inserOrUpdateOrder(sms);
+			
+			//插入成功后调用短信接口,发送返回成功的
+			Object result=SmsUtil.sendSMS(phone,smsText);
+			JSONObject retObj=JSONObject.parseObject(result.toString());
+			String resStatus=retObj.getString("status");//0表示成功
+			
+			if(resStatus.equals("0")) {
+				result1.setExtraInfo(smsCode);
+				result1.setTradeStatus(0);				
+				sms.setChRetCode(resStatus);
+				sms.setChTradeNo(retObj.getString("messageid"));
+				sms.setTradeStatus(1);				
+			}else {
+				sms.setTradeStatus(2);
+				sms.setChRetCode(resStatus);
+			}
+
+			sms.setSendTime(new Date());
+			boolean isUpdate=inserOrUpdateOrder(sms);
+			LOGGER.info("操作数据库:{}",isUpdate);
 		}catch(Exception e) {
-			LOGGER.info("操作数据库失败:{}",e.getMessage());
+			LOGGER.error("操作数据库失败:{}",e.getMessage());
 		}
 		
 		return result1;
@@ -86,7 +91,8 @@ public class SmsSendServiceImpl extends ServiceImpl<SmsSendMapper, SmsSend> impl
 	public boolean inserOrUpdateOrder(SmsSend sms) {
 		boolean flag = true;
     	
-		SmsSend o = selectOne(new EntityWrapper<SmsSend>().eq("ORDER_NO", sms.getOrderNo()));
+		SmsSend o = baseMapper.getByOrderNo(sms.getOrderNo());
+		
     	if(o == null){
     		flag = insert(sms);
     	}else{
@@ -129,14 +135,17 @@ public class SmsSendServiceImpl extends ServiceImpl<SmsSendMapper, SmsSend> impl
 	 * @param text      短信内容
 	 * @return 已赋值的bean
 	 */
-	private static SmsSend generateSmsObject(String phone,String smsCode,String text) {
+	private static SmsSend generateSmsObject(String phone,String smsCode,String text,String terminalId) {
 		SmsSend sms=new SmsSend();
 		sms.setMobile(phone);
 		sms.setChannelNo("001");
 		sms.setSendTime(new Date());
 		sms.setOrderNo(SmsUtil.getOrderIdByTime());
 		sms.setSmsContent(text);
-		sms.setSmsAuthId(Long.parseLong(smsCode));				
+		sms.setSmsAuthId(Long.parseLong(smsCode));
+		sms.setMerchantId(terminalId);
+		sms.setChState("1");
+		sms.setTradeStatus(3);
 		return sms;
 	}
 	

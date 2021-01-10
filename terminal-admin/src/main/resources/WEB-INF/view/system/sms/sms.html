@@ -17,7 +17,7 @@
 												<#NameCon id="userPhone" name="" lanId="userPhone" placeholder=""/>
 											</div>											
 											<div class="col-lg-4 col-sm-12">
-				                                <#SelectCon id="smsOrderStatu"  lanId="smsOrderStatu" name="" >
+				                                <#SelectCon id="status"  lanId="status" name="" placeholder="">
 				                                    <option class="lanClass" data-lanid="all" value="" ></option>
 				                                    @for(ct in smsOrderStatuList!){
 				                                    <option value="${ct.code}">${ct.endesc}</option>
@@ -59,7 +59,7 @@
 			<br/>
 	</div>
 </div>
-<script src="${ctxPath}/static/modular/system/terminal/terminal.js"></script>
+<script src="${ctxPath}/static/modular/system/sms/sms.js"></script>
 <script>
     laydate.render({
         elem: '#beginTime'

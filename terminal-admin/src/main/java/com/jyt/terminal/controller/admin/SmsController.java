@@ -18,6 +18,7 @@ import com.jyt.terminal.commom.enums.SmsEnum.SmsStatus;
 import com.jyt.terminal.dto.QuerySmsDTO;
 import com.jyt.terminal.service.ISmsSendService;
 import com.jyt.terminal.util.Utils;
+import com.jyt.terminal.warpper.SmsWarpper;
 import com.jyt.terminal.warpper.TerminalWarpper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,7 +65,7 @@ public class SmsController extends BaseController{
 		String currentType = respParam.get("currentType");
     	Page<Map<String, Object>> page = new PageFactory<Map<String, Object>>().defaultPage();
         List<Map<String, Object>> result = this.smsSendService.getSmsList(page, querySmsDTO);
-        page.setRecords((List<Map<String, Object>>) new TerminalWarpper(result).warp(currentType));
+        page.setRecords((List<Map<String, Object>>) new SmsWarpper(result).warp(currentType));
         return super.packForBT(page);
     }
 	

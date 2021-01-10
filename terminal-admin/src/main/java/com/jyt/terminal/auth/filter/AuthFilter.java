@@ -31,7 +31,7 @@ import io.jsonwebtoken.JwtException;
  */
 public class AuthFilter extends OncePerRequestFilter {
 
-	 private Logger log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private JwtProperties jwtProperties;

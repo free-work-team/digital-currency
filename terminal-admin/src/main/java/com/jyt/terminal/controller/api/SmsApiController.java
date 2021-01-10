@@ -12,17 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jyt.terminal.commom.enums.BizExceptionEnum;
-import com.jyt.terminal.controller.api.dto.CustomerKycRequest;
-import com.jyt.terminal.controller.api.dto.KycResponse;
 import com.jyt.terminal.controller.api.dto.SmsRequest;
 import com.jyt.terminal.controller.api.dto.SmsResponse;
 import com.jyt.terminal.dto.SmsSendInDTO;
 import com.jyt.terminal.dto.TradeRetDTO;
-import com.jyt.terminal.model.Customer;
-import com.jyt.terminal.model.SmsSend;
 import com.jyt.terminal.service.ISmsSendService;
 
 /**
@@ -34,10 +28,10 @@ import com.jyt.terminal.service.ISmsSendService;
  *  
  */
 @RestController
-@RequestMapping(value="api/sms")
+@RequestMapping(value="/api")
 public class SmsApiController {
 
-    private Logger log = LoggerFactory.getLogger(ApiController.class);
+    private Logger log = LoggerFactory.getLogger(SmsApiController.class);
     
 	@Autowired
 	public ISmsSendService smsSendService;
@@ -50,6 +44,7 @@ public class SmsApiController {
     	sms.setMobile(request.getPhone());
     	//发送短信
     	TradeRetDTO resDto  = smsSendService.sendSMS(sms);
+    	log.info("请求终端接口/api/sendSMS返回数据：{}",resDto.toString());
     	
         if(resDto.getTradeStatus()==0)
         	return ResponseEntity.ok(new SmsResponse(BizExceptionEnum.SUCCESS,resDto.getExtraInfo()));     	

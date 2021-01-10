@@ -16,11 +16,13 @@ MgrTerm.initColumn = function () {
         {field: 'selectItem', radio: true,width:'30px'},
         {title: 'NO.',sortable: false, lanId:'number', align: 'center', valign: 'middle',formatter:serialFormatter,width:'60px'},
         {title: '', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: 'orderNo', field: 'order_no', lanId:'orderNo', align: 'center', valign: 'middle',width:'130px'},
-        {title: 'userPhone', field: 'userPhone', lanId:'userPhone',align: 'center', valign: 'middle',width:'130px'},
-        {title: 'tradeStatus', field: 'tradeStatus',lanId:'tradeStatus', align: 'center', valign: 'middle',width:'130px'},
-        {title: 'smsAuthId', field: 'smsAuthId', lanId:'smsAuthId',align: 'center', valign: 'middle',width:'130px'},
-        {title: 'Create Time', field: 'create_time',lanId:'createTime', align: 'center', valign: 'middle',width:'160px'}
+        {title: 'merchantId', field: 'MERCHANT_ID', lanId:'merchantId', align: 'center', valign: 'middle',width:'130px'},
+        {title: 'orderNo', field: 'ORDER_NO', lanId:'orderNo', align: 'center', valign: 'middle',width:'130px'},
+        {title: 'smsAuthId', field: 'SMS_AUTH_ID', lanId:'smsAuthId', align: 'center', valign: 'middle',width:'130px'},
+        {title: 'userPhone', field: 'MOBILE', lanId:'userPhone',align: 'center', valign: 'middle',width:'130px'},
+        {title: 'status', field: 'TRADE_STATUS',lanId:'status', align: 'center', valign: 'middle',width:'130px'},
+        {title: 'chTradeNo', field: 'CH_TRADE_NO', lanId:'chTradeNo',align: 'center', valign: 'middle',width:'130px'},
+        {title: 'sendTime', field: 'SEND_TIME',lanId:'sendTime', align: 'center', valign: 'middle',width:'160px'}
         /*{title: '操作', field: '',lanId:'operate', align: 'center', valign: 'middle',formatter: operateFormatter}*/
         ];
     return columns;
@@ -50,7 +52,7 @@ var operateFormatter = function (value,row,index) {//赋予的参数
 MgrTerm.search = function () {
     var queryData = {};
     queryData['mobile'] = $("#mobile").val();
-    queryData['smsOrderStatu'] = $("#smsOrderStatu").val();
+    queryData['tradeStatus'] = $("#tradeStatus").val();
     queryData['beginTime'] = $("#beginTime").val();
     queryData['endTime'] = $("#endTime").val();
     if(validateDate($("#beginTime").val(),$("#endTime").val()) == false ){
@@ -68,10 +70,8 @@ MgrTerm.resetSearch = function () {
     MgrTerm.search();
 }
 function resetData(){
-	$("#merchantName").val('');
-	$("#terminalNo").val('');
-	$("#hotline").val('');
-	$("#hotWallet").val('');
+	$("#mobile").val('');
+	$("#tradeStatus").val('');
 	$("#beginTime").val('');
 	$("#endTime").val('');
 }
@@ -132,7 +132,7 @@ MgrTerm.openSmsDetail = function(){
  */
 MgrTerm.openConfig = function(){
 	if (this.check()) {
-		var url = Feng.ctxPath + '/term/changePwd/' + this.seItem.id;
+		var url = Feng.ctxPath + '/sms/changeConfig/' + this.seItem.id;
 		var area = openWidthHeight("60%","98%");
 	    var index = layer.open({
 	        type: 2,

@@ -54,11 +54,12 @@
 <div class="log-content">
   <div class="log-bg"></div>
 </div>
-
+<div style="height: 180px">
+</div>
 
 <!--btc-->
-<div id="btcArea" class="more-area hidden" style="margin-top: 130px">
-  <img class="icon-img" src="../../img/icon-home/btc.png" onclick="toStart('btc')">
+<div id="btcArea" class="more-area hidden" onclick="toStart('btc')">
+  <img class="icon-img" src="../../img/icon-home/btc.png">
   <span class="more-span">  Bitcoin  </span>
   <div class="log-buy-info-new">
     <div class="buy-left">
@@ -72,48 +73,47 @@
 
 
 <!--eth-->
-<div id="ethArea" class="more-area hidden">
-<img class="icon-img" src="../../img/icon-home/eth.png" onclick="toStart('eth')">
-<span class="more-span">Ethereum</span>
-<div class="log-buy-info-new">
-  <div class="buy-left">
-    <label>1</label> ETH
+<div id="ethArea" class="more-area" onclick="toStart('eth')">
+  <img class="icon-img" src="../../img/icon-home/eth.png" >
+  <span class="more-span">Ethereum</span>
+  <div class="log-buy-info-new">
+    <div class="buy-left">
+      <label>1</label> ETH
+    </div>
+    <div class="buy-right">
+      <label class="ethTo"></label><span class="currency"> </span>
+    </div>
   </div>
-  <div class="buy-right">
-    <label class="ethTo"></label><span class="currency"> </span>
-  </div>
-</div>
 </div>
 
 
 <!--ltc-->
-<div id="ltcArea" class="more-area">
-<img class="icon-img" src="../../img/icon-home/ltc.png" onclick="">
-<span class="more-span">Litecoin</span>
-<div class="log-buy-info-new">
-  <div class="buy-left">
-    <label>1</label> LTC
+<div id="ltcArea" class="more-area" onclick="noSupport()">
+  <img class="icon-img" src="../../img/icon-home/ltc.png" >
+  <span class="more-span">Litecoin</span>
+  <div class="log-buy-info-new">
+    <div class="buy-left">
+      <label>1</label> LTC
+    </div>
+    <div class="buy-right">
+      <label class="ltcTo"></label><span class="currency"> </span>
+    </div>
   </div>
-  <div class="buy-right">
-    <label class="ethTo"></label><span class="currency"> </span>
-  </div>
-</div>
 </div>
 
 <!--bch-->
-<div id="bchArea" class="more-area">
-<img class="icon-img" src="../../img/icon-home/bch.png" onclick="">
-<span class="more-span">BitcoinCash</span>
-<div class="log-buy-info-new">
-  <div class="buy-left">
-    <label>1</label> BCH
-  </div>
-  <div class="buy-right">
-    <label class="ethTo"></label><span class="currency"> </span>
+<div id="bchArea" class="more-area" onclick="noSupport()">
+  <img class="icon-img" src="../../img/icon-home/bch.png" >
+  <span class="more-span">BitcoinCash</span>
+  <div class="log-buy-info-new">
+    <div class="buy-left">
+      <label>1</label> BCH
+    </div>
+    <div class="buy-right">
+      <label class="bchTo"></label><span class="currency"> </span>
+    </div>
   </div>
 </div>
-</div>
-
 
 
 <div class="little-white-span">
@@ -128,35 +128,37 @@
   <div class="to_home_label"></div>
 </div>
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
 <script type="text/javascript" src="../../js/common/toast.script.js"></script>
 <script type="text/javascript" src="../../js/transaction/common.js"></script>
-<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
 <script type="text/javascript">
   var merchantObj = getMerchant();
   var coinSetting = JSON.parse(window.front.queryCryptoCurrency());
-  var btcPrice = 0, ethPrice = 0, btcExchangeRate = 0, ethExchangeRate = 0;
-
+  // 获取商户信息
+  function getMerchant() {
+    var localMerchant = localStorage.getItem("merchant");
+    if (localMerchant) {
+      return JSON.parse(localMerchant);
+    }
+    return null;
+  }
 
   // 点击start
   function toStart(coin) {
     localStorage.setItem("currentCoin", coin);
-    if (coin == "btc") {
-      localStorage.setItem("balance", btcPrice);
-      localStorage.setItem("exchangeRate", btcExchangeRate);
-    }
-    if (coin == "eth") {
-      localStorage.setItem("balance", ethPrice);
-      localStorage.setItem("exchangeRate", ethExchangeRate);
-    }
-
+    localStorage.setItem("balance","");
     if (merchantObj) {
-        window.location.href = "../common/switch.html";
+      window.location.href = "../common/switch.html";
     } else {
       toError("merchat setting is required")
     }
+  }
+
+  function noSupport() {
+    showWarn("Not currently supported!");
   }
 
   // 初始化语言label
@@ -176,14 +178,6 @@
       var resp = JSON.parse(window.front.queryMarketPrice(coin));
       if (resp.code == "00") {
         newBalance = resp.price;
-        if (coin == "btc") {
-          btcPrice = resp.price;
-          btcExchangeRate = resp.exchangeRate;
-        }
-        if (coin == "eth") {
-          ethPrice = resp.price;
-          ethExchangeRate = resp.exchangeRate;
-        }
       }
     }
     newBalance && $('.' + coin + 'To').text(formatPrice(newBalance));
@@ -196,10 +190,6 @@
     if (coinSetting.eth) {
       $('#ethArea').removeClass('hidden');
     }
-
-    var currentLan = localStorage.getItem("LanguageType") || "English";
-    $("#tochangeLan").attr("data-lanType", currentLan);
-
 
     // 延时执行定时
     setTimeout(function () {
@@ -219,8 +209,13 @@
         if (coinSetting.eth) {
           getIndexBalance('eth');
         }
+        getIndexBalance('ltc');
+        getIndexBalance('bch');
       }, 120000);
     }, 60000);
+    $('.currency').text(window.business.getCurrency());
+    $('.ltcTo').text(formatPrice(JSON.parse(window.front.queryMarketPrice("ltc")).price))
+    $('.bchTo').text(formatPrice(JSON.parse(window.front.queryMarketPrice("bch")).price))
   };
 
 </script>

@@ -13,7 +13,9 @@ import org.apache.commons.lang.StringUtils;
 public enum CryptoCurrencyEnum {
 
     BTC("btc", "BTC"),
-    ETH("eth", "ETH");
+    ETH("eth", "ETH"),
+    LTC("ltc", "LTC"),
+    BCH("bch", "BCH");
 
     private String value;
     private String desc;

@@ -35,14 +35,14 @@
     <br>
     <br>
     <div class="new-panel-title  phone-area">
-      Please Select one of the following options
+      Enter Your Mobile Number
     </div>
     <div class="new-panel-title  code-area hidden">
       Enter Verification Code
     </div>
     <br>
     <br>
-    <div class="new-panel-content phone-area">Current Transanction Limit 10,000 USD</div>
+    <div class="new-panel-content phone-area">Please enter your mobile number to verify your identity</div>
     <div class="new-panel-content code-area hidden">Please enter the 6-Digit verification code sent to your mobile</div>
   </div>
   <div id="loadingArea" style="width: 50%;margin-top: 86px">
@@ -71,7 +71,6 @@
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
 <script type="text/javascript" src="../../js/transaction/common.js"></script>
-<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
 
 
@@ -80,63 +79,46 @@
   $('#my_input').mykeyboard();
 
   var merchantObj = getMerchant();
-  var btcPrice = 0, btcExchangeRate = 0;
   var phoneNum, msgCode;//电话号,验证码
 
   // 点击完成
   function toSwitch() {
-    var coin = "btc";
-    localStorage.setItem("currentCoin", coin);
-    localStorage.setItem("balance", btcPrice);
-    localStorage.setItem("exchangeRate", btcExchangeRate);
     if (merchantObj) {
       window.location.href = "switch.html";
     } else {
       toError("merchat setting is required")
     }
   }
-
-
-  function getIndexBalance(coin) {
-    var merchantObj = getMerchant();
-    var newBalance = merchantObj['cryptoSettings'][coin].price;
-    if (!newBalance) {
-      var resp = JSON.parse(window.front.queryMarketPrice(coin));
-      if (resp.code == "00") {
-        newBalance = resp.price;
-        if (coin == "btc") {
-          btcPrice = resp.price;
-          btcExchangeRate = resp.exchangeRate;
-        }
-        if (coin == "eth") {
-          ethPrice = resp.price;
-          ethExchangeRate = resp.exchangeRate;
-        }
-      }
+  // 获取商户信息
+  function getMerchant() {
+    var localMerchant = localStorage.getItem("merchant");
+    if (localMerchant) {
+      return JSON.parse(localMerchant);
     }
+    return null;
   }
-
-
   /**
    * 初始化
    */
   window.onload = function () {
-    getIndexBalance('btc');
+    $('#continue-btn').attr("onclick", "sendMsg()");
   };
 
 
   //发送验证码
   function sendMsg() {
     phoneNum = $('#my_input').val();
-    console.log(merchantObj.terminalNo +"(" +phoneNum+")调用发送短信验证码");
     //发送验证码
-    msgCode = window.webTimer.sendMsg(merchantObj.terminalNo,phoneNum);
-    if (msgCode && msgCode.length == 6) {
-      showCodeMsg();
-      checkMsg();
-    } else {
-      showWarn("Failed to send verification code, please try again later");
-    }
+    showWait();
+    setTimeout(function () {
+      msgCode = window.webTimer.sendSMSCode(phoneNum);
+      hideWait();
+      if (msgCode && msgCode.length == 6) {
+        showCodeMsg();
+      } else {
+        showWarn("Failed to send verification code, please try again later");
+      }
+    }, 1000);
   }
 
   //校验验证码
@@ -154,7 +136,7 @@
     $('#my_input').val("");
     $('.phone-area').addClass('hidden');
     $('.code-area').removeClass('hidden');
-    $('#continue-btn').attr("onclick", "toSwitch()");
+    $('#continue-btn').attr("onclick", "checkMsg()");
   }
 
 </script>

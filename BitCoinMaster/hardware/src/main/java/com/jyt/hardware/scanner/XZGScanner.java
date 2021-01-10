@@ -3,7 +3,6 @@ package com.jyt.hardware.scanner;
 import android.serialport.SerialPort;
 import android.util.Log;
 
-import com.jyt.hardware.utils.ByteUtilException;
 import com.jyt.hardware.utils.ByteUtils;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class XZGScanner {
         }
         return xzgScanner;
     }
-    public boolean init(String dev, ScannerResultListener listener) {
+    public boolean init(String dev,ScannerResultListener listener) {
         this.listener = listener;
         try {
             serialPort =  new SerialPort(dev, 115200, 8,1,'n');
@@ -63,16 +62,7 @@ public class XZGScanner {
      */
     public void startScanOnce(){
         if (isConnect){
-            try {
-                String cmd = "020700535730303030309A0103";
-                Log.e("startScanOncecmd = ",cmd);
-                byte[] data = ByteUtils.hex2Byte(cmd);
-                mOutputStream.write(data);
-            } catch (ByteUtilException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ExecuteCommand("SW00000");
         }
     }
     /**
@@ -80,16 +70,7 @@ public class XZGScanner {
      */
     public void startScanAuto(){
         if (isConnect){
-            try {
-                String cmd = "020700535730303030319B0103";
-                Log.e("startScanAutocmd = ",cmd);
-                byte[] data = ByteUtils.hex2Byte(cmd);
-                mOutputStream.write(data);
-            } catch (ByteUtilException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ExecuteCommand("SW00001");
         }
     }
     /**
@@ -97,17 +78,8 @@ public class XZGScanner {
      */
     public void stopScan(){
         if (isConnect){
-            try {
-                String cmd = "02070053574646464646080203";
-                Log.e("stopScancmd = ",cmd);
-                byte[] data = ByteUtils.hex2Byte(cmd);
-                mOutputStream.write(data);
-                readThread.pauseThread();
-            } catch (ByteUtilException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ExecuteCommand("SWFFFFF");
+            readThread.pauseThread();
         }
     }
 
@@ -177,6 +149,76 @@ public class XZGScanner {
                     return;
                 }
             }
+        }
+
+    }
+    private int calculate_checksum(byte[] buffer)
+    {
+        int csum = 0;
+        for(int i=0;i<buffer.length;i++)
+            csum += buffer[i] & 0xFF;
+        return csum;
+    }
+    public void ExecuteCommand(String cmd)  {
+        boolean bRet = false ;
+        try{
+            byte[] bCmd = cmd.getBytes("UTF-8");
+            byte[] bSendData = new byte[bCmd.length + 6];
+            byte[] bCmdLength = ByteUtils.hexStr2Bytes(Integer.toHexString(bCmd.length));
+            bSendData[0] = 0x02;
+            if (bCmdLength.length == 1){
+                bSendData[1] = bCmdLength[0];
+                bSendData[2] = 0x00;
+            }else if (bCmdLength.length == 2){
+                bSendData[1] = bCmdLength[1];
+                bSendData[2] = bCmdLength[0];
+            }
+
+            for (int i=0;i<bCmd.length;i++) bSendData[3+i] = bCmd[i];
+
+            int iCRC = calculate_checksum(bCmd);
+            byte[] bCRC = ByteUtils.hexStr2Bytes(Integer.toHexString(iCRC));
+
+            if (bCRC.length == 1){
+                bSendData[bSendData.length - 3] = bCRC[0];
+                bSendData[bSendData.length - 2] = 0x00;
+            }else if (bCRC.length == 2) {
+                bSendData[bSendData.length - 3] = bCRC[1];
+                bSendData[bSendData.length - 2] = bCRC[0];
+            }
+            bSendData[bSendData.length - 1] = 0x03;
+
+            mInputStream.skip(mInputStream.available()); //清除读缓冲
+
+            mOutputStream.write(bSendData,0,bSendData.length);
+            mOutputStream.flush();
+            Log.d("TAG", "数据发送成功["+Integer.toString(bSendData.length)+"]=" + ByteUtils.byte2Hex(bSendData,bSendData.length));
+
+//            if (cmd.length()>60)
+//                Thread.sleep(3000);
+//            else
+//                Thread.sleep(500);
+
+//            int iAvailableCount = m_Port.getInputStream().available();
+
+//            if(iAvailableCount>0) {
+//                byte[] bReadData = new byte[iAvailableCount];
+//                int iReadDatalen = iAvailableCount;
+//
+//                iReadDatalen = m_Port.getInputStream().read(bReadData, 0, iReadDatalen);
+//                Log.d(TAG, "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + bytesToHexString(bReadData,bReadData.length));
+//
+//                replay.setACK(bReadData[0]);
+//                byte[] bTmp = new byte[bReadData.length-1];
+//                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
+//
+//                replay.setData(bTmp);
+//
+//                bRet = true ;
+//            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
         }
 
     }

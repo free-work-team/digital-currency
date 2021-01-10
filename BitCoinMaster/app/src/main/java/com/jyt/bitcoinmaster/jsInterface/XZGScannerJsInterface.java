@@ -49,7 +49,7 @@ public class XZGScannerJsInterface implements ScannerResultListener {
     public void connectDevices(){
         scanner = XZGScanner.getInstance();
         log.info("正在连接扫码器...");
-        boolean isSuccess = scanner.init("/dev/ttyACM0",this);
+        boolean isSuccess = scanner.init("/dev/ttyS1",this);
         Message msg = Message.obtain();
         msg.what = RESULT;
         if(isSuccess){

@@ -25,9 +25,9 @@
                     '                <span class="num_key" the_val="1">1</span><span class="num_key" the_val="2">2</span><span class="num_key" the_val="3">3</span> \n' +
                     '            </div>\n' +
                     '            <div class="row_line">\n' +
-                    '                <span class="num_key" the_val="+">+</span><span class="num_key zero" the_val="0">0</span><span class="btn_key my_clear" style="background: url(../../img/icon-home/clear.png) no-repeat 100% 100%;  float: right; background-color: #1c406d85; background-position: center; background-size: inherit;margin-right: 10px;margin-left: -2px;"></span>\n' +
+                    '                <span class="num_key" the_val="+">+</span><span class="num_key zero" the_val="0">0</span><span class="btn_key my_clear" style="background: url(../../img/icon-home/clear.png) no-repeat 100% 100%;  float: right; background-color: #1c406d; background-position: center; background-size: inherit;margin-right: 10px;margin-left: -2px;"></span>\n' +
                     '            </div>\n' +
-                    '        </div><span id="continue-btn" class="btn_key continue-btn" onclick="sendMsg()">Proceed</span>');
+                    '        </div><span id="continue-btn" class="btn_key continue-btn" >Proceed</span>');
 
                 mykeyboard.appendTo('body');
 

@@ -25,7 +25,7 @@ android {
         }
         ndk {
            // moduleName "libserial_port"         //生成的so名字
-            abiFilters "armeabi", "armeabi-v7a", "x86"  //输出指定三种abi体系结构下的so库。
+            abiFilters "armeabi", "armeabi-v7a", "x86","arm64-v8a","arm64"  //输出指定三种abi体系结构下的so库。
         }
     }
 

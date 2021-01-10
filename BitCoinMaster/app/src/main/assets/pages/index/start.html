@@ -141,7 +141,7 @@
 <script type="text/javascript" src="../../js/common/scrollerAD.js"></script>
 <script type="text/javascript">
 
-  var btcPrice = 0, ethPrice = 0, btcExchangeRate = 0, ethExchangeRate = 0;
+  var btcPrice = 0,   btcExchangeRate = 0 ;
   var clickCount = 0,clickInterval;
 
   var merchantObj = getMerchant();
@@ -153,15 +153,6 @@
   // 点击start
   function toStart(coin) {
     localStorage.setItem("currentCoin", coin);
-    if (coin == "btc") {
-      localStorage.setItem("balance", btcPrice);
-      localStorage.setItem("exchangeRate", btcExchangeRate);
-    }
-    if (coin == "eth") {
-      localStorage.setItem("balance", ethPrice);
-      localStorage.setItem("exchangeRate", ethExchangeRate);
-    }
-
     if (merchantObj) {
       //进入输入手机号页面
       window.location.href = "../common/phoneNum.html";
@@ -317,11 +308,9 @@
           btcPrice = resp.price;
           btcExchangeRate = resp.exchangeRate;
         }
-        if (coin == "eth") {
-          ethPrice = resp.price;
-          ethExchangeRate = resp.exchangeRate;
-        }
       }
+    }else{
+      btcPrice = newBalance;
     }
     newBalance && $('.' + coin + 'To').text(formatPrice(newBalance));
   }
@@ -342,18 +331,12 @@
       if (coinSetting.btc) {
         getIndexBalance('btc');
       }
-      if (coinSetting.eth) {
-        getIndexBalance('eth');
-      }
     }, 500);
     setTimeout(function () {
       setInterval(function () {
         // console.log("60s 首页定时刷新汇率....");
         if (coinSetting.btc) {
           getIndexBalance('btc');
-        }
-        if (coinSetting.eth) {
-          getIndexBalance('eth');
         }
       }, 120000);
     }, 60000);

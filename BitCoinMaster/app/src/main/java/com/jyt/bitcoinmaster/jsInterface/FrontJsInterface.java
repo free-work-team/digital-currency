@@ -310,12 +310,18 @@ public class FrontJsInterface {
      * @return
      */
     private QueryPriceResult getMarketPriceBySource(String cryptoCurrency) {
-        JSONObject channelParam = JSONObject.parseObject(Setting.cryptoSettings.getCryptoSetting(cryptoCurrency).getChannelParam());
-        Integer rateSource = getRateSource(cryptoCurrency);
+        Integer rateSource = RateSourceEnum.COINBASE.getValue();
+        JSONObject channelParam = new JSONObject();
+        if (Setting.cryptoSettings.getCryptoSetting(cryptoCurrency)!=null){
+            channelParam = JSONObject.parseObject(Setting.cryptoSettings.getCryptoSetting(cryptoCurrency).getChannelParam());
+            rateSource = getRateSource(cryptoCurrency);
+        }
         IRate iRate = RateFactory.getRate(rateSource);
         QueryPriceRequest request = new QueryPriceRequest();
         request.setCurrency(Setting.currency);
-        request.setExchangeCurrency(ExchangeCurrencyEnum.getDesc(channelParam.getJSONObject("exchange").getString("currency_pair")));
+        if (channelParam.getJSONObject("exchange")!=null){
+            request.setExchangeCurrency(ExchangeCurrencyEnum.getDesc(channelParam.getJSONObject("exchange").getString("currency_pair")));
+        }
         request.setCryptoCurrency(cryptoCurrency);
         QueryPriceResult priceResult = iRate.queryMarketPrice(request);
         if (StringUtils.isEmpty(priceResult.getPrice())){

@@ -1,8 +1,8 @@
 package com.jyt.terminal.controller.api;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jyt.terminal.commom.BaseRequest;
@@ -22,6 +21,8 @@ import com.jyt.terminal.commom.enums.BizExceptionEnum;
 import com.jyt.terminal.controller.api.dto.AdvertResponse;
 import com.jyt.terminal.controller.api.dto.ChangePwdRequest;
 import com.jyt.terminal.controller.api.dto.CustomerKycRequest;
+import com.jyt.terminal.controller.api.dto.DownFileResponse;
+import com.jyt.terminal.controller.api.dto.KycRequest;
 import com.jyt.terminal.controller.api.dto.KycResponse;
 import com.jyt.terminal.controller.api.dto.TerminalSettingResponse;
 import com.jyt.terminal.controller.api.dto.UploadBuyRecordRequest;
@@ -47,6 +48,7 @@ import com.jyt.terminal.service.IDeviceService;
 import com.jyt.terminal.service.IOrderService;
 import com.jyt.terminal.service.ITerminalSettingService;
 import com.jyt.terminal.service.IWithdrawService;
+import com.jyt.terminal.util.Downloadimg;
 import com.jyt.terminal.util.ToolUtil;
 
 
@@ -304,8 +306,37 @@ public class ApiController {
         	return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
         }
     }
-    
-    
-    
+
+
+	@RequestMapping(value = "/downloadImg",method = RequestMethod.POST)
+    public ResponseEntity<?> downloadImg(@RequestBody KycRequest request) {
+    	log.info("请求接口/api/downloadImg,终端机号：{},kcyId：{}",request.getTermNo(),request.getKycId());
+    	
+    	if(ToolUtil.isEmpty(request.getTermNo())){
+    		log.info("终端机号为空");
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
+    	}
+    	
+    	if(ToolUtil.isEmpty(request.getKycId())){
+    		log.info("kycId为空");
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
+    	}
+
+    	//从服务器获取图片路径
+    	String picturePath="";
+    	//向终端写图片数据
+    	Downloadimg dl=new Downloadimg();
+    	String fileContent="";
+    	try {
+    		fileContent=dl.download1();
+		} catch (IOException e) {
+			log.info("报错:{}",e.getMessage());
+		}
+    	
+    	//log.info("请求终端接口/api/downloadImg返回数据：{}",fileContent);
+    	
+    	return ResponseEntity.ok(new DownFileResponse(BizExceptionEnum.SUCCESS,fileContent));        
+	}
+	
     
 }

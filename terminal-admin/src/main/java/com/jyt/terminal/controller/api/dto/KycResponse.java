@@ -17,6 +17,7 @@ public class KycResponse extends BaseResponse{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+   
 
 	/**
      * 验证码

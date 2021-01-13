@@ -50,6 +50,7 @@ public class XZGScanner {
             isConnect = true;
             readThread = new ReadThread();
             readThread.start();
+            readThread.pauseThread();
             return isConnect;
         } catch (IOException e) {
             Log.e("FTQ led open:",e.toString());
@@ -61,9 +62,10 @@ public class XZGScanner {
      * 开启扫码
      */
     public void startScanOnce(){
-        readThread.resumeThread();
         if (isConnect){
-            ExecuteCommand("SW00000");
+            if (ExecuteCommand("SW00000")) {
+                readThread.resumeThread();
+            }
         }
     }
     /**
@@ -71,7 +73,9 @@ public class XZGScanner {
      */
     public void startScanAuto(){
         if (isConnect){
-            ExecuteCommand("SW00001");
+            if (ExecuteCommand("SW00001")) {
+                readThread.resumeThread();
+            }
         }
     }
     /**
@@ -89,7 +93,7 @@ public class XZGScanner {
         private final Object lock = new Object();
         private boolean pause = false;
         StringBuffer stringBuffer = new StringBuffer();
-        private String readString = "";
+        private String readString="";
         /**
          * 调用这个方法实现暂停线程
          */
@@ -130,22 +134,17 @@ public class XZGScanner {
                 try
                 {
                     if (mInputStream == null) return;
-
+                    byte[] buffer=new byte[128];
                     if (mInputStream.available()>0){
-                        byte[] buffer=new byte[128];
                         int size = mInputStream.read(buffer);
-                        Log.e("size:", size+"");
-                        if (size > 0) {
-                            String receiveData = ByteUtils.byte2Hex(buffer).substring(0, size * 2);
-                            Log.e("receiveData:", receiveData);
-                            readString+=receiveData;
+                        if (size > 0){
+                            String receiveData = ByteUtils.byte2Hex(buffer).substring(0,size*2);
+                            readString += receiveData;
                         }
                     }else{
-                        if (!readString.equals("")&&readString.substring(readString.length() - 4, readString.length()).equals("0D0A")) {
-                            Log.e("readString:", readString);
+                        if (!readString.equals("")&&readString.substring(readString.length()-4,readString.length()).equals("0D0A"))
                             listener.scannerResult(readString);
                             readString="";
-                        }
                     }
 
 //                    try
@@ -171,7 +170,7 @@ public class XZGScanner {
             csum += buffer[i] & 0xFF;
         return csum;
     }
-    public void ExecuteCommand(String cmd)  {
+    public boolean ExecuteCommand(String cmd)  {
         boolean bRet = false ;
         try{
             byte[] bCmd = cmd.getBytes("UTF-8");
@@ -205,40 +204,35 @@ public class XZGScanner {
             mOutputStream.write(bSendData,0,bSendData.length);
             mOutputStream.flush();
             Log.d("TAG", "数据发送成功["+ Integer.toString(bSendData.length)+"]=" + ByteUtils.byte2Hex(bSendData,bSendData.length));
-//            try {
-//            if (cmd.length()>60)
-//                Thread.sleep(3000);
-//            else {
-//                Thread.sleep(500);
-//            }
+
+            if (cmd.length()>60) {
+                Thread.sleep(3000);
+            }else {
+                Thread.sleep(500);
+            }
+            int iAvailableCount = mInputStream.available();
+
+            if(iAvailableCount>0) {
+                byte[] bReadData = new byte[iAvailableCount];
+                int iReadDatalen = iAvailableCount;
+
+                iReadDatalen = mInputStream.read(bReadData, 0, iReadDatalen);
+                Log.d("receiveData", "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + ByteUtils.byte2Hex(bReadData,bReadData.length));
+
+//                replay.setACK(bReadData[0]);
+//                byte[] bTmp = new byte[bReadData.length-1];
+//                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
 //
-//            int iAvailableCount = mInputStream.available();
-//
-//            if(iAvailableCount>0) {
-//                byte[] bReadData = new byte[iAvailableCount];
-//                int iReadDatalen = iAvailableCount;
-//
-//                iReadDatalen = mInputStream.read(bReadData, 0, iReadDatalen);
-//                Log.d("receiveData", "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + ByteUtils.byte2Hex(bReadData,bReadData.length));
-//                String receiveData = ByteUtils.byte2Hex(bReadData);
-//                if (receiveData.substring(receiveData.length()-4,receiveData.length()).equals("0D0A")){
-//                    listener.scannerResult(receiveData);
-//                }
-////                replay.setACK(bReadData[0]);
-////                byte[] bTmp = new byte[bReadData.length-1];
-////                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
-////
-////                replay.setData(bTmp);
-//
-//                bRet = true ;
-//            }
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+//                replay.setData(bTmp);
+
+                bRet = true ;
+            }
         }
         catch (IOException e){
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
+        return bRet;
     }
 }

@@ -29,6 +29,11 @@ android {
         targetCompatibility = 1.8
     }
     buildToolsVersion = '29.0.3'
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -44,5 +49,8 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okio:okio:1.9.0'
+    implementation 'com.guo.android_extend:android-extend:1.0.6'
+    implementation(name: 'AIPPFace_v3-release1_1_0_20190823', ext: 'aar')
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
 }

@@ -1,6 +1,8 @@
 /*api接口*/
 function init() {
-  initMarketBalance();
+  setTimeout(function () {
+    initMarketBalance();
+  },1000);
 }
 
 // 获取货币种类

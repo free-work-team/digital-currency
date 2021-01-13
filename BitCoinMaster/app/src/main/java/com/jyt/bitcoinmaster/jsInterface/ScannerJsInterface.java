@@ -107,8 +107,9 @@ public class ScannerJsInterface implements ScannerResultListener {
 //        msg.obj = "01";
 //        handler.sendMessage(msg);
     }
+
     @Override
-    public void scannerResult(byte[] bytes) {
+    public void scannerResult(byte[] bytes, int size) {
         stopScan();
         String data = ByteToString(bytes);
         data = data.replaceAll("(\r|\n)", "");

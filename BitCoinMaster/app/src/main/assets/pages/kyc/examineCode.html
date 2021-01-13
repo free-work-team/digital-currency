@@ -75,7 +75,6 @@
 <script type="text/javascript">
 
   var merchantObj = getMerchant();
-  var isExceedQuota = window.location.href.split("isExceedQuota=")[1];
   var type = localStorage.getItem("operationType");
   var kycId = generateID(10);
 
@@ -85,7 +84,7 @@
    */
   function tobuyCoin() {
     if (merchantObj) {
-      window.location.href = "../buy/scanllerAddress.html?examine=" + isExceedQuota;
+      window.location.href = "../buy/scanllerAddress.html";
     } else {
       ErrorPage.toError("merchat setting is required")
     }
@@ -115,7 +114,7 @@
           var walletBalance = localStorage.getItem("walletBalance");
           var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
           console.log("钱包余额允许的最大交易金额为" + maxTrade);
-          window.location.href = "../sell/chooseAmount.html?examine=" + isExceedQuota + "&&maxTrade=" + maxTrade;
+          window.location.href = "../sell/chooseAmount.html?maxTrade=" + maxTrade;
         } else {
           ErrorPage.toError("The price request failed, Please try again later!");
         }

@@ -21,7 +21,7 @@ public class XZGScanner {
     //使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用
     private static volatile XZGScanner xzgScanner;
     boolean isConnect=false;
-    private ScannerResultListener listener;
+    private XZScannerResultListener listener;
     private ReadThread readThread;
     /**
      * 单例模式的最佳实现。内存占用地，效率高，线程安全，多线程操作原子性。
@@ -41,10 +41,10 @@ public class XZGScanner {
         }
         return xzgScanner;
     }
-    public boolean init(String dev,ScannerResultListener listener) {
+    public boolean init(String dev, XZScannerResultListener listener) {
         this.listener = listener;
         try {
-            serialPort =  new SerialPort(dev, 115200, 8,1,'n');
+            serialPort =  new SerialPort(dev, 115200, 0);
             mOutputStream = serialPort.getOutputStream();
             mInputStream = serialPort.getInputStream();
             isConnect = true;
@@ -61,6 +61,7 @@ public class XZGScanner {
      * 开启扫码
      */
     public void startScanOnce(){
+        readThread.resumeThread();
         if (isConnect){
             ExecuteCommand("SW00000");
         }
@@ -88,7 +89,7 @@ public class XZGScanner {
         private final Object lock = new Object();
         private boolean pause = false;
         StringBuffer stringBuffer = new StringBuffer();
-        private String readString;
+        private String readString = "";
         /**
          * 调用这个方法实现暂停线程
          */
@@ -129,20 +130,31 @@ public class XZGScanner {
                 try
                 {
                     if (mInputStream == null) return;
-                    byte[] buffer=new byte[512];
-                    int size = mInputStream.read(buffer);
-                    if (size > 0){
-                        String receiveData = ByteUtils.byte2Hex(buffer).substring(0,size*2);
-                        Log.e("receiveData:",receiveData);
-                        listener.scannerResult(buffer);
+
+                    if (mInputStream.available()>0){
+                        byte[] buffer=new byte[128];
+                        int size = mInputStream.read(buffer);
+                        Log.e("size:", size+"");
+                        if (size > 0) {
+                            String receiveData = ByteUtils.byte2Hex(buffer).substring(0, size * 2);
+                            Log.e("receiveData:", receiveData);
+                            readString+=receiveData;
+                        }
+                    }else{
+                        if (!readString.equals("")&&readString.substring(readString.length() - 4, readString.length()).equals("0D0A")) {
+                            Log.e("readString:", readString);
+                            listener.scannerResult(readString);
+                            readString="";
+                        }
                     }
-                    try
-                    {
-                        Thread.sleep(50);//延时50ms
-                    } catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
+
+//                    try
+//                    {
+//                        Thread.sleep(50);//延时50ms
+//                    } catch (InterruptedException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
                 } catch (Throwable e)
                 {
                     e.printStackTrace();
@@ -192,29 +204,36 @@ public class XZGScanner {
 
             mOutputStream.write(bSendData,0,bSendData.length);
             mOutputStream.flush();
-            Log.d("TAG", "数据发送成功["+Integer.toString(bSendData.length)+"]=" + ByteUtils.byte2Hex(bSendData,bSendData.length));
-
+            Log.d("TAG", "数据发送成功["+ Integer.toString(bSendData.length)+"]=" + ByteUtils.byte2Hex(bSendData,bSendData.length));
+//            try {
 //            if (cmd.length()>60)
 //                Thread.sleep(3000);
-//            else
+//            else {
 //                Thread.sleep(500);
-
-//            int iAvailableCount = m_Port.getInputStream().available();
-
+//            }
+//
+//            int iAvailableCount = mInputStream.available();
+//
 //            if(iAvailableCount>0) {
 //                byte[] bReadData = new byte[iAvailableCount];
 //                int iReadDatalen = iAvailableCount;
 //
-//                iReadDatalen = m_Port.getInputStream().read(bReadData, 0, iReadDatalen);
-//                Log.d(TAG, "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + bytesToHexString(bReadData,bReadData.length));
-//
-//                replay.setACK(bReadData[0]);
-//                byte[] bTmp = new byte[bReadData.length-1];
-//                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
-//
-//                replay.setData(bTmp);
+//                iReadDatalen = mInputStream.read(bReadData, 0, iReadDatalen);
+//                Log.d("receiveData", "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + ByteUtils.byte2Hex(bReadData,bReadData.length));
+//                String receiveData = ByteUtils.byte2Hex(bReadData);
+//                if (receiveData.substring(receiveData.length()-4,receiveData.length()).equals("0D0A")){
+//                    listener.scannerResult(receiveData);
+//                }
+////                replay.setACK(bReadData[0]);
+////                byte[] bTmp = new byte[bReadData.length-1];
+////                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
+////
+////                replay.setData(bTmp);
 //
 //                bRet = true ;
+//            }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
 //            }
         }
         catch (IOException e){

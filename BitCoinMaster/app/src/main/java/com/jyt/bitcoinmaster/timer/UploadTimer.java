@@ -12,14 +12,11 @@ import android.webkit.WebView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.jyt.hardware.cashoutmoudle.enums.WalletEnum;
+import com.jyt.bitcoinmaster.utils.Base64Utils;
 import com.jyt.bitcoinmaster.statics.Setting;
-import com.jyt.bitcoinmaster.wallet.bitgo.BitGoService;
 import com.jyt.bitcoinmaster.wallet.bitgo.HttpUtils;
 import com.jyt.bitcoinmaster.utils.AesUtils;
 import com.jyt.bitcoinmaster.utils.MD5Util;
-import com.jyt.bitcoinmaster.wallet.coinbase.CoinbaseService;
 import com.jyt.hardware.cashoutmoudle.Sqlite.DBHelper;
 import com.jyt.hardware.cashoutmoudle.bean.*;
 
@@ -997,23 +994,25 @@ public class UploadTimer extends Activity {
      */
     @JavascriptInterface
     public boolean checkFace(String kycId) {
-        return true;
-//        if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
-//            log.error("token为空,人脸识别失败");
-//            return false;
-//        }
-//        reqParams = new HashMap<>();
-//        String method = "api/upload/cashBoxRecord";
-//        reqParams.put("kycId", kycId);
-//        //发送数据
-//        String resp = null;
-//        try {
-//            resp = requestWeb(method);
-//            return StringUtils.isNotBlank(resp);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return false;
+        if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
+            log.error("token为空,人脸识别失败");
+            return false;
+        }
+        reqParams = new HashMap<>();
+        String method = "/api/downloadImg";
+        reqParams.put("kycId", kycId);
+        //发送数据
+        String resp = null;
+        try {
+            resp = requestWeb(method);
+            JSONObject jsonObject= JSONObject.parseObject(resp);
+            String baseImg = jsonObject.getString("fileStr");
+            FileOutputStream out = Base64Utils.base642File(baseImg);
+            return StringUtils.isNotBlank(resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

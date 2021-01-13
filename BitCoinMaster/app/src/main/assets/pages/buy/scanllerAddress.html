@@ -117,11 +117,6 @@
 
 <script type="text/javascript">
   var addressFormat = ['bitcoin:','ethereum:'];
-  var examine = window.location.href.split("examine=")[1];
-
-  function scanllerInitResult(data) {
-
-  }
 
   // 扫描回调
   function scanllerResult(data) {
@@ -149,7 +144,7 @@
               var walletBalance = localStorage.getItem("walletBalance");
               var maxTrade =parseInt(numMulti(walletBalance, currentPrice)) ;
             console.log("钱包余额允许的最大交易金额为" + maxTrade);
-              window.location.href = "choosePay.html?examine=" + examine + "&&maxTrade=" + maxTrade;
+              window.location.href = "choosePay.html?maxTrade=" + maxTrade;
           } else {
             ErrorPage.toError("The price request failed, Please try again later!");
           }
@@ -191,7 +186,7 @@
     initLanguage();
     window.scanner.autoScan();
     //开启摄像头
-    window.camera.startMonitor(1);
+    //window.camera.startMonitor(1);
   }
 
 </script>

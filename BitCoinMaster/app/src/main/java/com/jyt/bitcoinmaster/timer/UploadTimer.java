@@ -993,10 +993,10 @@ public class UploadTimer extends Activity {
      * @return
      */
     @JavascriptInterface
-    public boolean checkFace(String kycId) {
+    public String checkFace(String kycId) {
         if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
             log.error("token为空,人脸识别失败");
-            return false;
+            return "";
         }
         reqParams = new HashMap<>();
         String method = "/api/downloadImg";
@@ -1007,12 +1007,11 @@ public class UploadTimer extends Activity {
             resp = requestWeb(method);
             JSONObject jsonObject= JSONObject.parseObject(resp);
             String baseImg = jsonObject.getString("fileStr");
-            FileOutputStream out = Base64Utils.base642File(baseImg);
-            return StringUtils.isNotBlank(resp);
+            return Base64Utils.base642File(baseImg);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return "";
     }
 
     /**

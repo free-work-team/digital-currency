@@ -77,6 +77,7 @@
   var merchantObj = getMerchant();
   var type = localStorage.getItem("operationType");
   var kycId = generateID(10);
+  var getPic = false;
 
 
   /**
@@ -144,24 +145,31 @@
   window.onload = function () {
     initLanguage();
     $('#kycUrl').text(merchantObj.kycUrl);
-    createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
+      createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
     //定时校验人脸
     setTimeout(function () {
-      checkFace();
+      if (!getPic){
+        checkFace();
+      }
     }, 5000)
   }
 
-
   function checkFace() {
-    if (window.webTimer.checkFace(kycId)) {
-      //验证成功
+    var picPath =window.webTimer.checkFace(kycId);
+    if (picPath) {
+      getPic = true;
+      window.face.compareFace(picPath);
+    }
+  }
+
+  function faceResult(status) {
+    //验证成功
+    if (status) {
       if (type == 1) {
         tobuyCoin();
       } else {
         tosellCoin();
       }
-    } else {
-      showWarn("Verification failed");
     }
   }
 

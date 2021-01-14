@@ -206,11 +206,11 @@ public class Base64Utils {
 
 	}
 
-	public static FileOutputStream base642File(String str) {
+	public static String base642File(String str) {
 		Base64Utils utils = Base64Utils.getInstance();
 		String videoPath = Environment.getExternalStorageDirectory().getPath()+ File.separator + "JYT" + File.separator ;
 		FileOutputStream out =utils.base64ToFile(str, new File(videoPath+"test.jpg"));
-		return out;
+		return videoPath;
 	}
 
 }

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,10 @@ import com.jyt.terminal.util.ToolUtil;
 @RequestMapping(value="/api")
 public class ApiController {
 
+    private Logger log = LoggerFactory.getLogger(ApiController.class);
+    
+	@Value("${upload-path}")
+    private String path;
    
     @Autowired
     private IBuyService buyService;
@@ -87,8 +92,6 @@ public class ApiController {
     @Autowired
     private ICashBoxService cashBoxService;
     
-   
-    private Logger log = LoggerFactory.getLogger(ApiController.class);
     /**
      * 修改密码
      * @param request

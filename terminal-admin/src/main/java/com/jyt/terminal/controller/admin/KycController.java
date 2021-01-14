@@ -207,6 +207,10 @@ public class KycController extends BaseController{
             }
             imgWidth = bufferedImage.getWidth(); 
             imgHeight = bufferedImage.getHeight();
+            if(imgHeight>imgWidth) {
+            	logger.error("上传的图片方向为竖直");
+            	return "上传的图片方向为竖直,请上传横向的图片";
+            }
 		} catch (Exception e1) {
 			logger.error("获取图片宽高失败！");
 			e1.printStackTrace();

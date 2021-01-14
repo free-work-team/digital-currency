@@ -26,7 +26,7 @@ public class Downloadimg {
 
 		Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);*/
 		Base64Utils utils = Base64Utils.getInstance();
-		String str = utils.file2Base64(new File("D:/jyt/RJ-Drivers-Front.jpg"));
+		String str = utils.file2Base64(new File("D:/jyt/cg.png"));
 		
 		//utils.base64ToFile(str, new File("D://xx.jpg"));
 		

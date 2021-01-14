@@ -82,27 +82,14 @@
   </div>
 </div>
 
-<!--按钮-->
-<div id="tochangeLan" class="select-luanguage-btn" data-lanType="English" style="margin-top: 409px;">
-  <div class="newLanguage">
-    Back
-  </div>
-  <div class="newLanguage" style="margin-left: 50px">
-    Confirm
-  </div>
-</div>
-
 <div class="bottom-contact">
   <!--  <div class="merchant_hotLine">100</div>-->
   <div class="merchant_mail">www.huanghui-it.com</div>
 </div>
+
 <div class="to_home_div">
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
   <div class="to_home_label"></div>
-</div>
-
-<div class="bottom-contact">
-  <!--  <div class="merchant_hotLine">100</div>-->
-  <div class="merchant_mail">www.huanghui-it.com</div>
 </div>
 
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
@@ -110,9 +97,10 @@
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
 <script type="text/javascript" src="../../js/common/toast.script.js"></script>
-<script type="text/javascript" src="../../js/common/scrollerAD.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+
 <script type="text/javascript">
-  var examine = (window.location.href.split("examine=")[1].split("&&")[0]);
   // 根据钱包余额计算的最大交易金额
   var maxTrade= parseInt(window.location.href.split("maxTrade=")[1]);
 
@@ -125,7 +113,7 @@
   }
 
   function toPutMoney(){
-    window.location.href = "putMoney.html?examine=" + examine + "&&maxTrade=" + maxTrade;
+    window.location.href = "putMoney.html?maxTrade=" + maxTrade;
   }
   window.onload = function () {
     initLanguage();

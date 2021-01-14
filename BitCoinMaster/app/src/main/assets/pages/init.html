@@ -372,10 +372,17 @@
 
   function cameraCallBack(result) {
     if (result.status) {
+      window.face.Init()
+    } else {
+      $('#lan_init').html(result.message);
+    }
+  }
+  function faceInitResult(result) {
+    if (result == 4) {
       window.location.href = "index/start.html";
     } else {
       clearInterval(timer);
-      $('#lan_init').html(result.message);
+      $('#lan_init').html("The face recognition module failed to initialize！");
     }
   }
 

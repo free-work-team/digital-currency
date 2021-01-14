@@ -296,7 +296,7 @@ public class NewLandEm3096 implements IScanner, Em3096.Serial {
 
                 @Override
                 public void onNewData(final byte[] data) {
-                    listener.scannerResult(data);
+                    listener.scannerResult(data,0);
                 }
 
                 @Override

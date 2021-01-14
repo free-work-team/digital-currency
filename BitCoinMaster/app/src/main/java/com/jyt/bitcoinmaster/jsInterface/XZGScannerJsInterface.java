@@ -13,10 +13,11 @@ import com.jyt.hardware.scanner.OnResultListener;
 import com.jyt.hardware.scanner.ScannerFactory;
 import com.jyt.hardware.scanner.ScannerResultListener;
 import com.jyt.hardware.scanner.XZGScanner;
+import com.jyt.hardware.scanner.XZScannerResultListener;
 
 import org.apache.log4j.Logger;
 
-public class XZGScannerJsInterface implements ScannerResultListener {
+public class XZGScannerJsInterface implements XZScannerResultListener {
     private static Logger log =  Logger.getLogger("BitCoinMaster");
 
     private XZGScanner scanner;
@@ -83,34 +84,69 @@ public class XZGScannerJsInterface implements ScannerResultListener {
      */
     @JavascriptInterface
     public void autoScan(){
-        scanner.startScanAuto();
+//        scanner.startScanAuto();
+        scanner.startScanOnce();
     }
 
 
+
     @Override
-    public void onError(String message) {
-//        Message msg = Message.obtain();
-//        msg.what = RESULT;
-//        msg.obj = "01";
-//        handler.sendMessage(msg);
-    }
-    @Override
-    public void onTimeOut() {
-//        Message msg = Message.obtain();
-//        msg.what = RESULT;
-//        msg.obj = "01";
-//        handler.sendMessage(msg);
-    }
-    @Override
-    public void scannerResult(byte[] bytes) {
+    public void scannerResult(String receivedata) {
         stopScan();
-        String data = ByteToString(bytes);
+        String data = convertHexToString(receivedata);
         data = data.replaceAll("(\r|\n)", "");
         log.info("--------------------扫描结果:" + data);
         Message msg = Message.obtain();
         msg.what = RESULT;
         msg.obj = data;
         handler.sendMessage(msg);
+    }
+
+    public static String byte2Hex(byte[] bytes) {
+        if(bytes==null)return null;
+        StringBuilder sb = new StringBuilder(bytes.length*2);
+        for(byte b : bytes){
+            sb.append(byte2Hex(b));
+        }
+        return sb.toString();
+    }
+    /**
+     * convert byte to Hex String
+     * @param b
+     * @return
+     */
+    public static String byte2Hex(byte b) {
+        String v = Integer.toHexString(b & 0xff).toUpperCase();
+        if (v.length() == 1) {
+            v = '0' + v;
+        }
+        return v;
+    }
+    /**
+     * 16进制字符串转ascii
+     *
+     * @param hex
+     * @return
+     */
+    public static String convertHexToString(String hex) {
+
+        StringBuilder sb = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+
+        //49204c6f7665204a617661 split into two characters 49, 20, 4c...
+        for (int i = 0; i < hex.length() - 1; i += 2) {
+
+            //grab the hex in pairs
+            String output = hex.substring(i, (i + 2));
+            //convert hex to decimal
+            int decimal = Integer.parseInt(output, 16);
+            //convert the decimal to character
+            sb.append((char) decimal);
+
+            temp.append(decimal);
+        }
+
+        return sb.toString();
     }
     private  String ByteToString(byte[] bytes)
     {

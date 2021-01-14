@@ -123,6 +123,7 @@
 
   //校验验证码
   function checkMsg() {
+    showWait();
     var inputCode = $('#my_input').val();
     if (inputCode == msgCode) {
       toSwitch();

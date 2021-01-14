@@ -75,9 +75,9 @@
 <script type="text/javascript">
 
   var merchantObj = getMerchant();
-  var isExceedQuota = window.location.href.split("isExceedQuota=")[1];
   var type = localStorage.getItem("operationType");
   var kycId = generateID(10);
+  var getPic = false;
 
 
   /**
@@ -85,7 +85,7 @@
    */
   function tobuyCoin() {
     if (merchantObj) {
-      window.location.href = "../buy/scanllerAddress.html?examine=" + isExceedQuota;
+      window.location.href = "../buy/scanllerAddress.html";
     } else {
       ErrorPage.toError("merchat setting is required")
     }
@@ -115,7 +115,7 @@
           var walletBalance = localStorage.getItem("walletBalance");
           var maxTrade = parseInt(numMulti(walletBalance, currentPrice));
           console.log("钱包余额允许的最大交易金额为" + maxTrade);
-          window.location.href = "../sell/chooseAmount.html?examine=" + isExceedQuota + "&&maxTrade=" + maxTrade;
+          window.location.href = "../sell/chooseAmount.html?maxTrade=" + maxTrade;
         } else {
           ErrorPage.toError("The price request failed, Please try again later!");
         }
@@ -145,24 +145,31 @@
   window.onload = function () {
     initLanguage();
     $('#kycUrl').text(merchantObj.kycUrl);
-    createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
+      createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
     //定时校验人脸
     setTimeout(function () {
-      checkFace();
+      if (!getPic){
+        checkFace();
+      }
     }, 5000)
   }
 
-
   function checkFace() {
-    if (window.webTimer.checkFace(kycId)) {
-      //验证成功
+    var picPath =window.webTimer.checkFace(kycId);
+    if (picPath) {
+      getPic = true;
+      window.face.compareFace(picPath);
+    }
+  }
+
+  function faceResult(status) {
+    //验证成功
+    if (status) {
       if (type == 1) {
         tobuyCoin();
       } else {
         tosellCoin();
       }
-    } else {
-      showWarn("Verification failed");
     }
   }
 

@@ -13,6 +13,10 @@
       overflow: hidden;
       height:100%;
      }
+     body{
+     	background-image:url(/static/img/bg.png);
+     	background-repeat:repeat-y;
+     }
   </style>
   <script>
   var system = {};
@@ -22,16 +26,17 @@
   system.win = p.indexOf("Win") == 0;
   system.mac = p.indexOf("Mac") == 0;
   system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
-  if (system.win || system.mac || system.xll) {//如果是PC转
+  /* if (system.win || system.mac || system.xll) {//如果是PC转
     if (u.indexOf('Windows Phone') > -1) {  //win手机端
     } else {
       window.location.href = "/kyc/friendly";
     }
-  }
+  } */
 
 </script>
 </head>
-<body style="background-color:#d3dae4;">
+<!-- <body style="background-color:#d3dae4;"> -->
+<body> 
 <div class="con_title">
   <h2 class="lanClass" data-lanid="certification"></h2>
 </div>
@@ -45,18 +50,18 @@
 		  <input id="privacyPolicyTitle" value='${agreement.privacyPolicyTitle}' type="hidden">
 	  @}
     <!--姓名-->
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="name">
+   <!--  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="name">
     </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
       <input class="div_input" type="text" name="name" id="custName" value=""/>
-    </div>
+    </div> -->
 
     <!--邮箱-->
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="email">
+    <!-- <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="email">
     </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
       <input class="div_input" type="text" name="" id="email" value=""/>
-    </div>
+    </div> -->
 
     <!--证件类型-->
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="cardType">
@@ -91,7 +96,7 @@
     </div>
 
     <!--身份证背面-->
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardObverse">
+    <!-- <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardObverse">
     </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_photo">
       <div id="idCardObverseDiv" class="layui-input-block photo">
@@ -105,7 +110,7 @@
        <span class="fa fa-trash-o" style="font-size: 20px">X</span>
        <input type="button" class="btn btn-success" value="clear" onclick="cancleFile(this);"/>
      </span>
-    </div>
+    </div> -->
 
   </div>
   <!--身份证校验上传图片区域 end-->
@@ -132,7 +137,7 @@
   <!--护照校验上传图片区域 end-->
 
   <!--手持证件照-->
-  <div id="handheldArea" class="row">
+  <!-- <div id="handheldArea" class="row">
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardHandheld">
     </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_photo">
@@ -148,7 +153,7 @@
        <input type="button" class="btn btn-success" value="clear" onclick="cancleFile(this);"/>
      </span>
     </div>
-  </div>
+  </div> -->
 
   <div class="row" style="margin:20px 0 100px;">
     <div id="agreeArea" class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" style="margin-top: 10px;margin-bottom: 10px;word-wrap:break-word;">
@@ -188,35 +193,35 @@
       lanChinese: 'KYC/AML'
     }, {
       id        : 'certification',
-      lanEnglish: 'Certification',
+      lanEnglish: 'Upload image',
       lanChinese: '上传认证信息'
     }, {
-      id        : 'name',
+      /* id        : 'name',
       lanEnglish: 'Full name as it appears on your document:',
-      lanChinese: '姓名:'
+      lanChinese: '姓名:' */
     }, {
-      id        : 'email',
+      /* id        : 'email',
       lanEnglish: 'Contact Email:',
-      lanChinese: '邮箱:'
+      lanChinese: '邮箱:' */
     }, {
       id        : 'idCardPositive',
       lanEnglish: 'The Front Of Your State ID Card:',
       lanChinese: '身份ID正面照:'
     }, {
-      id        : 'idCardObverse',
+      /* id        : 'idCardObverse',
       lanEnglish: 'The Back Of Your ID:',
-      lanChinese: '身份ID反面照:'
+      lanChinese: '身份ID反面照:' */
     }, {
-      id        : 'idCardHandheld',
+      /* id        : 'idCardHandheld',
       lanEnglish: 'Please provide Selfie showing ID used with your face clearly:',
-      lanChinese: '手持身份证照:'
+      lanChinese: '手持身份证照:' */
     }, {
       id        : 'idPassport',
       lanEnglish: 'Passport photo:',
       lanChinese: '护照证件照:'
     }, {
       id        : 'submitBtn',
-      lanEnglish: 'Submit',
+      lanEnglish: 'Upload image',
       lanChinese: '提交'
     }, {
       id        : 'cardType',

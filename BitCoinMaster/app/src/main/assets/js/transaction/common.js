@@ -49,6 +49,7 @@ function toHome() {
   // 清除sessionstorage中的登录ID
   clearStorage();
   InterValObj && clearInterval(InterValObj);
+  window.face.stopCompare();
   // 退到登陆界面
   window.location.href = "../index/start.html";
 }

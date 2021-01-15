@@ -210,7 +210,7 @@ public class Base64Utils {
 		Base64Utils utils = Base64Utils.getInstance();
 		String videoPath = Environment.getExternalStorageDirectory().getPath()+ File.separator + "JYT" + File.separator ;
 		FileOutputStream out =utils.base64ToFile(str, new File(videoPath+"test.jpg"));
-		return videoPath;
+		return videoPath+"test.jpg";
 	}
 
 }

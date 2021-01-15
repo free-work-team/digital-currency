@@ -163,8 +163,10 @@
   }
 
   function faceResult(status) {
+  console.log("faceResult:"+status)
     //验证成功
-    if (status) {
+    if (status=='true') {
+    window.face.stopCompare();
       if (type == 1) {
         tobuyCoin();
       } else {

@@ -1,24 +1,26 @@
 package com.jyt.bitcoinmaster.jsInterface;
 
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.os.storage.StorageManager;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import com.jyt.bitcoinmaster.view.VideoPlayDialog;
-import com.jyt.hardware.camera.listener.CameraListener;
-import com.jyt.hardware.camera.api.CameraUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
+import com.jyt.bitcoinmaster.usbcamera.CramerThread;
+import com.jyt.bitcoinmaster.view.VideoPlayDialog;
+import com.jyt.hardware.camera.listener.CameraListener;
 import com.jyt.hardware.cashoutmoudle.bean.EntityFile;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileFilter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -26,18 +28,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CameraJsInterface implements CameraListener {
-
-
+public class USBCameraJsInterface implements CameraListener {
     private static Logger log =  Logger.getLogger("BitCoinMaster");
 
     private WebView webView;
 
     private Context context;
-
-    private CameraUtils cameraUtils ;
-
     private String  videoPath;
+    private CramerThread thread;
 
     private Handler handler = new Handler(){
         @Override
@@ -46,12 +44,13 @@ public class CameraJsInterface implements CameraListener {
             String initResult = (String) msg.obj;
             log.info("[CameraJsInterface]: initResult=" + initResult);
             webView.evaluateJavascript("javascript:cameraCallBack("+initResult+")",null );
-            }
+        }
     };
 
-    public CameraJsInterface(Context context, WebView webView) {
+    public USBCameraJsInterface(Context context, WebView webView, SurfaceView surfaceView, SurfaceHolder surfaceHolder) {
         this.webView = webView;
         this.context = context;
+        thread = new CramerThread(surfaceView,surfaceHolder);
     }
 
     /**
@@ -59,25 +58,19 @@ public class CameraJsInterface implements CameraListener {
      */
     @JavascriptInterface
     public void openConnect(){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",true);
-        Message msg = Message.obtain();
-        msg.obj = JSONObject.toJSONString(jsonObject);
-        handler.sendMessage(msg);
 
-//        videoPath = getStoragePath(context,true);
-//        log.info("获取外置sd卡路径:"+videoPath);
-//        if(StringUtils.isEmpty(videoPath)){
-//            JSONObject jsonObject = new JSONObject();
-//            jsonObject.put("status",false);
-//            jsonObject.put("message","connect camera fail");
-//            Message msg = Message.obtain();
-//            msg.obj = JSONObject.toJSONString(jsonObject);
-//            handler.sendMessage(msg);
-//        }else{
-//            cameraUtils = CameraUtils.getCameraService(videoPath,"90");
-//            cameraUtils.getCameraStatus(this);
-//        }
+        videoPath = getStoragePath(context,true);
+        log.info("获取外置sd卡路径:"+videoPath);
+        if(StringUtils.isEmpty(videoPath)){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status",false);
+            jsonObject.put("message","connect camera fail");
+            Message msg = Message.obtain();
+            msg.obj = JSONObject.toJSONString(jsonObject);
+            handler.sendMessage(msg);
+        }else{
+            thread.getCameraStatus(this);
+        }
 
     }
 
@@ -128,7 +121,7 @@ public class CameraJsInterface implements CameraListener {
         }else if(type == 2){
             str = str+"-sell";
         }
-        cameraUtils.startMonitor(str,"0",this);
+        thread.startRecord();
     }
 
     /**
@@ -136,14 +129,14 @@ public class CameraJsInterface implements CameraListener {
      */
     @JavascriptInterface
     public void stopMonitor(){
-//        cameraUtils.stopMonitor("0",this);
+        thread.stopRecord();
     }
 
     @Override
     public void onResult(boolean status, String message) {
         log.info("[CameraJsInterface]:"+"status="+status+",message="+message);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",true);
+        jsonObject.put("status",status);
         jsonObject.put("message",message);
         Message msg = Message.obtain();
         msg.obj = JSONObject.toJSONString(jsonObject);

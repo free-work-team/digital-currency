@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+    private SurfaceView surfaceView;
+    private SurfaceHolder surfaceHolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
         //设置硬件通讯参数
         DBHelper helper = DBHelper.getHelper();
         ((MyApp)getApplicationContext()).setConfig(setConfig( helper.queryAllKey()));
-
+        surfaceView = findViewById(R.id.surfaceView);
+        surfaceHolder = surfaceView.getHolder();
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.loadUrl("file:///android_asset/pages/init.html");//加载本地asset下面的js_java_interaction.html文件
         WebSettings webSettings = mWebView.getSettings();
@@ -168,10 +170,12 @@ public class MainActivity extends AppCompatActivity {
         mWebView.addJavascriptInterface(new YSPrinterJsInterface(this,mWebView), "print");
         mWebView.addJavascriptInterface(new BackJsInterface(this,mWebView), "back");
         mWebView.addJavascriptInterface(new UploadTimer(this,mWebView), "webTimer");
-        mWebView.addJavascriptInterface(new CameraJsInterface(this,mWebView), "camera");
+//        mWebView.addJavascriptInterface(new CameraJsInterface(this,mWebView), "camera");
+        mWebView.addJavascriptInterface(new USBCameraJsInterface(this,mWebView,surfaceView,surfaceHolder), "camera");
         mWebView.addJavascriptInterface(new HungHuiLedJsInterface(this,mWebView), "led");
         mWebView.addJavascriptInterface(new BusinessJsInterface(this,mWebView), "business");
         mWebView.addJavascriptInterface(new FrontJsInterface(this,mWebView), "front");
+        mWebView.addJavascriptInterface(new FaceReconizationJsInterface(this,mWebView), "face");
 
         // log
         mWebView.setWebChromeClient(new WebChromeClient() {

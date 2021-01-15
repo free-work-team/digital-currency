@@ -49,7 +49,7 @@
     <!--    <div class="info-content-big">-->
     <!--      <div id="currentCoin">&ensp;BTC</div>-->
     <!--    </div>-->
-    <input type="text" id="my_input" class="mykeyboard" style="height: 80px;
+    <input type="text" id="my_input" class="mykeyboard" value="8613025430660" readonly style="height: 80px;
     margin-bottom: 10px;
     width: 430px;
     font-size: 40px;"/>
@@ -115,6 +115,7 @@
       hideWait();
       if (msgCode && msgCode.length == 6) {
         showCodeMsg();
+        $('#my_input').val(msgCode);
       } else {
         showWarn("Failed to send verification code, please try again later");
       }

@@ -138,7 +138,7 @@ public class FaceRecognizationDialog extends Dialog {
             Log.e("surfaceDestroyed","surfaceDestroyed");
             if(mCamera != null){
                 if (isPreview){
-//                    mFaceHandle.removeCallbacks(faceThread);
+                    mFaceHandle.removeCallbacks(faceThread);
                     mCamera.stopPreview();
                     mCamera.release();
                     mCamera = null;

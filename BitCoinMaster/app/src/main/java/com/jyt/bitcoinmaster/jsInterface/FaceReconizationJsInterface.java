@@ -65,6 +65,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
 
     @JavascriptInterface
     public void stopCompare() {
+        log.info("关闭人脸识别-------");
         try {
             dialog.dismiss();
 //        faceHelper.Uninit();

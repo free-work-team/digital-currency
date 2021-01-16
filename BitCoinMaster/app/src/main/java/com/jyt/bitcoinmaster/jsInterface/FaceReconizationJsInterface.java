@@ -24,6 +24,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     private WebView webView;
     private static final int FACERESULT =1;
     private static final int INITRESULT =2;
+    private boolean isInit = false;
     private FaceRecognizationDialog dialog;
     private Handler handler = new Handler(){
         @Override
@@ -50,7 +51,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
 
     @JavascriptInterface
     public void Init(){
-        faceHelper.Init(context,this);
+        if (!isInit) faceHelper.Init(context,this);
     }
 
     @JavascriptInterface
@@ -74,6 +75,9 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
     @Override
     public void initResult(int ret, int errorCode) {
+        if (ret == 4){
+            isInit = true;
+        }
         Message msg = Message.obtain();
         msg.what = INITRESULT;
         String initInfo = "";

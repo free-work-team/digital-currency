@@ -8,8 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="Dialog" parent="android:style/Theme.Dialog">
-        <item name="android:background">#FFFFFF</item>
-<!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="android:background">#00FFFFFF</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>

@@ -11,11 +11,14 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -79,6 +82,15 @@ public class FaceRecognizationDialog extends Dialog {
             View layout = layoutInflater.inflate(R.layout.face, null);
             dialog.addContentView(layout, new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+            DisplayMetrics dm = new DisplayMetrics();
+            params.x = 70;
+            params.y = 10;
+            params.width = 700;
+            params.height = 500;
+            dialog.getWindow().setAttributes(params);
+            dialog.getWindow().setDimAmount(0f);
+            dialog.getWindow().setGravity(Gravity.LEFT);
             surfaceView = layout.findViewById(R.id.surfaceView);
             mSurfaceHolder = surfaceView.getHolder();//获得SurfaceView的Holder
             mSurfaceHolder.addCallback(this);//设置Holder的回调
@@ -200,7 +212,6 @@ public class FaceRecognizationDialog extends Dialog {
                         mFaceHandle.removeCallbacks(this);
                     }else{
                         listener.detectedResult(false,score);
-                        mData = null;
                     }
                 }
             }

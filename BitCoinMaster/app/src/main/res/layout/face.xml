@@ -38,5 +38,11 @@
             android:layout_height="match_parent"
             android:layout_margin="20dp"
             ></SurfaceView>
-
+        <ImageView
+            android:id="@+id/scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/scan"
+            android:layout_margin="20dp"
+            ></ImageView>
 </RelativeLayout>

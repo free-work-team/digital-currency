@@ -49,16 +49,18 @@
   <div style="width: 40%">
   </div>
   <div style="width: 60%;">
-    <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);">
-      <p>Scan the QR code on the left of the screen</p>
-      <p>Scan the QR code on the left of the screen</p>
-      <p>Scan the QR code on the left of the screen</p>
-      <p>Scan the QR code on the left of the screen</p>
-
+    <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);display: flex">
+      <div class="faceinfo-area-left">
+        <p><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> PASSPORT INFO</p>
+        <p>name:liu</p>
+        <p>Sex:M</p>
+      </div>
+      <div class="faceinfo-area-right">
+        <img id="card-img-base" class="card-img" src="../../img/icon-home/phone-icon.png">
+      </div>
     </div>
   </div>
 </div>
-
 
 
 <div class="bottom-contact">
@@ -148,6 +150,7 @@
     var kycInfo = window.webTimer.getKycInfo(kycId);
     if (kycInfo) {
       var kycInfoObj = JSON.parse(kycInfo);
+      $('#card-img-base').attr("src", "data:image/*;base64," + kycInfoObj.fileStr);
       //todo 赋值
     } else {
       ErrorPage.toError("KycInfo error,Please try again");

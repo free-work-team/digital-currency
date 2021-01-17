@@ -64,22 +64,27 @@
   </div>
 </div>
 
-<div class="info-titile-big">
-  Please Choose Electric Pay
+
+<div class="thin-title">
+  <div>Please Choose Payment Methods</div>
 </div>
 
 
 <!--支付方式-->
 <div style="    display: flex; width: 76%; margin-left: 12%;margin-top: 100px">
-  <div class="pay-choose" style="    background-image: url(../../img/icon-home/orange.png);"  onclick="toPutMoney()">
-    ALPAY
+  <div class="pay-choose" style="background-image: url(../../img/icon-home/cashPay.png );" onclick="toPutMoney()">
+    CASHPAY&emsp;
   </div>
-  <div class="pay-choose" style="    background-image: url(../../img/icon-home/blue.png);"  onclick="toPutMoney()">
-    GPAY
+  <div class="pay-choose" style="background-image: url(../../img/icon-home/gPay.png);"  onclick="noSupport()">
+    GPAY&emsp;
   </div>
-  <div class="pay-choose" style="    background-image: url(../../img/icon-home/yellow.png);" onclick="toPutMoney()">
-    CASHPAY
+  <div class="pay-choose" style="background-image: url(../../img/icon-home/applePay.png);"  onclick="noSupport()">
+    APPLEPAY&emsp;
   </div>
+  <div class="pay-choose" style="background-image: url(../../img/icon-home/aliPay.png);" onclick="noSupport()">
+    ALIPAY&emsp;
+  </div>
+
 </div>
 
 <div class="bottom-contact">
@@ -117,6 +122,11 @@
   function toPutMoney(){
     window.location.href = "putMoney.html?maxTrade=" + maxTrade;
   }
+
+  function noSupport() {
+    showWarn("Not currently supported!");
+  }
+
   window.onload = function () {
     initLanguage();
 

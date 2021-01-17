@@ -1006,9 +1006,9 @@ public class UploadTimer extends Activity {
         try {
             resp = requestWeb(method);
             JSONObject jsonObject= JSONObject.parseObject(resp);
-            kycInfo = jsonObject.getJSONObject("kycInfo");
             String baseImg = jsonObject.getString("fileStr");
             //test
+//            kycInfo = jsonObject.getJSONObject("kycInfo");
             kycInfo.put("fileStr",baseImg);
             kycInfo.put("kycId",kycId);
             return Base64Utils.base642File(baseImg);

@@ -213,8 +213,8 @@
     font-weight: bold;
     font-size: 40px;
     color: white;
-    line-height: 110px;
-    margin-top: 40px;
+    line-height: 81px;
+    margin-top: 55px;
     width: 420px;
   }
   .button-font-div-start {
@@ -283,6 +283,7 @@
     margin: 0 auto;
     margin-top: 80px;
   }
+
   .bottom-contact {
     text-align: right;
     padding-left: 4%;
@@ -292,6 +293,10 @@
     height: 60px;
     font-size: 26px;
     display: flex;
+  }
+
+  .bottom-contact label, .bottom-contact .merchant_hotLine, .bottom-contact .merchant_mail {
+    margin-left: -15px;
   }
   .select-luanguage-btn {
     color: #8a7c71;
@@ -588,8 +593,9 @@
     line-height: 48px;
     color: #8e7d70;
     text-align: right;
-    margin: 0 auto;
+    margin: unset;
     margin-top: 10px;
+    margin-left: 80px;
     padding-right: 20px;
   }
 
@@ -614,7 +620,7 @@
 
   .sell-div {
     width: 80%;
-    margin: 0 auto;
+    margin: unset;
     margin-top: 10px;
   }
 
@@ -625,9 +631,10 @@
 
   .sell-right {
     width: 20%;
-    right: 380px;
-    bottom: 410px;
+    left: 510px;
+    bottom: 542px;
     position: absolute;
+    display: flex;
   }
 
   .choose {
@@ -803,12 +810,12 @@
   }
   .bic {
     background-image: url(../img/icon-home/buttomBIC1080_2.jpg);
-    background-repeat: no-repeat;
+    background-repeat: unset;
     background-size: 100%
   }
   .error_div {
     background-image: url(../img/icon-home/error1080_2.jpg);
-    background-repeat: no-repeat;
+    background-repeat: unset;
     background-size: 100%
   }
 
@@ -1047,9 +1054,13 @@
     font-size: 45px;
   }
   .log-buy-icon {
-    background-image: url(../img/icon-home/blue.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/blue.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #de5c00;
+    width: 420px;
+    height: 92px;
+
   }
   .to_home_btn {
     width: 223px;
@@ -1129,9 +1140,10 @@
   }
 
   .sell {
-    background-image: url(../img/icon-home/7.put04.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/7.put04.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
   }
 
 

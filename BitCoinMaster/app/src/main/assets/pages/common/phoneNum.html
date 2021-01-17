@@ -111,18 +111,20 @@
   //发送验证码
   function sendMsg() {
     phoneNum = $('#my_input').val();
-    //发送验证码
-    showWait();
-    setTimeout(function () {
-      msgCode = window.webTimer.sendSMSCode(phoneNum);
-      hideWait();
-      if (msgCode && msgCode.length == 6) {
-        showCodeMsg();
-        $('#my_input').val(msgCode);
-      } else {
-        showWarn("Failed to send verification code, please try again later");
-      }
-    }, 1000);
+    if (phoneNum){
+      //发送验证码
+      showWait();
+      setTimeout(function () {
+        msgCode = window.webTimer.sendSMSCode(phoneNum);
+        hideWait();
+        if (msgCode && msgCode.length == 6) {
+          showCodeMsg();
+          $('#my_input').val(msgCode);
+        } else {
+          showWarn("Failed to send verification code, please try again later");
+        }
+      }, 1000);
+    }
   }
 
   //校验验证码

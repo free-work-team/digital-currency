@@ -48,7 +48,7 @@
 <div class="new-panel" style="margin-top: 50px">
   <div style="width: 40%">
   </div>
-  <div style="width: 60%;">
+  <div style="width: 60%;margin-left: 5%">
     <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);display: flex">
       <div class="faceinfo-area-left">
         <p><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> PASSPORT INFO</p>
@@ -114,7 +114,7 @@
 
   //初始化打印机回调
   function printCallBack(data) {
-    // console.log("初始化打印机回调 =========== " + JSON.stringify(data));
+    console.log("初始化打印机状态 =========== " + JSON.stringify(data));
     if (data.status) {
       // 获取最新汇率和最大交易额
       refreshPrice(function (newPrice) {
@@ -143,10 +143,7 @@
 
   window.onload = function () {
     initLanguage();
-    //定时校验人脸
-    setTimeout(function () {
-      checkFace();
-    }, 5000);
+
     var kycInfo = window.webTimer.getKycInfo(kycId);
     if (kycInfo) {
       var kycInfoObj = JSON.parse(kycInfo);
@@ -158,7 +155,10 @@
         toHome();
       }, 2000);
     }
-
+    //定时校验人脸
+    setTimeout(function () {
+      checkFace();
+    }, 1000);
   }
 
   function checkFace() {

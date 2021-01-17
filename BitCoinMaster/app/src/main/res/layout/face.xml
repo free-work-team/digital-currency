@@ -31,12 +31,15 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:src="@mipmap/right_bottom"></ImageView>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
         <SurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+
             ></SurfaceView>
         <ImageView
             android:id="@+id/scan"
@@ -44,6 +47,7 @@
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@mipmap/scan"
-            android:layout_margin="20dp"
             ></ImageView>
+</FrameLayout>
+
 </RelativeLayout>

@@ -63,7 +63,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         builder.setImagePath(filePath);
         builder.setCompareListener(this);
         dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 

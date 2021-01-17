@@ -110,7 +110,7 @@ public class FaceRecognizationDialog extends Dialog {
             int bottom = params.height-45;
 
             // 从上到下的平移动画
-            Animation verticalAnimation = new TranslateAnimation(left, left, top, bottom);
+            Animation verticalAnimation = new TranslateAnimation(0, 0, 0, 500);
             verticalAnimation.setDuration(2000); // 动画持续时间
             verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
             verticalAnimation.setRepeatMode(Animation.RESTART);

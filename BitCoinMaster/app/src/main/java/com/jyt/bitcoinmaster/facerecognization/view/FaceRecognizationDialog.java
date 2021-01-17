@@ -63,7 +63,7 @@ public class FaceRecognizationDialog extends Dialog {
         private Handler mFaceHandle;
         private HandlerThread mFaceHandleThread;
         private Camera.Size previewSize;
-        private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
+        private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_BACK;
         private FaceCompareListener listener;
         private String imagePath;
         private FaceThread faceThread;

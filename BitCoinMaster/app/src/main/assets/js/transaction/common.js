@@ -14,7 +14,7 @@ function event() {
 function initInterValObj() {
   var homeLabel = $(".to_home_label");
   if (homeLabel) {
-    homeLabel.text(curCount + "s");
+    homeLabel.text(curCount + " S");
     InterValObj = setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
     //timer处理函数
     function SetRemainTime() {
@@ -25,7 +25,7 @@ function initInterValObj() {
       } else {
         // console.log("定时返回"+curCount);
         curCount--;
-        homeLabel.text(curCount + "s");
+        homeLabel.text(curCount + " S");
       }
     }
   }

@@ -11,7 +11,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Cache-control" content="no-cache">
   <meta http-equiv="Cache" content="no-cache">
-  <title>Phone</title>
+  <title>Swtich</title>
   <style>
     @import "../../css/styles.css";
 
@@ -39,8 +39,8 @@
   </div>
 </div>
 
-<div class="new-panel">
-  <div style="width: 60%">
+<div style="margin-top: 130px">
+  <div style="width: 80%">
     <br>
     <br>
     <br>
@@ -50,9 +50,7 @@
     <br>
 <!--    <div class="new-panel-content">Current Transanction Limit 10,000 USD</div>-->
   </div>
-  <div class="switchArea" id="loadingArea" style="width: 40%;margin-top: 86px">
-
-
+  <div class="switchArea" style="width: 80%; margin-left:17%;margin-top: 86px;display: flex">
     <div id="buyArea" class="switch-area hidden" onclick="tobuyCoin();">
       <div style="background-image: url(../../img/icon-home/buy-icon.png);" class="swticth-icon"></div>
       <div class="switch-white-back" id="lan_buyCoins"></div>
@@ -61,6 +59,7 @@
       <div style="background-image: url(../../img/icon-home/sell-icon.png);" class="swticth-icon"></div>
       <div class="switch-white-back" id="lan_withdrawCash"></div>
     </div>
+  </div> <div class="switchArea" style="width: 80%; margin-left:17%;display: flex">
     <div id="redeemArea" class="switch-area hidden" onclick="redeem();">
       <div style="background-image: url(../../img/icon-home/redeem-icon.png);" class="swticth-icon"></div>
       <div class="switch-white-back" id="lan_redeem"></div>
@@ -74,8 +73,10 @@
 
 
 <div class="bottom-contact">
-<!--  <div class="merchant_hotLine">100</div>-->
-  <div class="merchant_mail">www.huanghui-it.com</div>
+  <img src="../../img/icon-home/phone-icon.png" class="phone-icon">&emsp;<label style="font-weight: bolder;">Hotline:</label>&emsp;
+  <div class="merchant_hotLine"></div>
+  <img src="../../img/icon-home/email-icon.png" class="phone-icon" style="margin-left: 100px">&emsp;<label style="font-weight: bolder;">E-Mail:</label>&emsp;
+  <div class="merchant_mail"></div>
 </div>
 <div class="to_home_div">
   <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
@@ -172,7 +173,7 @@
   function kycToSell() {
     if (kycEnable) {
       localStorage.setItem("operationType", sellFlag);
-      window.location.href = "../kyc/examineCode.html";
+      window.location.href = "../kyc/upload.html";
     } else {
       setTimeout(function () {
         // 打印机初始化

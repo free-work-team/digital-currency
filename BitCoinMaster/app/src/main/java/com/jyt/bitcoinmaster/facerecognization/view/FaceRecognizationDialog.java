@@ -89,7 +89,7 @@ public class FaceRecognizationDialog extends Dialog {
             WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
             DisplayMetrics dm = new DisplayMetrics();
             params.x = 70;
-            params.y = 10;
+            params.y = 20;
             params.width = 700;
             params.height = 500;
             dialog.getWindow().setAttributes(params);

@@ -1,26 +1,14 @@
-.calculator{width:430px;height:500px;padding-left:5px;padding-top:25px;position:relative;}
-.calculator .num_key{width:130px;height:130px;display:inline-block;background-color:#1c406d;margin:5px;line-height: 120px;text-align:center;font-size:51px;color:#FFFFFF;font-weight:bold;}
-.calculator .btn_key{width:130px;height:130px;display:inline-block;background-color:#1c406d;margin:5px;line-height: 120px;text-align:center;font-size:51px;color:#FFFFFF;font-weight:bold;}
+.calculator{width:550px;height:500px;padding-top:5px;position:relative;}
+.calculator .num_key{width:160px;height:110px;display:inline-block;background-color:#1c406d;margin:8px;line-height: 110px;text-align:center;font-size:51px;color:#FFFFFF;font-weight:bold;}
+.calculator .btn_key{width:160px;height:110px;display:inline-block;background-color:#1c406d;margin:8px;line-height: 110px;text-align:center;font-size:51px;color:#FFFFFF;font-weight:bold;}
 .calculator .num_key:hover{cursor: pointer;background-color: #4275b5}
 .calculator .num_key:active{cursor: pointer;opacity:0.7;filter:alpha(opacity=70);}
 .calculator .btn_key:hover{cursor: pointer;background-color: #4275b5}
 .calculator .btn_key:active{cursor: pointer;opacity:0.7;filter:alpha(opacity=70);}
 .calculator .ok{height:100px;line-height:100px;position:absolute;}
 .continue-btn{
-  float: right;
-  width: 240px;
-  height: 130px;
-  display: inline-block;
-  background-color: #1c416e;
-  margin: 1px;
-  line-height: 122px;
-  text-align: center;
-  color: #FFFFFF;
-  font-size: 51px;
-  font-weight: bold;
-  position: absolute;
-  right: 20px;
-  bottom: 183px;
+  width: 510px !important;
+  height: 110px !important;
 }
 
 

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <title>upload</title>
+  <style>
+    @import "../../css/styles.css";
+    img {
+      width: 100%;
+    }
+
+
+  </style>
+</head>
+<body class="all-bg">
+
+<div class="log-content">
+  <div class="log-bg"></div>
+</div>
+<div class="balance-info">
+  <div class="buy-left">
+    <label>1</label><span class="btcUnit"></span>
+  </div>
+  <div class="buy-right">
+    <label class="toUsd"></label><span class="currency"></span>
+  </div>
+</div>
+
+<div class="new-panel">
+  <div style="width: 50%">
+    <br>
+    <br>
+    <br>
+    <div class="new-panel-title " id="lan_verify2">
+      Verify identity
+    </div>
+    <br>
+    <div class="new-panel-content" id="lan_please_scan">Scan Below QR code to load ID/Passport Info:</div>
+    <br>
+
+    <div id="qrcode" class="qrcode" style="margin-top: 25px;"></div>
+    <div class="qrcode_address" id="qrcode_address"></div>
+    <div class="cash-limit-desc">
+      <div id="lan_or_visit"></div>
+    </div>
+    <div class="cash-limit-desc">
+      <div id="kycUrl"></div>
+    </div>
+  </div>
+  <div style="width: 50%;margin-top: 86px">
+    <div class="panel-right-area right-step1" style="background-image: url(../../img/icon-home/upload-step1.png);"><p>Scan the QR code on the left of the screen</p></div>
+    <div class="panel-right-area right-step2" style="background-image: url(../../img/icon-home/upload-step2.png);padding-top: 30px;"><p>Using your phone Take picture of your Drivers/Passport ID</p></div>
+  </div>
+</div>
+
+<div class="bottom-contact">
+  <img src="../../img/icon-home/phone-icon.png" class="phone-icon">&emsp;<label style="font-weight: bolder;">Hotline:</label>&emsp;
+  <div class="merchant_hotLine"></div>
+  <img src="../../img/icon-home/email-icon.png" class="phone-icon" style="margin-left: 100px">&emsp;<label style="font-weight: bolder;">E-Mail:</label>&emsp;
+  <div class="merchant_mail"></div>
+</div>
+<div class="to_home_div">
+  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
+  <div class="to_home_label"></div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
+<script type="text/javascript" src="../../js/common/language.js"></script>
+<script type="text/javascript" src="../../js/transaction/price.js"></script>
+<script type="text/javascript" src="../../js/transaction/qrcode.min.js"></script>
+<script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/toError.js"></script>
+
+<script type="text/javascript">
+
+  var merchantObj = getMerchant();
+  var kycId = generateID(10);
+
+  // 初始化语言label
+  function initLanguage() {
+    var LanguageObjs = ["lan_verify2", "lan_please_scan", "lan_or_visit"];
+    // id名必须和language key 相同
+    LanguageManager.getLanguageLabel(LanguageObjs);
+  }
+
+  //生成二维码
+  function createQRCode(url) {
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      text        : url,
+      colorDark   : "#000000",
+      colorLight  : "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  window.onload = function () {
+    initLanguage();
+    $('#kycUrl').text(merchantObj.kycUrl);
+      createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
+    //定时校验人脸
+    setTimeout(function () {
+        getPicFile();
+    }, 5000)
+  }
+
+  function getPicFile() {
+    var picPath =window.webTimer.getPicFile(kycId);
+    if (picPath) {
+      window.location.href = "examineCode.html?kycId=" + kycId+"&&picPath="+picPath;
+    }
+  }
+</script>
+
+</html>

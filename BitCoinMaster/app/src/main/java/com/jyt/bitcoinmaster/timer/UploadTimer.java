@@ -68,7 +68,7 @@ public class UploadTimer extends Activity {
 
     private final OkHttpClient okHttpClient = new OkHttpClient();
 
-
+    private JSONObject kycInfo = new JSONObject();
 
 
 
@@ -993,7 +993,7 @@ public class UploadTimer extends Activity {
      * @return
      */
     @JavascriptInterface
-    public String checkFace(String kycId) {
+    public String getPicFile(String kycId) {
         if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
             log.error("token为空,人脸识别失败");
             return "";
@@ -1006,10 +1006,24 @@ public class UploadTimer extends Activity {
         try {
             resp = requestWeb(method);
             JSONObject jsonObject= JSONObject.parseObject(resp);
+            kycInfo = jsonObject.getJSONObject("kycInfo");
             String baseImg = jsonObject.getString("fileStr");
             return Base64Utils.base642File(baseImg);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * ocr信息
+     * @param kycId
+     * @return
+     */
+    @JavascriptInterface
+    public String getKycInfo(String kycId) {
+        if (kycId.equals(kycInfo.getString("kycId"))) {
+            return kycInfo.toJSONString();
         }
         return "";
     }

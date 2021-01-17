@@ -25,9 +25,12 @@
                     '                <span class="num_key" the_val="1">1</span><span class="num_key" the_val="2">2</span><span class="num_key" the_val="3">3</span> \n' +
                     '            </div>\n' +
                     '            <div class="row_line">\n' +
-                    '                <span class="num_key" the_val="+">+</span><span class="num_key zero" the_val="0">0</span><span class="btn_key my_clear" style="background: url(../../img/icon-home/clear.png) no-repeat 100% 100%;  float: right; background-color: #1c406d; background-position: center; background-size: inherit;margin-right: 10px;margin-left: -2px;"></span>\n' +
+                    '                <span class="btn_key my_clear">Del</span><span class="num_key zero" the_val="0">0</span><span class="btn_key my_backspace"  style="background: url(../../img/icon-home/clear.png) no-repeat 100% 100%;  background-color: #1c406d; background-position: center; background-size: inherit;color: #cecccc;">&nbsp;</span>\n' +
                     '            </div>\n' +
-                    '        </div><span id="continue-btn" class="btn_key continue-btn" >Proceed</span>');
+                    '            <div class="row_line">\n' +
+                    '                <span id="continue-btn" class="btn_key continue-btn" >Confirm</span> '+
+                    '            </div>\n' +
+                    '        </div>');
 
                 mykeyboard.appendTo('body');
 
@@ -64,10 +67,9 @@
             //退格
             my_backspace:function(){
                 var that = this;
-                $('.btn_key.my_backspace').click(function(){
-                    var input_val = $(that.$element).val();
-                    input_val = input_val.substring(0, input_val.length - 1);
-                    $(that.$element).val( input_val );
+                $('.my_backspace').on('click',function(){
+                  var input_val = $(that.$element).val();
+                  $(that.$element).val(input_val.substring(0, input_val.length - 1));
                 });
             },
             //退出
@@ -79,7 +81,7 @@
             //清除
             my_clear:function(){
                 var that = this;
-                $('.btn_key.my_clear').click(function(){
+                $('.my_clear').on('click',function(){
                     $(that.$element).val('');
                 });
             },

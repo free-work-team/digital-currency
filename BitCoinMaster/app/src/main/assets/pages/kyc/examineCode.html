@@ -41,22 +41,31 @@
 </div>
 
 <div class="thin-title">
-  <div id="lan_verify2"></div>
-  <div class="little-title"><label id="lan_please_scan"></label>
+  <div>Face authentication</div>
+</div>
+
+
+<div class="new-panel" style="margin-top: 50px">
+  <div style="width: 40%">
+  </div>
+  <div style="width: 60%;">
+    <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);">
+      <p>Scan the QR code on the left of the screen</p>
+      <p>Scan the QR code on the left of the screen</p>
+      <p>Scan the QR code on the left of the screen</p>
+      <p>Scan the QR code on the left of the screen</p>
+
+    </div>
   </div>
 </div>
 
-<div id="qrcode" class="qrcode" style="margin-top: 25px;"></div>
-<div class="qrcode_address" id="qrcode_address"></div>
-<div class="cash-limit-desc">
-  <div id="lan_or_visit"></div>
-</div>
-<div class="cash-limit-desc">
-  <div id="kycUrl"></div>
-</div>
+
+
 <div class="bottom-contact">
-  <!--  <div class="merchant_hotLine">100</div>-->
-  <div class="merchant_mail">www.huanghui-it.com</div>
+  <img src="../../img/icon-home/phone-icon.png" class="phone-icon">&emsp;<label style="font-weight: bolder;">Hotline:</label>&emsp;
+  <div class="merchant_hotLine"></div>
+  <img src="../../img/icon-home/email-icon.png" class="phone-icon" style="margin-left: 100px">&emsp;<label style="font-weight: bolder;">E-Mail:</label>&emsp;
+  <div class="merchant_mail"></div>
 </div>
 <div class="to_home_div">
   <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
@@ -67,7 +76,6 @@
 <script type="text/javascript" src="../../js/common/toast.script.js"></script>
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
-<script type="text/javascript" src="../../js/transaction/qrcode.min.js"></script>
 <script type="text/javascript" src="../../js/transaction/common.js"></script>
 <script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
@@ -76,9 +84,8 @@
 
   var merchantObj = getMerchant();
   var type = localStorage.getItem("operationType");
-  var kycId = generateID(10);
-  var getPic = false;
-
+  var kycId = window.location.href.split("kycId=")[1].split("&&")[0];
+  var picPath = window.location.href.split("picPath=")[1];
 
   /**
    * 去买币
@@ -132,41 +139,36 @@
     LanguageManager.getLanguageLabel(LanguageObjs);
   }
 
-  //生成二维码
-  function createQRCode(url) {
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-      text        : url,
-      colorDark   : "#000000",
-      colorLight  : "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  }
-
   window.onload = function () {
     initLanguage();
-    $('#kycUrl').text(merchantObj.kycUrl);
-      createQRCode(merchantObj.kycUrl + "?kycId=" + kycId);
     //定时校验人脸
     setTimeout(function () {
-      if (!getPic){
-        checkFace();
-      }
-    }, 5000)
+      checkFace();
+    }, 5000);
+    var kycInfo = window.webTimer.getKycInfo(kycId);
+    if (kycInfo) {
+      var kycInfoObj = JSON.parse(kycInfo);
+      //todo 赋值
+    } else {
+      ErrorPage.toError("KycInfo error,Please try again");
+      setTimeout(function () {
+        toHome();
+      }, 2000);
+    }
+
   }
 
   function checkFace() {
-    var picPath =window.webTimer.checkFace(kycId);
-    if (picPath) {
-      getPic = true;
-      window.face.compareFace(picPath);
-    }
+    window.face.compareFace(picPath);
   }
 
-  function faceResult(status) {
-  console.log("faceResult:"+status)
+  function faceResult(result) {
+    console.log("faceResult:" + result);
+    var resultObj = JSON.parse(result);
     //验证成功
-    if (status=='true') {
-    window.face.stopCompare();
+    if (resultObj.status) {
+      // resultObj.imageData 给后台
+      window.face.stopCompare();
       if (type == 1) {
         tobuyCoin();
       } else {

@@ -360,10 +360,10 @@ body {
 .switch-area {
   background: #1c416e;
   display: flex;
-  margin-right: 180px;
+  margin-right: 50px;
   height: 155px;
   width: 580px;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 .swticth-icon{
   background-repeat: no-repeat;
@@ -382,13 +382,35 @@ body {
   padding-top: 47px;
 }
 .panel-right-area{
-   background-repeat: no-repeat;
-   background-size: 100%;
-   width: 315px;
-   color: #fffcfa;
-   font-size: 30px;
-   text-align: left;
-   padding-top: 34px;
-   margin-left: 70px;
-   line-height: 35px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 436px;
+  color: #fffcfa;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 60px;
+  padding-left: 150px;
+  padding-right: 50px;
+  margin-left: 160px;
+  height: 180px;
+  line-height: 43px;
+}
+.faceinfo-area{
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 800px;
+  color: #fffcfa;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 60px;
+  padding-left: 150px;
+  padding-right: 50px;
+  margin-left: 50px;
+  height: 600px;
+  line-height: 43px;
+}
+.panel-right-area p{
+  text-align: left;
+  width: 300px;
+  margin-left: 100px;
 }

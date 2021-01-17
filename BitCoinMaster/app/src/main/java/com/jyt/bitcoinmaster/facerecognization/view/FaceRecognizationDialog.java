@@ -112,21 +112,6 @@ public class FaceRecognizationDialog extends Dialog {
             // 播放动画
             scan.setAnimation(verticalAnimation);
             scan.startAnimation(verticalAnimation);
-//        //在布局结束后才做初始化操作
-//        surfaceView.getViewTreeObserver().addOnGlobalLayoutListener(this);
-//            imageView = layout.findViewById(R.id.face_picture);
-//            Glide.with(context).load("/sdcard/e.jpg").asBitmap()
-//                    .skipMemoryCache(true).into(imageView);
-//            Glide.with(context)
-//                    .load("/sdcard/e.jpg")
-//                    .asBitmap()
-//                    .skipMemoryCache(true)
-//                    .into(new SimpleTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//
-//                        }
-//                    });
             Bitmap resource = BitmapFactory.decodeFile(imagePath);
             width = resource.getWidth();
             height = resource.getHeight();

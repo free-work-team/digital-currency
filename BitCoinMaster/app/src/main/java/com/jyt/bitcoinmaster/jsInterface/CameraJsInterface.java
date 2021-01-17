@@ -75,7 +75,7 @@ public class CameraJsInterface implements CameraListener {
 //            msg.obj = JSONObject.toJSONString(jsonObject);
 //            handler.sendMessage(msg);
 //        }else{
-//            cameraUtils = CameraUtils.getCameraService(videoPath,"90");
+            cameraUtils = CameraUtils.getCameraService(videoPath,"90");
 //            cameraUtils.getCameraStatus(this);
 //        }
 

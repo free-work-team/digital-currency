@@ -8,8 +8,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.jyt.hardware.camera.listener.CameraListener;
 
@@ -33,7 +36,7 @@ public class CramerThread {
     private static final String TAG = "SEDs508EG";
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
-
+    private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
 
 
     public CramerThread(SurfaceView surfaceview,
@@ -42,15 +45,14 @@ public class CramerThread {
         this.surfaceHolder = surfaceHolder;
     }
 
-//    @Override
-//    public void run() {
-//        /** * 开始录像 */
-//        startRecord();
-//        /** * 启动定时器，到规定时间recordTime后执行停止录像任务 */
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerThread(), recordTime);
-//
-//    }
+    public void setSurfaceViewSize( int width, int height){
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
+        lp.gravity = Gravity.LEFT|Gravity.TOP;
+        lp.leftMargin = 0; //矩形距离原点最近的点距离X轴的距离
+        lp.topMargin = 0; //矩形距离原点最近的点距离Y轴的距离
+        //以上两个值，即坐标(x,y);
+        surfaceview.setLayoutParams(lp);
+    }
     /**
      * 获取摄像头状态
      * @return
@@ -74,10 +76,10 @@ public class CramerThread {
         }
     }
     /** * 获取摄像头实例对象 * * @return */
-    public Camera getCameraInstance() {
+    public Camera getCameraInstance(int cameraID) {
         Camera c = null;
         try {
-            c = Camera.open();
+            c = Camera.open(cameraID);
         } catch (Exception e) {
             // 打开摄像头错误
             Log.i("info", "打开摄像头错误");
@@ -86,9 +88,10 @@ public class CramerThread {
     }
 
     /** * 开始录像 */
-    public void startRecord() {
+    public void startRecord(int cameraId,String path) {
+        Log.e(TAG,"开始录像");
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
-        mCamera = getCameraInstance(); // 解锁camera
+        mCamera = getCameraInstance(cameraId); // 解锁camera
         mCamera.unlock();
         mediarecorder.setCamera(mCamera); // 设置录制视频源为Camera(相机)
         mediarecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
@@ -97,8 +100,11 @@ public class CramerThread {
                 .get(CamcorderProfile.QUALITY_LOW));
         mediarecorder.setPreviewDisplay(surfaceHolder.getSurface()); // 设置视频文件输出的路径
         // mediarecorder.setOutputFile("/sdcard/sForm.3gp");
-        mediarecorder.setOutputFile(getOutputMediaFile(2)
-                .toString());
+        // 创建媒体文件名
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+//        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
+        mediarecorder.setOutputFile(getOutputMediaFile(2).toString());
         try { // 准备录制
             mediarecorder.prepare(); // 开始录制
             mediarecorder.start();
@@ -127,7 +133,7 @@ public class CramerThread {
 
     /** * 停止录制 */
     public void stopRecord() {
-        System.out.println("--------------");
+        Log.e(TAG,"结束录像");
 
         if (mediarecorder != null) {
             // 停止录制

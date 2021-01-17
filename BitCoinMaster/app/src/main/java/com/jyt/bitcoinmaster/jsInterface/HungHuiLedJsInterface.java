@@ -45,7 +45,7 @@ public class HungHuiLedJsInterface {
         log.info("[LEDJsInterface]:"+"正在连接led");
         this.config = ((MyApp) context.getApplicationContext()).getConfig();
         boolean flag = m_LEDDevice.openDev(config.getLEDCOM());
-        flag= true;
+//        flag= true;
         log.info("[LEDJsInterface]:"+"连接led======"+flag);
         m_LEDDevice.openLed(config.getLedId(),0);//关闭Led灯
 

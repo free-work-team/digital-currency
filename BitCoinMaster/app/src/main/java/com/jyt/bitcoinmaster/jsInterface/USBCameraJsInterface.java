@@ -107,11 +107,22 @@ public class USBCameraJsInterface implements CameraListener {
         }
         return path;
     }
+
+    /**
+     * 设置预览窗体大小
+     * @param width
+     * @param heght
+     */
+    @JavascriptInterface
+    public void setPreViewSize(int width,int heght){
+        thread.setSurfaceViewSize(width,heght);
+    }
     /**
      * 开始录像
      */
     @JavascriptInterface
-    public void startMonitor(int type){
+    public void startMonitor(int type,int cameraId){
+
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String dataFormat = df.format(date);
@@ -121,7 +132,7 @@ public class USBCameraJsInterface implements CameraListener {
         }else if(type == 2){
             str = str+"-sell";
         }
-        thread.startRecord();
+        thread.startRecord(cameraId,videoPath);
     }
 
     /**

@@ -7,6 +7,8 @@ import android.os.Message;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.jyt.bitcoinmaster.facerecognization.helper.AIPPFaceHelper;
 import com.jyt.bitcoinmaster.facerecognization.listener.DetectedListener;
 import com.jyt.bitcoinmaster.facerecognization.listener.FaceCompareListener;
@@ -14,6 +16,7 @@ import com.jyt.bitcoinmaster.facerecognization.view.FaceRecognizationDialog;
 
 
 import org.apache.log4j.Logger;
+
 
 public class FaceReconizationJsInterface implements DetectedListener, FaceCompareListener {
 
@@ -31,7 +34,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == FACERESULT){
-                boolean result = (boolean) msg.obj;
+                String result = (String) msg.obj;
                 log.info("[FaceReconizationJsInterface]: result=" + result);
                 webView.evaluateJavascript("javascript:faceResult('" + result + "')",null);
             }else if (msg.what == INITRESULT){
@@ -98,10 +101,13 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @Override
-    public void detectedResult(boolean success, float score) {
-        Message msg = Message.obtain();
-        msg.what = FACERESULT;
-        msg.obj = success;
-        handler.sendMessage(msg);
+    public void detectedResult(boolean success, float score,String imageData) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status",success);
+            jsonObject.put("imageData",imageData);
+            Message msg = Message.obtain();
+            msg.obj = JSONObject.toJSONString(jsonObject);
+            msg.what = FACERESULT;
+            handler.sendMessage(msg);
     }
 }

@@ -218,18 +218,20 @@ public class FaceRecognizationDialog extends Dialog {
             public void run() {
                 List<AIPP_FDFace> facesList = AIPPFaceHelper.getFaceByte(previewSize.width,previewSize.height,mData);
                 Log.e("facesList",facesList.size()+"");
-                if (facesList.size()==0) listener.detectedResult(false,-1);
+                String bitData = ImageUtil.getBitmapImageFromYUV(mData,previewSize.width,previewSize.height);
+                if (facesList.size()==0) listener.detectedResult(false,-1,"");
                 for (int i = 0;i<facesList.size();i++){
                     AIPP_FDFace fdFace = facesList.get(i);
                     Log.e("rect:", "left:"+fdFace.getRect().left+",right:"+fdFace.getRect().right+",top:"+fdFace.getRect().top+",bottom:"+fdFace.getRect().bottom);
                     float score = AIPPFaceHelper.faceCompare(previewSize,width,height,fdFace,faceImg, mData,imageData);
                     Log.e("score:",score+"");
                     if (score>0.6){
-                        listener.detectedResult(true,score);
+
+                        listener.detectedResult(true,score,bitData);
                         mData = null;
                         mFaceHandle.removeCallbacks(this);
                     }else{
-                        listener.detectedResult(false,score);
+                        listener.detectedResult(false,score,"");
                     }
                 }
             }

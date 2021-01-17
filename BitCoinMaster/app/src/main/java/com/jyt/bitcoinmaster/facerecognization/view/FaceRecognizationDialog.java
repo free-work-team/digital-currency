@@ -104,9 +104,9 @@ public class FaceRecognizationDialog extends Dialog {
             scan = layout.findViewById(R.id.scan);
             mSurfaceHolder = surfaceView.getHolder();//获得SurfaceView的Holder
             mSurfaceHolder.addCallback(this);//设置Holder的回调
-            int left = params.x;
+            int left = params.x-50;
             int right = params.x+700;
-            int top = params.y+20;
+            int top = params.y-50;
             int bottom = params.height-45;
 
             // 从上到下的平移动画

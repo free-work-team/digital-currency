@@ -19,6 +19,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -60,11 +63,12 @@ public class FaceRecognizationDialog extends Dialog {
         private Handler mFaceHandle;
         private HandlerThread mFaceHandleThread;
         private Camera.Size previewSize;
-        private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_BACK;
+        private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
         private FaceCompareListener listener;
         private String imagePath;
         private FaceThread faceThread;
         private boolean isPreview;
+        private ImageView scan;
         public Builder(Context context) {
             this.context = context;
         }
@@ -92,8 +96,22 @@ public class FaceRecognizationDialog extends Dialog {
             dialog.getWindow().setDimAmount(0f);
             dialog.getWindow().setGravity(Gravity.LEFT);
             surfaceView = layout.findViewById(R.id.surfaceView);
+            scan = layout.findViewById(R.id.scan);
             mSurfaceHolder = surfaceView.getHolder();//获得SurfaceView的Holder
             mSurfaceHolder.addCallback(this);//设置Holder的回调
+            int left = surfaceView.getLeft();
+            int right = surfaceView.getRight();
+            int top = surfaceView.getTop();
+            int bottom = surfaceView.getBottom();
+
+            // 从上到下的平移动画
+            Animation verticalAnimation = new TranslateAnimation(left, left, top, bottom);
+            verticalAnimation.setDuration(2000); // 动画持续时间
+            verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
+            verticalAnimation.setRepeatMode(Animation.RESTART);
+            // 播放动画
+            scan.setAnimation(verticalAnimation);
+            scan.startAnimation(verticalAnimation);
 //        //在布局结束后才做初始化操作
 //        surfaceView.getViewTreeObserver().addOnGlobalLayoutListener(this);
 //            imageView = layout.findViewById(R.id.face_picture);

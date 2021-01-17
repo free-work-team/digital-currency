@@ -152,7 +152,7 @@ public class XZGScanner {
                 try
                 {
                     if (mInputStream == null) return;
-                    byte[] buffer=new byte[128];
+                    byte[] buffer=new byte[512];
                     if (mInputStream.available()>0){
                         int size = mInputStream.read(buffer);
                         if (size > 0){

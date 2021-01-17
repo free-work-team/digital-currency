@@ -101,8 +101,9 @@ public class XZGScanner {
      */
     public void stopScan(){
         if (isConnect){
-            ExecuteCommand("SWFFFFF");
-            readThread.pauseThread();
+            if (ExecuteCommand("SWFFFFF")){
+                readThread.pauseThread();
+            }
         }
     }
 

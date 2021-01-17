@@ -5,8 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera;
-import android.opengl.Matrix;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -20,6 +21,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,6 +74,8 @@ public class FaceRecognizationDialog extends Dialog {
         public Builder(Context context) {
             this.context = context;
         }
+        private Handler handler = new Handler();
+        private AnimationDrawable ad;
 
         public void setCompareListener(FaceCompareListener listener){
             this.listener = listener;
@@ -99,10 +103,10 @@ public class FaceRecognizationDialog extends Dialog {
             scan = layout.findViewById(R.id.scan);
             mSurfaceHolder = surfaceView.getHolder();//获得SurfaceView的Holder
             mSurfaceHolder.addCallback(this);//设置Holder的回调
-            int left = surfaceView.getLeft();
-            int right = surfaceView.getRight();
-            int top = surfaceView.getTop();
-            int bottom = surfaceView.getBottom();
+            int left = params.x+20;
+            int right = params.x+700;
+            int top = params.y+20;
+            int bottom = params.height+20;
 
             // 从上到下的平移动画
             Animation verticalAnimation = new TranslateAnimation(left, left, top, bottom);
@@ -112,6 +116,7 @@ public class FaceRecognizationDialog extends Dialog {
             // 播放动画
             scan.setAnimation(verticalAnimation);
             scan.startAnimation(verticalAnimation);
+
             Bitmap resource = BitmapFactory.decodeFile(imagePath);
             width = resource.getWidth();
             height = resource.getHeight();
@@ -162,6 +167,13 @@ public class FaceRecognizationDialog extends Dialog {
                 //绑定Surface并开启预览
                 mCamera.setPreviewDisplay(mSurfaceHolder);
                 previewSize = mCamera.getParameters().getPreviewSize();
+                Camera.Parameters parameters = mCamera.getParameters();
+                parameters.setPreviewSize(previewSize.width, previewSize.height);
+                if (cameraID == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                    //设置镜像效果，支持的值为flip-mode-values=off,flip-v,flip-h,flip-vh;
+                    parameters.set("preview-flip", "flip-h");
+                }
+                mCamera.setParameters(parameters);
                 final byte[] mPreBuffer = new byte[previewSize.width * previewSize.height * 3 / 2];//首先分配一块内存作为缓冲区，size的计算方式见第四点中
                 mCamera.addCallbackBuffer(mPreBuffer);
                 mCamera.addCallbackBuffer(mPreBuffer);

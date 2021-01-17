@@ -3,8 +3,10 @@ package com.jyt.hardware.scanner;
 import android.serialport.SerialPort;
 import android.util.Log;
 
+import com.hunghui.SerialPort.HungHuiSerialPort;
 import com.jyt.hardware.utils.ByteUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,7 +15,7 @@ import java.util.logging.Logger;
 public class XZGScanner {
     private static Logger log =  Logger.getLogger("BitCoinMaster");
 
-    private SerialPort serialPort;
+    private HungHuiSerialPort serialPort;
 
     private OutputStream mOutputStream;
     private InputStream mInputStream;
@@ -44,7 +46,7 @@ public class XZGScanner {
     public boolean init(String dev, XZScannerResultListener listener) {
         this.listener = listener;
         try {
-            serialPort =  new SerialPort(dev, 115200, 0);
+            serialPort =  new HungHuiSerialPort(new File(dev),115200,'N',8,1,0);
             mOutputStream = serialPort.getOutputStream();
             mInputStream = serialPort.getInputStream();
             isConnect = true;
@@ -59,12 +61,26 @@ public class XZGScanner {
     }
 
     /**
+     * 获取版本信息
+     */
+    public void getVersion(){
+        if (isConnect){
+            if (ExecuteCommand("$>:TMDEF02.<$")) {
+//                readThread.resumeThread();
+            }else{
+                Log.e("scanner:","开启扫码失败");
+            }
+        }
+    }
+    /**
      * 开启扫码
      */
     public void startScanOnce(){
         if (isConnect){
             if (ExecuteCommand("SW00000")) {
                 readThread.resumeThread();
+            }else{
+                Log.e("scanner:","开启扫码失败");
             }
         }
     }
@@ -75,6 +91,8 @@ public class XZGScanner {
         if (isConnect){
             if (ExecuteCommand("SW00001")) {
                 readThread.resumeThread();
+            }else{
+                Log.e("scanner:","开启扫码失败");
             }
         }
     }
@@ -175,7 +193,7 @@ public class XZGScanner {
         try{
             byte[] bCmd = cmd.getBytes("UTF-8");
             byte[] bSendData = new byte[bCmd.length + 6];
-            byte[] bCmdLength = ByteUtils.hexStr2Bytes(Integer.toHexString(bCmd.length));
+            byte[] bCmdLength = HexStringToBytes(Integer.toHexString(bCmd.length));
             bSendData[0] = 0x02;
             if (bCmdLength.length == 1){
                 bSendData[1] = bCmdLength[0];
@@ -188,7 +206,7 @@ public class XZGScanner {
             for (int i=0;i<bCmd.length;i++) bSendData[3+i] = bCmd[i];
 
             int iCRC = calculate_checksum(bCmd);
-            byte[] bCRC = ByteUtils.hexStr2Bytes(Integer.toHexString(iCRC));
+            byte[] bCRC = HexStringToBytes(Integer.toHexString(iCRC));
 
             if (bCRC.length == 1){
                 bSendData[bSendData.length - 3] = bCRC[0];
@@ -217,15 +235,17 @@ public class XZGScanner {
                 int iReadDatalen = iAvailableCount;
 
                 iReadDatalen = mInputStream.read(bReadData, 0, iReadDatalen);
-                Log.d("receiveData", "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + ByteUtils.byte2Hex(bReadData,bReadData.length));
-
+                Log.d("receiveData", "数据返回成功["+Integer.toString(iReadDatalen)+"]=" + bytesToHexString(bReadData,bReadData.length));
+                if (bReadData[0]== 0x05){
+                    bRet = true ;
+                }
 //                replay.setACK(bReadData[0]);
 //                byte[] bTmp = new byte[bReadData.length-1];
 //                System.arraycopy(bReadData, 1, bTmp, 0, bTmp.length);
 //
 //                replay.setData(bTmp);
 
-                bRet = true ;
+
             }
         }
         catch (IOException e){
@@ -234,5 +254,56 @@ public class XZGScanner {
             e.printStackTrace();
         }
         return bRet;
+    }
+    private byte[] HexStringToBytes(String src) {
+        String sSrc = src;
+        if (src.length() % 2 != 0) {
+            sSrc = "0" + src;
+        }
+
+        int len = sSrc.length() / 2;
+        byte[] ret = new byte[len];
+        byte[] tmp = sSrc.getBytes();
+
+        for(int i = 0; i < len; ++i) {
+            ret[i] = this.uniteBytes(tmp[i * 2], tmp[i * 2 + 1]);
+        }
+
+        return ret;
+    }
+    private byte uniteBytes(byte src0, byte src1) {
+        byte _b0 = Byte.decode("0x" + new String(new byte[]{src0}));
+        _b0 = (byte)(_b0 << 4);
+        byte _b1 = Byte.decode("0x" + new String(new byte[]{src1}));
+        byte ret = (byte)(_b0 ^ _b1);
+        return ret;
+    }
+    private String bytesToHexString(byte[] src, int length) {
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src != null && src.length > 0) {
+            if (src.length > length) {
+                length = src.length;
+            }
+
+            for(int i = 0; i < length; ++i) {
+                int v = src[i] & 255;
+                String hv = Integer.toHexString(v);
+                if (i == 0) {
+                    stringBuilder.append("0x");
+                } else {
+                    stringBuilder.append(" 0x");
+                }
+
+                if (hv.length() < 2) {
+                    stringBuilder.append(0);
+                }
+
+                stringBuilder.append(hv);
+            }
+
+            return stringBuilder.toString();
+        } else {
+            return null;
+        }
     }
 }

@@ -76,6 +76,7 @@ public class XZGScannerJsInterface implements XZScannerResultListener {
      */
     @JavascriptInterface
     public void stopScan(){
+
         scanner.stopScan();
     }
 
@@ -85,8 +86,9 @@ public class XZGScannerJsInterface implements XZScannerResultListener {
     @JavascriptInterface
     public void autoScan(){
         log.info("开启扫码仪-----------");
-//        scanner.startScanAuto();
-        scanner.startScanOnce();
+        scanner.getVersion();
+        scanner.startScanAuto();
+//        scanner.startScanOnce();
     }
 
 

@@ -55,4 +55,5 @@ dependencies {
     implementation files('libs/jssc.jar')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation(name: 'HungHuiLEDControlLib', ext: 'aar')
+    implementation(name: 'HungHuiHarwareDriver', ext: 'aar')
 }

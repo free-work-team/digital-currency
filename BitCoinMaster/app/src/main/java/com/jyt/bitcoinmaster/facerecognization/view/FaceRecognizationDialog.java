@@ -39,6 +39,7 @@ import com.jyt.bitcoinmaster.facerecognization.utils.ImageUtil;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -226,12 +227,20 @@ public class FaceRecognizationDialog extends Dialog {
 
                         listener.detectedResult(true,score,bitData);
                         mData = null;
+                        deleteFiles(imagePath);
                         mFaceHandle.removeCallbacks(this);
                     }else{
                         listener.detectedResult(false,score,"");
                     }
                 }
             }
+
+        }
+
+        public static void deleteFiles(String fileNames) {
+                File file = new File(fileNames);
+                if (file.exists())
+                    file.delete();
 
         }
 

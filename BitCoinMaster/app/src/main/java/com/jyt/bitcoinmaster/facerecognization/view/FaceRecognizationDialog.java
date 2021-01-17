@@ -107,7 +107,7 @@ public class FaceRecognizationDialog extends Dialog {
             int left = params.x+20;
             int right = params.x+700;
             int top = params.y+20;
-            int bottom = params.height+20;
+            int bottom = params.height-20;
 
             // 从上到下的平移动画
             Animation verticalAnimation = new TranslateAnimation(left, left, top, bottom);

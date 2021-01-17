@@ -104,7 +104,7 @@ function waiting(callback) {
   // InterValObj && clearInterval(InterValObj);
   // 替换背景为等待中
   $("#waiting_background").addClass("bic");
-  $("#waiting_context").html("<div class=\"top-little-title\">\n" +
+  $("#waiting_context").html("<div class=\"top-little-title\" style='width: 100%;'>\n" +
     "  <div>" + (localStorage.getItem('LanguageType') === 'Chinese' ? '处理中...' : 'Processing...') + "</div>\n" +
     "</div>");
 

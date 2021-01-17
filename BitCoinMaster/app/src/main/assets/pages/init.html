@@ -39,18 +39,18 @@
 <body class="all-bg">
 
 
-<div class="log-content">
+<div class="log-content" onclick="toSetting()">
   <div class="log-bg" onclick="toSetting()"></div>
 </div>
 <div class="info-titile-big" style="margin-top: 130px">
 <!--  <div>SMARTKIOSK</div>-->
 </div>
-<div style="padding-top: 6%;height:100px" id="code">
+<div style="padding-top: 6%;height:100px" id="code" class="hidden">
   <input class="input_setting" id="activateCode" type="text" placeholder="Please enter the CDKEY"/>
   <div id="count" style="padding-top:10px;color:red;"></div>
 </div>
 
-<div id="loadingArea" class="log-buy-icon" onclick="activate()">
+<div id="loadingArea" class="log-buy-icon hidden" onclick="activate()">
   <div class="button-font-div-start">Start</div>
 </div>
 

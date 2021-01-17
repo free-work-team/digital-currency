@@ -2,6 +2,7 @@
   var curCount = 60;
   function render() {
     initInterValObj();
+    initMerchantInfo();
   }
 
   // 初始化自动返回定时器
@@ -24,6 +25,17 @@
     }
   }
 
+  function initMerchantInfo() {
+    var localMerchant = localStorage.getItem("merchant");
+    if (localMerchant) {
+      merchantObj = JSON.parse(localMerchant);
+      $(".merchant_hotLine").text(merchantObj.hotline);
+      $(".merchant_mail").text(merchantObj.email);
+      // $(".merchant_buyTransactionFee").text(merchantObj.buyTransactionFee+" %");
+      // $(".merchant_sellTransactionFee").text(merchantObj.sellTransactionFee+" %");
+    }
+  }
+
   function resetInterVal() {
     curCount = 60;
   }
@@ -40,7 +52,7 @@
     setTimeout(function () {
       window.billAcceptor.setDeviceEnable(false);
       InterValObj && clearInterval(InterValObj);
-      window.location.href = "../index/start.html";
+      window.location.href = "../common/switch.html";
     }, 1500);
   }
 
@@ -82,7 +94,7 @@ function waiting(callback) {
   curCount = 120;
   // 替换背景为等待中
   $("#waiting_background").addClass("bic");
-  $("#waiting_context").html("<div class=\"top-little-title\">\n" +
+  $("#waiting_context").html("<div class=\"top-little-title\" style='width: 100%;'>\n" +
     "  <div>"+ (localStorage.getItem('LanguageType')=== 'Chinese'?'处理中...':'Processing...')+"</div>\n" +
     "</div>");
 
@@ -96,6 +108,7 @@ function waiting(callback) {
     var homeLabel = $(".to_home_label");
     if (homeLabel) {
       homeLabel.text("");
+      homeLabel.addClass("hidden");
     }
     InterValObj && clearInterval(InterValObj);
   }

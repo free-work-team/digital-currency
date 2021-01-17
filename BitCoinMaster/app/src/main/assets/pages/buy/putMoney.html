@@ -35,66 +35,74 @@
     <label class="toUsd"></label><span class="currency"></span>
   </div>
 </div>
-<div id="waiting_context">
-  <div class="info-content-middle short">
-    <div id="lan_insertCash">&emsp;</div>
-  </div>
-  <div class="middle-little-title short-distance">
-    <span id="lan_usdNoly"></span>&nbsp;<span class="currency"></span>
-    <span id="lan_minLimit"></span><span id="minNeedCash"></span>&nbsp;<span class="currency"></span>
-    <!--<div style="font-size: 18px;">last: <a id="merchantLast" style="user-select: none"></a></div>-->
-  </div>
-  <!--  <div id="minNeedCash" style="color:red;" ></div>-->
-  <div class="toAddressArea">
-    <div class="putwallet" style="display: flex;"></div>
-    <div style="display: flex;">&nbsp;TO:&emsp;</div>
-    <div id="receiveAddress" style="display: flex;"></div>
-  </div>
 
-  <div class="little-title"><label id="lan_transactionFee"></label><label class="merchant_buyTransactionFee"></label></div>
-
-
-  <div class="put" style="display: inline-block;">
-    <div style="width: 20%;display: inline-block;">
-      <div class="putMoney-btn"></div>
+<div class="new-panel" id="waiting_context">
+  <div style="width: 50%">
+    <br>
+    <br>
+    <br>
+    <div class="new-panel-title " id="lan_insertCash">
     </div>
-    <div style="width: 60%;display: inline-block;">
-      <div class="putMoney-right ">
-        <span id="lan_whichFee"></span>
-        <span id="merchant_buyTransactionFee"></span>
+    <br>
+    <div class="new-panel-content">
+      <span id="lan_usdNoly"></span>&nbsp;<span class="currency"></span>
+      <span id="lan_minLimit"></span><span id="minNeedCash"></span>&nbsp;<span class="currency"></span>
+    </div>
+    <div class="new-panel-content toAddressArea">
+      <div class="putwallet"></div>
+      <div>&nbsp;TO:&emsp;</div>
+      <div id="receiveAddress"></div>
+    </div>
+    <div class="new-panel-content toAddressArea">
+      <label id="lan_transactionFee"></label><label class="merchant_buyTransactionFee"></label>
+    </div>
+    <div class="new-panel-content toAddressArea">
+      <label id="lan_whichFee"></label><label id="merchant_buyTransactionFee"></label>
+    </div>
+    <br>
+
+    <div class="put" style="display: inline-block;">
+      <div style="width: 15%;display: inline-block;">
+        <div class="pYM-btn-long">
+          <label id="lan_total_put"></label>
+        </div>
+      </div>
+      <div style="width: 45%;display: inline-block;">
+        <div class="pWM-btn-short long">
+          <img src="../../img/icon-home/put-cash.png" class="put-icons"><label id="totalUsd">0.00</label>&nbsp;<span class="currency"></span>
+        </div>
+      </div>
+
+      <div style="width: 35%;display: inline-block;">
+        <div class="pWM-btn-long long">
+          <img src="../../img/icon-home/put-btc.png" class="put-icons"><label id="totalBtc">0.00000000 </label><label class="btcUnit"></label>
+        </div>
+      </div>
+
+      <div class="put" style="display: inline-block;">
+        <div class="log-buy-icon" onclick="done();" id="lan_iAmDone_btn">
+          <div class="button-font-div" id="lan_iAmDone">&emsp;</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="put" style="display: inline-block;">
-    <div style="width: 23%;display: inline-block;">
-      <div class="pYM-btn-long">
-        <label id="lan_total_put"></label>
-      </div>
-    </div>
-    <div style="width: 35%;display: inline-block;">
-      <div class="pWM-btn-short long">
-        <label id="totalUsd">0.00</label>&nbsp;<span class="currency"></span>
-      </div>
-    </div>
-
-    <div style="width: 35%;display: inline-block;">
-      <div class="pWM-btn-long long">
-        <label id="totalBtc">0.00000000 </label><label class="btcUnit"></label>
-      </div>
-    </div>
   </div>
-  <div class="put" style="display: inline-block;">
-    <div class="log-buy-icon" onclick="done();" id="lan_iAmDone_btn">
-      <div class="button-font-div" id="lan_iAmDone">&emsp;</div>
-    </div>
+  <div style="width: 50%;margin-top: 86px">
+    <div class="panel-right-area right-step1" style="background-image: url(../../img/icon-home/put-step1.png);"><p>Please insert cash one by one</p></div>
+    <div class="panel-right-area right-step2" style="background-image: url(../../img/icon-home/put-step2.png);padding-top: 30px;"><p>Press "I'm Done!" to complete the transaction</p></div>
   </div>
+</div>
 
+<div class="bottom-contact">
+  <img src="../../img/icon-home/phone-icon.png" class="phone-icon">&emsp;<label style="font-weight: bolder;">Hotline:</label>&emsp;
+  <div class="merchant_hotLine"></div>
+  <img src="../../img/icon-home/email-icon.png" class="phone-icon" style="margin-left: 100px">&emsp;<label style="font-weight: bolder;">E-Mail:</label>&emsp;
+  <div class="merchant_mail"></div>
 </div>
 
 <div class="to_home_div">
-  <div class="to_home_btn" id="to_home_btn" onclick="toHome()">Cancel</div>
-  <div class="to_home_btn home_btn_label" id="lan_to_home_btn_label">CLICK WHEN ABNORMAL</div>
+  <div class="to_cancel_btn" id="to_home_btn" onclick="toHome()">Cancel</div>
+  <div class="to_home_btn home_btn_label hidden" id="lan_to_home_btn_label">CLICK WHEN ABNORMAL</div>
   <div class="to_home_label"></div>
 </div>
 <script type="text/javascript" src="../../js/transaction/putMoney.js"></script>

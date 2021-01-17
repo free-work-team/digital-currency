@@ -28,7 +28,7 @@
                     '                <span class="btn_key my_clear">Del</span><span class="num_key zero" the_val="0">0</span><span class="btn_key my_backspace"  style="background: url(../../img/icon-home/clear.png) no-repeat 100% 100%;  background-color: #1c406d; background-position: center; background-size: inherit;color: #cecccc;">&nbsp;</span>\n' +
                     '            </div>\n' +
                     '            <div class="row_line">\n' +
-                    '                <span id="continue-btn" class="btn_key continue-btn" >Confirm</span> '+
+                    '                <span id="continue-btn" class="btn_key continue-btn" >SEND</span> '+
                     '            </div>\n' +
                     '        </div>');
 

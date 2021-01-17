@@ -215,7 +215,7 @@ public class YSPrinterJsInterface {
             // 凭条头部
             mPrinter.setCharSize(3,3);
             mPrinter.setAlignMode(1);
-            mPrinter.printString("Print Test","gbk",true);
+            mPrinter.printString(title,"gbk",true);
             mPrinter.printAndFeedLine(1);
             // 凭条内容
             mPrinter.setCharSize(0,0);

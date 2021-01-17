@@ -177,9 +177,11 @@
 
   window.onload= function() {
     initLanguage();
-    window.scanner.autoScan();
-    //开启摄像头
-    window.camera.startMonitor(1,0);
+    setTimeout(function () {
+      window.scanner.autoScan();
+      //开启摄像头
+      window.camera.startMonitor(1,0);
+    },500)
   }
 
 </script>

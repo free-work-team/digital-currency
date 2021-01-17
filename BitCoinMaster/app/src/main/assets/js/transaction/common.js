@@ -21,7 +21,7 @@ function initInterValObj() {
       if (curCount === 0) {
         clearInterval(InterValObj);
         LanguageManager.resetLanguage();
-        toHome();
+        toHome(true);
       } else {
         // console.log("定时返回"+curCount);
         curCount--;
@@ -45,13 +45,17 @@ function initMerchantInfo() {
 render();
 
 // 回首页
-function toHome() {
+function toHome(isStart) {
   // 清除sessionstorage中的登录ID
   clearStorage();
   InterValObj && clearInterval(InterValObj);
   window.face.stopCompare();
   // 退到登陆界面
-  window.location.href = "../index/start.html";
+  if (isStart){
+    window.location.href = "../index/start.html";
+  }else{
+    window.location.href = "../common/switch.html";
+  }
 }
 
 // 清楚缓存
@@ -100,7 +104,7 @@ function waiting(callback) {
   // InterValObj && clearInterval(InterValObj);
   // 替换背景为等待中
   $("#waiting_background").addClass("bic");
-  $("#waiting_context").html("<div class=\"top-little-title\">\n" +
+  $("#waiting_context").html("<div class=\"top-little-title\" style='width: 100%;'>\n" +
     "  <div>" + (localStorage.getItem('LanguageType') === 'Chinese' ? '处理中...' : 'Processing...') + "</div>\n" +
     "</div>");
 

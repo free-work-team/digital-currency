@@ -2,7 +2,7 @@
 function init() {
   setTimeout(function () {
     initMarketBalance();
-  },1000);
+  },500);
 }
 
 // 获取货币种类

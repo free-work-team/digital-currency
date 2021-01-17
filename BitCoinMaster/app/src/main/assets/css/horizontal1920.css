@@ -35,7 +35,7 @@
     /* width: 280px; */
     /* height: 137px; */
     margin-left: 20px;
-    margin-top: -30px;
+    margin-top: -33px;
   }
   .start-bg {
     background-image: url(../img/icon-home/start1080.jpg);
@@ -59,7 +59,7 @@
     width: 400px;
     height: 63px;
     right: 30px;
-    top: 10px;
+    top: 8px;
   }
 
   .balance-info > .buy-left {
@@ -96,7 +96,7 @@
     margin-top: 16px;
     width: 120px;
     line-height: 52px;
-    font-size: 40px;
+    font-size: 30px;
     color: #fff;
     font-weight: 700;
   }
@@ -105,7 +105,7 @@
     margin-top: 16px;
     width: 385px;
     line-height: 52px;
-    font-size: 40px;
+    font-size: 30px;
     color: gray;
     font-weight: 700;
     text-align: center;
@@ -307,7 +307,7 @@
     line-height: 80px;
     margin: 0 auto;
     top: 10px;
-    margin-top: 215px;
+    margin-top: 223px;
     display: flex;
   }
 
@@ -431,7 +431,7 @@
 
   .put {
     height: 100px;
-    width: 65%;
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -455,11 +455,11 @@
   }
 
   .pYM-btn-long {
-    height: 75px;
+    height: 65px;
     line-height: 70px;
     font-size: 25px;
     font-weight: bolder;
-    color: #fff;
+    color: #0a0a0a;
   }
 
   .pYM-btn-short {
@@ -469,16 +469,20 @@
   }
 
   .pWM-btn-long {
-    height: 80px;
+    width: 300px;
+    height: 70px;
     line-height: 73px;
     margin-left: 15px;
     color: #8e7d70;
+    font-size: 20px;
+    font-weight: 700;
   }
 
   .pWM-btn-short {
-    height: 80px;
+    width: 300px;
+    height: 70px;
     line-height: 73px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bolder;
   }
 
@@ -999,12 +1003,8 @@
   .toAddressArea {
     font-size: 28px;
     font-weight: bolder;
+    text-align: left;
     display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
   }
   .button-font-div-limit {
     font-size: 30px;
@@ -1080,7 +1080,7 @@
     height: 63px;
     position: fixed;
     right: 70px;
-    bottom: 9px;
+    bottom: 7px;
     background-image: url(../img/icon-home/cancel-btn.png);
     background-size: 100%;
     background-repeat: no-repeat;
@@ -1089,7 +1089,7 @@
     color: #fff;
   }
   #buy_cash, #buy_amount {
-    color: #e08c4c;
+    color: #FFF;
   }
   .success_icon{
     background-image: url(../img/icon-home/success2.png);
@@ -1102,7 +1102,7 @@
   }
 
   #sell_amount, #sell_cash {
-    color: #e08c4c;
+    color: #FFF;
   }
 
   .cash-limit-icon {
@@ -1111,20 +1111,25 @@
     background-size: 100% 100%;
   }
   .pYM-btn-long {
-    background-image: url(../img/icon-home/switch-back.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
   }
   .pWM-btn-short {
-    background-image: url(../img/icon-home/switch-back.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+
+
   }
 
   .pWM-btn-long {
-    background-image: url(../img/icon-home/switch-back.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
   }
 
   .home_btn_label {
@@ -1177,7 +1182,7 @@
   }
   .more-span{
     color: #fff;
-    font-size: 60px;
+    font-size: 40px;
     margin-left: 15px;
     margin-right: 15px;
     width: 325px;

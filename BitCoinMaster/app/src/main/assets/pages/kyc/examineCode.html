@@ -16,7 +16,7 @@
     @import "../../css/styles.css";
 
     #sell_amount, #sell_amount2, #sell_cash {
-      color: #e08c4c;
+      color: #FFF;
     }
 
     img {
@@ -56,7 +56,7 @@
         <p>Sex:M</p>
       </div>
       <div class="faceinfo-area-right">
-        <img id="card-img-base" class="card-img" src="../../img/icon-home/phone-icon.png">
+        <img id="card-img-base" class="card-img" src="">
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@
   <div class="merchant_mail"></div>
 </div>
 <div class="to_home_div">
-  <div class="to_cancel_btn" onclick="toHome()">Cancel</div>
+  <div class="to_cancel_btn" onclick="toHome(false)">Cancel</div>
   <div class="to_home_label"></div>
 </div>
 </body>
@@ -109,7 +109,7 @@
     setTimeout(function () {
       // 打印机初始化
       window.print.getStatus();
-    }, 1000);
+    }, 500);
   }
 
   //初始化打印机回调
@@ -144,6 +144,7 @@
   window.onload = function () {
     initLanguage();
 
+
     var kycInfo = window.webTimer.getKycInfo(kycId);
     if (kycInfo) {
       var kycInfoObj = JSON.parse(kycInfo);
@@ -152,13 +153,13 @@
     } else {
       ErrorPage.toError("KycInfo error,Please try again");
       setTimeout(function () {
-        toHome();
+        toHome(false);
       }, 2000);
     }
     //定时校验人脸
     setTimeout(function () {
       checkFace();
-    }, 1000);
+    }, 500);
   }
 
   function checkFace() {

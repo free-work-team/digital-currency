@@ -1053,7 +1053,7 @@
   }
 
   #buy_cash, #buy_amount {
-    color: #e08c4c;
+    color: #FFF;
   }
   .success_icon{
      background-image: url(../img/icon-home/success.png);
@@ -1066,7 +1066,7 @@
    }
 
   #sell_amount, #sell_cash {
-    color: #e08c4c;
+    color: #FFF;
   }
 
   .cash-limit-icon {

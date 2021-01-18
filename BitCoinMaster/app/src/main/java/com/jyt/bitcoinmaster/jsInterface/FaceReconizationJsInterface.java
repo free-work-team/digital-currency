@@ -54,7 +54,15 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
 
     @JavascriptInterface
     public void Init(){
-        if (!isInit) faceHelper.Init(context,this);
+        if (!isInit) {
+            faceHelper.Init(context,this);
+        }else{
+            Message msg = Message.obtain();
+            msg.what = INITRESULT;
+            msg.obj = 4;
+            handler.sendMessage(msg);
+        }
+
     }
 
     @JavascriptInterface

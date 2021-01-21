@@ -66,9 +66,10 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void compareFace(String filePath){
+    public void compareFace(String filePath,int cameraId){
         FaceRecognizationDialog.Builder builder  = new FaceRecognizationDialog.Builder(context);
         builder.setImagePath(filePath);
+        builder.setCameraId(cameraId);
         builder.setCompareListener(this);
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);

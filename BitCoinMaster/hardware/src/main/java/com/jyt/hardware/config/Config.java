@@ -13,6 +13,8 @@ public class Config implements Serializable {
     private String PrintCom = "/dev/ttyS0";
     private String CPIdev = "/dev/ttyS0";
     private String PrintBaudrate = "9600";
+    private String ScannerDev = "/dev/ttyS1";
+
     private int HostType = 2;
     private int CDMType;
     private String CDMCOM;
@@ -24,6 +26,10 @@ public class Config implements Serializable {
     private int LedId = 7;
     private int LedId2;
     private int LedId3;
+    private int CameraDev = 0;
+    private int FaceCameraDev = 1;
+
+
 
     public Config() {
     }
@@ -207,6 +213,30 @@ public class Config implements Serializable {
 
     public int getCloseLight() {
         return 0;
+    }
+
+    public String getScannerDev() {
+        return ScannerDev;
+    }
+
+    public void setScannerDev(String scannerDev) {
+        ScannerDev = scannerDev;
+    }
+
+    public int getCameraDev() {
+        return CameraDev;
+    }
+
+    public void setCameraDev(int cameraDev) {
+        CameraDev = cameraDev;
+    }
+
+    public int getFaceCameraDev() {
+        return FaceCameraDev;
+    }
+
+    public void setFaceCameraDev(int faceCameraDev) {
+        FaceCameraDev = faceCameraDev;
     }
 
     public String toString() {

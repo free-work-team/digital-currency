@@ -247,7 +247,8 @@
     if (getCoin() == 'eth') {
       $('#currentCoin').text('ETHEREUM');
     }
-
+    //关闭摄像头
+    window.camera.stopMonitor();
     //判断单双向
     if (merchantObj) {
       // 判断单双向

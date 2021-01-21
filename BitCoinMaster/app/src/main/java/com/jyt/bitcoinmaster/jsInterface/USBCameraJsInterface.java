@@ -11,11 +11,13 @@ import android.webkit.WebView;
 
 import com.alibaba.fastjson.JSONObject;
 
+import com.jyt.bitcoinmaster.activity.MyApp;
 import com.jyt.bitcoinmaster.usbcamera.CramerThread;
 import com.jyt.bitcoinmaster.view.VideoPlayDialog;
 import com.jyt.hardware.camera.listener.CameraListener;
 import com.jyt.hardware.cashoutmoudle.bean.EntityFile;
 
+import com.jyt.hardware.config.Config;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -36,6 +38,8 @@ public class USBCameraJsInterface implements CameraListener {
     private Context context;
     private String  videoPath;
     private CramerThread thread;
+    private Config config;
+    private int cameraId;
 
     private Handler handler = new Handler(){
         @Override
@@ -121,8 +125,9 @@ public class USBCameraJsInterface implements CameraListener {
      * 开始录像
      */
     @JavascriptInterface
-    public void startMonitor(int type,int cameraId){
-
+    public void startMonitor(int type){
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
+        this.cameraId =  config.getCameraDev();
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String dataFormat = df.format(date);
@@ -132,7 +137,7 @@ public class USBCameraJsInterface implements CameraListener {
         }else if(type == 2){
             str = str+"-sell";
         }
-        thread.startRecord(cameraId,videoPath);
+        thread.startRecord(this.cameraId,videoPath);
     }
 
     /**
@@ -140,7 +145,11 @@ public class USBCameraJsInterface implements CameraListener {
      */
     @JavascriptInterface
     public void stopMonitor(){
-        thread.stopRecord();
+        try {
+            thread.stopRecord();
+        } catch (Exception e) {
+            log.error("结束录像error", e);
+        }
     }
 
     @Override

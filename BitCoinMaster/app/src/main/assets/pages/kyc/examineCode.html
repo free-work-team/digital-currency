@@ -51,9 +51,10 @@
   <div style="width: 60%;margin-left: 5%">
     <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);display: flex">
       <div class="faceinfo-area-left">
-        <p><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> PASSPORT INFO</p>
-        <p>name:liu</p>
-        <p>Sex:M</p>
+        <p id="idCardArea" class="hidden"><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> IDCARD INFO</p>
+        <p id="passportArea" class="hidden"><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> PASSPORT INFO</p>
+        <br>
+        <p id="ocrContent"></p>
       </div>
       <div class="faceinfo-area-right">
         <img id="card-img-base" class="card-img" src="">
@@ -143,22 +144,30 @@
 
   window.onload = function () {
     initLanguage();
-
-
-    var kycInfo = window.webTimer.getKycInfo(kycId);
-    if (kycInfo) {
-      var kycInfoObj = JSON.parse(kycInfo);
-      $('#card-img-base').attr("src", "data:image/*;base64," + kycInfoObj.fileStr);
-      //todo 赋值
-    } else {
-      ErrorPage.toError("KycInfo error,Please try again");
-      setTimeout(function () {
-        toHome(false);
-      }, 2000);
-    }
+    showWait();
     //定时校验人脸
     setTimeout(function () {
       checkFace();
+      var kycInfo = window.webTimer.getKycInfo(kycId);
+      if (kycInfo) {
+        var kycInfoObj = JSON.parse(kycInfo);
+        $('#card-img-base').attr("src", "data:image/*;base64," + kycInfoObj.fileStr);
+        //身份照
+        if (kycInfoObj.cardType == 1) {
+          $('#idCardArea').removeClass("hidden");
+        }
+        //护照
+        if (kycInfoObj.cardType == 2) {
+          $('#passportArea').removeClass("hidden");
+        }
+        $('#ocrContent').html(jsonToText(JSON.stringify(kycInfoObj.ocrContent)));
+      } else {
+        ErrorPage.toError("KycInfo error,Please try again");
+        setTimeout(function () {
+          toHome(false);
+        }, 2000);
+      }
+      hideWait();
     }, 500);
   }
 
@@ -171,7 +180,7 @@
     var resultObj = JSON.parse(result);
     //验证成功
     if (resultObj.status) {
-      // resultObj.imageData 给后台
+      window.webTimer.uploadFaceImage(kycId,resultObj.imageData);
       window.face.stopCompare();
       if (type == 1) {
         tobuyCoin();
@@ -181,6 +190,9 @@
     }
   }
 
+  function jsonToText(str) {
+    return str.replace(/\"/g, "").replace("{", "").replace("}", "").replace(/[,，]/g, "<br>");
+  }
 
 </script>
 

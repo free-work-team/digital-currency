@@ -1006,16 +1006,48 @@ public class UploadTimer extends Activity {
         try {
             resp = requestWeb(method);
             JSONObject jsonObject= JSONObject.parseObject(resp);
-            String baseImg = jsonObject.getString("fileStr");
-            //test
-//            kycInfo = jsonObject.getJSONObject("kycInfo");
-            kycInfo.put("fileStr",baseImg);
-            kycInfo.put("kycId",kycId);
-            return Base64Utils.base642File(baseImg);
+            if ("0".equals(jsonObject.getString("code"))){
+                String baseImg = jsonObject.getString("fileStr");
+                kycInfo.put("fileStr",baseImg);
+                kycInfo.put("kycId",kycId);
+                kycInfo.put("cardType",jsonObject.getString("cardType"));
+                kycInfo.put("ocrContent",jsonObject.getJSONObject("ocrContent"));
+                return Base64Utils.base642File(baseImg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 上传人脸识别成功图片
+     * @param kycId
+     * @param base64Img
+     */
+    @JavascriptInterface
+    public void uploadFaceImage(String kycId,String base64Img) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
+                    log.error("token为空,人脸识别图片上传失败");
+                    return;
+                }
+                reqParams = new HashMap<>();
+                String method = "/api/uploadImg";
+                reqParams.put("kycId", kycId);
+                reqParams.put("picContent", base64Img);
+                //发送数据
+                String resp = null;
+                try {
+                    resp = requestWeb(method);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.error("token为空,人脸识别图片上传失败",e);
+                }
+            }
+        }).start();
     }
 
     /**

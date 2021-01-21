@@ -71,7 +71,7 @@ public class FaceRecognizationDialog extends Dialog {
         private Handler mFaceHandle;
         private HandlerThread mFaceHandleThread;
         private Camera.Size previewSize;
-        private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_BACK;
+        private int cameraID;
         private FaceCompareListener listener;
         private String imagePath;
         private FaceThread faceThread;
@@ -82,7 +82,9 @@ public class FaceRecognizationDialog extends Dialog {
             this.context = context;
         }
 
-
+        public void setCameraId(int cameraID){
+            this.cameraID = cameraID;
+        }
         public void setCompareListener(FaceCompareListener listener){
             this.listener = listener;
         }
@@ -174,7 +176,7 @@ public class FaceRecognizationDialog extends Dialog {
             cameraHelper = new CameraHelper.Builder()
                     .previewViewSize(new Point(previewView.getMeasuredWidth(),previewView.getMeasuredHeight()))
                     .rotation(0)
-                    .specificCameraId(cameraID != null ? cameraID : Camera.CameraInfo.CAMERA_FACING_FRONT)
+                    .specificCameraId(cameraID)
                     .isMirror(true)
                     .previewOn(previewView)
                     .cameraListener(cameraListener)

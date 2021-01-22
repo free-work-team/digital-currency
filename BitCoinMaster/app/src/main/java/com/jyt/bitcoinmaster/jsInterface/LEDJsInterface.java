@@ -60,6 +60,31 @@ public class LEDJsInterface {
         Message msg = Message.obtain();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("status",flag);
+        jsonObject.put("type","1");
+        jsonObject.put("message","");
+        msg.obj = JSONObject.toJSONString(jsonObject);
+        handler.sendMessage(msg);
+    }
+    /**
+     * 连接led
+     */
+    @JavascriptInterface
+    public void init2(){
+        log.info("[LEDJsInterface]:"+"正在连接led");
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
+
+        if(1 == config.getLedVendor()){
+            ledBoard = FTQLedBoard.getInstance();
+        }else{
+            ledBoard = KMLedBoard.getInstance();
+        }
+        boolean flag = ledBoard.open(config.getLEDCOM2());
+        log.info("[LEDJsInterface]:"+"连接led======"+flag);
+        ledBoard.closeLed(config.getLedId2());//关闭Led灯
+        Message msg = Message.obtain();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status",flag);
+        jsonObject.put("type","2");
         jsonObject.put("message","");
         msg.obj = JSONObject.toJSONString(jsonObject);
         handler.sendMessage(msg);
@@ -87,6 +112,31 @@ public class LEDJsInterface {
                     e.printStackTrace();
                 }
                 ledBoard.closeLed(config.getLedId());
+            }
+        }).start();
+    }
+    /**
+     * 开灯
+     */
+    @JavascriptInterface
+    public void openLed2(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Config config = ((MyApp) context.getApplicationContext()).getConfig();
+                ILedBoard ledBoard = null;
+                if(1 == config.getLedVendor()){
+                    ledBoard = FTQLedBoard.getInstance();
+                }else{
+                    ledBoard = KMLedBoard.getInstance();
+                }
+                ledBoard.ledTwinkle(config.getLedId2());
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ledBoard.closeLed(config.getLedId2());
             }
         }).start();
     }

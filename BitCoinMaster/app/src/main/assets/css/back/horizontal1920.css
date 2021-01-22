@@ -907,12 +907,14 @@
   }
 
   .thisItem {
-    width: 49%;
+    width: 30%;
     height: auto;
     text-align: center;
     margin-top: 20px;
     color: #fff;
+    margin-left: 5%;
   }
+
   .box {
     width: 500px;
     height: 50px;

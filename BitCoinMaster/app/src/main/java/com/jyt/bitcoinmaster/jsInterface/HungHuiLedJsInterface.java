@@ -52,6 +52,28 @@ public class HungHuiLedJsInterface {
         Message msg = Message.obtain();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("status",flag);
+        jsonObject.put("type","1");
+        jsonObject.put("message","");
+        msg.obj = JSONObject.toJSONString(jsonObject);
+        handler.sendMessage(msg);
+    }
+
+    /**
+     * 连接led
+     */
+    @JavascriptInterface
+    public void init2(){
+        log.info("[LEDJsInterface]:"+"正在连接led");
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
+        boolean flag = m_LEDDevice.openDev(config.getLEDCOM2());
+//        flag= true;
+        log.info("[LEDJsInterface]:"+"连接led======"+flag);
+        m_LEDDevice.openLed(config.getLedId2(),0);//关闭Led灯
+
+        Message msg = Message.obtain();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status",flag);
+        jsonObject.put("type","2");
         jsonObject.put("message","");
         msg.obj = JSONObject.toJSONString(jsonObject);
         handler.sendMessage(msg);
@@ -74,6 +96,27 @@ public class HungHuiLedJsInterface {
                     e.printStackTrace();
                 }
                 m_LEDDevice.openLed(config.getLedId(),0);
+            }
+        }).start();
+    }
+
+    /**
+     * 开灯
+     */
+    @JavascriptInterface
+    public void openLed2(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Config config = ((MyApp) context.getApplicationContext()).getConfig();
+
+                m_LEDDevice.openLed(config.getLedId2(),2);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                m_LEDDevice.openLed(config.getLedId2(),0);
             }
         }).start();
     }

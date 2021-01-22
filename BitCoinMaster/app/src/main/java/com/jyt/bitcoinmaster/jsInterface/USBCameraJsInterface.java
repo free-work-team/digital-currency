@@ -127,6 +127,25 @@ public class USBCameraJsInterface implements CameraListener {
     @JavascriptInterface
     public void startMonitor(int type){
         this.config = ((MyApp) context.getApplicationContext()).getConfig();
+        this.cameraId =  config.getFaceCameraDev();
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dataFormat = df.format(date);
+        String str= dataFormat.substring(8);
+        if(type == 1){
+            str = str+"-buy";
+        }else if(type == 2){
+            str = str+"-sell";
+        }
+        thread.startRecord(this.cameraId,videoPath);
+    }
+
+    /**
+     * 开始录像
+     */
+    @JavascriptInterface
+    public void startCashMonitor(int type){
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
         this.cameraId =  config.getCameraDev();
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");

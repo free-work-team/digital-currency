@@ -19,19 +19,31 @@ public class Config implements Serializable {
     private int CDMType;
     private String CDMCOM;
     private String DoorCOM;
-    private String LEDCOM;
     private int alarmId;
     private int LedVendor = 2;
     private String CommCOM;
-    private int LedId = 7;
-    private int LedId2;
+
     private int LedId3;
     private int CameraDev = 0;
     private int FaceCameraDev = 1;
 
+    private String LEDCOM;
+    private int LedId = 7;
+
+    private String LEDCOM2;
+    private int LedId2 = 7;
+
 
 
     public Config() {
+    }
+
+    public String getLEDCOM2() {
+        return LEDCOM2;
+    }
+
+    public void setLEDCOM2(String LEDCOM2) {
+        this.LEDCOM2 = LEDCOM2;
     }
 
     public String getPrintComm() {

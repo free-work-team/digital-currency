@@ -24,7 +24,7 @@
 
 
     .thisItem > div {
-      min-width: 150px;
+      min-width: 265px;
       display: inline-block;
       text-align: left;
     }
@@ -158,6 +158,52 @@
       </select>
     </div>
   </div>
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>CashAcceptor Camera Dev:</div>
+      <select id="CameraDev" class="dropdown "  placeholder="Please choose">
+        <option></option>
+        <option>0</option>
+        <option>1</option>
+      </select>
+    </div>
+  </div>
+  <div style="width:95%;margin:0 auto;">
+    <div class="index-item thisItem">
+      <div>CashAcceptor LED Dev:</div>
+      <select id="LEDDev2" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>/dev/ttyS0</option>
+        <option>/dev/ttyS1</option>
+        <option>/dev/ttyS2</option>
+        <option>/dev/ttyS3</option>
+        <option>/dev/ttyUSB0</option>
+        <option>/dev/ttyUSB1</option>
+        <option>/dev/ttyUSB2</option>
+        <option>/dev/ttyUSB3</option>
+      </select>
+    </div>
+    <div class="index-item thisItem">
+      <div>CashAcceptor LED Id:</div>
+      <select id="LEDId2" class="dropdown" placeholder="Please choose">
+        <option></option>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select>
+    </div>
+    <div class="index-item thisItem" style="text-align: left;width: 10%;
+    margin-left: 0px;">
+      <button class="testBtn button button-3d button-action button-pill" onclick="ledTest2()">TEST</button>
+    </div>
+  </div>
 
   <div style="width:95%;margin:0 auto;">
     <div class="index-item thisItem">
@@ -175,19 +221,10 @@
       </select>
     </div>
   </div>
+
   <div style="width:95%;margin:0 auto;">
     <div class="index-item thisItem">
       <div>Camera Dev:</div>
-      <select id="CameraDev" class="dropdown "  placeholder="Please choose">
-        <option></option>
-        <option>0</option>
-        <option>1</option>
-      </select>
-    </div>
-  </div>
-  <div style="width:95%;margin:0 auto;">
-    <div class="index-item thisItem">
-      <div>FaceCamera Dev:</div>
       <select id="FaceCameraDev" class="dropdown "  placeholder="Please choose">
         <option></option>
         <option>0</option>
@@ -259,10 +296,21 @@
     window.led.init();
   }
 
+  //测试led
+  function ledTest2() {
+    saveConfig();
+    window.led.init2();
+  }
+
   //测试led 回调
   function ledCallBack(result) {
     if (result.status) {
-      window.led.openLed();
+      if (result.type == "1") {
+        window.led.openLed();
+      }
+      if (result.type == "2") {
+        window.led.openLed2();
+      }
     } else {
       showError("LED test fail!")
     }

@@ -1,6 +1,7 @@
 package com.jyt.bitcoinmaster.jsInterface;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.os.storage.StorageManager;
@@ -114,8 +115,15 @@ public class USBCameraJsInterface implements CameraListener {
      * @param heght
      */
     @JavascriptInterface
-    public void setPreViewSize(int width,int heght){
-        thread.setSurfaceViewSize(width,heght);
+    public void setPreViewSize(int x,int y,int width,int heght){
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        int ori = mConfiguration.orientation;
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+            thread.setSurfaceViewSize(x,y,width,heght);
+        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+            thread.setSurfaceViewSize(x,y,width,heght);
+        }
+
     }
     /**
      * 开始录像

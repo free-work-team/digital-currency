@@ -2,6 +2,7 @@ package com.jyt.bitcoinmaster.jsInterface;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.webkit.JavascriptInterface;
@@ -71,6 +72,13 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         builder.setImagePath(filePath);
         builder.setCameraId(cameraId);
         builder.setCompareListener(this);
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        int ori = mConfiguration.orientation;
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+            builder.setPreviewViewSize(70,35,700,500);
+        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+            builder.setPreviewViewSize(70,35,700,500);
+        }
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

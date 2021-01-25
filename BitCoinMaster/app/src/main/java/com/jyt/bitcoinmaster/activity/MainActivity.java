@@ -220,26 +220,26 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i=0;i<list.size();i++){
             HardwareConfig hConfig = list.get(i);
-            if("PrinterComType".equals(hConfig.getHwKey())){
+            if ("PrinterComType".equals(hConfig.getHwKey())) {
                 config.setPrintComm(hConfig.getHwValue());
-            }
-            else if("PrinterDev".equals(hConfig.getHwKey())){
+            } else if ("PrinterDev".equals(hConfig.getHwKey())) {
                 config.setPrintCom(hConfig.getHwValue());
-            }
-            else if("Baudrate".equals(hConfig.getHwKey())){
+            } else if ("Baudrate".equals(hConfig.getHwKey())) {
                 config.setPrintBaudrate(hConfig.getHwValue());
-            }
-            else if("LEDDev".equals(hConfig.getHwKey())){
+            } else if ("LEDDev".equals(hConfig.getHwKey())) {
                 config.setLEDCOM(hConfig.getHwValue());
-            }
-            else if("LEDId".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue()) ){
+            } else if ("LEDId".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedId(Integer.parseInt(hConfig.getHwValue()));
-            }
-            else if ("LEDBussiness".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
+            } else if ("LEDBussiness".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedVendor(Integer.parseInt(hConfig.getHwValue()));
-            }
-            else if ("CPIDev".equals(hConfig.getHwKey())) {
+            } else if ("CPIDev".equals(hConfig.getHwKey())) {
                 config.setCPIdev(hConfig.getHwValue());
+            } else if ("ScannerDev".equals(hConfig.getHwKey())) {
+                config.setScannerDev(hConfig.getHwValue());
+            } else if ("CameraDev".equals(hConfig.getHwKey())) {
+                config.setCameraDev(Integer.parseInt(hConfig.getHwValue()));
+            } else if ("FaceCameraDev".equals(hConfig.getHwKey())) {
+                config.setFaceCameraDev(Integer.parseInt(hConfig.getHwValue()));
             }
 
         }

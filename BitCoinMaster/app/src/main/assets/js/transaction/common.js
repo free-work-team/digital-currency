@@ -46,6 +46,7 @@ render();
 
 // 回首页
 function toHome(isStart) {
+  console.log("-----------------------------------tohome");
   // 清除sessionstorage中的登录ID
   clearStorage();
   InterValObj && clearInterval(InterValObj);

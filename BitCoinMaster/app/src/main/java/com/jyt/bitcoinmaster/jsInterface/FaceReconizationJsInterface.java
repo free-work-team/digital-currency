@@ -10,10 +10,12 @@ import android.webkit.WebView;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.jyt.bitcoinmaster.activity.MyApp;
 import com.jyt.bitcoinmaster.facerecognization.helper.AIPPFaceHelper;
 import com.jyt.bitcoinmaster.facerecognization.listener.DetectedListener;
 import com.jyt.bitcoinmaster.facerecognization.listener.FaceCompareListener;
 import com.jyt.bitcoinmaster.facerecognization.view.FaceRecognizationDialog;
+import com.jyt.hardware.config.Config;
 
 
 import org.apache.log4j.Logger;
@@ -26,6 +28,10 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     private AIPPFaceHelper faceHelper;
     private Context context;
     private WebView webView;
+
+    private Config config;
+    private int faceCameraDev;
+
     private static final int FACERESULT =1;
     private static final int INITRESULT =2;
     private boolean isInit = false;
@@ -67,10 +73,12 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void compareFace(String filePath,int cameraId){
+    public void compareFace(String filePath){
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
+        this.faceCameraDev =  config.getFaceCameraDev();
         FaceRecognizationDialog.Builder builder  = new FaceRecognizationDialog.Builder(context);
         builder.setImagePath(filePath);
-        builder.setCameraId(cameraId);
+        builder.setCameraId(this.faceCameraDev);
         builder.setCompareListener(this);
         Configuration mConfiguration = context.getResources().getConfiguration();
         int ori = mConfiguration.orientation;

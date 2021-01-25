@@ -530,10 +530,16 @@ public class BackJsInterface {
                 config.setLEDCOM(hConfig.getHwValue());
             } else if ("LEDId".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedId(Integer.parseInt(hConfig.getHwValue()));
-            }else if ("LEDBussiness".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
+            } else if ("LEDBussiness".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedVendor(Integer.parseInt(hConfig.getHwValue()));
-            }else if ("CPIDev".equals(hConfig.getHwKey())) {
+            } else if ("CPIDev".equals(hConfig.getHwKey())) {
                 config.setCPIdev(hConfig.getHwValue());
+            } else if ("ScannerDev".equals(hConfig.getHwKey())) {
+                config.setScannerDev(hConfig.getHwValue());
+            } else if ("CameraDev".equals(hConfig.getHwKey())) {
+                config.setCameraDev(Integer.parseInt(hConfig.getHwValue()));
+            } else if ("FaceCameraDev".equals(hConfig.getHwKey())) {
+                config.setFaceCameraDev(Integer.parseInt(hConfig.getHwValue()));
             }
         }
         return config;

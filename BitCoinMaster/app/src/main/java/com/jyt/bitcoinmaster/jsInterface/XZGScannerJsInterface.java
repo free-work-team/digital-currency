@@ -8,6 +8,8 @@ import android.os.Message;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.jyt.bitcoinmaster.activity.MyApp;
+import com.jyt.hardware.config.Config;
 import com.jyt.hardware.scanner.IScanner;
 import com.jyt.hardware.scanner.OnResultListener;
 import com.jyt.hardware.scanner.ScannerFactory;
@@ -23,6 +25,9 @@ public class XZGScannerJsInterface implements XZScannerResultListener {
     private XZGScanner scanner;
     private Context context;
     private WebView webView;
+    private Config config;
+    private String scannerDev;
+
     private static final int RESULT =1;
     PendingIntent mPermissionIntent ;
     private Handler handler = new Handler(){
@@ -50,7 +55,9 @@ public class XZGScannerJsInterface implements XZScannerResultListener {
     public void connectDevices(){
         scanner = XZGScanner.getInstance();
         log.info("正在连接扫码器...");
-        boolean isSuccess = scanner.init("/dev/ttyS1",this);
+        this.config = ((MyApp) context.getApplicationContext()).getConfig();
+        this.scannerDev =  config.getScannerDev();
+        boolean isSuccess = scanner.init(this.scannerDev,this);
         Message msg = Message.obtain();
         msg.what = RESULT;
         if(isSuccess){

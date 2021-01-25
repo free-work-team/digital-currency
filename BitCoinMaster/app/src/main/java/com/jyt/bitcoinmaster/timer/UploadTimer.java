@@ -88,8 +88,16 @@ public class UploadTimer extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             String data = (String) msg.obj;
-//            log.info("[UploadTimer]: callResult:" + data);
-            webView.evaluateJavascript("javascript:uploadTimerCallBack(" + data + ")",null);
+            int what = msg.what;
+            if (what == 1){
+                //            log.info("[UploadTimer]: callResult:" + data);
+                webView.evaluateJavascript("javascript:uploadTimerCallBack(" + data + ")",null);
+            }
+            if (what == 2){
+                log.info("[获取kyc回调]: callResult:" + data);
+                webView.evaluateJavascript("javascript:getKycCallBack('" + data + "')",null);
+            }
+
         }
     };
 
@@ -167,6 +175,7 @@ public class UploadTimer extends Activity {
         //检查更新
         checkUpdate();
         msg.obj = result;
+        msg.what=1;
         handler.sendMessage(msg);
     }
 
@@ -998,34 +1007,45 @@ public class UploadTimer extends Activity {
      * @return
      */
     @JavascriptInterface
-    public String getPicFile(String kycId) {
-        if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
-            log.error("token为空,人脸识别失败");
-            return "";
-        }
-        reqParams = new HashMap<>();
-        String method = "/api/downloadImg";
-        reqParams.put("kycId", kycId);
-        //发送数据
-        String resp = null;
-        try {
-            log.info("------------请求kyc:"+JSONObject.toJSONString(reqParams));
-            resp = requestWeb(method);
-            JSONObject jsonObject= JSONObject.parseObject(resp);
-            log.info("------------获取kyc结果:"+jsonObject.getString("code"));
-            if ("0".equals(jsonObject.getString("code"))){
-                String baseImg = jsonObject.getString("fileStr");
-                kycInfo.put("fileStr",baseImg);
-                kycInfo.put("kycId",kycId);
-                kycInfo.put("cardType",jsonObject.getString("cardType"));
-                kycInfo.put("ocrContent",jsonObject.getJSONObject("ocrContent"));
-                return Base64Utils.base642File(baseImg);
+    public void getPicFile(String kycId) {
+        Message msg = Message.obtain();
+        msg.what=2;
+        msg.obj =  "";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
+                    log.error("token为空,人脸识别失败");
+                    handler.sendMessage(msg);
+                    return;
+                }
+                reqParams = new HashMap<>();
+                String method = "/api/downloadImg";
+                reqParams.put("kycId", kycId);
+                //发送数据
+                String resp = null;
+                try {
+                    log.info("------------请求kyc:"+JSONObject.toJSONString(reqParams));
+                    resp = requestWeb(method);
+                    JSONObject jsonObject= JSONObject.parseObject(resp);
+                    log.info("------------获取kyc结果:"+jsonObject.getString("code"));
+                    if ("0".equals(jsonObject.getString("code")) && StringUtils.isNotBlank( jsonObject.getString("fileStr"))){
+                        String baseImg = jsonObject.getString("fileStr");
+                        kycInfo.put("fileStr",baseImg);
+                        kycInfo.put("kycId",kycId);
+                        kycInfo.put("cardType",jsonObject.getString("cardType"));
+                        kycInfo.put("ocrContent",jsonObject.getJSONObject("ocrContent"));
+                        msg.obj =  Base64Utils.base642File(baseImg);
+                        handler.sendMessage(msg);
+                        return;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.error("获取kyc结果 error",e);
+                }
+                handler.sendMessage(msg);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("获取kyc结果 error",e);
-        }
-        return "";
+        }).start();
     }
 
     /**

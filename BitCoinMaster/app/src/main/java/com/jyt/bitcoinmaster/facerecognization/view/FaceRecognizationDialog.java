@@ -128,14 +128,20 @@ public class FaceRecognizationDialog extends Dialog {
             height = resource.getHeight();
             imageData = ImageUtil.imgToNV21(resource);
             Log.e(TAG,"width:"+width+"height:"+height);
-            faceImg = AIPPFaceHelper.getFaceByte(width,height,imageData).get(0);
-            Log.e("faceImgRect:", "left:"+faceImg.getRect().left+",right:"+faceImg.getRect().right+",top:"+faceImg.getRect().top+",bottom:"+faceImg.getRect().bottom);
-            mFaceHandleThread = new HandlerThread("face");
-            mFaceHandleThread.start();
-            mFaceHandle = new Handler(mFaceHandleThread.getLooper());
-            faceThread = new FaceThread();
-            //在布局结束后才做初始化操作
-            previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+            if ( AIPPFaceHelper.getFaceByte(width,height,imageData).size()>0){
+                faceImg = AIPPFaceHelper.getFaceByte(width,height,imageData).get(0);
+                Log.e("faceImgRect:", "left:"+faceImg.getRect().left+",right:"+faceImg.getRect().right+",top:"+faceImg.getRect().top+",bottom:"+faceImg.getRect().bottom);
+                mFaceHandleThread = new HandlerThread("face");
+                mFaceHandleThread.start();
+                mFaceHandle = new Handler(mFaceHandleThread.getLooper());
+                faceThread = new FaceThread();
+                //在布局结束后才做初始化操作
+                previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+            }else{
+                Log.e(TAG,"图片未检测到人脸");
+                listener.detectedResult(false,0,"图片未检测到人脸");
+            }
+
             return dialog;
         }
 

@@ -111,17 +111,17 @@
     createQRCode(currentKycUrl);
     //定时校验人脸
     setInterval(function () {
-        getPicFile();
-    }, 20000)
+        window.webTimer.getPicFile(kycId);
+    }, 30000)
   }
 
-  function getPicFile() {
-    var picPath =window.webTimer.getPicFile(kycId);
-    console.log("--------------picPath="+picPath);
-    if (picPath) {
-      window.location.href = "examineCode.html?kycId=" + kycId+"&&picPath="+picPath;
+  function getKycCallBack(data){
+   console.log("--------------picPath="+data);
+    if (data) {
+      window.location.href = "examineCode.html?kycId=" + kycId+"&&picPath="+data;
     }
   }
+
 </script>
 
 </html>

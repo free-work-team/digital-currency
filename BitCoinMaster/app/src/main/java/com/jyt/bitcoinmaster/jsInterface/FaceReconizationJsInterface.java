@@ -91,7 +91,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
             dialog.dismiss();
 //        faceHelper.Uninit();
         } catch (Exception e) {
-            log.error("关闭人脸识别error", e);
+            log.error("关闭人脸识别error");
         }
     }
     @Override

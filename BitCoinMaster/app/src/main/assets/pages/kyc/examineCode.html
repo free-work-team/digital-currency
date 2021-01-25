@@ -180,12 +180,19 @@
     var resultObj = JSON.parse(result);
     //验证成功
     if (resultObj.status) {
-      window.webTimer.uploadFaceImage(kycId,resultObj.imageData);
+      window.webTimer.uploadFaceImage(kycId, resultObj.imageData);
       window.face.stopCompare();
       if (type == 1) {
         tobuyCoin();
       } else {
         tosellCoin();
+      }
+    } else {
+      if (resultObj.imageData == '图片未检测到人脸') {
+        showError("图片未检测到人脸");
+        setTimeout(function () {
+          toHome(false);
+        }, 4000)
       }
     }
   }

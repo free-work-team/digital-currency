@@ -310,16 +310,7 @@ body {
   position: relative;
 }
 
-.to_home_btn {
-  width: 55px;
-  height: 55px;
-  position: fixed;
-  left: 25px;
-  bottom: 20px;
-  background-image: url(../../img/icon-home/home.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
+
 .to_version_btn {
   width: 40px;
   height: 40px;
@@ -360,16 +351,7 @@ body {
   background-size: 100%;
   background-repeat: no-repeat;
 }
-.to_close_btn {
-  width: 55px;
-  height: 55px;
-  position: fixed;
-  right: 25px;
-  bottom: 13px;
-  background-image: url(../../img/icon-home/ShutDown.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
+
 .to_back_btn {
   width: 55px;
   height: 55px;

@@ -2,65 +2,141 @@
 /*32寸竖屏*/
 @media screen and (min-width: 1080px) and (min-height: 1800px) {
   .header {
-    height: 0;
+    height: 140px;
   }
 
   .header-contact > div {
-    font-size: 35px;
-    min-height: 60px;
+    font-size: 1.8em;
+    height: 1.7em;
   }
 
   .header-contact > div:first-child {
     margin-top: 20px;
-    font-size: 45px;
-    min-height: 60px;
   }
 
   .log-content {
-    position: unset !important;
-    /*height: 132px;*/
-    margin-top: 0px;
-    width: 100%;
+    height: 114px;
+    width: 341px;
+    top: 50px;
+    left: 10px;
+    margin: 0;
+    position: absolute !important;
   }
 
   .log-bg {
-    background-image: url(../img/icon-home/new_logo.png);
+    background-image: url(../img/icon-home/BTM.png);
     background-repeat: no-repeat;
     /* background-size: cover; */
     -webkit-background-size: cover;
     -o-background-size: cover;
     background-size: 100%;
-    width: 450px;
-    height: 180px;
+    width: 130px;
+    height: 47px;
     /* width: 280px; */
     /* height: 137px; */
-    margin-left: 5px;
+    margin-left: 20px;
+    margin-top: -33px;
+  }
+  .newStart {
+    background: url(../img/icon-home/start_back.png) no-repeat center;
+    height: 89px;
+    /* width: 286px; */
+    font-size: 50px;
+    font-family: cursive;
+    margin-top: 220px;
+    color: #fff;
+  }
+  .start-bg {
+    background-image: url(../img/icon-home/start1920.jpg);
+    background-repeat: unset;
+    background-size: 100%;
+  }.all-bg {
+     background-image: url(../img/icon-home/bottom1920.jpg);
+     background-repeat: unset;
+     background-size: 100%;
+   }
+  .info-btn {
+    width: 30%;
+    margin: auto;
   }
 
-  .log-buy-info {
-    position: absolute;
-    background-image: url(../img/icon-home/1.start01.png);
+  .balance-info {
+    background-image: url(../img/icon-home/startIBalance.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    position: fixed;
+    width: 400px;
+    height: 63px;
+    right: 30px;
+    top: 4px;
   }
 
-  .log-buy-info {
-    position: unset;
-    width: 400px;
-    height: 80px;
-    float: left;
-    margin-left: 15px;
-    margin-top: 85px;
+  .balance-info > .buy-left {
+    height: 45px;
+    width: 73px;
+    line-height: 62px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .balance-info > .buy-right {
+    height: 45px;
+    /* margin-top: 16px; */
+    width: 260px;
+    line-height: 62px;
+    font-size: 25px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
   }
 
   .log-buy-info > div {
     height: 45px;
-    margin-top: 10px;
-    width: 170px;
-    line-height: 45px;
+    margin-top: 16px;
+    width: 120px;
+    line-height: 35px;
     color: #8e7d70;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
+  }
+
+  .log-buy-info-new > .buy-left {
+    height: 45px;
+    margin-top: 16px;
+    width: 120px;
+    line-height: 52px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .log-buy-info-new > .buy-right {
+    height: 45px;
+    margin-top: 16px;
+    width: 385px;
+    line-height: 52px;
+    font-size: 30px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
+  }
+  .log-buy-info-start > .buy-left {
+    height: 45px;
+    margin-top: 16px;
+    width: 120px;
+    line-height: 52px;
+    font-size: 35px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .log-buy-info-start > .buy-right {
+    height: 45px;
+    margin-top: 16px;
+    width: 385px;
+    line-height: 55px;
+    font-size: 40px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
   }
 
   .buy-left {
@@ -68,11 +144,11 @@
   }
 
   .buy-right {
-    margin-right: 20px;
+    margin-right: 30px;
   }
 
   .info-content {
-    margin-top: 150px;
+    margin-top: 145px;
   }
 
   .info-titile {
@@ -84,14 +160,15 @@
   .info-titile > div {
     line-height: 80px;
   }
+
   .info-input-content {
     width: 100%;
-    height: 60px;
+    height: 78px;
     /* margin-left: 20px; */
     /* top: 16px; */
-    /* position: relative; */
-    line-height: 70px;
-    font-size: 30px;
+    position: relative;
+    line-height: 65px;
+    font-size: 40px;
   }
 
   .info-btn {
@@ -99,9 +176,9 @@
   }
 
   .info-content-big {
-    margin-top: 200px;
+    margin-top: 145px;
     font-weight: bold;
-    font-size: 75px;
+    font-size: 80px;
   }
 
   .middle {
@@ -126,31 +203,13 @@
     text-align: center;
   }
 
-  .info-btn {
-    width: 40%;
-    margin: auto;
+  .log-buy-icon {
+    width: 420px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 40px;
   }
 
-  .log-buy-icon {
-    color: white;
-    height: 90px;
-    width: 450px;
-    font-size: 40px;
-    text-align: center;
-    line-height: 80px;
-    margin: 0 auto;
-    margin-top: 20px;
-  }
-  .cash-limit-icon {
-    color: white;
-    height: 100px;
-    width: 350px;
-    font-size: 40px;
-    text-align: center;
-    line-height: 60px;
-    margin: 0 auto;
-    margin-top: 20px;
-   }
   .center-div {
     left: 50%;
     margin-left: -270px;
@@ -159,62 +218,41 @@
   }
 
   .button-font-div {
+    text-align: center;
+    font-weight: bold;
     font-size: 40px;
     color: white;
-    height: 80px;
-    width: 450px;
-    text-align: center;
-    line-height: 85px;
-    margin: 0 auto;
-    margin-top: 100px;
-    font-weight: bold;
+    line-height: 81px;
+    margin-top: 55px;
+    width: 420px;
   }
-
   .button-font-div-start {
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
     font-size: 40px;
     color: white;
-    height: 80px;
-    width: 350px;
-    text-align: center;
-    line-height: 85px;
-    margin: 0 auto;
-    margin-top: 80px;
-    font-weight: bold;
+    line-height: 115px;
   }
-
   .contain-font {
     font-weight: bold;
     font-size: 150px;
   }
 
   .log-buy-info-big {
-    width: 350px;
-    height: 80px;
+    width: 540px;
+    height: 102px;
     margin: 0 auto;
-    margin-top: 80px;
-  }
-
-  .info-btn > table td div {
-    width: 80px;
-    height: 80px;
-    background-image: url(../img/icon-home/3.phone02.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    margin: auto;
-    text-align: center;
-    line-height: 65px;
-    font-size: 40px;
-    color: #8e7d70;
-    font-weight: bold;
+    margin-top: 10px;
   }
 
   .log-buy-info-big > div {
-    height: 60px;
-    width: 140px;
-    line-height: 62px;
+    height: 65px;
+    width: 200px;
+    line-height: 0px;
     color: #8e7d70;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 25px;
+    font-weight: bold
   }
 
   .buy-big-left {
@@ -233,87 +271,117 @@
   }
 
   .buying {
-    margin-top: 60px;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 48px;
+    margin: 0 auto;
     width: 80%;
     text-align: center;
-  }
-
-  .info-btn-sub {
-    width: 180px;
-    height: 70px;
-    background-image: url(../img/icon-home/3.phone03.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    margin-top: 50px;
-    color: white;
-    font-size: 25px;
-    line-height: 65px;
-    display: inline-block;
-    font-weight: bolder;
   }
 
   .buying div {
     line-height: 80px;
   }
 
-  .info-input {
-    background-image: url(../img/icon-home/3.phone01.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 40%;
-    height: 80px;
-    margin: auto;
-    margin-top: 25px;
-  }
-
   .yellow-btn {
     color: white;
-    height: 80px;
-    width: 350px;
+    height: 100px;
+    width: 300px;
+    font-size: 46px;
+    text-align: center;
+    line-height: 95px;
+    margin: 0 auto;
+    margin-top: 80px;
+  }
+
+  .bottom-contact {
+    text-align: right;
+    padding-left: 4%;
+    color: #fffcfa;
+    position: fixed;
+    bottom: 0px;
+    height: 45px;
+    font-size: 20px;
+    display: flex;
+  }
+
+  .bottom-contact label, .bottom-contact .merchant_hotLine, .bottom-contact .merchant_mail {
+    margin-left: -15px;
+  }
+  .select-luanguage-btn {
+    color: #8a7c71;
+    font-weight: bold;
+    font-size: 30px;
+    width: 470px;
+    height: 79px;
+    line-height: 80px;
+    margin: 0 auto;
+    top: 10px;
+    margin-top: 560px;
+    display: flex;
+  }
+
+  .switchArea {
+    color: white;
     font-size: 40px;
     text-align: center;
     line-height: 60px;
     margin: 0 auto;
     margin-top: 20px;
+    width: 80%;
+    margin-left: 23%;
+    display: inherit;
+  }
+  .switch-area {
+    background: #1c416e;
+    display: flex;
+    margin-right: 50px;
+    height: 155px;
+    width: 580px;
+    margin-bottom: 40px;
+  }
+  .log-buy-info-new {
+    background-image: url(../img/icon-home/startIBalance.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 91px;
+    width: 594px;
+    margin: unset;
   }
 
-  .select-luanguage-btn {
-    color: #8a7c71;
-    font-weight: bold;
-    font-size: 20px;
-    width: 619px;
-    /* height: 90px; */
-    line-height: 70px;
+  .log-buy-info-start {
+    background-image: url(../img/icon-home/startIBalance.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 91px;
+    width: 594px;
     margin: 0 auto;
-    top: 10px;
-    margin-top: 200px;
-    display: flex;
+    margin-top: 45px;
+  }
+  .pay-choose {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 70px;
+    width: 275px;
+    margin: 0 auto;
+    margin-top: 90px;
+    color: #fff;
+    font-size: 25px;
+    line-height: 65px;
+    text-align: right;
+    margin-right: 10px;
   }
 
   .top-little-title {
-    margin-top: 200px;
+    margin-top: 145px;
     font-weight: bold;
-    font-size: 60px;
+    font-size: 60px
   }
 
   .middle-little-title {
     font-size: 40px;
-    height: 60px;
+    height: 90px;
     font-weight: bold;
-    margin-top: 40px;
-  }
-
-  .btns, .btns-two {
-    margin-top: 100px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    width: 75%;
-    height: 100px;
+    margin-top: 30px;
   }
 
   .system-img {
@@ -325,11 +393,12 @@
   }
 
   .info-content-middle {
-    margin-top: 200px !important;
+    margin-top: 245px !important;
     font-weight: bold;
     font-size: 54px;
     text-align: center;
     line-height: 100px;
+    color: #FFF;
   }
 
   .system-top {
@@ -338,13 +407,13 @@
 
   .yellow-btn-big {
     color: white;
-    height: 80px;
-    width: 350px;
+    height: 120px;
+    width: 400px;
     font-size: 40px;
     text-align: center;
-    line-height: 60px;
+    line-height: 100px;
     margin: 0 auto;
-    margin-top: 250px;
+    margin-top: 400px;
     font-weight: bold;
   }
 
@@ -355,14 +424,13 @@
   .contents {
     text-align: center;
     font-size: 30px;
-    line-height: 50px;
+    line-height: 60px;
   }
 
   .scan-btn {
-    width: 300px;
-    height: 300px;
+    width: 208px;
+    height: 209px;
     margin: 0 auto;
-    margin-top: 30px;
   }
 
   .thin {
@@ -372,56 +440,42 @@
 
   .print-btn, .print-black-btn {
     color: white;
-    height: 80px;
-    width: 350px;
-    font-size: 25px;
+    height: 110px;
+    width: 600px;
+    font-size: 40px;
     text-align: center;
-    line-height: 80px;
+    line-height: 110px;
     margin: 0 auto;
-    margin-top: 60px;
+    margin-top: 50px;
     font-weight: bold;
   }
 
-  .message {
-    width: 70%;
-    height: 350px;
-    line-height: 100px;
-    font-size: 35px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: justify;
-  }
-
   .left-contents {
-    font-size: 25px;
-    margin-top: 50px;
+    font-size: 36px;
+    margin-top: 40px;
     text-align: center;
     line-height: 55px;
   }
 
   .put {
-    height: 150px;
-    width: 75%;
+    height: 100px;
+    width: 90%;
     margin: 0 auto;
-    /* margin-bottom: 40px; */
   }
 
   .putMoney-btn {
-    height: 150px;
-    width: 150px;
-    float: unset;
-    margin: 0 auto;
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin-left: 40px;
   }
 
   .putMoney-right {
-    height: 80px;
+    height: 70px;
     font-size: 30px;
+    margin-top: 30px;
     float: right;
-    margin-top: 20px;
+    margin-right: 80px;
   }
 
   .pYM-btn-short, .pWM-btn-long, .pWM-btn-short {
@@ -429,67 +483,72 @@
   }
 
   .pYM-btn-long {
-    height: 75px;
-    line-height: 72px;
+    height: 65px;
+    line-height: 70px;
     font-size: 25px;
     font-weight: bolder;
-    color: #fff;
+    color: #0a0a0a;
   }
 
   .pYM-btn-short {
-    height: 50px;
-    width: 10%;
-    line-height: 50px;
+    height: 60px;
+    width: 100px;
+    line-height: 60px;
   }
 
   .pWM-btn-long {
-    height: 80px;
-    line-height: 72px;
-    font-size: 25px;
-    font-weight: bolder;
+    width: 300px;
+    height: 70px;
+    line-height: 73px;
+    margin-left: 15px;
     color: #8e7d70;
+    font-size: 20px;
+    font-weight: 700;
   }
 
   .pWM-btn-short {
-    height: 80px;
-    line-height: 72px;
-    font-size: 25px;
+    width: 300px;
+    height: 70px;
+    line-height: 73px;
+    font-size: 20px;
     font-weight: bolder;
-    color: #8e7d70;
+  }
+
+  .btns-two {
+    /* margin-top:70px; */
   }
 
   .long {
-    margin-left: 15px;
+    margin-left: 70px;
   }
 
   .putMoney-btn-success {
     margin: 0 auto;
     color: white;
-    height: 80px;
-    width: 280px;
-    font-size: 25px;
+    font-size: 40px;
     text-align: center;
-    line-height: 75px;
-    margin-top: 100px;
+    line-height: 100px;
     font-weight: bold;
+    width: 300px;
+    height: 100px;
+    margin-top: 50px;
   }
 
   .setting_back {
     float: left;
+    margin-left: 20px;
     color: white;
-    height: 80px;
-    width: 200px;
-    font-size: 25px;
+    font-size: 40px;
     text-align: center;
-    line-height: 75px;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-left: 10px;
+    line-height: 100px;
     font-weight: bold;
+    width: 300px;
+    height: 100px;
   }
 
   .short {
-    margin-top: 200px;
+    margin-top: 245px;
+    color: #FFF;
   }
 
   .phone-btn {
@@ -512,7 +571,7 @@
     width: 144px;
     height: 153px;
     float: left;
-    font-size: 75px;
+    font-size: 80px;
     color: #8e7d70;
     font-weight: bold;
     text-align: center;
@@ -543,12 +602,12 @@
 
   .thin-title {
     font-size: 54px;
-    margin-top: 200px;
-    margin-bottom: 80px;
+    margin-top: 180px;
     font-weight: bold;
     text-align: center;
     line-height: 80px;
     height: 140px;
+    color: #fff;
   }
 
   .sell, .sell-green, .sell-red {
@@ -558,68 +617,69 @@
 
   .sell-green, .sell-red, .sell-black {
     color: white;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
   .sell {
     width: 400px;
-    height: 80px;
-    line-height: 75px;
+    height: 60px;
+    line-height: 48px;
     color: #8e7d70;
-    text-align: center;
-    margin: 0 auto;
+    text-align: right;
+    margin: unset;
     margin-top: 10px;
+    margin-left: 80px;
+    padding-right: 20px;
   }
 
   .sell-black {
+    margin-top: 50px;
     color: white;
-    height: 90px;
-    width: 500px;
-    font-size: 25px;
+    font-size: 40px;
     text-align: center;
-    line-height: 90px;
-    margin: 0 auto;
-    margin-top: 100px;
+    line-height: 100px;
     font-weight: bold;
+    width: 300px;
+    height: 100px;
   }
 
   .sell-green, .sell-red {
-    line-height: 75px;
-    font-size: 27px;
-    margin-top: 25px;
+    width: 140px;
     height: 50px;
-    width: 200px;
+    line-height: 55px;
+    font-size: 25px;
+    margin-top: 20px;
   }
 
   .sell-div {
-    width: 80%;
-    margin: 0 auto;
-    /* margin-top: 30px; */
+    width: 100%;
+    margin: unset;
+    margin-top: 10px;
   }
+
 
   .sell-left {
     width: 100%;
   }
 
   .sell-right {
-    width: 100%;
-    position: unset;
+    width: 20%;
+    left: 585px;
+    top: 545px;
+    position: absolute;
+    display: flex;
   }
 
   .choose {
     font-weight: bold;
-    font-size: 40px;
-    margin-top: 10px;
+    font-size: 25px;
+    margin-top: 0px;
     text-align: center;
-    float: none;
-    margin-left: 0px;
-    line-height: 65px;
   }
 
   .left {
     margin-left: 100px;
   }
-
 
 
 
@@ -630,28 +690,18 @@
   }
 
   .msg-yellow {
-    float: left;
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-right: 10px;
-    font-weight: bold;
     width: 154px;
-    line-height: 90px;
+    height: 119px;
+    line-height: 119px;
+    margin-left: 160px;
   }
 
   .msg-black {
+    width: 155px;
+    height: 120px;
+    line-height: 120px;
     float: right;
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 50px;
-    font-weight: bold;
-    width: 154px;
-    line-height: 90px;
+    margin-right: 160px;
   }
 
   .middle-rule {
@@ -662,6 +712,7 @@
     font-size: 30px;
     text-align: left;
     font-weight: bold;
+
   }
 
   .left-width {
@@ -672,17 +723,13 @@
     height: 200px;
     width: 160px;
     margin: 0 auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
   }
 
   .qrcode {
     height: 300px;
     width: 300px;
     margin: 0 auto;
-    margin-top: 60px;
   }
-
   .font40 {
     font-size: 40px;
   }
@@ -717,8 +764,8 @@
 
   .font-spacing {
     letter-spacing: -2px;
-    margin-top: 50px;
   }
+
 
   .middle-left {
     width: 80%;
@@ -726,9 +773,17 @@
     font-size: 40px;
     text-align: left;
     font-weight: bold;
-    margin-top: 50px;
   }
-
+  .btns, .btns-two {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    width: 75%;
+    height: 70px;
+    margin-top: 15px;
+  }
   .middle-left div {
     height: 50px;
     line-height: 50px;
@@ -741,10 +796,40 @@
     width: 60%;
   }
 
-  .all-bg {
-    background-image: url(../img/icon-home/bottom1920.jpg);
+  .info-btn-sub {
+    width: 180px;
+    height: 60px;
+    background-image: url(../img/icon-home/3.phone03.png);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
+    color: white;
+    font-size: 20px;
+    line-height: 50px;
+    display: inline-block;
+    font-weight: bolder;
+    text-align: center;
+  }
+  .info-btn > table td div {
+    width: 80px;
+    height: 80px;
+    background-image: url(../img/icon-home/3.phone02.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: auto;
+    text-align: center;
+    line-height: 65px;
+    font-size: 40px;
+    color: #8e7d70;
+    font-weight: bold;
+  }
+  .info-input {
+    background-image: url(../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 30%;
+    height: 80px;
+    margin: auto;
+    margin-top: 20px;
   }
 
   .info-input-setting {
@@ -756,36 +841,41 @@
     margin: auto;
     margin-top: 10px;
   }
+  .bic {
+    background-image: url(../img/icon-home/buttomBIC1920_2.jpg);
+    background-repeat: unset;
+    background-size: 100%
+  }
+  .error_div {
+    background-image: url(../img/icon-home/error1920_2.jpg);
+    background-repeat: unset;
+    background-size: 100%
+  }
 
-  .label_div {
+  .type {
+    background-image: url(../img/icon-home/buttomBIC1080.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%
+  }
+  .label_div{
     display: inline-block;
     width: 40%;
     text-align: left;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bolder;
-    height: 30px;
   }
-
-  .input_setting {
-    display: inline-block;
-    width: 50%;
-    height: 50px;
-    margin-top: 10px;
-    border: none;
-    background-color: transparent;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .input_login {
-    display: inline-block;
-    width: 50%;
-    height: 50px;
-    margin-top: 10px;
-    border: none;
-    background-color: transparent;
-    outline: none;
-    font-size: 15px;
+  .message {
+    width: 60%;
+    height: 350px;
+    line-height: 100px;
+    font-size: 35px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
   }
 
   .bottom-btn {
@@ -797,84 +887,63 @@
     font-weight: bold;
     margin-top: 30px;
   }
-
-  .bic {
-    background-image: url(../img/icon-home/buttomBIC1920.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%
-  }
-
-  .error_div {
-    background-image: url(../img/icon-home/error1920.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%
-  }
-
-  .type {
-    background-image: url(../img/icon-home/buttomSys.png);
-    background-repeat: no-repeat;
-    background-size: 100%
-  }
-
+  .input_setting{
+    display: inline-block;
+    width: 50%;
+    margin-top: 10px;
+    border: none;
+    background-color:transparent;
+    outline: none;
+    font-size: 20px;
+  }.input_login{
+     display: inline-block;
+     width: 50%;
+     margin-top: 10px;
+     border: none;
+     background-color:transparent;
+     outline: none;
+     font-size: 20px;
+   }
   .info-titile-big {
     font-weight: bold;
-    font-size: 75px;
-    margin-top: 200px;
+    font-size: 150px;
+    margin-top: 300px;
+    margin-bottom: 300px;
+    color:#fff;
   }
 
-  .login-yellow, .login-black {
-    font-size: 50px;
-    margin-left: 50px;
-    float: left;
+  .little-white-span {
+    color: #fff;
+    font-size: 40px;
+    margin-top: 30px;
+
   }
 
   .login-yellow {
-    float: left;
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-right: 10px;
-    font-weight: bold;
-    width: 154px;
-    line-height: 90px;
+    width: 120px;
+    height: 60px;
+    line-height: 60px;
+    margin-left: 200px;
   }
 
   .login-black {
+    width: 120px;
+    height: 60px;
+    line-height: 60px;
     float: right;
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 10px;
-    font-weight: bold;
-    width: 154px;
-    line-height: 90px;
+    margin-right: 200px;
   }
 
   .cash-query {
-    float: right;
-    color: white;
-    font-size: 15px;
-    text-align: center;
-    margin: 0 auto;
-    font-weight: bold;
-    width: 50px;
+    width: 60px;
+    height: 38px;
     line-height: 38px;
-    margin-right: 30px;
   }
 
   .index-button {
-    float: left;
-    color: white;
-    font-size: 15px;
-    text-align: center;
-    margin: 0 auto;
-    font-weight: bold;
     width: 150px;
-    line-height: 38px;
-    margin: 0 30px;
+    height: 60px;
+    line-height: 60px;
   }
 
   .wallet {
@@ -882,76 +951,65 @@
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     margin: 10px;
-    line-height: 100px;
+    line-height: 130px;
     color: white;
     display: inline-block;
   }
 
   .go-back {
-    float: right;
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    margin: 0 auto;
-    font-weight: bold;
     width: 150px;
+    height: 50px;
     line-height: 50px;
-    margin-right: 30px;
   }
 
   .back-allBg {
-    background-image: url(../img/icon-home/back-background1920.jpg);
+    background-image: url(../img/icon-home/back-background01.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
 
-  .login_label {
+  .login_label{
     display: inline-block;
     width: 20%;
     text-align: left;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bolder;
-    height: 50px;
   }
 
-  .login_input_setting {
+  .login_input_setting{
     display: inline-block;
     width: 70%;
-    height: 50px;
     margin-top: 10px;
     border: none;
-    background-color: transparent;
+    background-color:transparent;
     outline: none;
-    font-size: 15px;
+    font-size: 20px;
   }
-
-  .login_input_setting_code {
+  .login_input_setting_code{
     display: inline-block;
     width: 54%;
-    height: 50px;
     margin-top: 10px;
     border: none;
-    background-color: transparent;
+    background-color:transparent;
     outline: none;
-    font-size: 15px;
+    font-size: 20px;
   }
 
-  .centerWait {
-    margin-top: 250px;
-  }
-
-  .walletLabel {
-    width: 130px;
-    height: 60px;
-    font-size: 15px;
-    overflow: hidden;
+  .walletLabel{
+    width: 180px;
+    height: 80px;
+    font-size: 20px;
+    overflow:hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 
+  .settting-content {
+    /* margin-top: 20px; */
+  }
   .info-input-setting {
     background-image: url(../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
@@ -959,50 +1017,39 @@
     width: 70%;
     height: 70px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 10px;
   }
 
   .to_home_label {
     position: fixed;
-    right: 15px;
-    top: 240px;
-    font-size: 40px;
+    right: 30px;
+    top: 100px;
+    font-size: 30px;
+    background: #fff;
+    padding: 20px;
+    width: 110px;
+    font-weight: 800;
   }
-    .cash-limit-title {
-      margin-top: 200px;
-      font-weight: bold;
-      font-size: 45px;
-    }
-    .cash-limit-desc {
-      margin-top: 50px;
-      font-size: 30px;
-    }
-
+  .toAddressArea {
+    font-size: 28px;
+    font-weight: bolder;
+    text-align: left;
+    display: flex;
+  }
   .button-font-div-limit {
-    font-size: 25px;
+    font-size: 30px;
     color: white;
     height: 80px;
     width: 350px;
     text-align: center;
-    line-height: 86px;
+    line-height: 75px;
     margin: 0 auto;
     margin-top: 100px;
-  }
-
-  .toAddressArea {
-    font-size: 28px;
-    font-weight: bolder;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    margin-top: 40px;
   }
   .ui-ios-overlay {
     z-index: 99999;
     position: fixed;
-    top: 42%;
+    top: 61%;
     left: 50%;
     width: 450px;
     height: 470px;
@@ -1016,9 +1063,9 @@
   }
 
   .icon-img {
-    box-shadow: 14px 16px 30px 0px #9E9E9E, 0px 19px 24px 2px rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 5px 0px #9E9E9E, 0px 3px 20px 0px rgba(255, 255, 255, 0.5);
     border-radius: 125px;
-    height: auto;
+    height: 90px;
   }
 
   .language-item {
@@ -1037,64 +1084,88 @@
     font-size: 45px;
   }
   .log-buy-icon {
-    background-image: url(../img/icon-home/2.choose2.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/blue.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #de5c00;
+    width: 420px;
+    height: 92px;
+
   }
   .to_home_btn {
-    width: 80px;
-    height: 80px;
+    width: 223px;
+    height: 63px;
     position: fixed;
-    left: 25px;
-    bottom: 25px;
-    background-image: url(../img/icon-home/home.png);
+    left: 70px;
+    bottom: 9px;
+    background-image: url(../img/icon-home/cancel-btn.png);
     background-size: 100%;
     background-repeat: no-repeat;
+    font-size: 35px;
+    font-weight: 700;
+    color: #fff;
   }
-
+  .to_cancel_btn {
+    width: 165px;
+    height: 43px;
+    position: fixed;
+    right: 70px;
+    bottom: 12px;
+    background-image: url(../img/icon-home/cancel-btn.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+  }
   #buy_cash, #buy_amount {
     color: #FFF;
   }
   .success_icon{
-     background-image: url(../img/icon-home/success.png);
-     background-repeat: no-repeat;
-     background-size: 100% 100%;
-     width: 200px;
-     height: 200px;
-     margin: 0 auto;
-     margin-top: 50px;
-   }
+    background-image: url(../img/icon-home/success2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
 
   #sell_amount, #sell_cash {
     color: #FFF;
   }
 
   .cash-limit-icon {
-    background-image: url(../img/icon-home/2.choose2.png);
+    background-image: url(../img/icon-home/blue.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
   .pYM-btn-long {
-    background-image: url(../img/icon-home/7.put02.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
   }
   .pWM-btn-short {
-    background-image: url(../img/icon-home/7.put04.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+
+
   }
 
   .pWM-btn-long {
-    background-image: url(../img/icon-home/7.put04.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
   }
 
   .home_btn_label {
     width: 500px;
     background-image: none;
-    left: 120px;
+    left: 315px;
     bottom: 0px;
     font-size: 25px;
     color: #ffbc33;
@@ -1104,9 +1175,84 @@
   }
 
   .sell {
-    background-image: url(../img/icon-home/7.put04.png);
+    /*background-image: url(../img/icon-home/7.put04.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+  }
+
+
+  .new-panel{
+    margin-top: 0px;
+  }
+  .choose-pay-area {
+    display: inherit;
+    width: 40%;
+    margin-left: 23%;
+    margin-top: 150px;
+  }
+  .new-panel > div {
+    margin-left: 5%;
+    width: 90%;
+    margin-top: 180px !important;
+    min-height: 500px;
+  }
+  .testScan{
+    width: 560px;
+    background-image: url(../img/icon-home/scanTest.png);
+    background-size: 100%;
+    height: 441px;
+    margin-left: 200px;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+  }
+  .new-panel-title {
+    color: #fff;
+    font-size: 63px;
+    font-weight: 600;
+    margin-left: 80px;
+    margin-right: 80px;
+    text-align: center;
+  }
+
+  .new-panel-content {
+    font-size: 23px;
+    color: #fff;
+    text-align: center;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 30px;
+  }
+
+  .more-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+  }
+  .more-span{
+    color: #fff;
+    font-size: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 325px;
+  }
+
+  .phone-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 30px;
+  }
+  .right-step1{
+    margin-top: 200px;
+  }
+
+  .right-step2 {
+    margin-top: 20px;
+    width: 550px;
   }
 
 }

@@ -1,6 +1,6 @@
 var InterValObj;
 var merchantObj;
-var curCount = 300;
+var curCount = 500;
 
 function render() {
   initInterValObj();

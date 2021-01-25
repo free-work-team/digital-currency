@@ -759,10 +759,43 @@
     margin-right: 10px;
     font-weight: bold;
     width: 200px;
-    line-height: 90px;
+    line-height: 65px;
     border-radius: 15px !important;
   }
+  .index-new-item {
+    width: 38%;
+    height: 80px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 60px;
+    border: 1px solid #fff;
+    font-size: 25px;
+    line-height: 75px;
+  }
 
+  .index-new-item:nth-child(even) {
+    margin-left: 9%;
+  }
+  .to_home_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    left: 25px;
+    bottom: 5px;
+    background-image: url(../../img/icon-home/home.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .to_close_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    right: 25px;
+    bottom: 0px;
+    background-image: url(../../img/icon-home/ShutDown.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
   .login-black {
     float: right;
     color: white;
@@ -772,7 +805,7 @@
     margin-top: 10px;
     font-weight: bold;
     width: 200px;
-    line-height: 90px;
+    line-height: 65px;
     border-radius: 15px !important;
   }
 
@@ -826,7 +859,7 @@
   }
 
   .back-allBg {
-    background-image: url(../../img/icon-home/back-background1920.jpg);
+    background-image: url(../../img/icon-home/bottom1920.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
@@ -861,7 +894,7 @@
   }
 
   .index-item {
-    margin-top: 100px !important;
+    margin-top: 40px !important;
   }
 
   .login_input_setting_code {
@@ -976,7 +1009,7 @@
   }
 
   .thisItem {
-    width: 49%;
+    width: 40%;
     height: auto;
     text-align: center;
     margin-top: 60px;

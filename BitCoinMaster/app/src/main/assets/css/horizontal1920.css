@@ -878,10 +878,21 @@
   .info-titile-big {
     font-weight: bold;
     font-size: 100px;
-    margin-top: 0px;
+    margin-top: 220px;
     color:#fff;
   }
-
+  .newStart {
+    background: url(../img/icon-home/start_back.png) no-repeat center;
+    height: 89px;
+    /* width: 286px; */
+    font-size: 50px;
+    font-family: cursive;
+    margin-top: 95px;
+    color: #fff;
+  }
+  .new-panel > div {
+    width: 50%;
+  }
   .little-white-span {
     color: #fff;
     font-size: 40px;
@@ -889,6 +900,39 @@
 
   }
 
+  .choose-pay-area {
+    display: flex;
+    width: 76%;
+    margin-left: 12%;
+    margin-top: 100px
+  }
+  .testScan{
+    width: 560px;
+    background-image: url(../img/icon-home/scanTest.png);
+    background-size: 100%;
+    height: 441px;
+    margin-left: 150px;
+    background-repeat: no-repeat;
+  }
+  .switch-area {
+    background: #1c416e;
+    display: flex;
+    margin-right: 50px;
+    height: 155px;
+    width: 580px;
+    margin-bottom: 40px;
+  }
+  .switchArea {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 80%;
+    margin-left: 17%;
+    display: flex;
+  }
   .login-yellow {
     width: 120px;
     height: 60px;

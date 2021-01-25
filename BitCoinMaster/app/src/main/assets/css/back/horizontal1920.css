@@ -945,4 +945,24 @@
     font-size: 15px;
     font-weight: bold;
   }
+  .to_home_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    background-image: url(../../img/icon-home/home.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .to_close_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    right: 25px;
+    bottom: 13px;
+    background-image: url(../../img/icon-home/ShutDown.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
 }

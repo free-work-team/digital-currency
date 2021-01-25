@@ -344,25 +344,8 @@ body {
   font-weight: bolder;
   font-size: 25px;
 }
-.switchArea{
-  color: white;
-  width: 450px;
-  font-size: 40px;
-  text-align: center;
-  line-height: 60px;
-  margin: 0 auto;
-  margin-top: 20px;
-}
 
 
-.switch-area {
-  background: #1c416e;
-  display: flex;
-  margin-right: 50px;
-  height: 155px;
-  width: 580px;
-  margin-bottom: 40px;
-}
 .swticth-icon{
   background-repeat: no-repeat;
   background-size: 50%;
@@ -396,7 +379,6 @@ body {
 .faceinfo-area{
   background-repeat: no-repeat;
   background-size: 100%;
-  width: 1000px;
   color: #fffcfa;
   font-size: 30px;
   text-align: left;

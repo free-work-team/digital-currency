@@ -703,20 +703,25 @@ public class UploadTimer extends Activity {
      */
 
     private void checkUpdate() {
-        //包装成url的对象
-        try {
-            String version = getUpdataInfo();
-            String currentVersion = getCurrentVersion();
-            log.info("本机当前版本: " + currentVersion);
-            if (version.equals(currentVersion)) {
-                log.info("已经是最新版本: " + version);
-            } else {
-                log.info("版本号不同 ,即将升级");
-                downFile(getSettingUrl() + DOWN_URL + version + FILE_PATH_EXT, new File(FILE_PATH + version + FILE_PATH_EXT));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //包装成url的对象
+                try {
+                    String version = getUpdataInfo();
+                    String currentVersion = getCurrentVersion();
+                    log.info("本机当前版本: " + currentVersion);
+                    if (version.equals(currentVersion)) {
+                        log.info("已经是最新版本: " + version);
+                    } else {
+                        log.info("版本号不同 ,即将升级");
+                        downFile(getSettingUrl() + DOWN_URL + version + FILE_PATH_EXT, new File(FILE_PATH + version + FILE_PATH_EXT));
+                    }
+                } catch (Exception e) {
+                    //log.error("UploadTimer checkUpdate:"+e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            //log.error("UploadTimer checkUpdate:"+e.getMessage());
-        }
+        }).start();
     }
 
     /*
@@ -1004,8 +1009,10 @@ public class UploadTimer extends Activity {
         //发送数据
         String resp = null;
         try {
+            log.info("------------请求kyc:"+JSONObject.toJSONString(reqParams));
             resp = requestWeb(method);
             JSONObject jsonObject= JSONObject.parseObject(resp);
+            log.info("------------获取kyc结果:"+jsonObject.getString("code"));
             if ("0".equals(jsonObject.getString("code"))){
                 String baseImg = jsonObject.getString("fileStr");
                 kycInfo.put("fileStr",baseImg);
@@ -1016,6 +1023,7 @@ public class UploadTimer extends Activity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("获取kyc结果 error",e);
         }
         return "";
     }

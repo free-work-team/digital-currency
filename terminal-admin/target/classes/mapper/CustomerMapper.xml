@@ -64,4 +64,12 @@
         order by t1.create_time desc
     </select>
 	
+	<select id="getByIdCardObserve" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_customer where id_card_obverse = #{idCardObserve}
+	</select>
+	
+	
+	
 </mapper>

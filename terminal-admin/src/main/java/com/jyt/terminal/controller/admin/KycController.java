@@ -136,9 +136,7 @@ public class KycController extends BaseController{
 	@ResponseBody
 	public Tip add(String customerInfo) {
 		try {
-			String startTime=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);
 			Customer model = JSON.parseObject(customerInfo, Customer.class);
-			log.info("进入add,打印model:{},{}",model,startTime);
 			String realPath="";
 			
 			if(ToolUtil.isEmpty(model.getIdCardObverse())){
@@ -281,7 +279,6 @@ public class KycController extends BaseController{
 			try {
 				filePath = toUpload(file, path, filename);
 				//filePath = resizeImage(file, path, filename,imgWidth,imgHeight);
-				//String result = commonCreateImgUrl(request, filename);
 				String result = filename;
 				String endTime=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);				
 				logger.info("得到可访问图片路径:{},{}",filePath,endTime);

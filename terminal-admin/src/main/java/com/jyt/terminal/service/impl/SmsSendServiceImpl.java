@@ -62,16 +62,15 @@ public class SmsSendServiceImpl extends ServiceImpl<SmsSendMapper, SmsSend> impl
 			inserOrUpdateOrder(sms);
 			
 			//插入成功后调用短信接口,发送返回成功的
-			/*Object result=SmsUtil.sendSMS(phone,smsText);
-			JSONObject retObj=JSONObject.parseObject(result.toString());*/
-			String resStatus="0";//retObj.getString("status");//0表示成功
+			Object result=SmsUtil.sendSMS(phone,smsText);
+			JSONObject retObj=JSONObject.parseObject(result.toString());
+			String resStatus=retObj.getString("status");//0表示成功
 			
 			if(resStatus.equals("0")) {
 				result1.setExtraInfo(smsCode);
 				result1.setTradeStatus(0);				
 				sms.setChRetCode(resStatus);
-				//sms.setChTradeNo(retObj.getString("messageid"));
-				sms.setChTradeNo("20210112111");
+				sms.setChTradeNo(retObj.getString("messageid"));
 				sms.setTradeStatus(1);				
 			}else {
 				sms.setTradeStatus(2);

@@ -2,7 +2,6 @@ package com.jyt.terminal.service;
 
 import java.util.List;
 import java.util.Map;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.jyt.terminal.dto.CustomerDTO;
@@ -36,5 +35,7 @@ public interface ICustomerService extends IService<Customer> {
 	 * @param customer
 	 */
 	String sendCustomerEmail(Customer customer);
+	
+	Customer getByIdCardObserve(String idCardObserv);
 
 }

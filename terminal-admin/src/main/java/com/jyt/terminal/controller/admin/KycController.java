@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.jyt.terminal.auth.util.JwtTokenUtil;
 import com.jyt.terminal.commom.enums.BitEnum;
 import com.jyt.terminal.commom.enums.BitEnum.CustomerStatus;
+import com.jyt.terminal.config.properties.JwtProperties;
 import com.jyt.terminal.commom.enums.BitException;
 import com.jyt.terminal.commom.enums.BizExceptionEnum;
 import com.jyt.terminal.commom.enums.EmailTemplateConstant;
@@ -41,7 +44,10 @@ import com.jyt.terminal.service.ICustomerService;
 import com.jyt.terminal.service.IEmailSettingService;
 import com.jyt.terminal.service.IEmailTemplateService;
 import com.jyt.terminal.service.INotifyMailboxService;
+import com.jyt.terminal.service.IOcrService;
 import com.jyt.terminal.service.impl.EmailService;
+import com.jyt.terminal.util.DateTime;
+import com.jyt.terminal.util.DateTimeKit;
 import com.jyt.terminal.util.Tip;
 import com.jyt.terminal.util.ToolUtil;
 
@@ -56,7 +62,6 @@ public class KycController extends BaseController{
 	
 	@Value("${upload-path}")
     private String path;
-	
 	
 	@Autowired
 	public ICustomerService customerService;
@@ -75,8 +80,20 @@ public class KycController extends BaseController{
 	@Autowired
 	private IAgreementService agreementService;
 	
+	@Autowired
+	private IOcrService iocrService;
+	
+	
 	@RequestMapping("")
     public String index(Model model) {
+		String kycId=getPara("kycId");
+		if(StringUtils.isEmpty(kycId))
+			return PREFIX + "kycFriendly.html";
+		else
+			model.addAttribute("kycId",kycId);
+		
+		log.info("kycId:{}",kycId);
+				
 		Agreement agreement = agreementService.selectOne(new EntityWrapper<Agreement>());
 		model.addAttribute("agreement",agreement);
 		//证件类型枚举
@@ -119,15 +136,48 @@ public class KycController extends BaseController{
 	@ResponseBody
 	public Tip add(String customerInfo) {
 		try {
+			String startTime=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);
 			Customer model = JSON.parseObject(customerInfo, Customer.class);
-			Customer cust = customerService.selectOne(new EntityWrapper<Customer>().eq("e_mail", model.getEmail()));
+			log.info("进入add,打印model:{},{}",model,startTime);
+			String realPath="";
+			
+			if(ToolUtil.isEmpty(model.getIdCardObverse())){
+				log.info("kycId为空");
+				SUCCESS_TIP.setCode(500);
+				SUCCESS_TIP.setMessage("kycId is null!");
+				return SUCCESS_TIP;
+			}
+			
+			if(model.getCardType()==1) {
+				realPath=path+model.getIdCardPositive();
+			}else if(model.getCardType()==2){
+				realPath=path+model.getIdPassport();
+			}else {
+				SUCCESS_TIP.setCode(500);
+				SUCCESS_TIP.setMessage("pls choose card type!");
+				return SUCCESS_TIP;
+			}
+			/*log.info("开始调用华为OCR:{}",startTime);
+			String ocrContent="";//iocrService.callOcr(model.getCardType(), realPath);
+			DateTime dt1=new DateTime();
+			log.info("结束调用华为OCR:{}",dt1.toMsStr());
+			
+			if(ToolUtil.isEmpty(ocrContent)){
+				SUCCESS_TIP.setCode(500);
+				SUCCESS_TIP.setMessage("image ocr failure,pls re-upload the image!");
+				return SUCCESS_TIP;
+			}else {
+				model.setIdCardHandheld(ocrContent);
+			}*/
+
+			Customer cust = customerService.getByIdCardObserve(model.getIdCardObverse());
+			
 			if(ToolUtil.isEmpty(cust)){
 				model.setStatus(CustomerStatus.AUDIT.getCode());
 				model.setCreateUser("system");
 				model.setCreateTime(new Date());
 		    	customerService.insert(model);
 		    	
-		    	sendMerchantEmail();
 		    	SUCCESS_TIP.setCode(200);
 				SUCCESS_TIP.setMessage("Success!");
 			}else{
@@ -146,7 +196,6 @@ public class KycController extends BaseController{
 					
 					customerService.updateById(cust);
 					
-					sendMerchantEmail();
 					SUCCESS_TIP.setCode(200);
 					SUCCESS_TIP.setMessage("Success!");
 				}else{
@@ -154,13 +203,13 @@ public class KycController extends BaseController{
 					SUCCESS_TIP.setMessage("Information already exists");
 				}
 			}
+			String endTime1=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);
+			log.info("把调用华为OCR识别结果存入表结束:{}",endTime1);
 			return SUCCESS_TIP;
 		} catch (Exception e) {
 			log.error("kyc保存信息异常:{}",e);
-			throw new BitException(BizExceptionEnum.SERVER_ERROR);
-			
-		}
-		
+			throw new BitException(BizExceptionEnum.SERVER_ERROR);			
+		}		
 	}
 	
 	private void sendMerchantEmail() {
@@ -187,7 +236,8 @@ public class KycController extends BaseController{
 	@RequestMapping(value = "/kycImage_upload")
 	@ResponseBody
 	public String commonImage_upload(HttpServletRequest request, @RequestParam(value="FileData", required=false) MultipartFile file) {
-		logger.info("开始上传图片" );
+		String startTime=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);
+		logger.info("开始上传图片:{}",startTime);
 		String filePath = "";
 		Integer imgWidth = null;
 		Integer imgHeight = null;
@@ -205,20 +255,20 @@ public class KycController extends BaseController{
             	logger.error("上传的文件为空");
             	return filePath;
             }
-            imgWidth = bufferedImage.getWidth(); 
+            imgWidth = bufferedImage.getWidth();
             imgHeight = bufferedImage.getHeight();
-            if(imgHeight>imgWidth) {
+            /*if(imgHeight>imgWidth) {
             	logger.error("上传的图片方向为竖直");
             	return "上传的图片方向为竖直,请上传横向的图片";
-            }
+            }*/
 		} catch (Exception e1) {
-			logger.error("获取图片宽高失败！");
-			e1.printStackTrace();
+			logger.error("获取图片宽高失败！{}",e1.getMessage());
+			//e1.printStackTrace();
 		}
-	            
+	    
 	    //String format = file.getOriginalFilename().split("\\.")[1];
 		String format = "jpg";
-		 //拼接写入文件路径
+		//拼接写入文件路径
 		String filenametem = System.currentTimeMillis()+ createRandom(4) + "."+format;
 		Calendar calendar = Calendar.getInstance();
 		StringBuilder buffer = new StringBuilder("/img/cust");
@@ -229,11 +279,12 @@ public class KycController extends BaseController{
 		String filename = buffer.toString();
 		if (file.getSize() > 0) {
 			try {
-				//filePath = toUpload(file, path, filename);
-				filePath = resizeImage(file, path, filename,imgWidth,imgHeight);
+				filePath = toUpload(file, path, filename);
+				//filePath = resizeImage(file, path, filename,imgWidth,imgHeight);
 				//String result = commonCreateImgUrl(request, filename);
 				String result = filename;
-				logger.info("得到可访问图片路径:" + result );
+				String endTime=DateTimeKit.format(new Date(), DateTimeKit.NORM_DATETIME_MS_PATTERN);				
+				logger.info("得到可访问图片路径:{},{}",filePath,endTime);
 				return result;
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
@@ -288,7 +339,7 @@ public class KycController extends BaseController{
 	 * @return
 	 * @throws IOException
 	 */
-    public String  resizeImage(MultipartFile file, String path,String filename,int imgWidth,int imgHeight) throws IOException {
+    public String resizeImage(MultipartFile file, String path,String filename,int imgWidth,int imgHeight) throws IOException {
         filename = filename.replaceAll("\\\\", "/");   
         String filePath = path + File.separator + filename;
         //String format = filename.split("\\.")[1];

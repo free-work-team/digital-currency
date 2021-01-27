@@ -40,7 +40,7 @@ public class JwtTokenUtil {
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token).getSubject();
     }
-     
+    
     /**
      * 获取jwt发布时间
      */

@@ -60,9 +60,9 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void Init(){
+    public void Init(String authCode){
         if (!isInit) {
-            faceHelper.Init(context,this);
+            faceHelper.Init(context,authCode,this);
         }else{
             Message msg = Message.obtain();
             msg.what = INITRESULT;
@@ -104,9 +104,6 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
     @Override
     public void initResult(int ret, int errorCode) {
-        if (ret == 4){
-            isInit = true;
-        }
         Message msg = Message.obtain();
         msg.what = INITRESULT;
         String initInfo = "";
@@ -120,6 +117,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
             initInfo = "初始化比对模块异常"+errorCode;
         }else if (ret == 4){
             initInfo = "初始化成功";
+            isInit = true;
         }
         log.info("人脸识别初始化结果: "+initInfo);
         msg.obj = ret;

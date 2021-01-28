@@ -42,7 +42,7 @@ public class AIPPFaceHelper {
      * @param context
      * @param listener
      */
-    public  void Init(Context context, DetectedListener listener){
+    public  void Init(Context context, String authCode,DetectedListener listener){
         this.listener = listener;
         if (DetectEngine==null)
             DetectEngine = new AIPP_FDHandle(context);
@@ -50,12 +50,12 @@ public class AIPPFaceHelper {
         if (VerifyEngine==null)
             VerifyEngine = new AIPP_FRHandle(context);
 
-        int ret = DetectEngine.Authorization("URTCDKWAI4ZRHDA3",context);
+        int ret = DetectEngine.Authorization(authCode,context);
         if (ret!= AIPP_FDError.OK){
             listener.initResult(0,ret);
             return;
         }
-        ret = VerifyEngine.Authorization("URTCDKWAI4ZRHDA3",context);
+        ret = VerifyEngine.Authorization(authCode,context);
         if (ret!= AIPP_FDError.OK){
             listener.initResult(1,ret);
             return;

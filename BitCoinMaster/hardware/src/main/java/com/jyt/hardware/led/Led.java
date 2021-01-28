@@ -40,7 +40,7 @@ public class Led {
     /**
      * 设置led灯
      * @param ledId
-     * @param status 0，关闭，1常亮；2，闪烁
+     * @param status 0，关闭，1闪烁；2，常亮
      * @return
      */
     public boolean openLed(int ledId,int status){

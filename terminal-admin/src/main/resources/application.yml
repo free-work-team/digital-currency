@@ -102,13 +102,13 @@ spring:
       web-stat-filter.enabled: false
 server:
   port: 8080
-  connectionTimeout: 180000 
+  connectionTimeout: 180000
   
 log:
   path: /home/tomcat/log/terminal-admin
 
-upload-path: /home/tomcat/
-
+#upload-path: /home/tomcat/
+upload-path: E:/test
 
 ---
 spring:
@@ -126,7 +126,7 @@ spring:
       max-active: 20
       web-stat-filter.enabled: false
 server:
-  port: 8080
+  port: 80
   connectionTimeout: 180000 
   
 log:

@@ -24,14 +24,15 @@ body {
 }
 
 .con_title {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #3b597f;
-    color: #FFFFFF;
-    /* border-radius:0 0 25px 25px; */
-}
+	    text-align: center;
+	    font-weight: bold;
+	    padding-top: 1px;
+	    padding-bottom: 5px;
+	    background-color: #327AB8;
+	    color: #FFFFFF;
+	    height:20%;
+	    /* border-radius:0 0 25px 25px; */
+	}
 
 .content_input {
     height: 40px;
@@ -47,7 +48,7 @@ body {
 }
 
 .div_input {
-    width: 100%;
+    width: 60%;
     height: 40px;
     line-height: 40px;
     line-height: normal;
@@ -60,23 +61,22 @@ body {
 }
 
 .pic_list {
-    width: 90%;
-    height: 80%;
-    margin: 0 auto;
+    width: 100%;
+    height: 65%;
+    margin: 10 auto;
     position: relative;
     top: 10%;
-    margin-left: 5%;
-    border-color: #FFFFFF;
+    
 }
 
 .pic_list::before {
     content: '';
     position: absolute;
-    width: 80%;
+    width: 70%;
     height: 3px;
     left: 10%;
     top: 50%;
-    border-top: 3px dashed #b5bcd1;
+    /*border-top: 3px dashed white;*/
     z-index: 20;
 }
 
@@ -87,7 +87,7 @@ body {
     height: 80%;
     left: 50%;
     top: 10%;
-    border-left: 3px dashed #b5bcd1;
+    /*border-left: 3px dashed white;*/
     z-index: 20;
 }
 
@@ -95,7 +95,7 @@ body {
     width: 100%;
     height: 100%;
     float: left;
-    border: 3px dashed #b5bcd1;
+    border: 3px dashed #71ABFD;
     text-align: center;
 }
 
@@ -118,18 +118,20 @@ body {
     height: 60px;
     color: #ffffff;
     font-size: 23px;
-    background-color: #3b597f;
+    background-color: #FA7906;
+    border-color:#FA7906;
 }
 
 /*###############*/
 
 .btn-successed {
-    /*background:#23527c;*/
     border-color: #23527c;
     color: #FFF;
     border: 0px dashed #FFFFFF;
-    background-color: #cdcdcd;
+    background-image: url(/static/img/camera-photo.png);
     z-index: 9;
+    -moz-background-size:100% 100%; 
+    background-size:100% 100%;
 }
 
 .btn-successed:hover {
@@ -138,14 +140,13 @@ body {
 }
 
 .filesInput {
-    background-color: #FFFFFF;
+    background-color: #FFFFFF;     
 }
 
 .fileinput-button {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    background-color: #FFFFFF;
     border-color: #cdcdcd !important;
 }
 
@@ -166,4 +167,19 @@ body {
     border-color: transparent !important;
     background-color: transparent !important;
     color: #3b597f;
+}
+.idandpassport{
+	margin-top:22%;
+	width:100%;
+	height:280px;
+}
+#identiId{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;		
+}
+
+#cardType{
+	border:2px solid #333333;
 }

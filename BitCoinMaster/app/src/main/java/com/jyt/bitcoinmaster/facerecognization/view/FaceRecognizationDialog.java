@@ -65,7 +65,7 @@ public class FaceRecognizationDialog extends Dialog {
         private SurfaceHolder mSurfaceHolder;
         private Camera mCamera;
         private MyImageView imageView;
-        private int width,height;
+        private int mwidth,mheight;
         private byte[] imageData;
         private AIPP_FDFace faceImg;
         private Handler mFaceHandle;
@@ -78,6 +78,11 @@ public class FaceRecognizationDialog extends Dialog {
         private boolean isPreview;
         private ImageView scan;
         private CameraHelper cameraHelper;
+        private int X;
+        private int Y;
+        private int width,height;
+
+
         public Builder(Context context) {
             this.context = context;
         }
@@ -85,6 +90,13 @@ public class FaceRecognizationDialog extends Dialog {
         public void setCameraId(int cameraID){
             this.cameraID = cameraID;
         }
+        public void setPreviewViewSize(int X,int Y,int mwidth,int mheight){
+            this.X = X;
+            this.Y = Y;
+            this.mwidth = mwidth;
+            this.mheight = mheight;
+        }
+
         public void setCompareListener(FaceCompareListener listener){
             this.listener = listener;
         }
@@ -100,10 +112,10 @@ public class FaceRecognizationDialog extends Dialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
             DisplayMetrics dm = new DisplayMetrics();
-            params.x = 70;
-            params.y = 35 ;
-            params.width = 700;
-            params.height = 500;
+            params.x = X;
+            params.y = Y;
+            params.width = mwidth;
+            params.height = mheight;
             dialog.getWindow().setAttributes(params);
             dialog.getWindow().setDimAmount(0f);
             dialog.getWindow().setGravity(Gravity.LEFT);

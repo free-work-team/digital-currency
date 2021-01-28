@@ -45,11 +45,11 @@ public class CramerThread {
         this.surfaceHolder = surfaceHolder;
     }
 
-    public void setSurfaceViewSize( int width, int height){
+    public void setSurfaceViewSize( int x,int y,int width, int height){
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
         lp.gravity = Gravity.LEFT|Gravity.TOP;
-        lp.leftMargin = 0; //矩形距离原点最近的点距离X轴的距离
-        lp.topMargin = 0; //矩形距离原点最近的点距离Y轴的距离
+        lp.leftMargin = x; //矩形距离原点最近的点距离X轴的距离
+        lp.topMargin = y; //矩形距离原点最近的点距离Y轴的距离
         //以上两个值，即坐标(x,y);
         surfaceview.setLayoutParams(lp);
     }
@@ -103,8 +103,8 @@ public class CramerThread {
         // 创建媒体文件名
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                 .format(new Date());
-//        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
-        mediarecorder.setOutputFile(getOutputMediaFile(2).toString());
+        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
+//        mediarecorder.setOutputFile(v);
         try { // 准备录制
             mediarecorder.prepare(); // 开始录制
             mediarecorder.start();

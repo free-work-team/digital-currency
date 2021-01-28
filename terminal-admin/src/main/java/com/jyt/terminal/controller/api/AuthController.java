@@ -44,7 +44,7 @@ public class AuthController {
     	String account = request.getUserName();
     	
     	String password = request.getPassword();
-    	    	
+    	    	    	
     	if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
     		
     		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.REQUEST_NULL));

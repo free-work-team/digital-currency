@@ -89,7 +89,7 @@ public class HungHuiLedJsInterface {
             public void run() {
                 Config config = ((MyApp) context.getApplicationContext()).getConfig();
 
-                m_LEDDevice.openLed(config.getLedId(),2);
+                m_LEDDevice.openLed(config.getLedId(),1);
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

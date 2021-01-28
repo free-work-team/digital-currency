@@ -2,6 +2,7 @@ package com.jyt.terminal.controller.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -49,6 +50,7 @@ import com.jyt.terminal.service.IDeviceService;
 import com.jyt.terminal.service.IOrderService;
 import com.jyt.terminal.service.ITerminalSettingService;
 import com.jyt.terminal.service.IWithdrawService;
+import com.jyt.terminal.util.DateTimeKit;
 import com.jyt.terminal.util.Downloadimg;
 import com.jyt.terminal.util.ToolUtil;
 
@@ -313,33 +315,93 @@ public class ApiController {
 
 	@RequestMapping(value = "/downloadImg",method = RequestMethod.POST)
     public ResponseEntity<?> downloadImg(@RequestBody KycRequest request) {
-    	log.info("请求接口/api/downloadImg,终端机号：{},kcyId：{}",request.getTermNo(),request.getKycId());
+    	log.info("请求接口/api/downloadImg kycId：{}",request.getKycId());
     	
     	if(ToolUtil.isEmpty(request.getTermNo())){
     		log.info("终端机号为空");
-    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"终端机号为空"));
     	}
     	
     	if(ToolUtil.isEmpty(request.getKycId())){
     		log.info("kycId为空");
-    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"kycId为空"));
     	}
-
-    	//从服务器获取图片路径
-    	String picturePath="";
+    	
+    	Customer cust = customerService.getByIdCardObserve(request.getKycId());
+    	if(ToolUtil.isEmpty(cust)) {
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"kycId数据不正确,没有查询到对象"));
+    	}
+    	    	    	    	
+    	String filePath="",ocrContent="";
+    	
+    	if(cust.getCardType()==1) {//id card
+    		filePath=cust.getIdCardPositive();
+    	}else if(cust.getCardType()==2){//passport
+    		filePath=cust.getIdPassport();
+    	}
+    	//设置OCR返回的图片路径
+		ocrContent=new JSONObject().toString();//cust.getIdCardHandheld();
+    	
+    	//从服务器获取图片数据
+    	String picturePath=path+filePath;
+    	    	
     	//向终端写图片数据
     	Downloadimg dl=new Downloadimg();
     	String fileContent="";
     	try {
-    		fileContent=dl.download1();
+    		fileContent=dl.download1(picturePath);
 		} catch (IOException e) {
 			log.info("报错:{}",e.getMessage());
 		}
+
+    	if(ToolUtil.isEmpty(fileContent)) {
+    		return ResponseEntity.ok(new DownFileResponse(BizExceptionEnum.FAIL,"",ocrContent,cust.getCardType()+""));        
+    	}else {
+    		return ResponseEntity.ok(new DownFileResponse(BizExceptionEnum.SUCCESS,fileContent,ocrContent,cust.getCardType()+""));        
+    	}
     	
-    	//log.info("请求终端接口/api/downloadImg返回数据：{}",fileContent);
-    	
-    	return ResponseEntity.ok(new DownFileResponse(BizExceptionEnum.SUCCESS,fileContent));        
 	}
 	
-    
+	@RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
+    public ResponseEntity<?> uploadImg(@RequestBody KycRequest request) {
+		log.info("请求接口/api/uploadImg,终端机号：{},kcyId：{}",request.getTermNo(),request.getKycId());
+    	    	
+    	if(ToolUtil.isEmpty(request.getKycId())){
+    		log.info("kycId为空");
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"kycId为空"));
+    	}
+    	
+    	if(ToolUtil.isEmpty(request.getPicContent())){
+    		log.info("上传图片为空");
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"上传图片为空"));
+    	}
+    	
+    	Customer cust = customerService.selectOne(new EntityWrapper<Customer>().eq("id_card_obverse", request.getKycId()));
+    	if(ToolUtil.isEmpty(cust)) {
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"kycId数据不正确,没有查询到对象"));
+    	}
+    	
+    	Downloadimg uploadImg=new Downloadimg();
+    	String picPath="";
+    	boolean uploadImage=false;
+    	try {
+    		picPath=uploadImg.createPicUrl(path);
+    		uploadImage=uploadImg.uploadImg(request.getPicContent(), picPath);
+		} catch (IOException e) {
+			log.error("上传人脸识别结果图片后台操作报错:{}",e);
+			//e.printStackTrace();
+			return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL.getCode(),"上传人脸识别结果图片后台操作报错"));
+		}
+    	if(uploadImage) {
+    		cust.setStatus(1);
+    		cust.setAuditOpinion(picPath);
+    		customerService.updateById(cust);
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.SUCCESS));
+    	}else {
+    		cust.setStatus(2);
+			customerService.updateById(cust);
+    		return ResponseEntity.ok(new BaseResponse(BizExceptionEnum.FAIL));
+    	}
+	}
+    	
 }

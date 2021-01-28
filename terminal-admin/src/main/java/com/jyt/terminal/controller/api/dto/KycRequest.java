@@ -14,6 +14,12 @@ public class KycRequest extends BaseRequest{
      * kyc上传的id
      */
     private String kycId;
+    
+	/**
+     * 上传成功的人脸图片
+     */
+    private String picContent;
+        
 
 	public String getKycId() {
 		return kycId;
@@ -22,5 +28,13 @@ public class KycRequest extends BaseRequest{
 	public void setKycId(String kycId) {
 		this.kycId = kycId;
 	}
-	    
+
+	public String getPicContent() {
+		return picContent;
+	}
+
+	public void setPicContent(String picContent) {
+		this.picContent = picContent;
+	}	
+	
 }

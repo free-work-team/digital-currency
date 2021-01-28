@@ -13,10 +13,7 @@
       overflow: hidden;
       height:100%;
      }
-     body{
-     	background-image:url(/static/img/bg.png);
-     	background-repeat:repeat-y;
-     }
+    
   </style>
   <script>
   var system = {};
@@ -31,12 +28,13 @@
     } else {
       window.location.href = "/kyc/friendly";
     }
+  
   } */
 
 </script>
 </head>
-<!-- <body style="background-color:#d3dae4;"> -->
-<body> 
+<body>
+<input id="kycId" value='${kycId}' type="hidden">
 <div class="con_title">
   <h2 class="lanClass" data-lanid="certification"></h2>
 </div>
@@ -49,38 +47,37 @@
 		  <input id="privacyPolicyContent" value='${agreement.privacyPolicyContent}' type="hidden">
 		  <input id="privacyPolicyTitle" value='${agreement.privacyPolicyTitle}' type="hidden">
 	  @}
-    <!--姓名-->
-   <!--  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="name">
+	<!--证件类型-->
+    
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
+		<label style="padding-right:25px;">Card Type:</label>
+        <select class="div_input" id="cardType" onchange="changeType()">
+          @for(cs in cardTypes!){
+          <option value="${cs.code}">${cs.label}</option>
+          @}
+        </select>
     </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
-      <input class="div_input" type="text" name="name" id="custName" value=""/>
-    </div> -->
-
-    <!--邮箱-->
-    <!-- <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="email">
+    
     </div>
+    <!--邮箱-->    
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
+      <label>Contact Email:</label>
       <input class="div_input" type="text" name="" id="email" value=""/>
-    </div> -->
+    </div>
 
-    <!--证件类型-->
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="cardType">
+	<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title" data-lanid="uploadTis">
+    	<label>Please upload valid ID Card/passport image</label>
     </div>
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_input">
-      <select class="div_input" id="cardType" onchange="changeType()">
-        @for(cs in cardTypes!){
-        <option value="${cs.code}">${cs.label}</option>
-        @}
-      </select>
-    </div>
+    
+    <div class="idandpassport" ><img id="identiId" src="/static/img/idandpassport.png"/></div>
+       
   </div>
   <!--基本信息区域 end-->
 
   <!--身份证校验上传图片区域 start-->
   <div id="idCardArea" class="row">
     <!--身份证正面-->
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardPositive">
-    </div>
     <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_photo">
       <div id="idCardPositiveDiv" class="layui-input-block photo">
         <div class="pic_list">
@@ -94,27 +91,10 @@
         <input type="button" class="btn btn-success" value="clear" onclick="cancleFile(this);"/>
       </span>
     </div>
-
-    <!--身份证背面-->
-    <!-- <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardObverse">
-    </div>
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_photo">
-      <div id="idCardObverseDiv" class="layui-input-block photo">
-        <div class="pic_list" style="width: 90%;height: 80%;margin: 0 auto;position: relative;top: 10%;margin-left: 5%;">
-          <span class="btn btn-successed fileinput-button" style="width: 100%;height: 100%;">
-            <input accept="image/*" capture="camera" type="file" id="idCardObverse" class="filesInput" onchange="getFiles(this)"/>
-          </span>
-        </div>
-      </div>
-      <span id="cancle-idCardObverseDiv" class="btn btn-success fileinput-button cancle">
-       <span class="fa fa-trash-o" style="font-size: 20px">X</span>
-       <input type="button" class="btn btn-success" value="clear" onclick="cancleFile(this);"/>
-     </span>
-    </div> -->
-
+    
   </div>
   <!--身份证校验上传图片区域 end-->
-
+ 
   <!--护照校验上传图片区域 start-->
   <div id="passportArea" class="row hidden">
     <!--身份证正面-->
@@ -135,30 +115,30 @@
     </div>
   </div>
   <!--护照校验上传图片区域 end-->
-
-  <!--手持证件照-->
-  <!-- <div id="handheldArea" class="row">
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title lanClass" data-lanid="idCardHandheld">
+  
+  <div>
+  	<div id="showUploadImage"><img alt="" src=""></div>
+  </div>
+  
+  <div>
+  	<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 label-title" data-lanid="uploadTis">
+    	<label>ID Card/passport requires</label>
     </div>
-    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 content_photo">
-      <div id="idCardHandheldDiv" class="layui-input-block photo">
-        <div class="pic_list" style="width: 90%;height: 80%;margin: 0 auto;position: relative;top: 10%;margin-left: 5%;">
-          <span class="btn btn-successed fileinput-button" style="width: 100%;height: 100%;">
-            <input accept="image/*" capture="camera" type="file" id="idCardHandheld" class="filesInput" onchange="getFiles(this)"/>
-          </span>
-        </div>
-      </div>
-      <span id="cancle-idCardHandheldDiv" class="btn btn-success fileinput-button cancle">
-       <span class="fa fa-trash-o" style="font-size: 20px">X</span>
-       <input type="button" class="btn btn-success" value="clear" onclick="cancleFile(this);"/>
-     </span>
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" data-lanid="uploadTis">
+    	<label>1.The passport within a validity period,should be your own Documents </label>
     </div>
-  </div> -->
-
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" data-lanid="uploadTis">
+    	<label>2.The passport Photos shall with complete borders,and keep clear</label>
+    </div>
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" data-lanid="uploadTis">
+    	<label>3.Photos should be within 5MB,support JEP/JPEG/PNG formet</label>
+    </div>    
+  </div>
+  
   <div class="row" style="margin:20px 0 100px;">
     <div id="agreeArea" class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" style="margin-top: 10px;margin-bottom: 10px;word-wrap:break-word;">
       <input type="checkbox" id="haveRed"/>
-      <label style="display: inline;">I agree to the 
+      <label style="display: inline;">&nbsp;I agree to the 
       <a style="text-decoration:underline"  onclick="showLicense()">
       @if(isNotEmpty(agreement)){
       ${agreement.agreementTitle}
@@ -195,38 +175,23 @@
       id        : 'certification',
       lanEnglish: 'Upload image',
       lanChinese: '上传认证信息'
-    }, {
-      /* id        : 'name',
-      lanEnglish: 'Full name as it appears on your document:',
-      lanChinese: '姓名:' */
-    }, {
-      /* id        : 'email',
+    },{
+      id        : 'email',
       lanEnglish: 'Contact Email:',
-      lanChinese: '邮箱:' */
-    }, {
-      id        : 'idCardPositive',
-      lanEnglish: 'The Front Of Your State ID Card:',
-      lanChinese: '身份ID正面照:'
-    }, {
-      /* id        : 'idCardObverse',
-      lanEnglish: 'The Back Of Your ID:',
-      lanChinese: '身份ID反面照:' */
-    }, {
-      /* id        : 'idCardHandheld',
-      lanEnglish: 'Please provide Selfie showing ID used with your face clearly:',
-      lanChinese: '手持身份证照:' */
+      lanChinese: '邮箱:'
     }, {
       id        : 'idPassport',
       lanEnglish: 'Passport photo:',
       lanChinese: '护照证件照:'
     }, {
+        id        : 'cardType',
+        lanEnglish: 'Please choose which ID you would like to use:',
+        lanChinese: '请选择您要使用的证件验证身份'
+      }, 
+    {
       id        : 'submitBtn',
-      lanEnglish: 'Upload image',
+      lanEnglish: 'Submit',
       lanChinese: '提交'
-    }, {
-      id        : 'cardType',
-      lanEnglish: 'Please choose which ID you would like to use:',
-      lanChinese: '请选择您要使用的证件验证身份'
     }
   ];
   $.each(languageStorageList, function (index, item) {

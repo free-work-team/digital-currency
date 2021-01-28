@@ -74,4 +74,11 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 		return customerMapper.getKycReviewList(page,customerDTO);
 	}
 
+	@Override
+	public Customer getByIdCardObserve(String idCardObserv) {
+		return customerMapper.getByIdCardObserve(idCardObserv);
+	}
+
+	
+	
 }

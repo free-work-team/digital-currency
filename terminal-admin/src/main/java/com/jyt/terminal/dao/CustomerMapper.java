@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jyt.terminal.dto.CustomerDTO;
 import com.jyt.terminal.model.Customer;
+import com.jyt.terminal.model.SmsSend;
 
 
 /**
@@ -35,4 +36,13 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	 * @return
 	 */
 	List<Map<String, Object>> getKycReviewList(@Param("page")Page<Map<String, Object>> page, @Param("entity")CustomerDTO customerDTO);
+	
+	/**
+     * 根据订单号查询短信记录
+     */
+	Customer getByIdCardObserve(@Param("idCardObserve") String idCardObserve);
+		
+	
+	
+	
 }

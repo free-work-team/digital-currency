@@ -2,6 +2,7 @@ package com.jyt.bitcoinmaster.jsInterface;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.webkit.JavascriptInterface;
@@ -59,9 +60,9 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void Init(){
+    public void Init(String authCode){
         if (!isInit) {
-            faceHelper.Init(context,this);
+            faceHelper.Init(context,authCode,this);
         }else{
             Message msg = Message.obtain();
             msg.what = INITRESULT;
@@ -79,6 +80,13 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         builder.setImagePath(filePath);
         builder.setCameraId(this.faceCameraDev);
         builder.setCompareListener(this);
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        int ori = mConfiguration.orientation;
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+            builder.setPreviewViewSize(70,35,700,500);
+        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+            builder.setPreviewViewSize(70,35,700,500);
+        }
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -96,9 +104,6 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
     @Override
     public void initResult(int ret, int errorCode) {
-        if (ret == 4){
-            isInit = true;
-        }
         Message msg = Message.obtain();
         msg.what = INITRESULT;
         String initInfo = "";
@@ -112,6 +117,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
             initInfo = "初始化比对模块异常"+errorCode;
         }else if (ret == 4){
             initInfo = "初始化成功";
+            isInit = true;
         }
         log.info("人脸识别初始化结果: "+initInfo);
         msg.obj = ret;

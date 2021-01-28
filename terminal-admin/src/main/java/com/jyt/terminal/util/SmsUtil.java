@@ -8,13 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 import org.apache.http.NameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.alibaba.fastjson.JSONObject;
-import com.jyt.terminal.model.SmsSend;
 import com.jyt.terminal.util.https.HttpsClientUtil;
 
 /**
@@ -115,7 +112,9 @@ public class SmsUtil {
 		StringBuilder sb=new StringBuilder();
 		//根据手机号判断是国内还是国外，如果是国内手机号,则走模板,反之则走自定义模块
 		if(phone.contains("86")) {
-			sb.append("【无限云】您的验证码为：").append(smsCode).append("，请在一分钟内使用，谢谢！");
+			//sb.append("【无限云】您的验证码为：").append(smsCode).append("，请在一分钟内使用，谢谢！");
+			sb.append("【Hunghui】Your verification code is ").append(smsCode).
+				append(". Please don't disclose your code.");
 		}else {
 			sb.append("BTM: ").append(smsCode).
 			   append(" is your verification code. Do not share this code with anyone.[PIN]");

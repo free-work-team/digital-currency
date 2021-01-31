@@ -42,7 +42,8 @@ public class AIPPFaceHelper {
      * @param context
      * @param listener
      */
-    public  void Init(Context context, String authCode,DetectedListener listener){
+    public  void Init(Context context,DetectedListener listener){
+        String authCode ="URTCDKWAI4ZRHDA3";
         this.listener = listener;
         if (DetectEngine==null)
             DetectEngine = new AIPP_FDHandle(context);

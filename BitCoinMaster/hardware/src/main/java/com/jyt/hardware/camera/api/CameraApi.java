@@ -32,7 +32,7 @@ public class CameraApi {
 	private static PrintStream output;
 	private static BufferedReader in;
 	/**
-	 * 默认硬盘路径  /storage/external_storage/sda1/JYT
+	 * 默认硬盘路径  /storage/external_storage/sda1/HungHui
 	 */
 	/**
 	 * 摄像头0状态 0默认状态（关闭成功），1打开成功，2打开失败，3关闭失败

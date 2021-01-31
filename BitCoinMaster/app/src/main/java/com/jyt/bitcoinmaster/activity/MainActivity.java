@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 日志保存路径
      */
-    private String path = Environment.getExternalStorageDirectory().getPath()+ File.separator + "JYT" + File.separator + "logs";
+    private String path = Environment.getExternalStorageDirectory().getPath()+ File.separator + "HungHui" + File.separator + "logs";
 
     /**
      * 当前的日志命令

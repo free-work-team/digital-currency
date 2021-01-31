@@ -10,9 +10,9 @@ import org.apache.log4j.Logger;
 
 
 public class CashBoxSqlite extends SQLiteOpenHelper {
-	private static String DBName = Environment.getExternalStorageDirectory().getAbsolutePath()+"/JYT/CashBox";
+	private static String DBName = Environment.getExternalStorageDirectory().getAbsolutePath()+"/HungHui/CashBox";
 	private static Logger log = Logger.getLogger("BitCoinMaster");
-//	private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/JYT/CashBox";
+//	private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/HungHui/CashBox";
 	//private String table2="cashbox";
 	private static int DBVersion = 5;//当前数据库版本
 //	private String create_table1="create table log  (_id integer  primary key,type integer,log varchar,date varchar,time varchar)";

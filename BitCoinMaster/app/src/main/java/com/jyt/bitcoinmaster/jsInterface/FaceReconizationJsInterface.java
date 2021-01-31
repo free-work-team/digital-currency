@@ -34,7 +34,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
 
     private static final int FACERESULT =1;
     private static final int INITRESULT =2;
-    private boolean isInit = false;
+    private static boolean isInit = false;
     private FaceRecognizationDialog dialog;
     private Handler handler = new Handler(){
         @Override
@@ -60,9 +60,11 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void Init(String authCode){
+    public void Init(){
+        log.info("人脸识别初始化isInit = "+isInit);
         if (!isInit) {
-            faceHelper.Init(context,authCode,this);
+            log.info("-------------------------------首次人脸识别初始化isInit");
+            faceHelper.Init(context,this);
         }else{
             Message msg = Message.obtain();
             msg.what = INITRESULT;

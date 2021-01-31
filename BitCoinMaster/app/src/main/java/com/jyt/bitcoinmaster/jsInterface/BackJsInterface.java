@@ -312,7 +312,7 @@ public class BackJsInterface {
     @JavascriptInterface
     public boolean sendLogs(String email, String date) {
         List<EntityFile> allFileList = new ArrayList<>();
-        File directoryVideo = Environment.getExternalStoragePublicDirectory("JYT/Logs");
+        File directoryVideo = Environment.getExternalStoragePublicDirectory("HungHui/Logs");
         getSDCardFile(allFileList, directoryVideo, ".log");// 获得日志文件
         try {
             List<EntityFile> resultLogs = getLogFile(allFileList, date, 30);
@@ -325,7 +325,7 @@ public class BackJsInterface {
             for (EntityFile entityFile : resultLogs) {
                 srcfile.add(new File(entityFile.getPath()));
             }
-            File zip = new File(Environment.getExternalStorageDirectory(), "JYT/Logs/" + date + ".zip");// 压缩文件
+            File zip = new File(Environment.getExternalStorageDirectory(), "HungHui/Logs/" + date + ".zip");// 压缩文件
             ZipFiles(srcfile, zip);
             return SendMailUtil.send(zip, email, "LOG", "The log of " + date);
         } catch (Exception e) {

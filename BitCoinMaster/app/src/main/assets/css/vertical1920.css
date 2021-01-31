@@ -1201,9 +1201,10 @@
     width: 560px;
     background-image: url(../img/icon-home/scanTest.png);
     background-size: 100%;
-    height: 441px;
+    height: 380px;
     margin-left: 200px;
     background-repeat: no-repeat;
+    border: 3px solid #fff;
   }
   .new-panel-title {
     color: #fff;

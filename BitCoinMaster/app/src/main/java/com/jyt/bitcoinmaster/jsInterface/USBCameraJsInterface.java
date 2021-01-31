@@ -5,10 +5,13 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.os.storage.StorageManager;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -41,6 +44,7 @@ public class USBCameraJsInterface implements CameraListener {
     private CramerThread thread;
     private Config config;
     private int cameraId;
+    private RelativeLayout surfaceRL;
 
     private Handler handler = new Handler(){
         @Override
@@ -52,10 +56,11 @@ public class USBCameraJsInterface implements CameraListener {
         }
     };
 
-    public USBCameraJsInterface(Context context, WebView webView, SurfaceView surfaceView, SurfaceHolder surfaceHolder) {
+    public USBCameraJsInterface(Context context, WebView webView, RelativeLayout surfaceRL, SurfaceView surfaceView, SurfaceHolder surfaceHolder) {
         this.webView = webView;
         this.context = context;
-        thread = new CramerThread(surfaceView,surfaceHolder);
+        this.surfaceRL = surfaceRL;
+        thread = new CramerThread(surfaceRL,surfaceView,surfaceHolder);
     }
 
     /**
@@ -145,7 +150,16 @@ public class USBCameraJsInterface implements CameraListener {
         }else if(type == 2){
             str = str+"-sell";
         }
-        thread.startRecord(this.cameraId,videoPath);
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        int ori = mConfiguration.orientation;
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+            Log.e("横屏","landscape");
+            thread.setSurfaceViewSize(100,100,400,400);
+        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+            Log.e("竖屏","portrait");
+            thread.setSurfaceViewSize(200,200,400,400);
+        }
+        thread.startRecord(this.cameraId,videoPath,str);
     }
 
     /**
@@ -164,7 +178,16 @@ public class USBCameraJsInterface implements CameraListener {
         }else if(type == 2){
             str = str+"-sell";
         }
-        thread.startRecord(this.cameraId,videoPath);
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        int ori = mConfiguration.orientation;
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+            Log.e("横屏1","landscape");
+            thread.setSurfaceViewSize(100,100,400,400);
+        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+            Log.e("竖屏1","portrait");
+            thread.setSurfaceViewSize(200,200,400,400);
+        }
+        thread.startRecord(this.cameraId,videoPath,str);
     }
 
     /**
@@ -174,6 +197,13 @@ public class USBCameraJsInterface implements CameraListener {
     public void stopMonitor(){
         try {
             thread.stopRecord();
+            surfaceRL.post(new Runnable() {
+                @Override
+                public void run() {
+                    surfaceRL.setVisibility(View.GONE);
+                }
+            });
+
         } catch (Exception e) {
             log.error("结束录像error", e);
         }
@@ -196,8 +226,8 @@ public class USBCameraJsInterface implements CameraListener {
     @JavascriptInterface
     public String getSDCardVideo() {
         List<EntityFile> allVideoList = new ArrayList<>();
-        File directoryVideo = new File(videoPath+"/Video");
-        getSDCardFile(allVideoList, directoryVideo, ".m4v");// 获得视频文件
+        File directoryVideo = new File(videoPath+"/HungHui");
+        getSDCardFile(allVideoList, directoryVideo, ".mp4");// 获得视频文件
         return JSONObject.toJSONString(allVideoList);
     }
 

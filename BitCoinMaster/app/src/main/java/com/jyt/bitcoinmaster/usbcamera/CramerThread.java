@@ -1,5 +1,6 @@
 package com.jyt.bitcoinmaster.usbcamera;
 
+import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -11,9 +12,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
+import com.jyt.bitcoinmaster.utils.PermisionUtils;
 import com.jyt.hardware.camera.listener.CameraListener;
 
 import java.io.File;
@@ -28,6 +32,8 @@ public class CramerThread {
     private MediaRecorder mediarecorder;// 录制视频的类private long
     private SurfaceHolder surfaceHolder;
     private SurfaceView surfaceview;// 显示视频的控件
+    private RelativeLayout surfaceRL;
+    private Context context;
     private Camera mCamera;
     private long recordTime;
     private long startTime = Long.MIN_VALUE;
@@ -39,19 +45,27 @@ public class CramerThread {
     private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
 
 
-    public CramerThread(SurfaceView surfaceview,
+    public CramerThread(Context context,RelativeLayout surfaceRL, SurfaceView surfaceview,
                         SurfaceHolder surfaceHolder) {
+        this.context = context;
+        this.surfaceRL = surfaceRL;
         this.surfaceview = surfaceview;
         this.surfaceHolder = surfaceHolder;
     }
 
     public void setSurfaceViewSize( int x,int y,int width, int height){
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
-        lp.gravity = Gravity.LEFT|Gravity.TOP;
-        lp.leftMargin = x; //矩形距离原点最近的点距离X轴的距离
-        lp.topMargin = y; //矩形距离原点最近的点距离Y轴的距离
-        //以上两个值，即坐标(x,y);
-        surfaceview.setLayoutParams(lp);
+        surfaceRL.post(new Runnable() {
+            @Override
+            public void run() {
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
+                lp.gravity = Gravity.LEFT|Gravity.TOP;
+                lp.leftMargin = x; //矩形距离原点最近的点距离X轴的距离
+                lp.topMargin = y; //矩形距离原点最近的点距离Y轴的距离
+                //以上两个值，即坐标(x,y);
+                surfaceRL.setLayoutParams(lp);
+                surfaceRL.setVisibility(View.VISIBLE);
+            }
+        });
     }
     /**
      * 获取摄像头状态
@@ -88,7 +102,7 @@ public class CramerThread {
     }
 
     /** * 开始录像 */
-    public void startRecord(int cameraId,String path) {
+    public void startRecord(int cameraId,String path,String fileName) {
         Log.e(TAG,"开始录像");
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
         mCamera = getCameraInstance(cameraId); // 解锁camera
@@ -103,8 +117,8 @@ public class CramerThread {
         // 创建媒体文件名
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                 .format(new Date());
-        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
-//        mediarecorder.setOutputFile(v);
+//        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
+        mediarecorder.setOutputFile(getOutputMediaFile(2,path,fileName).toString());
         try { // 准备录制
             mediarecorder.prepare(); // 开始录制
             mediarecorder.start();
@@ -134,7 +148,6 @@ public class CramerThread {
     /** * 停止录制 */
     public void stopRecord() {
         Log.e(TAG,"结束录像");
-
         if (mediarecorder != null) {
             // 停止录制
             mediarecorder.stop();
@@ -205,17 +218,18 @@ public class CramerThread {
 
     }
 
-    private static File getOutputMediaFile(int type) {
+    private static File getOutputMediaFile(int type,String path,String fileName) {
         // 判断SDCard是否存在
         if (!Environment.MEDIA_MOUNTED.equals(Environment
                 .getExternalStorageState())) {
             Log.d(TAG, "SDCard不存在");
             return null;
         }
-
-        File mediaStorageDir = new File(
-                Environment.getExternalStorageDirectory() + File.separator
-                        + "/testimage/");
+//        PermisionUtils.verifyStoragePermissions(context);
+        // 创建媒体文件名
+        String timedir = new SimpleDateFormat("yyyyMMdd")
+                .format(new Date());
+        File mediaStorageDir = new File(path + "/HungHui/");
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
                 Log.d(TAG, "failed to create directory");
@@ -225,18 +239,13 @@ public class CramerThread {
         // 创建媒体文件名
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                 .format(new Date());
-        File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "IMG_" + timestamp + ".jpg");
-        } else if (type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "VID_" + timestamp + ".mp4");
-        } else {
-            Log.d(TAG, "文件类型有误");
-            return null;
-        }
-
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    +fileName + ".mp4");
+            try {
+                mediaFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         return mediaFile;
     }
 }

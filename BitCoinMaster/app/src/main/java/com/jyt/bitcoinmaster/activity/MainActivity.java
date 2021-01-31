@@ -19,6 +19,9 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 import android.webkit.*;
+import android.widget.RelativeLayout;
+
+import com.jyt.bitcoinmaster.utils.PermisionUtils;
 import com.jyt.hardware.config.Config;
 import com.jyt.bitcoinmaster.cashAcceptor.CashAcceptorFactory;
 import com.jyt.bitcoinmaster.R;
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
+    private RelativeLayout surfaceRL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
         prohibitDropDown();
         setPermision();
+
     }
 
     //禁止下拉通知方法
@@ -155,7 +160,9 @@ public class MainActivity extends AppCompatActivity {
         //设置硬件通讯参数
         DBHelper helper = DBHelper.getHelper();
         ((MyApp)getApplicationContext()).setConfig(setConfig( helper.queryAllKey()));
+
         surfaceView = findViewById(R.id.surfaceView);
+        surfaceRL = findViewById(R.id.surfaceRL);
         surfaceHolder = surfaceView.getHolder();
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.loadUrl("file:///android_asset/pages/init.html");//加载本地asset下面的js_java_interaction.html文件
@@ -171,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView.addJavascriptInterface(new BackJsInterface(this,mWebView), "back");
         mWebView.addJavascriptInterface(new UploadTimer(this,mWebView), "webTimer");
 //        mWebView.addJavascriptInterface(new CameraJsInterface(this,mWebView), "camera");
-        mWebView.addJavascriptInterface(new USBCameraJsInterface(this,mWebView,surfaceView,surfaceHolder), "camera");
+        mWebView.addJavascriptInterface(new USBCameraJsInterface(this,mWebView,surfaceRL,surfaceView,surfaceHolder), "camera");
         mWebView.addJavascriptInterface(new HungHuiLedJsInterface(this,mWebView), "led");
         mWebView.addJavascriptInterface(new BusinessJsInterface(this,mWebView), "business");
         mWebView.addJavascriptInterface(new FrontJsInterface(this,mWebView), "front");
@@ -259,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
         rxPermissions
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
                         Manifest.permission.CAMERA,
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.INTERNET) .

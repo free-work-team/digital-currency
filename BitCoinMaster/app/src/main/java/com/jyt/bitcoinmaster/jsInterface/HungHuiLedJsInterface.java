@@ -124,7 +124,7 @@ public class HungHuiLedJsInterface {
     public void onResult(boolean status, String message) {
         log.info("[LEDJsInterface]:"+"status="+status+",message="+message);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",status);
+        jsonObject.put("status",true);
         jsonObject.put("message",message);
         Message msg = Message.obtain();
         msg.obj = JSONObject.toJSONString(jsonObject);

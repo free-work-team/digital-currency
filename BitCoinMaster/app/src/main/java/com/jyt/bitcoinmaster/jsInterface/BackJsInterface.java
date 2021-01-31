@@ -528,10 +528,9 @@ public class BackJsInterface {
                 config.setPrintBaudrate(hConfig.getHwValue());
             } else if ("LEDDev".equals(hConfig.getHwKey())) {
                 config.setLEDCOM(hConfig.getHwValue());
+                config.setLEDCOM2(hConfig.getHwValue());
             } else if ("LEDId".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedId(Integer.parseInt(hConfig.getHwValue()));
-            } else if ("LEDDev2".equals(hConfig.getHwKey())) {
-                config.setLEDCOM2(hConfig.getHwValue());
             } else if ("LEDId2".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {
                 config.setLedId2(Integer.parseInt(hConfig.getHwValue()));
             } else if ("LEDBussiness".equals(hConfig.getHwKey()) && StringUtils.isNotBlank(hConfig.getHwValue())) {

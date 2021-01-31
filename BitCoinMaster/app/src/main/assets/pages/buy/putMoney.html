@@ -138,7 +138,7 @@
     showWarn("Insufficient wallet balance,Please contact the administrator!");
     setTimeout(function () {
       toHome();
-    },1500)
+    },4000)
   }
 
   function done() {
@@ -269,11 +269,10 @@
       $("#minNeedCash").text(formatPrice(minNeedCash));
     }
     $('.merchant_buyTransactionFee').text(buyTransactionFee+" % +" +formatPrice(buySingleFee)+ getCurrency());
-
-    // setTimeout(function () {
-    //   // 开启接收模式
-    //   window.billAcceptor.setDeviceEnable(true);
-    // }, 2000);
+    setTimeout(function () {
+      // 开启led闪烁
+      window.led.openLed2();
+    }, 1000);
   }
 
 </script>

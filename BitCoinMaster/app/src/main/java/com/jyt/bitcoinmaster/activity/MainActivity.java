@@ -21,7 +21,6 @@ import android.view.*;
 import android.webkit.*;
 import android.widget.RelativeLayout;
 
-import com.jyt.bitcoinmaster.utils.PermisionUtils;
 import com.jyt.hardware.config.Config;
 import com.jyt.bitcoinmaster.cashAcceptor.CashAcceptorFactory;
 import com.jyt.bitcoinmaster.R;

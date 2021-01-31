@@ -77,60 +77,69 @@ public class YSPrinterJsInterface {
      * 连接打印机
      */
     @JavascriptInterface
-    public void init(){
-        mPrinter= PrinterAPI.getInstance();
-        log.info("[PrinterJsInterface]:"+"正在连接打印机");
-        io = new USBAPI(context);
-        int ret =  mPrinter.connect(io);
-        boolean status = false;
-        String message = "打印机连接失败";
-        if (ret == 0){
-            status = true;
-            message = "打印机连接成功";
-        }
-        log.info("[PrinterJsInterface]:"+"status="+status+",message="+message);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",status);
-        jsonObject.put("message",message);
-        Message msg = Message.obtain();
-        msg.what = INIT;
-        msg.obj = JSONObject.toJSONString(jsonObject);
-        handler.sendMessage(msg);
-
+    public void init() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mPrinter = PrinterAPI.getInstance();
+                log.info("[PrinterJsInterface]:" + "正在连接打印机");
+                io = new USBAPI(context);
+                int ret = mPrinter.connect(io);
+                boolean status = false;
+                String message = "打印机连接失败";
+                if (ret == 0) {
+                    status = true;
+                    message = "打印机连接成功";
+                }
+                log.info("[PrinterJsInterface]:" + "status=" + status + ",message=" + message);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("status", status);
+                jsonObject.put("message", message);
+                Message msg = Message.obtain();
+                msg.what = INIT;
+                msg.obj = JSONObject.toJSONString(jsonObject);
+                handler.sendMessage(msg);
+            }
+        }).start();
     }
 
     /**
      * 获取打印机状态
      */
     @JavascriptInterface
-    public void getStatus(){
+    public void getStatus() {
 //            String message= StatusDescribe.getStatusDescribe(mPrinter.getStatus());
-        byte[] bytes = new byte[]{0x10, 0x04, 0x01, 0x10, 0x04, 0x02, 0x10, 0x04, 0x03, 0x10, 0x04, 0x04};
-        mPrinter.sendOrder(bytes);
-        byte[] ret = new byte[4];
-        mPrinter.readIO(ret, 0, ret.length, 2 * 1000);
-        boolean status = false;
-        String message = "";
-        if (!getBit(ret[3],5)&&!getBit(ret[3],6)){
-            if (!getBit(ret[3],2)&&!getBit(ret[3],3)){
-                status = true;
-                message = "正常";
-            }else{
-                status = true;
-                message ="纸将尽";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bytes = new byte[]{0x10, 0x04, 0x01, 0x10, 0x04, 0x02, 0x10, 0x04, 0x03, 0x10, 0x04, 0x04};
+                mPrinter.sendOrder(bytes);
+                byte[] ret = new byte[4];
+                mPrinter.readIO(ret, 0, ret.length, 2 * 1000);
+                boolean status = false;
+                String message = "";
+                if (!getBit(ret[3], 5) && !getBit(ret[3], 6)) {
+                    if (!getBit(ret[3], 2) && !getBit(ret[3], 3)) {
+                        status = true;
+                        message = "正常";
+                    } else {
+                        status = true;
+                        message = "纸将尽";
+                    }
+                } else {
+                    status = false;
+                    message = "纸尽";
+                }
+                log.info("[PrinterJsInterface]:" + "status=" + status + ",message=" + message);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("status", status);
+                jsonObject.put("message", message);
+                Message msg = Message.obtain();
+                msg.what = STATUS;
+                msg.obj = JSONObject.toJSONString(jsonObject);
+                handler.sendMessage(msg);
             }
-        }else{
-            status = false;
-            message = "纸尽";
-        }
-        log.info("[PrinterJsInterface]:"+"status="+status+",message="+message);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",status);
-        jsonObject.put("message",message);
-        Message msg = Message.obtain();
-        msg.what = STATUS;
-        msg.obj = JSONObject.toJSONString(jsonObject);
-        handler.sendMessage(msg);
+        }).start();
     }
 
     /**

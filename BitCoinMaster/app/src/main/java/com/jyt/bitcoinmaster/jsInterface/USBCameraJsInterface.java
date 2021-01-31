@@ -154,14 +154,13 @@ public class USBCameraJsInterface implements CameraListener {
         int ori = mConfiguration.orientation;
         if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
             Log.e("横屏","landscape");
-            thread.setSurfaceViewSize(100,100,400,400);
+            thread.setSurfaceViewSize(80,450,600,400);
         }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
             Log.e("竖屏","portrait");
-            thread.setSurfaceViewSize(200,200,400,400);
+            thread.setSurfaceViewSize(210,535,650,400);
         }
         thread.startRecord(this.cameraId,videoPath,str);
     }
-
     /**
      * 开始录像
      */
@@ -182,10 +181,10 @@ public class USBCameraJsInterface implements CameraListener {
         int ori = mConfiguration.orientation;
         if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
             Log.e("横屏1","landscape");
-            thread.setSurfaceViewSize(100,100,400,400);
+            thread.setSurfaceViewSize(80,450,600,400);
         }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
             Log.e("竖屏1","portrait");
-            thread.setSurfaceViewSize(200,200,400,400);
+            thread.setSurfaceViewSize(210,535,650,400);
         }
         thread.startRecord(this.cameraId,videoPath,str);
     }
@@ -226,7 +225,7 @@ public class USBCameraJsInterface implements CameraListener {
     @JavascriptInterface
     public String getSDCardVideo() {
         List<EntityFile> allVideoList = new ArrayList<>();
-        File directoryVideo = new File(videoPath+"/HungHui");
+        File directoryVideo = new File(videoPath+"/Android/data/com.jyt.bitcoinmaster/files/HungHui/");
         getSDCardFile(allVideoList, directoryVideo, ".mp4");// 获得视频文件
         return JSONObject.toJSONString(allVideoList);
     }

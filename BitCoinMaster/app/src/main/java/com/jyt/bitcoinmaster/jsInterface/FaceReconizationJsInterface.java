@@ -88,7 +88,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
             builder.setPreviewViewSize(70,35,700,500);
         }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
-            builder.setPreviewViewSize(70,35,700,500);
+            builder.setPreviewViewSize(210,-335,650,400);
         }
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);

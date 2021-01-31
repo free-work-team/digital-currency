@@ -4,12 +4,6 @@
     android:layout_height="match_parent"
 
     >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/faceback"
-            android:layout_margin="20dp"
-            ></ImageView>
 
         <ImageView
             android:layout_width="wrap_content"

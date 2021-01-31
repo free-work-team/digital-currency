@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -90,7 +91,8 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
             builder.setPreviewViewSize(70,35,700,500);
         }
         dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         dialog.show();
     }
 

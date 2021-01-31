@@ -13,11 +13,9 @@ import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.jyt.bitcoinmaster.utils.PermisionUtils;
 import com.jyt.hardware.camera.listener.CameraListener;
 
 import java.io.File;
@@ -45,7 +43,7 @@ public class CramerThread {
     private Integer cameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
 
 
-    public CramerThread(Context context,RelativeLayout surfaceRL, SurfaceView surfaceview,
+    public CramerThread(RelativeLayout surfaceRL, SurfaceView surfaceview,
                         SurfaceHolder surfaceHolder) {
         this.context = context;
         this.surfaceRL = surfaceRL;
@@ -229,7 +227,7 @@ public class CramerThread {
         // 创建媒体文件名
         String timedir = new SimpleDateFormat("yyyyMMdd")
                 .format(new Date());
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/HungHui/");
+        File mediaStorageDir = new File(path+ "/Android/data/com.jyt.bitcoinmaster/files/HungHui/"+timedir);
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
                 Log.d(TAG, "failed to create directory");

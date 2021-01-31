@@ -13,7 +13,9 @@ import com.aippsdks.facedetection.AIPP_FRFace;
 import com.aippsdks.facedetection.AIPP_FRHandle;
 import com.aippsdks.facedetection.AIPP_FRMatching;
 import com.aippsdks.facedetection.AIPP_FTHelper;
+import com.jyt.bitcoinmaster.activity.MyApp;
 import com.jyt.bitcoinmaster.facerecognization.listener.DetectedListener;
+import com.jyt.hardware.config.Config;
 
 
 import java.util.ArrayList;
@@ -30,6 +32,10 @@ public class AIPPFaceHelper {
     private static AIPP_FTHelper m_FaceTraceHelper;
     private DetectedListener listener;
     private static AIPPFaceHelper aippFaceHelper;
+
+    private static Config config;
+    private static String faceRegister;
+
     public static AIPPFaceHelper getInstance(){
         if (aippFaceHelper==null){
             aippFaceHelper = new AIPPFaceHelper();
@@ -43,7 +49,10 @@ public class AIPPFaceHelper {
      * @param listener
      */
     public  void Init(Context context,DetectedListener listener){
-        String authCode ="URTCDKWAI4ZRHDA3";
+        config = ((MyApp) context.getApplicationContext()).getConfig();
+        faceRegister =  config.getFaceRegistration();
+//        String authCode ="URTCDKWAI4ZRHDA3";
+        String authCode =faceRegister;
         this.listener = listener;
         if (DetectEngine==null)
             DetectEngine = new AIPP_FDHandle(context);

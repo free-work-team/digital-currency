@@ -544,6 +544,8 @@ public class BackJsInterface {
                 config.setCameraDev(Integer.parseInt(hConfig.getHwValue()));
             } else if ("FaceCameraDev".equals(hConfig.getHwKey())) {
                 config.setFaceCameraDev(Integer.parseInt(hConfig.getHwValue()));
+            } else if ("FaceRegistration".equals(hConfig.getHwKey())) {
+                config.setFaceRegistration(hConfig.getHwValue());
             }
         }
         return config;

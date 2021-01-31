@@ -393,9 +393,9 @@ body {
   width: 40%;
 }
 .card-img{
-  max-width: 300px;
-  max-height: 300px;
-  margin-top: 200px;
+  max-width: 800px;
+  max-height: 400px;
+  margin-top: 35px;
   height: auto;
   width: auto;
 }

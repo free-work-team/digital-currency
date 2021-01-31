@@ -50,7 +50,7 @@
   </div>
   <div>
     <div class="faceinfo-area" style="background-image: url(../../img/icon-home/faceBack.png);display: flex">
-      <div class="faceinfo-area-left">
+      <div class="faceinfo-area-left hidden">
         <p id="idCardArea" class="hidden"><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> IDCARD INFO</p>
         <p id="passportArea" class="hidden"><img src="../../img/icon-home/passprot-icon.png" class="card-icon"> PASSPORT INFO</p>
         <br>
@@ -152,14 +152,14 @@
       if (kycInfo) {
         var kycInfoObj = JSON.parse(kycInfo);
         $('#card-img-base').attr("src", "data:image/*;base64," + kycInfoObj.fileStr);
-        //身份照
-        if (kycInfoObj.cardType == 1) {
-          $('#idCardArea').removeClass("hidden");
-        }
-        //护照
-        if (kycInfoObj.cardType == 2) {
-          $('#passportArea').removeClass("hidden");
-        }
+        // //身份照
+        // if (kycInfoObj.cardType == 1) {
+        //   $('#idCardArea').removeClass("hidden");
+        // }
+        // //护照
+        // if (kycInfoObj.cardType == 2) {
+        //   $('#passportArea').removeClass("hidden");
+        // }
         $('#ocrContent').html(jsonToText(JSON.stringify(kycInfoObj.ocrContent)));
       } else {
         ErrorPage.toError("KycInfo error,Please try again");

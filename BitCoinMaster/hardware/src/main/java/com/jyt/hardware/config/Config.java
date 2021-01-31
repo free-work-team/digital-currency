@@ -33,9 +33,19 @@ public class Config implements Serializable {
     private String LEDCOM2;
     private int LedId2 = 7;
 
+    private String FaceRegistration;
+
 
 
     public Config() {
+    }
+
+    public String getFaceRegistration() {
+        return FaceRegistration;
+    }
+
+    public void setFaceRegistration(String faceRegistration) {
+        FaceRegistration = faceRegistration;
     }
 
     public String getLEDCOM2() {

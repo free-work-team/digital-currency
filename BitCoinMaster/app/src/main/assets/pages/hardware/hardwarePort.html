@@ -41,6 +41,16 @@
       /*font-size: 25px;*/
     }
 
+    .faceRegister{
+      padding: 9px 16px;
+      border-radius: 6px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: #ec9955;
+      line-height: 22px;
+      font-size: 16px;
+      font-family: inherit;
+    }
   </style>
 </head>
 <body class="back-allBg">
@@ -231,6 +241,12 @@
         <option>1</option>
       </select>
     </div>
+
+
+    <div class="index-item thisItem">
+      <div>Face Registration code:</div>
+      <input id="FaceRegistration" value="" class="faceRegister">
+    </div>
   </div>
 
 </div>
@@ -264,6 +280,12 @@
       };
       listConfig.push(obj);
     });
+    listConfig.push(
+      {
+        'hwKey'  : "FaceRegistration",
+        'hwValue': $('#FaceRegistration').val()
+      }
+    );
    return  window.back.saveConfig(JSON.stringify(listConfig));
   }
 
@@ -336,6 +358,9 @@
           }
         }
       });
+      if ('FaceRegistration' === itemHw.hwKey) {
+          $('#FaceRegistration').val(itemHw.hwValue);
+      }
     });
 
     $('#PrinterComType').on('change', function () {

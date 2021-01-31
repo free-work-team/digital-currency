@@ -229,7 +229,7 @@ public class CramerThread {
         // 创建媒体文件名
         String timedir = new SimpleDateFormat("yyyyMMdd")
                 .format(new Date());
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/HungHui/");
+        File mediaStorageDir = new File(path+ "/Android/data/com.jyt.bitcoinmaster/files/HungHui/"+timedir);
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
                 Log.d(TAG, "failed to create directory");

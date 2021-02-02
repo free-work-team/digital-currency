@@ -195,14 +195,13 @@ public class USBCameraJsInterface implements CameraListener {
     @JavascriptInterface
     public void stopMonitor(){
         try {
-            thread.stopRecord();
             surfaceRL.post(new Runnable() {
                 @Override
                 public void run() {
                     surfaceRL.setVisibility(View.GONE);
                 }
             });
-
+            thread.stopRecord();
         } catch (Exception e) {
             log.error("结束录像error");
         }

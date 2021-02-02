@@ -58,7 +58,7 @@ public class FaceRecognizationDialog extends Dialog {
         super(context, themeResId);
     }
 
-    public static class Builder implements  ViewTreeObserver.OnGlobalLayoutListener {
+    public static class Builder {
         private String TAG = "FaceRecognizationDialog";
         private Context context;
         private TextureView previewView;
@@ -126,14 +126,7 @@ public class FaceRecognizationDialog extends Dialog {
             int top = params.y-50;
             int bottom = params.height-20;
 
-            // 从上到下的平移动画
-            Animation verticalAnimation = new TranslateAnimation(0, 0, 0, bottom);
-            verticalAnimation.setDuration(2000); // 动画持续时间
-            verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
-            verticalAnimation.setRepeatMode(Animation.RESTART);
-            // 播放动画
-            scan.setAnimation(verticalAnimation);
-            scan.startAnimation(verticalAnimation);
+
 
             Bitmap resource = BitmapFactory.decodeFile(imagePath);
             width = resource.getWidth();
@@ -148,7 +141,12 @@ public class FaceRecognizationDialog extends Dialog {
                 mFaceHandle = new Handler(mFaceHandleThread.getLooper());
                 faceThread = new FaceThread();
                 //在布局结束后才做初始化操作
-                previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+                previewView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        initCamera(scan,bottom);
+                    }
+                });
             }else{
                 Log.e(TAG,"图片未检测到人脸");
                 listener.detectedResult(false,0,"图片未检测到人脸");
@@ -157,7 +155,7 @@ public class FaceRecognizationDialog extends Dialog {
             return dialog;
         }
 
-        private void initCamera() {
+        private void initCamera(ImageView scan,int bottom) {
 //            DisplayMetrics metrics = new DisplayMetrics();
 //            getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -166,6 +164,14 @@ public class FaceRecognizationDialog extends Dialog {
                 public void onCameraOpened(Camera camera, int cameraId, int displayOrientation, boolean isMirror) {
                     Log.i(TAG, "onCameraOpened: " + cameraId + "  " + displayOrientation + " " + isMirror);
                     previewSize = camera.getParameters().getPreviewSize();
+                    // 从上到下的平移动画
+                    Animation verticalAnimation = new TranslateAnimation(0, 0, 0, bottom);
+                    verticalAnimation.setDuration(2000); // 动画持续时间
+                    verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
+                    verticalAnimation.setRepeatMode(Animation.RESTART);
+                    // 播放动画
+                    scan.setAnimation(verticalAnimation);
+                    scan.startAnimation(verticalAnimation);
                 }
 
 
@@ -202,10 +208,7 @@ public class FaceRecognizationDialog extends Dialog {
             cameraHelper.init();
         }
 
-        @Override
-        public void onGlobalLayout() {
-            initCamera();
-        }
+
 
 //        @Override
 //        public void surfaceCreated(SurfaceHolder surfaceHolder) {

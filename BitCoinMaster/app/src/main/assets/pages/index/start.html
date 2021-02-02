@@ -298,6 +298,8 @@
           btcPrice = resp.price;
           btcExchangeRate = resp.exchangeRate;
         }
+      }else{
+        return;
       }
     }else{
       btcPrice = newBalance;

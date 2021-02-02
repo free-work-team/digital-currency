@@ -301,8 +301,14 @@ public class FrontJsInterface {
      */
     @JavascriptInterface
     public String queryMarketPrice(String cryptoCurrency) {
-        QueryPriceResult result = getMarketPriceBySource(cryptoCurrency);
-        return JSON.toJSONString(result);
+        try {
+            QueryPriceResult result = getMarketPriceBySource(cryptoCurrency);
+            return JSON.toJSONString(result);
+        } catch (Exception e) {
+            QueryPriceResult result = new QueryPriceResult();
+            result.setCode("500");
+            return JSON.toJSONString(result);
+        }
     }
 
     /**

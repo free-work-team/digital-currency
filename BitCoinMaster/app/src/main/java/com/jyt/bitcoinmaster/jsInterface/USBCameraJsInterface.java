@@ -204,7 +204,7 @@ public class USBCameraJsInterface implements CameraListener {
             });
 
         } catch (Exception e) {
-            log.error("结束录像error", e);
+            log.error("结束录像error");
         }
     }
 

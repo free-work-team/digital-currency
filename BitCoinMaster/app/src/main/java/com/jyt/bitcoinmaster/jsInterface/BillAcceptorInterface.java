@@ -24,10 +24,7 @@ import org.apache.log4j.Logger;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class BillAcceptorInterface implements DevEventListener {
@@ -86,14 +83,19 @@ public class BillAcceptorInterface implements DevEventListener {
     public void connDevices() {
         log.info("----------------正在连接纸币接收模块");
         this.iCashAcceptor = CashAcceptorFactory.getCashAcceptor(context, this);
-        String res = iCashAcceptor.connDevices();
-        if (StringUtils.isNotEmpty(res)) {
-            if ("success".equals(res)) {
-                devEventResult(SETDEVICEENABLE, 0, "already", "");
-            } else if ("fail".equals(res)) {
-                devEventResult(SETDEVICEENABLE, -1, "No USB connection detected!", "");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String res = iCashAcceptor.connDevices();
+                if (StringUtils.isNotEmpty(res)) {
+                    if ("success".equals(res)) {
+                        devEventResult(SETDEVICEENABLE, 0, "already", "");
+                    } else if ("fail".equals(res)) {
+                        devEventResult(SETDEVICEENABLE, -1, "No USB connection detected!", "");
+                    }
+                }
             }
-        }
+        }).start();
     }
 
     /**

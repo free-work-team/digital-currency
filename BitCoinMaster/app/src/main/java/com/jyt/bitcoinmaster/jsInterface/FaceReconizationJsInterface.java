@@ -43,11 +43,11 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
             super.handleMessage(msg);
             if (msg.what == FACERESULT){
                 String result = (String) msg.obj;
-                log.info("[FaceReconizationJsInterface]: result=" + result);
+//                log.info("[FaceReconizationJsInterface]: result=" + result);
                 webView.evaluateJavascript("javascript:faceResult('" + result + "')",null);
             }else if (msg.what == INITRESULT){
                 int initData = (int) msg.obj;
-                log.info("[FaceReconizationJsInterface]: initData=" + initData);
+//                log.info("[FaceReconizationJsInterface]: initData=" + initData);
                 webView.evaluateJavascript("javascript:faceInitResult('" + initData + "')",null);
             }
         }

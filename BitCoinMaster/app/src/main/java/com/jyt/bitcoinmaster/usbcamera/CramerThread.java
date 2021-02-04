@@ -88,12 +88,13 @@ public class CramerThread {
         }
     }
     /** * 获取摄像头实例对象 * * @return */
-    public Camera getCameraInstance(int cameraID) {
+    public Camera getCameraInstance(CameraListener listener,int cameraID) {
         Camera c = null;
         try {
             c = Camera.open(cameraID);
         } catch (Exception e) {
             // 打开摄像头错误
+            listener.openResult(false);
             Log.i("info", "打开摄像头错误");
         }
         return c;
@@ -103,7 +104,7 @@ public class CramerThread {
     public void startRecord(CameraListener listener,int cameraId,String path,String fileName) {
         Log.e(TAG,"开始录像");
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
-        mCamera = getCameraInstance(cameraId); // 解锁camera
+        mCamera = getCameraInstance(listener,cameraId); // 解锁camera
         mCamera.unlock();
         mediarecorder.setCamera(mCamera); // 设置录制视频源为Camera(相机)
         mediarecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);

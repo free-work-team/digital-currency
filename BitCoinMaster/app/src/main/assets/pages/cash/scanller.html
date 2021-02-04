@@ -76,6 +76,7 @@
 </div>
 </body>
 <script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/toast.script.js"></script>
 <script type="text/javascript" src="../../js/transaction/scanllerCommon.js"></script>
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
@@ -117,7 +118,19 @@
 
   function cameraCallBack() {
   }
-
+  function cameraOpenCallBack(data) {
+    console.dir("摄像头打开前端回调结果" + JSON.stringify(data));
+    if (data) {
+      var isOpen = data.isOpen || false;
+      if (isOpen) {
+        return;
+      }
+    }
+    showError("The camera failed to open, please try again later!");
+    setTimeout(function () {
+      toHome();
+    }, 3000);
+  }
   function setDeviceEnableCallBack(data) {
 
   }

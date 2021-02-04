@@ -103,6 +103,7 @@ public class CramerThread {
     /** * 开始录像 */
     public void startRecord(CameraListener listener,int cameraId,String path,String fileName) {
         Log.e(TAG,"开始录像");
+        try { // 准备录制
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
         mCamera = getCameraInstance(listener,cameraId); // 解锁camera
         mCamera.unlock();
@@ -118,7 +119,6 @@ public class CramerThread {
                 .format(new Date());
 //        mediarecorder.setOutputFile(path+File.separator+"video"+File.separator+"VID_" + timestamp + ".mp4");
         mediarecorder.setOutputFile(getOutputMediaFile(2,path,fileName).toString());
-        try { // 准备录制
             mediarecorder.prepare(); // 开始录制
             mediarecorder.start();
             listener.openResult(true);

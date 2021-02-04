@@ -151,6 +151,20 @@
 
   function cameraCallBack(){
   }
+
+  function cameraOpenCallBack(data) {
+    console.dir("摄像头打开前端回调结果" + JSON.stringify(data));
+    if (data) {
+      var isOpen = data.isOpen || false;
+      if (isOpen) {
+        return;
+      }
+    }
+    showError("The camera failed to open, please try again later!");
+    setTimeout(function () {
+      toHome();
+    }, 3000);
+  }
   // 过滤地址内容
   function formatAddress(data) {
     $.each(addressFormat, function (index, item) {

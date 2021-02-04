@@ -61,7 +61,7 @@ public class USBCameraJsInterface implements CameraListener {
                 case OPEN:
                     String openResult = (String) msg.obj;
                     log.info("[CameraJsInterface]: openResult=" + openResult);
-                    webView.evaluateJavascript("javascript:cameraCallBack("+openResult+")",null );
+                    webView.evaluateJavascript("javascript:cameraOpenCallBack("+openResult+")",null );
                     break;
             }
 

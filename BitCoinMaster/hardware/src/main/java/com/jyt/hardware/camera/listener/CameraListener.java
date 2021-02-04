@@ -6,4 +6,5 @@ package com.jyt.hardware.camera.listener;
 
 public interface CameraListener {
     void onResult(boolean success, String message);
+    void openResult(boolean isOpen);
 }

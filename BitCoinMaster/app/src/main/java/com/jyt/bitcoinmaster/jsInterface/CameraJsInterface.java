@@ -150,6 +150,11 @@ public class CameraJsInterface implements CameraListener {
         handler.sendMessage(msg);
     }
 
+    @Override
+    public void openResult(boolean isOpen) {
+
+    }
+
     /**
      * 获取
      */

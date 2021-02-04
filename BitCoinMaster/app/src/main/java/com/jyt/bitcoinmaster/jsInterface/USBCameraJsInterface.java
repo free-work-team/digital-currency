@@ -45,14 +45,26 @@ public class USBCameraJsInterface implements CameraListener {
     private Config config;
     private int cameraId;
     private RelativeLayout surfaceRL;
+    private static final int INIT = 0;
+    private static final int OPEN = 1;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            String initResult = (String) msg.obj;
-            log.info("[CameraJsInterface]: initResult=" + initResult);
-            webView.evaluateJavascript("javascript:cameraCallBack("+initResult+")",null );
+            switch (msg.what){
+                case INIT:
+                    String initResult = (String) msg.obj;
+                    log.info("[CameraJsInterface]: initResult=" + initResult);
+                    webView.evaluateJavascript("javascript:cameraCallBack("+initResult+")",null );
+                    break;
+                case OPEN:
+                    String openResult = (String) msg.obj;
+                    log.info("[CameraJsInterface]: openResult=" + openResult);
+                    webView.evaluateJavascript("javascript:cameraCallBack("+openResult+")",null );
+                    break;
+            }
+
         }
     };
 
@@ -159,7 +171,7 @@ public class USBCameraJsInterface implements CameraListener {
             Log.e("竖屏","portrait");
             thread.setSurfaceViewSize(1,1,1,1);
         }
-        thread.startRecord(this.cameraId,videoPath,str);
+        thread.startRecord(this,this.cameraId,videoPath,str);
     }
     /**
      * 开始录像
@@ -186,7 +198,7 @@ public class USBCameraJsInterface implements CameraListener {
             Log.e("竖屏1","portrait");
             thread.setSurfaceViewSize(210,535,650,400);
         }
-        thread.startRecord(this.cameraId,videoPath,str);
+        thread.startRecord(this,this.cameraId,videoPath,str);
     }
 
     /**
@@ -215,6 +227,18 @@ public class USBCameraJsInterface implements CameraListener {
         jsonObject.put("message",message);
         Message msg = Message.obtain();
         msg.obj = JSONObject.toJSONString(jsonObject);
+        msg.what = INIT;
+        handler.sendMessage(msg);
+    }
+
+    @Override
+    public void openResult(boolean isOpen) {
+        log.info("[CameraJsInterface]:"+"isOpen="+isOpen);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("isOpen",isOpen);
+        Message msg = Message.obtain();
+        msg.obj = JSONObject.toJSONString(jsonObject);
+        msg.what = OPEN;
         handler.sendMessage(msg);
     }
 

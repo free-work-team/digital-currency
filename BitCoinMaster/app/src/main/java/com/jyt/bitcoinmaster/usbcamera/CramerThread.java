@@ -100,7 +100,7 @@ public class CramerThread {
     }
 
     /** * 开始录像 */
-    public void startRecord(int cameraId,String path,String fileName) {
+    public void startRecord(CameraListener listener,int cameraId,String path,String fileName) {
         Log.e(TAG,"开始录像");
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
         mCamera = getCameraInstance(cameraId); // 解锁camera
@@ -120,13 +120,16 @@ public class CramerThread {
         try { // 准备录制
             mediarecorder.prepare(); // 开始录制
             mediarecorder.start();
+            listener.openResult(true);
             // time.setVisibility(View.VISIBLE);// 设置录制时间显示
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
+            listener.openResult(false);
             e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            listener.openResult(false);
         }
     }
 
@@ -227,7 +230,7 @@ public class CramerThread {
         // 创建媒体文件名
         String timedir = new SimpleDateFormat("yyyyMMdd")
                 .format(new Date());
-        File mediaStorageDir = new File(path+ "/Android/data/com.jyt.bitcoinmaster/files/HungHui/"+timedir);
+        File mediaStorageDir = new File(path+ "/HungHui/"+timedir);
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
                 Log.d(TAG, "failed to create directory");

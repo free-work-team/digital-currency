@@ -231,17 +231,23 @@ public class CramerThread {
         // 创建媒体文件名
         String timedir = new SimpleDateFormat("yyyyMMdd")
                 .format(new Date());
-        File mediaStorageDir = new File(path+ "/HungHui/"+timedir);
+        File mediaStorageDir = new File(path+ "/HungHui/");
+        File mediaDir = null;
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
                 Log.d(TAG, "failed to create directory");
                 return null;
+            }else{
+                mediaDir =  new File(path+ "/HungHui/"+timedir);
             }
+        }else{
+           mediaDir =  new File(path+ "/HungHui/"+timedir);
         }
+
         // 创建媒体文件名
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                 .format(new Date());
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+        File mediaFile = new File(mediaDir.getPath() + File.separator
                     +fileName + ".mp4");
             try {
                 mediaFile.createNewFile();

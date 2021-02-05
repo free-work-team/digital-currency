@@ -17,6 +17,9 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.jyt.hardware.camera.listener.CameraListener;
+import com.jyt.hardware.utils.log;
+
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +30,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class CramerThread {
+    private static Logger log =  Logger.getLogger("BitCoinMaster");
     private MediaRecorder mediarecorder;// 录制视频的类private long
     private SurfaceHolder surfaceHolder;
     private SurfaceView surfaceview;// 显示视频的控件
@@ -231,17 +235,33 @@ public class CramerThread {
         // 创建媒体文件名
         String timedir = new SimpleDateFormat("yyyyMMdd")
                 .format(new Date());
-        File mediaStorageDir = new File(path+ "/HungHui/"+timedir);
+        File mediaStorageDir = new File(path+ "/HungHui/");
+        File mediaDir = null;
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdir()) {
-                Log.d(TAG, "failed to create directory");
+                log.info(TAG+  "failed to create directory");
                 return null;
+            }else{
+                mediaDir =  new File(path+ "/HungHui/"+timedir);
+                if (!mediaDir.exists()){
+                    if (!mediaDir.mkdir()){
+                        log.info(TAG+ "failed to create directory2");
+                    }
+                }
+            }
+        }else{
+           mediaDir =  new File(path+ "/HungHui/"+timedir);
+            if (!mediaDir.exists()){
+                if (!mediaDir.mkdir()){
+                    log.info(TAG+ "failed to create directory3");
+                }
             }
         }
+
         // 创建媒体文件名
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                 .format(new Date());
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+        File mediaFile = new File(mediaDir.getPath() + File.separator
                     +fileName + ".mp4");
             try {
                 mediaFile.createNewFile();

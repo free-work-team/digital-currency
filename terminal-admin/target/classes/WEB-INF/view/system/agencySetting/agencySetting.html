@@ -1,0 +1,71 @@
+@layout("/common/_container.html"){
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5 class="lanClass" data-lanid="selectList"></h5>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="col-lg-4 col-sm-12">
+												<#NameCon id="agencyName" name="" lanId="agencyName" placeholder=""/>
+											</div>											
+											<div class="col-lg-4 col-sm-12">
+				                                <#SelectCon id="agencyStatue"  lanId="agencyStatue" name="" placeholder="">
+				                                    <option class="lanClass" data-lanid="all" value="" ></option>
+				                                    @for(ct in agencyStatuList!){
+				                                    <option value="${ct.value}">${ct.endesc}</option>
+				                                    @}
+				                                </#SelectCon>
+				                            </div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="beginTime" lanId="beginTime"  name="开始时间" isTime="false"/>
+											</div>
+											<div class="col-lg-4 col-sm-6">
+												<#TimeCon id="endTime" lanId="endTime"  name="结束时间" isTime="false"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="" id="managerTableToolbar" role="group">
+									<div class="row">
+									<div class="col-sm-12">
+										<#button name="Search" icon="fa-search" lanId="searchBtn" clickFun="MgrTerm.search()"/>
+										<#button name="Reset" icon="fa-refresh" lanId="resetBtn" clickFun="MgrTerm.resetSearch()"/>
+										@if(shiro.hasPermission("/agencySettings/add")){
+										<#button name="new" icon="fa-plus" lanId="addBtn" clickFun="MgrTerm.openAddAgency()"/>
+										@}
+										@if(shiro.hasPermission("/agencySettings/edit")){
+										<#button name="edit" icon="fa-plus" lanId="edit" clickFun="MgrTerm.openEditAgency()"/>
+										@}
+										@if(shiro.hasPermission("/agencySettings/detail")){
+										<#button name="Detail" icon="fa-asterisk" lanId="detailBtn" clickFun="MgrTerm.openAgencyDetail()"/>
+										@}
+									</div>
+									</div>
+								</div>
+								<#table id="managerTable"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/agencySetting/agencySetting.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

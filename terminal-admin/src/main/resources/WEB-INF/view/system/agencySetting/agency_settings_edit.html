@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<style type="text/css">
+	.menuContent{display:none;border:1px solid #E7EAEC;width:180px;margin-left:26%;margin-top:-19px}
+	.node_name{font-size:14px;}	
+	.ztree{margin-top:0;}
+</style>
+
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="agencyForm">
+
+			<input type="hidden" id="id" value="">
+			<div class="row">
+				<div class="col-sm-12 b-r">
+					<#input id="agencyName" name="代理商名称" lanId="agencyName" underline="true"/>
+					<#input id="agencySingleFee" name="单笔手续费" lanId="agencySingleFee"  underline="true"/>
+					<#input id="agencyFee" name="单笔费率(%)"  lanId="agencyFee" underline="true"/>
+					<#input id="agencyPhone" name="手机号"  lanId="agencyPhone" underline="true"/>
+					<#input id="agencyEmail" name="邮箱"  lanId="agencyEmail" underline="true"/>						
+					<div class="row"> 
+						<div class="col-sm-14 col-xs-12">
+						<#select id="agencyStatue" name="状态" lanId="agencyStatue" underline="true">
+							<option value="" class="lanClass" data-lanid="pleaseChoose">Please</option>
+							@for(ct in agencyStatuList!){
+                            <option value="${ct.value}">${ct.endesc}</option>
+                            @}
+						</#select>
+						</div>
+					</div>
+					<#input id="agencyAddress" name="接收币地址"  lanId="agencyAddress" underline="true"/>
+					<#input id="parentName" name="父节点"  lanId="parentName" underline="true"/>
+					<input type="hidden" id="parentId" value=""/>
+					<div id="menuContent" class="menuContent">
+						<ul id="zTree" class="ztree"></ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-offset-3 col-sm-8">
+				  	<#button btnCss="test" name="提交" lanId="submitBtn" id="fa fa-check" icon="fa-check" clickFun="AgencyDlg.addSubmit()"/>
+					<#button btnCss="test" name="取消" lanId="cancelBtn" id="cancel" icon="fa-eraser" clickFun="AgencyDlg.close()"/>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/system/agencySetting/agency_settings_edit.js"></script>
+<script src="${ctxPath}/static/js/common/language.js"></script>
+@}

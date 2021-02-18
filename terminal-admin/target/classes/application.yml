@@ -123,7 +123,7 @@ spring:
     connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANEs48r+z9uI0xaOIWbTyPop4O7KhT6Lmjsm6Uvq5P4ZkxcAgCIpTYsxzCd42DO9B/lYkLGbuG8Hg+7mGb5xY0kCAwEAAQ==
     druid:
       initial-size: 5
-      max-active: 20
+      max-active: 20000
       web-stat-filter.enabled: false
 server:
   port: 80

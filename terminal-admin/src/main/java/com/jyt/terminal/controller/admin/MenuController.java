@@ -30,6 +30,7 @@ public class MenuController extends BaseController {
     private IMenuService menuService;
     @Autowired
     private IRoleService roleService;
+    
     /*@Autowired
     private IConstantFactory constantFactory;
     
@@ -196,9 +197,7 @@ public class MenuController extends BaseController {
     public List<ZTreeNode> menuTreeListByRoleId(@PathVariable Integer roleId) {
         List<Long> menuIds = this.menuService.getMenuIdsByRoleId(roleId);
         Role role = roleService.selectById(roleId);
-        /*if(role==null) {
-        	return null;
-        }*/
+       
         if (ToolUtil.isEmpty(menuIds)) {
             List<ZTreeNode> roleTreeList = this.menuService.menuTreeList();
             return roleTreeList;

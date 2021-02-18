@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.AgencySettingMapper">
+
+	<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.AgencySetting">
+        <id column="id" property="id" />   
+        <result column="agency_name" property="agencyName" />
+        <result column="num" property="num" />
+        <result column="levels" property="levels" />
+        <result column="parent_ids" property="parentIds" />
+        <result column="parent_id" property="parentId" />
+        <result column="is_parent" property="isParent" />
+        <result column="agency_single_fee" property="agencySingleFee" />
+        <result column="agency_fee" property="agencyFee" />
+        <result column="agency_address" property="agencyAddress" />
+        <result column="agency_email" property="agencyEmail" />
+        <result column="agency_phone" property="agencyPhone" />
+        <result column="agency_statue" property="agencyStatue" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,agency_name,parent_id,is_parent, agency_statue,agency_single_fee,agency_fee, agency_address, agency_address, agency_email, agency_phone, create_date
+    </sql>
+
+    <!-- 分页查询代理商数据 -->	
+	<select id="getAgencyList" resultType="map">
+		select * from t_agency_setting 
+		where 1=1
+		<if test="agency.agencyName != null and agency.agencyName != ''">
+			and agency_name like CONCAT('%',#{agency.agencyName},'%')
+		</if>		
+		<if test="agency.beginTime != null and agency.beginTime != ''">
+            and create_date <![CDATA[ >= ]]> CONCAT(#{agency.beginTime},' 00:00:00')
+        </if>
+        <if test="agency.endTime != null and agency.endTime != ''">
+            and create_date <![CDATA[ <= ]]> CONCAT(#{agency.endTime},' 23:59:59')
+        </if>
+		order by create_date desc
+	</select>
+	
+	 <!-- 根据手机号分页查询代理商数据 -->	
+	<select id="getAgencyByPhone" resultType="map">
+		select * from t_agency_setting 
+		where 1=1	
+		<if test="agency.agencyPhone != null and agency.agencyPhone != ''">
+			and agency_phone =#{agency.agencyPhone}
+		</if>
+	</select>
+	
+	 <!-- 根据邮箱分页查询代理商数据 -->	
+	<select id="getAgencyByEmail" resultType="map">
+		select * from t_agency_setting 
+		where 1=1
+		<if test="agency.agencyEmail != null and agency.agencyEmail != ''">
+			and agency_email =#{agency.agencyEmail}
+		</if>
+	</select>
+	
+	<select id="agencyTreeList" resultType="com.jyt.terminal.commom.node.ZTreeNode">
+		select id "id",agency_name as "name" from t_agency_setting 		 
+	</select>
+	
+	<select id="agencyTreeListById" resultType="com.jyt.terminal.commom.node.ZTreeNode">
+		SELECT
+			r.id "id",r.parent_id AS "pId",
+			agency_name AS "name",
+			(CASE	WHEN (r1.ID = 0 OR r1.ID IS NULL) THEN 'false' ELSE 'true' END) "checked"
+		FROM t_agency_setting r
+			LEFT JOIN (SELECT ID FROM t_agency_setting WHERE ID = #{agencyId}) r1 ON r.ID = r1.ID
+			ORDER BY
+			id ASC;
+	</select>
+	
+</mapper>

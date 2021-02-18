@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jyt.terminal.dao.AgencyProfitDetailMapper">
+
+	  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jyt.terminal.model.AgencyProfitDetail">
+        <id column="id" property="id" />   
+        <result column="agency_fee" property="agencyFee" />
+        <result column="agency_single_fee" property="agencySingleFee" />
+        <result column="agency_id" property="agencyId" />
+        <result column="agency_amount" property="agencyAmount" />
+        <result column="agency_receive_address" property="agencyReceiveAddress" />
+        <result column="send_address" property="sendAddress" />
+        <result column="send_customer_id" property="sendCustomerId" />
+        <result column="trade_time" property="tradeTime" />
+        <result column="trade_status" property="tradeStatus" />
+        <result column="trade_upper_id" property="tradeUpperId" />
+        <result column="trade_source_id" property="tradeSourceId" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+     <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,agency_fee,agency_single_fee,agency_id, agency_amount,agency_receive_address, send_address, send_customer_id, trade_time, trade_status, trade_upper_id,trade_source_id,update_time
+    </sql>
+
+    <!-- 分页查询代理商分润流水 -->	
+	<select id="getAgencyProfitList" resultType="map">
+		select t2.agency_name,t1.agency_amount,t1.agency_fee,
+				t1.agency_single_fee,t1.trade_time,t1.trade_status,
+				t1.trade_source_id
+		from t_agency_setting t2 
+		LEFT JOIN t_agency_profit_detail t1 ON t1.agency_id=t2.id 
+ 		where 1=1 
+ 		<if test="agencyProfit.tradeSourceId != null and agencyProfit.tradeSourceId != ''">
+			and t1.trade_source_id = #{agencyProfit.trade_source_id}
+		</if>		
+		<if test="agencyProfit.tradeStatus != null and agencyProfit.tradeStatus != ''">
+			and t1.trade_status = #{agencyProfit.transStatus}
+		</if>
+		<if test="agencyProfit.beginTime != null and agencyProfit.beginTime != ''">
+            and t1.trade_time <![CDATA[ >= ]]> CONCAT(#{agencyProfit.beginTime},' 00:00:00')
+        </if>
+        <if test="agencyProfit.endTime != null and agencyProfit.endTime != ''">
+            and t1.trade_time <![CDATA[ <= ]]> CONCAT(#{agencyProfit.endTime},' 23:59:59')
+        </if>
+ 		order by t1.trade_time desc 
+	</select>
+	  
+	
+</mapper>

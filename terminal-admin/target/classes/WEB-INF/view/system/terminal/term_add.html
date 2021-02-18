@@ -442,8 +442,7 @@
 										</div>
 									</div>
 									@}
-									@if(vs.code == 2){
-									<!-- <div style="float:left;">ETH:</div> -->
+									@if(vs.code == 2){									
 									<div class="row">
 										<div class="col-sm-11 col-xs-10">
 										<#select id="cryptoSettings2" name="cryptoSettings2" lanId="eth">
@@ -457,37 +456,10 @@
 										</div>
 									</div>
 									@}
-									
 								@}
 								<hr>
-						</div>
+						</div>					
 						
-						<!-- <div class="row">
-							<div class="col-sm-3 col-xs-12"><div class="title-name"><div class="title-div lanClass" data-lanid="virtualCurrency">Virtual Currency</div><div class="iconMust">*</div></div></div>
-							<div class="col-sm-8 col-xs-10" style="text-align:center;line-height:34px;">
-								@for(vs in virtualCurrencyEnum!){
-									<div class="row"><div class="col-sm-12">
-									@if(vs.code == 1){
-									<div style="float:left;">BTC:</div>
-									@}
-									@if(vs.code == 2){
-									<div style="float:left;">ETH:</div>
-									@}
-									</div></div>
-									<div class="row">
-									@for(cs in cryptoSettingsList!){
-										@if(cs.virtualCurrency == vs.code){
-										<div class="col-sm-6 col-xs-12">
-										<input type="radio" name="cryptoSettings${vs.code}" value="${cs.id}" style="width:20px;height:34px;float:left;margin:0 auto;" />
-										<div style="float:left;">${cs.name}</div>
-										</div>
-										@}
-									@}
-									</div><br/>
-								@}
-							</div>
-						</div>
-						<hr> -->
 					</div>
 				</div>
 			</div>

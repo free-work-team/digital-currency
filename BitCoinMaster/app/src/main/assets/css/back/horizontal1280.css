@@ -1,6 +1,7 @@
 @charset "utf-8";
-/*19寸横屏*/
+/*4：3*/
 @media screen and (min-width: 1280px) and (min-height: 768px) {
+
   .header {
     height: 140px;
   }
@@ -26,15 +27,18 @@
     width: 271px;
     height: 60px;
   }
+
   .all-bg {
     background-image: url(../../img/icon-home/bottom2.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
+
   .info-btn {
     width: 30%;
     margin: auto;
   }
+
   .log-buy-info {
     position: unset;
     width: 300px;
@@ -61,7 +65,7 @@
   }
 
   .info-content {
-    margin-top: 50px;
+    margin-top: 0px;
   }
 
   .info-titile {
@@ -71,7 +75,8 @@
   }
 
   .info-titile_300 {
-    margin-top: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
   }
 
   .info-titile > div {
@@ -125,6 +130,7 @@
     height: 120px;
     margin: 0 auto;
     margin-top: 50px;
+    line-height: 105px;
   }
 
   .center-div {
@@ -141,6 +147,7 @@
     color: white;
     line-height: 110px;
   }
+
   .button-font-div-start {
     text-align: center;
     font-weight: bold;
@@ -148,6 +155,7 @@
     color: white;
     line-height: 115px;
   }
+
   .contain-font {
     font-weight: bold;
     font-size: 150px;
@@ -219,11 +227,13 @@
     top: 10px;
     margin-top: 40px;
   }
+
   .log-buy-info {
     background-image: url(../../img/icon-home/rate.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
+
   .top-little-title {
     margin-top: 80px;
     font-weight: bold;
@@ -340,7 +350,6 @@
   }
 
 
-
   .short {
     margin-top: 80px;
   }
@@ -454,7 +463,6 @@
   }
 
 
-
   .msg-yellow, .msg-black {
     font-size: 50px;
     margin-left: 50px;
@@ -502,6 +510,7 @@
     width: 160px;
     margin: 0 auto;
   }
+
   .font40 {
     font-size: 40px;
   }
@@ -545,6 +554,7 @@
     text-align: left;
     font-weight: bold;
   }
+
   .btns, .btns-two {
     margin: 0 auto;
     text-align: center;
@@ -555,6 +565,7 @@
     height: 70px;
     margin-top: 15px;
   }
+
   .middle-left div {
     height: 50px;
     line-height: 50px;
@@ -580,6 +591,7 @@
     font-weight: bolder;
     text-align: center;
   }
+
   .info-btn > table td div {
     width: 80px;
     height: 80px;
@@ -593,6 +605,7 @@
     color: #8e7d70;
     font-weight: bold;
   }
+
   .info-input {
     background-image: url(../../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
@@ -602,15 +615,17 @@
     margin: auto;
     margin-top: 20px;
   }
+
   .login-input-setting {
     background-image: url(../../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    width: 70%;
-    height: 70px;
+    width: 50%;
+    height: 100px;
     margin: auto;
     margin-top: 10px;
   }
+
   .info-input-setting {
     background-image: url(../../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
@@ -620,11 +635,13 @@
     margin: auto;
     margin-top: 10px;
   }
+
   .bic {
     background-image: url(../../img/icon-home/buttomBIC2.png);
     background-repeat: no-repeat;
     background-size: 100%
   }
+
   .error_div {
     background-image: url(../../img/icon-home/error2.png);
     background-repeat: no-repeat;
@@ -636,6 +653,7 @@
     background-repeat: no-repeat;
     background-size: 100%
   }
+
 
   .message {
     width: 60%;
@@ -652,51 +670,61 @@
   }
 
   .bottom-btn {
-    width: 70%;
+    width: 50%;
     height: 120px;
     margin: 0 auto;
     color: white;
     font-size: 40px;
     font-weight: bold;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
   }
 
-  .input_login{
+  .info-small-titile {
+    margin-top: 5px!important;
+  }
+  .setting-input {
+    margin-bottom: 10px !important;
+  }
+  .input_login {
     display: inline-block;
     width: 50%;
     margin-top: 10px;
     border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
     font-size: 20px;
   }
+
   .info-titile-big {
     font-weight: bold;
     font-size: 100px;
     margin-top: 30px;
   }
+
   .login-yellow {
-    width: 120px;
-    height: 60px;
-    line-height: 60px;
+    width: 250px;
+    height: 95px;
+    line-height: 90px;
     margin-left: 200px;
+    font-size: 40px;
   }
 
   .login-black {
-    width: 120px;
-    height: 60px;
-    line-height: 60px;
     float: right;
     margin-right: 200px;
+    width: 250px;
+    height: 95px;
+    line-height: 90px;
+    font-size: 40px;
   }
 
-   .cash-query {
+  .cash-query {
     width: 60px;
     height: 38px;
     line-height: 38px;
   }
 
-   .index-button {
+  .index-button {
     width: 150px;
     height: 60px;
     line-height: 60px;
@@ -715,77 +743,227 @@
     display: inline-block;
   }
 
-   .go-back {
+  .go-back {
     width: 150px;
     height: 50px;
     line-height: 50px;
   }
 
-    .back-allBg {
-    background-image: url(../../img/icon-home/back-background01.jpg);
+  .back-allBg {
+    background-image: url(../../img/icon-home/bottom1280.png);
     background-repeat: no-repeat;
     background-size: 100%;
   }
 
-    .login_label{
+  .login_label {
     display: inline-block;
-    width: 30%;
+    width: 40%;
     text-align: left;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bolder;
+    height: 80px;
+    line-height: 85px;
   }
 
-    .login_input_setting{
+  .login_input_setting {
     display: inline-block;
-    width: 60%;
-    margin-top: 10px;
+    width: 50%;
+    margin-top: 0;
     border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
-    font-size: 20px;
+    font-size: 15px;
   }
-      .login_input_setting_code{
+
+  .login_input_setting_code {
     display: inline-block;
     width: 44%;
     margin-top: 10px;
     border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
     font-size: 20px;
   }
 
-  .walletLabel{
+  .walletLabel {
     width: 180px;
     height: 80px;
     font-size: 20px;
-    overflow:hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 
-    .settting-content {
+  .settting-content {
     /* margin-top: 20px; */
   }
-    .input_query{
+
+  .input_query {
     display: inline-block;
     width: 50%;
     margin-top: 10px;
     border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
     font-size: 20px;
   }
+
   .tableDiv {
     text-align: center;
     margin-top: 20px;
     height: 700px;
     position: relative;
   }
+
   .tabs {
     float: none;
     list-style: none;
     position: relative;
     text-align: left;
     min-height: 975px;
+  }
+
+  .videos_area{
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+    height: 800px;
+    overflow-y: overlay;
+  }
+  .ui-ios-overlay {
+    z-index: 99999;
+    position: fixed;
+    top: 61%;
+    left: 50%;
+    width: 450px;
+    height: 470px;
+    margin-left: -225px;
+    margin-top: -230px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000);
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+
+
+  .info-input-setting {
+    height: 60px !important;
+    width: 100% !important;
+  }
+  #lan_Welcome {
+    width: 60%;
+    height: 110px;
+    margin: 0 auto;
+    line-height: 100px;
+    font-size: 60px;
+    color: #fff;
+    background: #1d3362;
+    margin-top: 145px;
+  }
+
+  .index-item {
+    width: 31%;
+    height: auto;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+  }
+  .setting-input {
+    background-image: url(../../img/icon-home/3.phone01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 40px;
+    margin: auto;
+    text-align: left;
+    line-height: 35px;
+  }
+
+  .index-new-item {
+    width: 40%;
+    height: 80px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 60px;
+    border: 1px solid #fff;
+    font-size: 30px;
+    line-height: 75px;
+  }
+
+  .index-new-item:nth-child(even) {
+    margin-left: 9%;
+  }
+
+  .tableDiv table td,.tableDiv table th{
+    font-size: 15px;
+    text-align: left;
+    padding: 10px;
+  }
+  .tableDiv table .field {
+    font-weight: bold;
+    text-align: right;
+    width: 40%;
+  }
+
+  .thisItem {
+    width: 30%;
+    height: auto;
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+    margin-left: 5%;
+  }
+
+  .box {
+    width: 500px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #d4c59a;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+  }
+
+  #balanceTable {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px
+  }
+
+  #balanceTable tr {
+    height: 70px;
+  }
+
+  .totalArea {
+    margin-top: 95px;
+    float: right;
+    margin-right: 5%;
+  }
+  .totalList,.totalNum{
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .to_home_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    background-image: url(../../img/icon-home/home.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .to_close_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    right: 25px;
+    bottom: 13px;
+    background-image: url(../../img/icon-home/ShutDown.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
   }
 }

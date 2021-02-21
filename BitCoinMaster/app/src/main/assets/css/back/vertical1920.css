@@ -997,10 +997,10 @@
     line-height: 35px;
   }
 
-  .tableDiv table td{
-    font-size: 30px;
+  .tableDiv table td,.tableDiv table th{
+    font-size: 10px;
     text-align: left;
-    padding: 20px;
+    padding: unset;
   }
   .tableDiv table .field {
     font-weight: bold;

@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*19寸横屏*/
+/*4：3寸横屏*/
 @media screen and (min-width: 1280px) and (min-height: 768px) {
   .header {
     height: 140px;
@@ -17,40 +17,125 @@
   .log-content {
     height: 114px;
     width: 341px;
-    top: 30px;
+    top: 50px;
     left: 10px;
     margin: 0;
+    position: absolute !important;
   }
 
   .log-bg {
-    width: 271px;
-    height: 60px;
-  }
-  .all-bg {
-    background-image: url(../img/icon-home/bottom2.jpg);
+    background-image: url(../img/icon-home/BTM.png);
     background-repeat: no-repeat;
+    /* background-size: cover; */
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;
+    width: 130px;
+    height: 47px;
+    /* width: 280px; */
+    /* height: 137px; */
+    margin-left: 20px;
+    margin-top: -33px;
+  }
+
+  .start-bg {
+    background-image: url(../img/icon-home/start1280.png);
+    background-repeat: unset;
     background-size: 100%;
   }
+
+  .all-bg {
+    background-image: url(../img/icon-home/bottom1280.png);
+    background-repeat: unset;
+    background-size: 100%;
+  }
+
   .info-btn {
     width: 30%;
     margin: auto;
   }
-  .log-buy-info {
-    position: unset;
-    width: 300px;
-    height: 80px;
-    float: left;
-    margin-left: 15px;
+
+  .balance-info {
+    background-image: url(../img/icon-home/startIBalance.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: fixed;
+    width: 400px;
+    height: 63px;
+    right: 30px;
+    top: 8px;
+  }
+
+  .balance-info > .buy-left {
+    height: 45px;
+    width: 73px;
+    line-height: 62px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .balance-info > .buy-right {
+    height: 45px;
+    /* margin-top: 16px; */
+    width: 260px;
+    line-height: 62px;
+    font-size: 25px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
   }
 
   .log-buy-info > div {
     height: 45px;
     margin-top: 16px;
-    width: 110px;
+    width: 120px;
     line-height: 35px;
     color: #8e7d70;
     font-size: 15px;
     font-weight: bold;
+  }
+
+  .log-buy-info-new > .buy-left {
+    height: 45px;
+    margin-top: 16px;
+    width: 120px;
+    line-height: 52px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .log-buy-info-new > .buy-right {
+    height: 45px;
+    margin-top: 16px;
+    width: 385px;
+    line-height: 52px;
+    font-size: 30px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .log-buy-info-start > .buy-left {
+    height: 45px;
+    margin-top: 16px;
+    width: 120px;
+    line-height: 52px;
+    font-size: 35px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .log-buy-info-start > .buy-right {
+    height: 45px;
+    margin-top: 16px;
+    width: 385px;
+    line-height: 55px;
+    font-size: 40px;
+    color: gray;
+    font-weight: 700;
+    text-align: center;
   }
 
   .buy-left {
@@ -62,7 +147,7 @@
   }
 
   .info-content {
-    margin-top: 80px;
+    margin-top: 145px;
   }
 
   .info-titile {
@@ -90,7 +175,7 @@
   }
 
   .info-content-big {
-    margin-top: 80px;
+    margin-top: 145px;
     font-weight: bold;
     font-size: 80px;
   }
@@ -121,7 +206,7 @@
     width: 420px;
     height: 120px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 40px;
   }
 
   .center-div {
@@ -136,35 +221,39 @@
     font-weight: bold;
     font-size: 40px;
     color: white;
-    line-height: 110px;
+    line-height: 81px;
+    margin-top: 55px;
+    width: 420px;
   }
+
   .button-font-div-start {
+    margin-top: 40px;
     text-align: center;
     font-weight: bold;
     font-size: 40px;
     color: white;
     line-height: 115px;
   }
+
   .contain-font {
     font-weight: bold;
     font-size: 150px;
   }
 
   .log-buy-info-big {
-    width: 700px;
-    height: 200px;
+    width: 540px;
+    height: 102px;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 10px;
   }
 
   .log-buy-info-big > div {
-    height: 90px;
-    width: 300px;
-    line-height: 75px;
+    height: 65px;
+    width: 200px;
+    line-height: 0px;
     color: #8e7d70;
-    font-size: 45px;
-    font-weight: bold;
-    margin-top: 40px;
+    font-size: 25px;
+    font-weight: bold
   }
 
   .buy-big-left {
@@ -205,24 +294,99 @@
     margin-top: 80px;
   }
 
+  .bottom-contact {
+    text-align: right;
+    padding-left: 4%;
+    color: #fffcfa;
+    position: fixed;
+    bottom: 0px;
+    height: 60px;
+    font-size: 26px;
+    display: flex;
+  }
+
+  .bottom-contact label, .bottom-contact .merchant_hotLine, .bottom-contact .merchant_mail {
+    margin-left: -15px;
+  }
+
   .select-luanguage-btn {
     color: #8a7c71;
     font-weight: bold;
     font-size: 30px;
-    width: 700px;
-    height: 100px;
+    width: 470px;
+    height: 79px;
     line-height: 80px;
     margin: 0 auto;
     top: 10px;
-    margin-top: 40px;
+    margin-top: 178px;
+    display: flex;
   }
-  .log-buy-info {
-    background-image: url(../img/icon-home/rate.png);
+
+
+  .log-buy-info-new {
+    background-image: url(../img/icon-home/startIBalance.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    height: 91px;
+    width: 594px;
+    margin: unset;
   }
+
+  .log-buy-info-start {
+    background-image: url(../img/icon-home/startIBalance.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 91px;
+    width: 594px;
+    margin: 0 auto;
+    margin-top: 45px;
+  }
+
+  .pay-choose {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 70px;
+    width: 275px;
+    margin: 0 auto;
+    margin-top: 45px;
+    color: #fff;
+    font-size: 25px;
+    line-height: 65px;
+    text-align: right;
+    margin-right: 10px;
+  }
+  .panel-right-area{
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 275px;
+    color: #fffcfa;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 43px;
+    padding-left: 125px;
+    padding-right: 50px;
+    margin-left: 100px;
+    height: 180px;
+    line-height: 28px;
+  }
+  .panel-right-area p{
+    text-align: left;
+    width: 245px;
+    margin-left: 50px;
+    font-size: 23px;
+  }
+  .switch-white-back {
+    background-image: url(../img/icon-home/switch-back.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 425px;
+    color: gray;
+    font-size: 35px;
+    padding-top: 20px;
+  }
+
   .top-little-title {
-    margin-top: 80px;
+    margin-top: 145px;
     font-weight: bold;
     font-size: 60px
   }
@@ -243,7 +407,7 @@
   }
 
   .info-content-middle {
-    margin-top: 80px !important;
+    margin-top: 145px !important;
     font-weight: bold;
     font-size: 54px;
     text-align: center;
@@ -308,7 +472,7 @@
 
   .put {
     height: 100px;
-    width: 65%;
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -332,8 +496,11 @@
   }
 
   .pYM-btn-long {
-    height: 60px;
-    line-height: 65px;
+    height: 65px;
+    line-height: 70px;
+    font-size: 25px;
+    font-weight: bolder;
+    color: #0a0a0a;
   }
 
   .pYM-btn-short {
@@ -343,18 +510,21 @@
   }
 
   .pWM-btn-long {
-    height: 60px;
-    width: 300px;
-    line-height: 55px;
+    width: 250px;
+    height: 70px;
+    line-height: 73px;
     margin-left: 15px;
     color: #8e7d70;
+    font-size: 15px;
+    font-weight: 700;
   }
 
   .pWM-btn-short {
-    height: 60px;
-    width: 165px;
-    color: #8e7d70;
-    line-height: 55px;
+    width: 250px;
+    height: 70px;
+    line-height: 73px;
+    font-size: 15px;
+    font-weight: bolder;
   }
 
   .btns-two {
@@ -362,7 +532,7 @@
   }
 
   .long {
-    margin-left: 70px;
+    margin-left: 20px;
   }
 
   .putMoney-btn-success {
@@ -374,6 +544,7 @@
     font-weight: bold;
     width: 300px;
     height: 100px;
+    margin-top: 50px;
   }
 
   .setting_back {
@@ -389,7 +560,7 @@
   }
 
   .short {
-    margin-top: 80px;
+    margin-top: 145px;
   }
 
   .phone-btn {
@@ -443,11 +614,12 @@
 
   .thin-title {
     font-size: 54px;
-    margin-top: 80px;
+    margin-top: 145px;
     font-weight: bold;
     text-align: center;
     line-height: 80px;
     height: 140px;
+    color: #fff;
   }
 
   .sell, .sell-green, .sell-red {
@@ -466,7 +638,10 @@
     line-height: 48px;
     color: #8e7d70;
     text-align: right;
+    margin: unset;
     margin-top: 10px;
+    margin-left: 80px;
+    padding-right: 20px;
   }
 
   .sell-black {
@@ -474,7 +649,7 @@
     color: white;
     font-size: 40px;
     text-align: center;
-    line-height: 108px;
+    line-height: 100px;
     font-weight: bold;
     width: 300px;
     height: 100px;
@@ -490,8 +665,7 @@
 
   .sell-div {
     width: 80%;
-    /*height: 600px;*/
-    margin: 0 auto;
+    margin: unset;
     margin-top: 10px;
   }
 
@@ -501,20 +675,23 @@
   }
 
   .sell-right {
-    width: 100%;
+    width: 20%;
+    left: 510px;
+    bottom: 542px;
+    position: absolute;
+    display: flex;
   }
 
   .choose {
     font-weight: bold;
     font-size: 25px;
     margin-top: 0px;
-    text-align: left;
+    text-align: center;
   }
 
   .left {
     margin-left: 100px;
   }
-
 
 
   .msg-yellow, .msg-black {
@@ -560,10 +737,11 @@
   }
 
   .qrcode {
-    height: 160px;
-    width: 160px;
+    height: 300px;
+    width: 300px;
     margin: 0 auto;
   }
+
   .font40 {
     font-size: 40px;
   }
@@ -600,6 +778,7 @@
     letter-spacing: -2px;
   }
 
+
   .middle-left {
     width: 80%;
     margin: 0 auto;
@@ -607,6 +786,7 @@
     text-align: left;
     font-weight: bold;
   }
+
   .btns, .btns-two {
     margin: 0 auto;
     text-align: center;
@@ -617,6 +797,7 @@
     height: 70px;
     margin-top: 15px;
   }
+
   .middle-left div {
     height: 50px;
     line-height: 50px;
@@ -642,6 +823,7 @@
     font-weight: bolder;
     text-align: center;
   }
+
   .info-btn > table td div {
     width: 80px;
     height: 80px;
@@ -655,6 +837,7 @@
     color: #8e7d70;
     font-weight: bold;
   }
+
   .info-input {
     background-image: url(../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
@@ -674,29 +857,27 @@
     margin: auto;
     margin-top: 10px;
   }
+
   .bic {
-    background-image: url(../img/icon-home/buttomBIC2.png);
-    background-repeat: no-repeat;
-    background-size: 100%
-  }
-  .error_div {
-    background-image: url(../img/icon-home/error2.png);
-    background-repeat: no-repeat;
+    background-image: url(../img/icon-home/buttomBIC1280.png);
+    background-repeat: unset;
     background-size: 100%
   }
 
-  .type {
-    background-image: url(../img/icon-home/buttomSys2.png);
-    background-repeat: no-repeat;
+  .error_div {
+    background-image: url(../img/icon-home/error1280.png);
+    background-repeat: unset;
     background-size: 100%
   }
-  .label_div{
+
+  .label_div {
     display: inline-block;
     width: 40%;
     text-align: left;
     font-size: 30px;
     font-weight: bolder;
   }
+
   .message {
     width: 60%;
     height: 350px;
@@ -720,28 +901,109 @@
     font-weight: bold;
     margin-top: 30px;
   }
-  .input_setting{
+
+  .input_setting {
     display: inline-block;
     width: 50%;
     margin-top: 10px;
     border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
     font-size: 20px;
-  }.input_login{
-     display: inline-block;
-     width: 50%;
-     margin-top: 10px;
-     border: none;
-     background-color:transparent;
-     outline: none;
-     font-size: 20px;
-   }
+  }
+
+  .input_login {
+    display: inline-block;
+    width: 50%;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+  }
+
   .info-titile-big {
     font-weight: bold;
     font-size: 100px;
-    margin-top: 30px;
+    margin-top: 220px;
+    color: #fff;
   }
+
+  .newStart {
+    background: url(../img/icon-home/start_back.png) no-repeat center;
+    height: 89px;
+    /* width: 286px; */
+    font-size: 50px;
+    font-family: cursive;
+    margin-top: 95px;
+    color: #fff;
+  }
+
+  .new-panel > div {
+    width: 50%;
+  }
+  .new-panel > .faceDiv1{
+    width: 70%;
+  }
+  .new-panel > .faceDiv2{
+    width: 30%;
+  }
+
+  .faceinfo-area {
+    background-repeat: round;
+    background-size: cover;
+    color: #fffcfa;
+    font-size: 30px;
+    text-align: left;
+    padding-top: 20px;
+    padding-left: 50px;
+    line-height: 43px;
+    height: 580px;
+  }
+  .little-white-span {
+    color: #fff;
+    font-size: 40px;
+    margin-top: 30px;
+
+  }
+
+  .choose-pay-area {
+    display: flex;
+    width: 76%;
+    margin-left: 12%;
+    margin-top: 100px
+  }
+
+  .testScan {
+    width: 560px;
+    background-image: url(../img/icon-home/scanTest.png);
+    background-size: 100%;
+    height: 441px;
+    margin-left: 150px;
+    background-repeat: no-repeat;
+  }
+
+  .switch-area {
+    background: #1c416e;
+    display: flex;
+    margin-right: 50px;
+    height: 100px;
+    width: 400px;
+    margin-bottom: 40px;
+  }
+
+  .switchArea {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 80%;
+    margin-left: 17%;
+    display: flex;
+  }
+
   .login-yellow {
     width: 120px;
     height: 60px;
@@ -794,7 +1056,7 @@
     background-size: 100%;
   }
 
-  .login_label{
+  .login_label {
     display: inline-block;
     width: 20%;
     text-align: left;
@@ -802,30 +1064,31 @@
     font-weight: bolder;
   }
 
-  .login_input_setting{
+  .login_input_setting {
     display: inline-block;
     width: 70%;
     margin-top: 10px;
     border: none;
-    background-color:transparent;
-    outline: none;
-    font-size: 20px;
-  }
-  .login_input_setting_code{
-    display: inline-block;
-    width: 54%;
-    margin-top: 10px;
-    border: none;
-    background-color:transparent;
+    background-color: transparent;
     outline: none;
     font-size: 20px;
   }
 
-  .walletLabel{
+  .login_input_setting_code {
+    display: inline-block;
+    width: 54%;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+  }
+
+  .walletLabel {
     width: 180px;
     height: 80px;
     font-size: 20px;
-    overflow:hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
@@ -833,6 +1096,7 @@
   .settting-content {
     /* margin-top: 20px; */
   }
+
   .info-input-setting {
     background-image: url(../img/icon-home/3.phone01.png);
     background-repeat: no-repeat;
@@ -845,8 +1109,232 @@
 
   .to_home_label {
     position: fixed;
-    right: 15px;
-    top: 160px;
+    right: 30px;
+    top: 100px;
+    font-size: 30px;
+    background: #fff;
+    padding: 20px;
+    width: 110px;
+    font-weight: 800;
+  }
+
+  .toAddressArea {
+    font-size: 28px;
+    font-weight: bolder;
+    text-align: left;
+    display: flex;
+  }
+
+  .button-font-div-limit {
+    font-size: 30px;
+    color: white;
+    height: 80px;
+    width: 350px;
+    text-align: center;
+    line-height: 75px;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+
+  .ui-ios-overlay {
+    z-index: 99999;
+    position: fixed;
+    top: 61%;
+    left: 50%;
+    width: 450px;
+    height: 470px;
+    margin-left: -225px;
+    margin-top: -230px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000);
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .icon-img {
+    box-shadow: 0px 4px 5px 0px #9E9E9E, 0px 3px 20px 0px rgba(255, 255, 255, 0.5);
+    border-radius: 125px;
+    height: 90px;
+  }
+
+  .language-item {
+    width: 210px;
+    background-size: 100% 100%;
+    height: 75px;
+    /* box-shadow: -10px 12px 15px -3px #8e8e8e; */
+  }
+
+  .log-buy-info-big {
+    background-image: url(../img/icon-home/1.start01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .click-to-change {
+    margin-top: 50px;
+    font-size: 45px;
+  }
+
+  .log-buy-icon {
+    /*background-image: url(../img/icon-home/blue.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #de5c00;
+    width: 420px;
+    height: 92px;
+
+  }
+
+  .to_home_btn {
+    width: 223px;
+    height: 63px;
+    position: fixed;
+    left: 70px;
+    bottom: 9px;
+    background-image: url(../img/icon-home/cancel-btn.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-size: 35px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .to_cancel_btn {
+    width: 223px;
+    height: 63px;
+    position: fixed;
+    right: 70px;
+    bottom: 7px;
+    background-image: url(../img/icon-home/cancel-btn.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-size: 45px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  #buy_cash, #buy_amount {
+    color: #FFF;
+  }
+
+  .success_icon {
+    background-image: url(../img/icon-home/success2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  #sell_amount, #sell_cash {
+    color: #FFF;
+  }
+
+  .cash-limit-icon {
+    background-image: url(../img/icon-home/blue.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .pYM-btn-long {
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+  }
+
+  .pWM-btn-short {
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+
+
+  }
+
+  .pWM-btn-long {
+    /*background-image: url(../img/icon-home/switch-back.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+  }
+
+  .home_btn_label {
+    width: 500px;
+    background-image: none;
+    left: 315px;
+    bottom: 0px;
+    font-size: 25px;
+    color: #ffbc33;
+    font-weight: 500;
+    text-align: left;
+    line-height: 40px;
+  }
+
+  .sell {
+    /*background-image: url(../img/icon-home/7.put04.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: #fff;
+  }
+
+
+  .new-panel {
+    display: flex;
+    margin-top: 115px;
+  }
+
+  .new-panel-title {
+    color: #fff;
+    font-size: 63px;
+    font-weight: 600;
+    margin-left: 80px;
+    margin-right: 80px;
+    text-align: left;
+  }
+
+  .new-panel-content {
+    font-size: 23px;
+    color: #fff;
+    text-align: left;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 30px;
+  }
+
+  .more-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .more-span {
+    color: #fff;
     font-size: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 325px;
+  }
+
+  .phone-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 30px;
+  }
+
+  .right-step1 {
+    margin-top: 138px;
+  }
+
+  .right-step2 {
+    margin-top: 20px;
+    width: 275px;
   }
 }

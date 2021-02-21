@@ -895,7 +895,7 @@
     margin-left: 9%;
   }
 
-  .tableDiv table td{
+  .tableDiv table td,.tableDiv table th{
     font-size: 25px;
     text-align: left;
     padding: 12px;

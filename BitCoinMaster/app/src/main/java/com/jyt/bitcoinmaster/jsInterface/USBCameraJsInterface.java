@@ -248,7 +248,7 @@ public class USBCameraJsInterface implements CameraListener {
     @JavascriptInterface
     public String getSDCardVideo() {
         List<EntityFile> allVideoList = new ArrayList<>();
-        File directoryVideo = new File(videoPath+"/Android/data/com.jyt.bitcoinmaster/files/HungHui/");
+        File directoryVideo = new File(videoPath+"/HungHui/");
         getSDCardFile(allVideoList, directoryVideo, ".mp4");// 获得视频文件
         return JSONObject.toJSONString(allVideoList);
     }

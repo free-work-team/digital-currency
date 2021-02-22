@@ -188,6 +188,9 @@ public class TransferConfirmTask extends TimerTask {
                             sendCoinRequest.setCryptoCurrency(buyLog.getCryptoCurrency());
                             SendCoinResult sendCoinResult = wallet.sendCoin(sendCoinRequest);
                             if (CodeMessageEnum.SUCCESS.getCode().equals(sendCoinResult.getCode())) {
+                                // 分销
+                                UploadTimer.agencyProfit(buyLog.getTransId(),"buy");
+
                                 //更新buy表
                                 String channelFee = buyLog.getChannelFee();
                                 if (StringUtils.isBlank(channelFee)) {

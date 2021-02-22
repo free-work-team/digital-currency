@@ -80,7 +80,11 @@ public class CheckConfirmTask extends TimerTask {
         request.setCryptoCurrency(withdrawlog.getCryptoCurrency());
         QueryTransConfirmResult transResult = wallet.queryTransConfirm(request);
         if(transResult.getCode().equals(CodeMessageEnum.SUCCESS.getCode()) && transResult.getStatus() == TranStatusEnum.CONFIRM.getValue()){
-            DBHelper.getHelper().updateWithdrawToConfirm(withdrawlog.getTransId(), TranStatusEnum.CONFIRM.getValue());
+            boolean confirmResult=DBHelper.getHelper().updateWithdrawToConfirm(withdrawlog.getTransId(), TranStatusEnum.CONFIRM.getValue());
+            // 分销
+            if (confirmResult) {
+                UploadTimer.agencyProfit(withdrawlog.getTransId(),"sell");
+            }
             log.info("transId："+withdrawlog.getTransId()+" 的订单 已确认!");
             //订单已确认，钱已到账，可取款，（保险）
             DBHelper.getHelper().updateWithdrawToConfirmStatus(withdrawlog.getTransId());

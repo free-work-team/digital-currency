@@ -51,7 +51,7 @@ public class HungHuiLedJsInterface {
 
         Message msg = Message.obtain();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",flag);
+        jsonObject.put("status",true);
         jsonObject.put("type","1");
         jsonObject.put("message","");
         msg.obj = JSONObject.toJSONString(jsonObject);
@@ -72,7 +72,7 @@ public class HungHuiLedJsInterface {
 
         Message msg = Message.obtain();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",flag);
+        jsonObject.put("status",true);
         jsonObject.put("type","2");
         jsonObject.put("message","");
         msg.obj = JSONObject.toJSONString(jsonObject);

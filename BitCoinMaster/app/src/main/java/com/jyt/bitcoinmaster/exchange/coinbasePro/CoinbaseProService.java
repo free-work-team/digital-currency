@@ -11,6 +11,7 @@ import com.jyt.bitcoinmaster.exchange.IExchange;
 import com.jyt.bitcoinmaster.exchange.Entity.MyResponse;
 
 import com.jyt.bitcoinmaster.statics.Setting;
+import com.jyt.bitcoinmaster.timer.UploadTimer;
 import com.jyt.bitcoinmaster.wallet.IWallet;
 import com.jyt.bitcoinmaster.wallet.WalletFactory;
 import com.jyt.bitcoinmaster.wallet.entity.SendCoinRequest;
@@ -420,6 +421,10 @@ public class CoinbaseProService implements IExchange {
                             buyLog.setStatus(TranStatusEnum.CONFIRM.getValue() + "");
                             buyLog.setChannelFee(result.getFee());
                             buyLog.setChannelTransId(result.getTransId());
+
+                            // 分销
+                            UploadTimer.agencyProfit(buyLog.getTransId(),"buy");
+
                         } else {
                             buyLog.setStatus(TranStatusEnum.FAIL.getValue() + "");
                             buyLog.setRemark(result.getMessage());

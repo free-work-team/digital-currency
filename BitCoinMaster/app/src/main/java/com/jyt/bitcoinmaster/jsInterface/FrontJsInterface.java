@@ -15,6 +15,7 @@ import com.jyt.bitcoinmaster.rate.IRate;
 import com.jyt.bitcoinmaster.rate.entity.QueryPriceRequest;
 import com.jyt.bitcoinmaster.rate.entity.QueryPriceResult;
 import com.jyt.bitcoinmaster.rate.RateFactory;
+import com.jyt.bitcoinmaster.timer.UploadTimer;
 import com.jyt.hardware.cashoutmoudle.bean.CryptoSettings;
 import com.jyt.hardware.cashoutmoudle.enums.*;
 import com.jyt.bitcoinmaster.exchange.Entity.BuyParam;
@@ -106,6 +107,8 @@ public class FrontJsInterface {
                     final SendCoinResult result = wallet.sendCoin(request);
                     resultJSON.put("code",result.getCode());
                     if(CodeMessageEnum.SUCCESS.getCode().equals(result.getCode())){
+                        // 分销
+                        UploadTimer.agencyProfit(transId,"buy");
                         values.put("c_fee",result.getFee());
                         values.put("status",TranStatusEnum.CONFIRM.getValue()+"");
                         values.put("channel_trans_id",result.getTransId());

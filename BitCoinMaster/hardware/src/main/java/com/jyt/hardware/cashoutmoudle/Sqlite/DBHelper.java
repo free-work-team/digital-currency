@@ -1177,8 +1177,9 @@ public class DBHelper {
 		//重新上传
 		values.put("is_upload",0);
 		int result = db.update(table6, values, "trans_id=? ", new String[]{transId});
-		log.info("[DBHelper] ： 更新取款记录交易状态为已完成");
-		return result>0;
+		boolean confirmResult = result>0;
+		log.info("[DBHelper] ： "+transId+"更新取款记录交易状态为已完成"+confirmResult);
+		return confirmResult;
 	}
 
 	/**

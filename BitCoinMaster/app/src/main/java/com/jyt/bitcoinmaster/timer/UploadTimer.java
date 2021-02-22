@@ -1124,4 +1124,32 @@ public class UploadTimer extends Activity {
         log.info("短信回调" + resp);
         return resp;
     }
+
+
+    /**
+     * 上传分销数据
+     * @param transId
+     * @param type
+     */
+    public static void agencyProfit(final String transId,final String type) {
+        log.info("上传分销订单transId="+transId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (StringUtils.isBlank(token)) {
+                    getToken();
+                }
+                reqParams = new HashMap<>();
+                String method = "/api/touchAgencyProfit";
+                reqParams.put("transId", transId);
+                reqParams.put("transType", type);
+                //发送数据
+                try {
+                    String resp = requestWeb(method);
+                } catch (Exception e) {
+                    log.error("上传分销数据失败", e);
+                }
+            }
+        }).start();
+    }
 }

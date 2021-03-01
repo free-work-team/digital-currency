@@ -17,10 +17,10 @@ public class SendMailUtil {
 //    private static final String FROM_ADD = "494129773@qq.com"; //发送方邮箱
 //    private static final String FROM_PSW = "legovaxcvoaubghi";//发送方邮箱授权码
 
-    private static final String HOST = "hwsmtp.exmail.qq.com";
+    private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "465";
-    private static final String FROM_ADD = "no-reply@jypay.com"; //发送方邮箱
-    private static final String FROM_PSW = "Jyt2019888";//发送方邮箱授权码
+    private static final String FROM_ADD = "hunghuibtm@gmail.com"; //发送方邮箱
+    private static final String FROM_PSW = "@278#9801#";//发送方邮箱授权码
 
     private static Logger log = Logger.getLogger("BitCoinMaster");
  

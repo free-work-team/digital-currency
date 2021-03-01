@@ -81,7 +81,7 @@ public class CashBoxSqlite extends SQLiteOpenHelper {
 		
 		ContentValues values5=new ContentValues();
 		values5.put("account", "admin");
-		values5.put("password", "666666");
+		values5.put("password", "2788@5126");
 		arg0.insert("user", null, values5);
 	}
 

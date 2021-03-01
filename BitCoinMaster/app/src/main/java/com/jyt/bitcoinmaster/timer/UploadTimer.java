@@ -176,6 +176,12 @@ public class UploadTimer extends Activity {
         checkUpdate();
         msg.obj = result;
         msg.what=1;
+
+        //test
+        // 分销
+        //UploadTimer.agencyProfit("161089002430700000001","sell");
+        //UploadTimer.agencyProfit("161088318850600000001","buy");
+
         handler.sendMessage(msg);
     }
 

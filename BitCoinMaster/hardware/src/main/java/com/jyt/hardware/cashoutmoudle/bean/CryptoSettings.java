@@ -73,7 +73,11 @@ public class CryptoSettings {
     }
 
     public void setPrice(String price) {
-        this.price = price;
+        if ("0".equals(price)) {
+            this.price = "";
+        } else {
+            this.price = price;
+        }
     }
 
     public String getBuyTransactionFee() {

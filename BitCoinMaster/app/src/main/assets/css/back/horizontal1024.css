@@ -1,6 +1,6 @@
 @charset "utf-8";
-/*8寸*/
-@media screen and (min-width: 1024px) {
+/*4：3*/
+@media screen and (max-width: 1024px) and (max-height: 768px) {
 
   .header {
     height: 140px;
@@ -65,11 +65,11 @@
   }
 
   .info-content {
-    margin-top: 50px;
+    margin-top: 0px;
   }
 
   .info-titile {
-    font-size: 56px;
+    font-size: 40px;
     color: #000000;
     font-weight: bold;
   }
@@ -80,7 +80,7 @@
   }
 
   .info-titile > div {
-    line-height: 80px;
+    line-height: 65px;
   }
 
   .info-input-content {
@@ -126,14 +126,14 @@
   }
 
   .log-buy-icon {
-    margin: 0 auto;
-    margin-top: 50px;
-    line-height: 62px;
     color: white;
-    height: 70px;
-    width: 200px;
+    height: 80px;
+    width: 350px;
     font-size: 40px;
     text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    margin-top: 20px;
   }
 
   .center-div {
@@ -624,7 +624,7 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 50%;
-    height: 70px;
+    height: 100px;
     margin: auto;
     margin-top: 10px;
   }
@@ -674,15 +674,16 @@
 
   .bottom-btn {
     width: 50%;
+    height: 120px;
     margin: 0 auto;
     color: white;
     font-size: 40px;
     font-weight: bold;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
   }
 
   .info-small-titile {
-    margin-top: 35px!important;
+    margin-top: 5px!important;
   }
   .setting-input {
     margin-bottom: 10px !important;
@@ -704,19 +705,20 @@
   }
 
   .login-yellow {
-    width: 200px;
-    height: 60px;
-    line-height: 55px;
-    margin-left: 50px;
-    font-size: 35px;
+    width: 150px;
+    height: 95px;
+    line-height: 90px;
+    margin-left: 150px;
+    font-size: 40px;
   }
 
   .login-black {
-    margin-right: 50px;
-    width: 200px;
-    height: 60px;
-    line-height: 55px;
-    font-size: 35px;
+    float: right;
+    margin-right: unset;
+    width: 150px;
+    height: 95px;
+    line-height: 90px;
+    font-size: 40px;
   }
 
   .cash-query {
@@ -751,19 +753,19 @@
   }
 
   .back-allBg {
-    background-image: url(../../img/icon-home/back-background02.jpg);
+    background-image: url(../../img/icon-home/bottom1024.png);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
   }
 
   .login_label {
     display: inline-block;
     width: 40%;
     text-align: left;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bolder;
     height: 80px;
-    line-height: 65px;
+    line-height: 85px;
   }
 
   .login_input_setting {
@@ -812,6 +814,7 @@
   .tableDiv {
     text-align: center;
     margin-top: 20px;
+    height: 640px;
     position: relative;
   }
 
@@ -819,11 +822,8 @@
     float: none;
     list-style: none;
     position: relative;
-    /* text-align: left; */
-    min-height: 920px;
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 10px;
+    text-align: left;
+    min-height: 975px;
   }
 
   .videos_area{
@@ -855,14 +855,15 @@
     height: 60px !important;
     width: 100% !important;
   }
-
   #lan_Welcome {
-    width: 70%;
-    height: 100px;
+    width: 60%;
+    height: 110px;
     margin: 0 auto;
     line-height: 100px;
-    font-size: 50px;
-    color: #d4c59a;
+    font-size: 60px;
+    color: #fff;
+    background: #1d3362;
+    margin-top: 145px;
   }
 
   .index-item {
@@ -870,7 +871,7 @@
     height: auto;
     text-align: center;
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 20px;
   }
   .setting-input {
     background-image: url(../../img/icon-home/3.phone01.png);
@@ -883,10 +884,25 @@
     line-height: 35px;
   }
 
-  .tableDiv table td{
-    font-size: 20px;
+  .index-new-item {
+    width: 40%;
+    height: 80px;
     text-align: center;
-    padding: 2px;
+    display: inline-block;
+    margin-top: 20px;
+    border: 1px solid #fff;
+    font-size: 25px;
+    line-height: 75px;
+  }
+
+  .index-new-item:nth-child(even) {
+    margin-left: 9%;
+  }
+
+  .tableDiv table td,.tableDiv table th{
+    font-size: 15px;
+    text-align: left;
+    padding: 10px;
   }
   .tableDiv table .field {
     font-weight: bold;
@@ -895,15 +911,19 @@
   }
 
   .thisItem {
-    width: 49%;
+    width: 30%;
     height: auto;
     text-align: center;
-    margin-top: 0px;
+    margin-top: 20px;
+    color: #fff;
+    margin-left: 5%;
   }
+
   .box {
     width: 500px;
     height: 50px;
     margin: 0 auto;
+    margin-top: 100px;
     background-color: #d4c59a;
     text-align: center;
     line-height: 50px;
@@ -913,20 +933,40 @@
   #balanceTable {
     width: 500px;
     margin: 0 auto;
-    margin-top: 10px
+    margin-top: 100px
   }
 
   #balanceTable tr {
-    height: 50px;
+    height: 70px;
   }
 
   .totalArea {
-    margin-top: 0px;
+    margin-top: 95px;
     float: right;
     margin-right: 5%;
   }
   .totalList,.totalNum{
     font-size: 15px;
     font-weight: bold;
+  }
+  .to_home_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    background-image: url(../../img/icon-home/home.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .to_close_btn {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    right: 25px;
+    bottom: 13px;
+    background-image: url(../../img/icon-home/ShutDown.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
   }
 }

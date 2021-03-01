@@ -177,7 +177,7 @@ public class USBCameraJsInterface implements CameraListener {
      * 开始录像
      */
     @JavascriptInterface
-    public void startCashMonitor(int type){
+    public void startCashMonitor(int type,int screenType){
         this.config = ((MyApp) context.getApplicationContext()).getConfig();
         this.cameraId =  config.getCameraDev();
         Date date = new Date();
@@ -191,12 +191,14 @@ public class USBCameraJsInterface implements CameraListener {
         }
         Configuration mConfiguration = context.getResources().getConfiguration();
         int ori = mConfiguration.orientation;
-        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
-            Log.e("横屏1","landscape");
+        if (screenType == 1){
             thread.setSurfaceViewSize(80,450,600,400);
-        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
-            Log.e("竖屏1","portrait");
+        }else if (screenType==2){
             thread.setSurfaceViewSize(210,535,650,400);
+        }else if (screenType == 3){
+            thread.setSurfaceViewSize(80,350,400,300);
+        }else if (screenType==4){
+            thread.setSurfaceViewSize(80,300,300,250);
         }
         thread.startRecord(this,this.cameraId,videoPath,str);
     }

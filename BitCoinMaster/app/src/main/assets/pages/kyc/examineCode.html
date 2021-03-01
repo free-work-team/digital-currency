@@ -80,11 +80,11 @@
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
 <script type="text/javascript" src="../../js/transaction/common.js"></script>
+<script type="text/javascript" src="../../js/transaction/screen.js"></script>
 <script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
 
 <script type="text/javascript">
-
   var merchantObj = getMerchant();
   var type = localStorage.getItem("operationType");
   var kycId = window.location.href.split("kycId=")[1].split("&&")[0];
@@ -172,7 +172,7 @@
   }
 
   function checkFace() {
-    window.face.compareFace(picPath);
+    window.face.compareFace(picPath,screen.getType());
   }
 
   function faceResult(result) {

@@ -76,19 +76,23 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
     }
 
     @JavascriptInterface
-    public void compareFace(String filePath){
+    public void compareFace(String filePath,int screenType){
         this.config = ((MyApp) context.getApplicationContext()).getConfig();
         this.faceCameraDev =  config.getFaceCameraDev();
         FaceRecognizationDialog.Builder builder  = new FaceRecognizationDialog.Builder(context);
         builder.setImagePath(filePath);
         builder.setCameraId(this.faceCameraDev);
         builder.setCompareListener(this);
-        Configuration mConfiguration = context.getResources().getConfiguration();
-        int ori = mConfiguration.orientation;
-        if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
+//        Configuration mConfiguration = context.getResources().getConfiguration();
+//        int ori = mConfiguration.orientation;
+        if (screenType == 1){
             builder.setPreviewViewSize(70,35,700,500);
-        }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
+        }else if (screenType==2){
             builder.setPreviewViewSize(210,-335,650,400);
+        }else if (screenType == 3){
+            builder.setPreviewViewSize(70,35,400,300);
+        }else if (screenType==4){
+            builder.setPreviewViewSize(70,35,300,250);
         }
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);

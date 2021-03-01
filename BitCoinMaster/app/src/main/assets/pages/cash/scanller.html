@@ -81,6 +81,7 @@
 <script type="text/javascript" src="../../js/common/language.js"></script>
 <script type="text/javascript" src="../../js/transaction/price.js"></script>
 <script type="text/javascript" src="../../js/transaction/CommonInterface.js"></script>
+<script type="text/javascript" src="../../js/transaction/screen.js"></script>
 <script type="text/javascript" src="../../js/transaction/toError.js"></script>
 
 
@@ -140,7 +141,7 @@
     setTimeout(function () {
       window.scanner.autoScan();
       //开启摄像头
-      window.camera.startCashMonitor(2);
+      window.camera.startCashMonitor(2,screen.getType());
     },500);
   }
 

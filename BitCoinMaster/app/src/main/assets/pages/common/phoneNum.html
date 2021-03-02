@@ -115,16 +115,22 @@
       //发送验证码
       showWait();
       setTimeout(function () {
-        msgCode = window.webTimer.sendSMSCode(phoneNum);
-        hideWait();
-        if (msgCode && msgCode.length == 6) {
-          showCodeMsg();
-        } else {
-          showWarn("Failed to send verification code, please try again later");
-        }
+         window.webTimer.sendSMSCode(phoneNum);
+
       }, 500);
     }
   }
+
+  function getsendMsgCallBack(sendCode) {
+    msgCode =sendCode;
+    hideWait();
+    if (msgCode && msgCode.length == 6) {
+      showCodeMsg();
+    } else {
+      showWarn("Failed to send verification code, please try again later");
+    }
+  }
+
 
   //校验验证码
   function checkMsg() {

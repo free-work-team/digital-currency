@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*4：3*/
-@media screen and (max-width: 1024px) and (max-height: 768px) {
+@media screen and (max-width: 1024px) and (height: 768px) {
 
   .header {
     height: 140px;

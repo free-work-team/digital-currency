@@ -96,6 +96,9 @@ public class UploadTimer extends Activity {
             if (what == 2){
                 log.info("[获取kyc回调]: callResult:" + data);
                 webView.evaluateJavascript("javascript:getKycCallBack('" + data + "')",null);
+            } if (what == 3){
+                log.info("[发送短信回调]: callResult:" + data);
+                webView.evaluateJavascript("javascript:getsendMsgCallBack('" + data + "')",null);
             }
 
         }
@@ -1104,31 +1107,41 @@ public class UploadTimer extends Activity {
      * @return
      */
     @JavascriptInterface
-    public String sendSMSCode(String phone) {
-        String resp = "";
-        try {
-            if (StringUtils.isBlank(token)) {
-                getToken();
+    public void sendSMSCode(String phone) {
+        Message msg = Message.obtain();
+        msg.what = 3;
+        msg.obj = "";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String resp = "";
+                try {
+                    if (StringUtils.isBlank(token)) {
+                        getToken();
+                    }
+                    reqParams = new HashMap<String, Object>();
+                    String method = "api/sendSMS";
+                    log.info("发短信interface ===========" + phone);
+                    reqParams.put("phone", phone);
+                    //发送数据
+                    resp = requestWeb(method);
+                } catch (Exception e) {
+                    log.error("sendSMSCode fail===", e);
+                    handler.sendMessage(msg);
+                    return;
+                }
+                if (StringUtils.isNotBlank(resp)) {
+                    JSONObject jsonObject = JSONObject.parseObject(resp);
+                    log.info("发短信interface ===========" + resp);
+                    if (jsonObject.getInteger("code") == 0) {
+                        msg.obj = jsonObject.getString("verificationCode");
+                        handler.sendMessage(msg);
+                    }
+                } else {
+                    handler.sendMessage(msg);
+                }
             }
-            reqParams = new HashMap<String, Object>();
-            String method = "api/sendSMS";
-            log.info("发短信interface ===========" + phone);
-            reqParams.put("phone", phone);
-            //发送数据
-            resp = requestWeb(method);
-        } catch (Exception e) {
-            log.error("queryKycResult fail===", e);
-        }
-        if (StringUtils.isNotBlank(resp)) {
-            JSONObject jsonObject = JSONObject.parseObject(resp);
-            log.info("发短信interface ===========" + resp);
-
-            if (jsonObject.getInteger("code") == 0) {
-                return jsonObject.getString("verificationCode");
-            }
-        }
-        log.info("短信回调" + resp);
-        return resp;
+        }).start();
     }
 
 

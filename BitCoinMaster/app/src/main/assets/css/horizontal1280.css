@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*4：3寸横屏*/
-@media screen and (min-width: 1280px) and (min-height: 768px) {
+@media screen and (max-width: 1280px) and (height: 1024px) {
   .header {
     height: 140px;
   }

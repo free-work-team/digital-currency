@@ -1,6 +1,9 @@
 package com.jyt.hardware.cashoutmoudle.bean;
 
 
+import org.apache.commons.lang.StringUtils;
+
+import java.math.BigDecimal;
 
 public class CryptoSettings {
 
@@ -73,10 +76,18 @@ public class CryptoSettings {
     }
 
     public void setPrice(String price) {
-        if ("0".equals(price)) {
+        try{
+            if(StringUtils.isNotEmpty(price)){
+                if (new BigDecimal(price).intValue()<=0){
+                    this.price="";
+                }else{
+                    this.price = price;
+                }
+            }else{
+                this.price = "";
+            }
+        }catch (Exception e){
             this.price = "";
-        } else {
-            this.price = price;
         }
     }
 

@@ -106,6 +106,8 @@
     if (data.success) {
       window.location.href = "completed.html";
     }else{
+      //关闭摄像头
+      window.camera.stopMonitor();
       ErrorPage.toError(data.message);
     }
   }

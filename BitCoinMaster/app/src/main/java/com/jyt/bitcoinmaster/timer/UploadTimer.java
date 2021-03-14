@@ -1136,6 +1136,8 @@ public class UploadTimer extends Activity {
                     if (jsonObject.getInteger("code") == 0) {
                         msg.obj = jsonObject.getString("verificationCode");
                         handler.sendMessage(msg);
+                    }else {
+                        handler.sendMessage(msg);
                     }
                 } else {
                     handler.sendMessage(msg);

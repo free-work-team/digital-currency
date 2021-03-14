@@ -702,17 +702,17 @@
   }
 
   .login-yellow {
-    width: 250px;
+    width: 200px;
     height: 95px;
     line-height: 90px;
-    margin-left: 200px;
+    margin-left: 80px;
     font-size: 40px;
   }
 
   .login-black {
     float: right;
-    margin-right: 200px;
-    width: 250px;
+    margin-right: 80px;
+    width: 200px;
     height: 95px;
     line-height: 90px;
     font-size: 40px;

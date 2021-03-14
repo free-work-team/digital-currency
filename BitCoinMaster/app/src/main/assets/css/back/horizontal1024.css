@@ -705,20 +705,20 @@
   }
 
   .login-yellow {
-    width: 150px;
-    height: 95px;
-    line-height: 90px;
+    width: 135px;
+    height: 80px;
+    line-height: 70px;
     margin-left: 150px;
-    font-size: 40px;
+    font-size: 35px;
   }
 
   .login-black {
     float: right;
     margin-right: unset;
-    width: 150px;
-    height: 95px;
-    line-height: 90px;
-    font-size: 40px;
+    width: 135px;
+    height: 80px;
+    line-height: 70px;
+    font-size: 35px;
   }
 
   .cash-query {

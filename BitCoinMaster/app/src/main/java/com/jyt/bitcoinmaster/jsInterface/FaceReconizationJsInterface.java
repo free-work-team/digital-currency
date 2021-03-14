@@ -90,7 +90,7 @@ public class FaceReconizationJsInterface implements DetectedListener, FaceCompar
         }else if (screenType==2){
             builder.setPreviewViewSize(210,-335,650,400);
         }else if (screenType == 3){
-            builder.setPreviewViewSize(80,450,500,300);
+            builder.setPreviewViewSize(80,35,500,300);
         }else if (screenType==4){
             builder.setPreviewViewSize(70,35,300,250);
         }

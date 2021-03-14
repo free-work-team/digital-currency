@@ -162,6 +162,7 @@
         // }
         $('#ocrContent').html(jsonToText(JSON.stringify(kycInfoObj.ocrContent)));
       } else {
+        window.face.stopCompare();
         ErrorPage.toError("KycInfo error,Please try again");
         setTimeout(function () {
           toHome(false);

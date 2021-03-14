@@ -196,9 +196,9 @@ public class USBCameraJsInterface implements CameraListener {
         }else if (screenType==2){
             thread.setSurfaceViewSize(210,535,650,400);
         }else if (screenType == 3){
-            thread.setSurfaceViewSize(80,350,400,300);
+            thread.setSurfaceViewSize(80,450,500,300);
         }else if (screenType==4){
-            thread.setSurfaceViewSize(80,300,300,250);
+            thread.setSurfaceViewSize(80,350,400,250);
         }
         thread.startRecord(this,this.cameraId,videoPath,str);
     }

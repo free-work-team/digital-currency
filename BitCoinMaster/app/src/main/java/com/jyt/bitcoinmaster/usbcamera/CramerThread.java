@@ -130,11 +130,14 @@ public class CramerThread {
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
             listener.openResult(false);
-            e.printStackTrace();
+            log.error("开始录制error",e);
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
             listener.openResult(false);
+            log.error("开始录制error",e);
+        }catch (Exception e) {
+            listener.openResult(false);
+            log.error("开始录制error",e);
         }
     }
 

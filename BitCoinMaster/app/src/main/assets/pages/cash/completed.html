@@ -53,12 +53,15 @@
 <script type="text/javascript" src="../../js/transaction/cashComplete.js"></script>
 
 <script type="text/javascript">
+  var outCash = 0;
+
   // 初始化语言label
   function initLanguage() {
     // id名必须和language key 相同
     var LanguageObjs = ["lan_processCompelte","lan_takeOut"];
     LanguageManager.getLanguageLabel(LanguageObjs);
   }
+
 
   function setDeviceEnableCallBack(resultStr) {
     if (!resultStr) {
@@ -67,6 +70,9 @@
     var result = JSON.parse(resultStr);
     if (result.code === 20) {//出钞中
       dispensingCount();
+      outCash = parseInt(result.realValues);
+    } else if (result.code === 35) {//出现卡钞，压钞箱
+      window.billAcceptor.continueOutCash(outCash);
     }
   }
 

@@ -31,6 +31,7 @@ public class BillAcceptorInterface implements DevEventListener {
 
     private static Logger log = Logger.getLogger("BitCoinMaster");
 
+    private static int needOutCash;
 
     private Context context;
     private WebView webView;
@@ -299,6 +300,25 @@ public class BillAcceptorInterface implements DevEventListener {
         }
     }
 
+
+    /**
+     * hunghui继续出钞
+     * @param outCash
+     */
+    @JavascriptInterface
+    public void continueOutCash(int outCash) {
+        try {
+            Thread.sleep(500);
+            log.info("+++++有卡钞，继续出钞：总需出钞=" + needOutCash + ",已经出钞=" + outCash);
+            if (needOutCash > outCash) {
+                needOutCash = needOutCash - outCash;
+                iCashAcceptor.pay(String.valueOf(needOutCash));
+            }
+        } catch (Exception e) {
+            log.error("有卡钞，继续出钞error", e);
+        }
+    }
+
     /**
      * 处理扫描结果
      * 1.判断数据库交易信息是否存在
@@ -309,6 +329,7 @@ public class BillAcceptorInterface implements DevEventListener {
      * @param tranObj
      */
     private void dealScanllerTransId(WithdrawLog tranObj) {
+        needOutCash = 0;
         String message = "";
         Boolean isSuccess = false;
         // 判断数据库交易信息是否存在

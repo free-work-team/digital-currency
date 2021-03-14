@@ -351,6 +351,7 @@ public class ITLDeviceCom  extends Thread implements DeviceSetupListener,DeviceE
 
 
     private void deviceEventResult(final DeviceEvent dev) {
+       log.info("+++++++++++++++++++++++++++++++++++++纸币dev.event:"+dev.event);
         int code = 999;//未知
         String eventValues = "";
         String realValues = "";
@@ -452,6 +453,7 @@ public class ITLDeviceCom  extends Thread implements DeviceSetupListener,DeviceE
                 code = 20;
                 eventValues = "Bill dispensing:" + " " +
                         (int) dev.value + ".00";
+                realValues = String.valueOf((int) dev.value);
                 log.info("[ITLDeviceCom]"+eventValues);
                 break;
             case Dispensed:
@@ -513,6 +515,10 @@ public class ITLDeviceCom  extends Thread implements DeviceSetupListener,DeviceE
             case RefillBillCredit:
                 code = 34;
                 eventValues = "RefillBillCredit";
+                break;
+            case ErrorDuringPayout:
+                code = 35;
+                eventValues = "ErrorDuringPayout";
                 break;
         }
 //        log.info("[ITLDeviceCom]:"+"code="+code+",eventValues="+eventValues+",realValues="+realValues);

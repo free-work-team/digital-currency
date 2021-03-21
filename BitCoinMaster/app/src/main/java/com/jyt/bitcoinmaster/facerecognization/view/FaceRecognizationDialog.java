@@ -41,6 +41,7 @@ import com.jyt.bitcoinmaster.facerecognization.helper.CameraHelper;
 import com.jyt.bitcoinmaster.facerecognization.listener.CameraListener;
 import com.jyt.bitcoinmaster.facerecognization.listener.FaceCompareListener;
 import com.jyt.bitcoinmaster.facerecognization.utils.ImageUtil;
+import com.jyt.hardware.utils.log;
 
 
 import java.io.ByteArrayOutputStream;
@@ -125,9 +126,6 @@ public class FaceRecognizationDialog extends Dialog {
             int right = params.x+700;
             int top = params.y-50;
             int bottom = params.height-20;
-
-
-
             Bitmap resource = BitmapFactory.decodeFile(imagePath);
             width = resource.getWidth();
             height = resource.getHeight();
@@ -135,7 +133,7 @@ public class FaceRecognizationDialog extends Dialog {
             Log.e(TAG,"width:"+width+"height:"+height);
             if ( AIPPFaceHelper.getFaceByte(width,height,imageData).size()>0){
                 faceImg = AIPPFaceHelper.getFaceByte(width,height,imageData).get(0);
-                Log.e("faceImgRect:", "left:"+faceImg.getRect().left+",right:"+faceImg.getRect().right+",top:"+faceImg.getRect().top+",bottom:"+faceImg.getRect().bottom);
+                log.e("faceImgRect:", "left:"+faceImg.getRect().left+",right:"+faceImg.getRect().right+",top:"+faceImg.getRect().top+",bottom:"+faceImg.getRect().bottom);
                 mFaceHandleThread = new HandlerThread("face");
                 mFaceHandleThread.start();
                 mFaceHandle = new Handler(mFaceHandleThread.getLooper());
@@ -148,7 +146,7 @@ public class FaceRecognizationDialog extends Dialog {
                     }
                 });
             }else{
-                Log.e(TAG,"图片未检测到人脸");
+                log.e(TAG,"图片未检测到人脸");
                 listener.detectedResult(false,0,"图片未检测到人脸");
             }
 
@@ -302,7 +300,6 @@ public class FaceRecognizationDialog extends Dialog {
                     float score = AIPPFaceHelper.faceCompare(previewSize,width,height,fdFace,faceImg, mData,imageData);
                     Log.e("score:",score+"");
                     if (score>0.6){
-
                         listener.detectedResult(true,score,bitData);
                         mData = null;
                         deleteFiles(imagePath);

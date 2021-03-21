@@ -12,14 +12,14 @@
         android:layout_height="match_parent"></WebView>
     <RelativeLayout
         android:id="@+id/surfaceRL"
-        android:layout_width="1px"
-        android:layout_height="1px"
+        android:layout_width="6px"
+        android:layout_height="6px"
         android:background="@mipmap/biankuang">
         <SurfaceView
             android:id="@+id/surfaceView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp">
         </SurfaceView>
     </RelativeLayout>
 

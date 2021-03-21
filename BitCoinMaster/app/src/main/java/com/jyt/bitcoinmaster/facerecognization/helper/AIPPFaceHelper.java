@@ -54,35 +54,41 @@ public class AIPPFaceHelper {
 //        String authCode ="URTCDKWAI4ZRHDA3";
         String authCode =faceRegister;
         this.listener = listener;
-        if (DetectEngine==null)
-            DetectEngine = new AIPP_FDHandle(context);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (DetectEngine==null)
+                    DetectEngine = new AIPP_FDHandle(context);
 
-        if (VerifyEngine==null)
-            VerifyEngine = new AIPP_FRHandle(context);
+                if (VerifyEngine==null)
+                    VerifyEngine = new AIPP_FRHandle(context);
 
-        int ret = DetectEngine.Authorization(authCode,context);
-        if (ret!= AIPP_FDError.OK){
-            listener.initResult(0,ret);
-            return;
-        }
-        ret = VerifyEngine.Authorization(authCode,context);
-        if (ret!= AIPP_FDError.OK){
-            listener.initResult(1,ret);
-            return;
-        }
+                int ret = DetectEngine.Authorization(authCode,context);
+                if (ret!= AIPP_FDError.OK){
+                    listener.initResult(0,ret);
+                    return;
+                }
+                ret = VerifyEngine.Authorization(authCode,context);
+                if (ret!= AIPP_FDError.OK){
+                    listener.initResult(1,ret);
+                    return;
+                }
 
-        AIPP_FDError DetectEngineErr = DetectEngine.InitHandle();
-        if (DetectEngineErr.getCode() != 0) {
-            listener.initResult(2,DetectEngineErr.getCode());
-            return;
-        }
+                AIPP_FDError DetectEngineErr = DetectEngine.InitHandle();
+                if (DetectEngineErr.getCode() != 0) {
+                    listener.initResult(2,DetectEngineErr.getCode());
+                    return;
+                }
 
-        AIPP_FRError VerifyEngineErr = VerifyEngine.InitHandle() ;
-        if (VerifyEngineErr.getCode() != 0) {
-            listener.initResult(3,VerifyEngineErr.getCode());
-            return;
-        }
-        listener.initResult(4,0);
+                AIPP_FRError VerifyEngineErr = VerifyEngine.InitHandle() ;
+                if (VerifyEngineErr.getCode() != 0) {
+                    listener.initResult(3,VerifyEngineErr.getCode());
+                    return;
+                }
+                listener.initResult(4,0);
+            }
+        }).start();
+
     }
 
     /**

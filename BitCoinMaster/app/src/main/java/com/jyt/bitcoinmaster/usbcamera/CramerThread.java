@@ -73,12 +73,12 @@ public class CramerThread {
      * 获取摄像头状态
      * @return
      */
-    public void getCameraStatus(CameraListener listener){
+    public void getCameraStatus(int cameraId,CameraListener listener){
         boolean canUse = true;
         Camera mCamera = null;
         try {
             // TODO camera驱动挂掉,处理??
-            mCamera = Camera.open();
+            mCamera = Camera.open(cameraId);
         } catch (Exception e) {
             listener.onResult(false,"摄像头不可用");
         }
@@ -99,14 +99,14 @@ public class CramerThread {
         } catch (Exception e) {
             // 打开摄像头错误
             listener.openResult(false);
-            Log.i("info", "打开摄像头错误");
+            log.info("打开摄像头错误");
         }
         return c;
     }
 
     /** * 开始录像 */
     public void startRecord(CameraListener listener,int cameraId,String path,String fileName) {
-        Log.e(TAG,"开始录像");
+        log.info("开始录像");
         try { // 准备录制
         mediarecorder = new MediaRecorder();// 创建mediarecorder对象
         mCamera = getCameraInstance(listener,cameraId); // 解锁camera
@@ -156,7 +156,7 @@ public class CramerThread {
 
     /** * 停止录制 */
     public void stopRecord() {
-        Log.e(TAG,"结束录像");
+        log.error("结束录像");
         if (mediarecorder != null) {
             // 停止录制
             mediarecorder.stop();

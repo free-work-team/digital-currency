@@ -1024,9 +1024,7 @@ public class UploadTimer extends Activity {
             @Override
             public void run() {
                 if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
-                    log.error("token为空,人脸识别失败");
-                    handler.sendMessage(msg);
-                    return;
+                    getToken();
                 }
                 reqParams = new HashMap<>();
                 String method = "/api/downloadImg";
@@ -1037,22 +1035,23 @@ public class UploadTimer extends Activity {
                     log.info("------------请求kyc:"+JSONObject.toJSONString(reqParams));
                     resp = requestWeb(method);
                     JSONObject jsonObject= JSONObject.parseObject(resp);
-                    log.info("------------获取kyc结果:"+jsonObject.getString("code"));
+                    log.info("kycId:"+kycId+"------------获取kyc结果:"+jsonObject.getString("code"));
                     if ("0".equals(jsonObject.getString("code")) && StringUtils.isNotBlank( jsonObject.getString("fileStr"))){
                         String baseImg = jsonObject.getString("fileStr");
                         kycInfo.put("fileStr",baseImg);
                         kycInfo.put("kycId",kycId);
                         kycInfo.put("cardType",jsonObject.getString("cardType"));
                         kycInfo.put("ocrContent",jsonObject.getJSONObject("ocrContent"));
-                        msg.obj =  Base64Utils.base642File(baseImg);
+                        JSONObject resultObj = new JSONObject();
+                        resultObj.put("kycId",kycId);
+                        resultObj.put("picPath",Base64Utils.base642File(baseImg));
+                        msg.obj =  resultObj.toJSONString();
                         handler.sendMessage(msg);
-                        return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     log.error("获取kyc结果 error",e);
                 }
-                handler.sendMessage(msg);
             }
         }).start();
     }
@@ -1068,8 +1067,7 @@ public class UploadTimer extends Activity {
             @Override
             public void run() {
                 if (StringUtils.isBlank(token) || StringUtils.isBlank(kycId)) {
-                    log.error("token为空,人脸识别图片上传失败");
-                    return;
+                    getToken();
                 }
                 reqParams = new HashMap<>();
                 String method = "/api/uploadImg";

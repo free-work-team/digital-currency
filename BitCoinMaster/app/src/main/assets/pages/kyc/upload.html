@@ -115,10 +115,13 @@
     }, 10000)
   }
 
-  function getKycCallBack(data){
-   console.log("--------------picPath="+data);
+  function getKycCallBack(data) {
+    console.log("--------------picPath callback=" + data);
     if (data) {
-      window.location.href = "examineCode.html?kycId=" + kycId+"&&picPath="+data;
+      var callbackObj = JSON.parse(data);
+      if (callbackObj.kycId == kycId && callbackObj.picPath) {
+        window.location.href = "examineCode.html?kycId=" + kycId + "&&picPath=" + callbackObj.picPath;
+      }
     }
   }
 

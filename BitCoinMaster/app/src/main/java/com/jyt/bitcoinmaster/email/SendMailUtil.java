@@ -53,7 +53,7 @@ public class SendMailUtil {
         final MailInfo mailInfo = new MailInfo();
         mailInfo.setMailServerHost(HOST);
         mailInfo.setMailServerPort(PORT);
-        mailInfo.setValidate(true);
+        mailInfo.setValidate(false);
         mailInfo.setUserName(FROM_ADD); // 你的邮箱地址
         mailInfo.setPassword(FROM_PSW);// 您的邮箱密码
         mailInfo.setFromAddress(FROM_ADD); // 发送的邮箱

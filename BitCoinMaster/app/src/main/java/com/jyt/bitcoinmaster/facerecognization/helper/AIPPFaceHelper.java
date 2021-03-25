@@ -18,10 +18,13 @@ import com.jyt.bitcoinmaster.facerecognization.listener.DetectedListener;
 import com.jyt.hardware.config.Config;
 
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AIPPFaceHelper {
+    private static Logger log =  Logger.getLogger("BitCoinMaster");
     private static AIPP_FDHandle DetectEngine=null;
     private static AIPP_FRHandle VerifyEngine=null;
     private static AIPP_FRFace face1;
@@ -97,6 +100,11 @@ public class AIPPFaceHelper {
      * @return
      */
     public static List<AIPP_FDFace> getFaceByte(int width, int height, byte[]imageData){
+        try{
+
+        }catch (Exception e){
+            log.error(e.toString());
+        }
         fdError = DetectEngine.FaceDetection(imageData, width, height, AIPP_FDHandle.NV21, faceList);
         m_FaceTraceHelper = new AIPP_FTHelper();
         //重置人脸跟踪队列
@@ -119,6 +127,7 @@ public class AIPPFaceHelper {
      * @return
      */
     public static float faceCompare(Camera.Size view, int width, int height, AIPP_FDFace fd_face1, AIPP_FDFace fd_face2, byte[]data1, byte[]data2){
+
         face1 = new AIPP_FRFace();
         face2 = new AIPP_FRFace();
         frError = VerifyEngine.GetFeature(data1, view.width,view.height, AIPP_FRHandle.NV21,fd_face1,face1);

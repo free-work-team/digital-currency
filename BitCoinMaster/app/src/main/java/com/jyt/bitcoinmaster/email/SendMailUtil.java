@@ -18,7 +18,7 @@ public class SendMailUtil {
 //    private static final String FROM_PSW = "legovaxcvoaubghi";//发送方邮箱授权码
 
     private static final String HOST = "smtp.blockchain-atm.com";
-    private static final String PORT = "25";
+    private static final String PORT = "465";
     private static final String FROM_ADD = "no-reply@blockchain-atm.com"; //发送方邮箱
     private static final String FROM_PSW = "@R78#980r#";//发送方邮箱授权码
 
@@ -53,7 +53,7 @@ public class SendMailUtil {
         final MailInfo mailInfo = new MailInfo();
         mailInfo.setMailServerHost(HOST);
         mailInfo.setMailServerPort(PORT);
-        mailInfo.setValidate(false);
+        mailInfo.setValidate(true);
         mailInfo.setUserName(FROM_ADD); // 你的邮箱地址
         mailInfo.setPassword(FROM_PSW);// 您的邮箱密码
         mailInfo.setFromAddress(FROM_ADD); // 发送的邮箱

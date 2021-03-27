@@ -167,11 +167,11 @@ public class USBCameraJsInterface implements CameraListener {
         Configuration mConfiguration = context.getResources().getConfiguration();
         int ori = mConfiguration.orientation;
         if (ori == mConfiguration.ORIENTATION_LANDSCAPE){
-            Log.e("横屏","landscape");
-            thread.setSurfaceViewSize(1,1,10,10);
+            log.error("横屏"+"landscape");
+            thread.setSurfaceViewSize(-200,-200,200,200);
         }else if (ori == mConfiguration.ORIENTATION_PORTRAIT){
-            Log.e("竖屏","portrait");
-            thread.setSurfaceViewSize(1,1,10,10);
+            log.error("竖屏"+"portrait");
+            thread.setSurfaceViewSize(-200,-200,200,200);
         }
         thread.startRecord(this,this.cameraId,videoPath,str);
     }

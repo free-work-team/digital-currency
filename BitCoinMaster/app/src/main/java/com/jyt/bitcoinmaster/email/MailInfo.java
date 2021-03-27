@@ -10,7 +10,7 @@ public class MailInfo {
     private String toAddress;   // 邮件接收者的地址
     private String userName;// 登陆邮件发送服务器的用户名
     private String password;// 登陆邮件发送服务器的密码
-    private boolean validate = true;// 是否需要身份验证
+    private boolean validate = false;// 是否需要身份验证
     private String subject;// 邮件主题
     private String content;// 邮件的文本内容
     private String[] attachFileNames;// 邮件附件的文件名

@@ -1315,39 +1315,7 @@
     align-items: center;
     margin-top: 10px;
   }
-.mykeyboard{
-  height: 80px;
-  margin-bottom: 10px;
-  width: 280px!important;
-  font-size: 40px;
-  margin-top: -80px;
-}
-  .calculator {
-    width: 520px;
-    height: 500px;
-    padding-top: 5px;
-    position: fixed;
-    left: 512px !important;
-    top: 242px !important;
 
-  }
-  .calculator .num_key {
-    width: 90px;
-    height: 70px;
-    font-size: 35px;
-    line-height: 68px;
-  }
-  .calculator .btn_key {
-    width: 90px;
-    height: 70px;
-    font-size: 35px;
-    line-height: 68px;
-  }
-  .continue-btn {
-    width: 286px !important;
-    height: 58px !important;
-    line-height: 58px !important;
-  }
   .more-span {
     color: #fff;
     font-size: 20px;
@@ -1373,5 +1341,72 @@
   .right-step2 {
     margin-top: 55px;
     /*width: 275px;*/
+  }
+
+  .calculator {
+    /*width: 565px;*/
+    height: 500px;
+    padding-top: 0px;
+    position: relative;
+  }
+
+  .calculator .num_key {
+    width: 85px;
+    height: 70px;
+    display: inline-block;
+    background-color: #1c406d;
+    margin: 8px;
+    line-height: 67px;
+    text-align: center;
+    font-size: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  .calculator .btn_key {
+    width: 85px;
+    height: 70px;
+    display: inline-block;
+    background-color: #1c406d;
+    margin: 8px;
+    line-height: 67px;
+    text-align: center;
+    font-size: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-bottom: 0px;
+
+  }
+
+  .calculator .num_key:active {
+    cursor: pointer;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+  }
+
+  .calculator .btn_key:active {
+    cursor: pointer;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+  }
+
+  .calculator .ok {
+    height: 100px;
+    line-height: 100px;
+    position: absolute;
+  }
+
+  .continue-btn {
+    width: 270px !important;
+    height: 70px !important;
+  }
+  .mykeyboard{
+    margin-bottom: 5px;
+    height: 55px;
+    width: 271px;
+    font-size: 15px;
   }
 }

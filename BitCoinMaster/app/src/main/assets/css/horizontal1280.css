@@ -221,7 +221,7 @@
     font-weight: bold;
     font-size: 40px;
     color: white;
-    line-height: 81px;
+    line-height: 85px;
     margin-top: 55px;
     width: 420px;
   }
@@ -635,7 +635,7 @@
   .sell {
     width: 400px;
     height: 60px;
-    line-height: 48px;
+    line-height: 60px;
     color: #8e7d70;
     text-align: right;
     margin: unset;
@@ -980,7 +980,7 @@
     background-image: url(../img/icon-home/scanTest.png);
     background-size: 100%;
     height: 440px;
-    margin-top: -60px;
+    margin-top: -25px;
     margin-left: 84px;
     background-repeat: no-repeat;
   }

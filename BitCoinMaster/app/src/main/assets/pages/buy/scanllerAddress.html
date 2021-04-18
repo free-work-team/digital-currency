@@ -129,8 +129,8 @@
               var currentPrice = localStorage.getItem("balance");
               var walletBalance = localStorage.getItem("walletBalance");
               var maxTrade =parseInt(numMulti(walletBalance, currentPrice)) ;
-            console.log("钱包余额允许的最大交易金额为" + maxTrade);
-              window.location.href = "choosePay.html?maxTrade=" + maxTrade;
+              console.log("钱包余额允许的最大交易金额为" + maxTrade);
+              window.location.href = "putMoney.html?maxTrade=" + maxTrade;
           } else {
             ErrorPage.toError("The price request failed, Please try again later!");
           }

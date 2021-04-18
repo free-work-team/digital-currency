@@ -675,10 +675,11 @@
   }
 
   .sell-right {
-    width: 20%;
-    left: 510px;
-    bottom: 542px;
-    position: absolute;
+    /* width: 20%; */
+    margin-left: 72px;
+    margin-top: 20px;
+    /* bottom: 542px; */
+    /* position: absolute; */
     display: flex;
   }
 
@@ -978,8 +979,9 @@
     width: 560px;
     background-image: url(../img/icon-home/scanTest.png);
     background-size: 100%;
-    height: 441px;
-    margin-left: 150px;
+    height: 440px;
+    margin-top: -60px;
+    margin-left: 84px;
     background-repeat: no-repeat;
   }
 
@@ -1181,7 +1183,7 @@
     /*background-repeat: no-repeat;*/
     /*background-size: 100% 100%;*/
     background: #de5c00;
-    width: 420px;
+    width: 100%;
     height: 92px;
 
   }
@@ -1330,7 +1332,7 @@
   }
 
   .right-step1 {
-    margin-top: 138px;
+    margin-top: 170px;
   }
 
   .right-step2 {

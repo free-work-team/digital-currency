@@ -694,6 +694,7 @@
     width: 100%;
     margin: unset;
     margin-top: 10px;
+    padding-left: 20%;
   }
 
 
@@ -702,11 +703,12 @@
   }
 
   .sell-right {
-    width: 20%;
-    left: 585px;
-    top: 545px;
-    position: absolute;
+    /*width: 20%;*/
+    /* top: 545px; */
+    /* position: absolute; */
     display: flex;
+    margin-left: 72px;
+    margin-top: 20px;
   }
 
   .choose {

@@ -107,6 +107,8 @@
   window.onload = function () {
     initLanguage();
     var currentKycUrl = merchantObj.kycUrl + "?kycId=" + kycId;
+    console.log("kycUrl= " + merchantObj.kycUrl)
+    console.log("kycId= " + merchantObj.kycId)
     $('#kycUrl').text(currentKycUrl);
     createQRCode(currentKycUrl);
     //定时校验人脸
